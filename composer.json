@@ -1,0 +1,23 @@
+{
+    "name": "distilleries/expendable",
+    "description": "",
+    "authors": [
+        {
+            "name": "Maxime Francois",
+            "email": "kezho@me.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Distilleries\\Expendable\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
