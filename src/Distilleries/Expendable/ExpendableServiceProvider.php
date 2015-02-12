@@ -1,6 +1,11 @@
 <?php namespace Distilleries\Expendable;
 
+use Distilleries\Expendable\Exporter\CsvExporter;
+use Distilleries\Expendable\Exporter\ExcelExporter;
+use Distilleries\Expendable\Exporter\PdfExporter;
+use Distilleries\Expendable\States\StateDisplayer;
 use Illuminate\Support\ServiceProvider;
+use \File;
 
 class ExpendableServiceProvider extends ServiceProvider {
 
@@ -28,17 +33,55 @@ class ExpendableServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app->singleton('Distilleries\Expendable\Contracts\StateDisplayerContract', function ($app)
+		{
+			return new StateDisplayer($app['view'],$app['config']);
+		});
+
+
+		$this->registerExporters();
+		$this->registerCommands();
+
+
+
+		include __DIR__.'/../../routes.php';
+		include __DIR__.'/../../filters.php';
 	}
 
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
+	protected function registerExporters()
 	{
-		return array();
+
+		$this->app->singleton('Distilleries\Expendable\Contracts\CsvExporterContract', function ($app)
+		{
+			return new CsvExporter;
+		});
+		$this->app->singleton('Distilleries\Expendable\Contracts\ExcelExporterContract', function ($app)
+		{
+			return new ExcelExporter;
+		});
+		$this->app->singleton('Distilleries\Expendable\Contracts\PdfExporterContract', function ($app)
+		{
+			return new PdfExporter;
+		});
+
 	}
+
+
+	protected function registerCommands()
+	{
+		$files = File::allFiles(__DIR__ . '/Console/');
+
+
+		foreach ($files as $file)
+		{
+			if (strpos($file->getPathName(), 'Lib') === false)
+			{
+				$this->commands('Distilleries\Expendable\Console\\' . preg_replace('/\.php/i', '', $file->getFilename()));
+			}
+
+
+		}
+	}
+
 
 }

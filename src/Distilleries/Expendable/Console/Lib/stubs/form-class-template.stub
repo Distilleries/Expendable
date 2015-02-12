@@ -1,0 +1,16 @@
+<?php namespace {{namespace}};
+
+use Distilleries\Expendable\Forms\FormValidator;
+
+class {{class}} extends FormValidator
+{
+    public static $rules        = [];
+    public static $rules_update = null;
+
+    public function buildForm()
+    {
+        {{fields}}
+
+         $this->addDefaultActions();
+    }
+}

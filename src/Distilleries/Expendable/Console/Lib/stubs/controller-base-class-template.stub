@@ -1,0 +1,20 @@
+<?php namespace {{namespace}};
+
+use Distilleries\Expendable\Contracts\StateDisplayerContract;
+use Distilleries\Expendable\Controllers\AdminBaseController;
+use Forms\{{form}};
+use Datatables\{{datatable}};
+
+
+class {{class}} extends AdminBaseController {
+
+    {{trait}}
+
+
+
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+
+
+}

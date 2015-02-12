@@ -1,0 +1,41 @@
+@import "../../../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap-sprockets";
+@import "../../../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap";
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url("../fonts/glyphicons-halflings-regular.eot");
+  src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
+}
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url("../fonts/fontawesome-webfont.eot");
+  src: url("../fonts/fontawesome-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff") format("woff"), url("../fonts/fontawesome-webfont.ttf") format("truetype"), url("../fonts/fontawesome-webfont.svg#glyphicons_halflingsregular") format("svg");
+}
+
+@import "global/plugins";
+@import "global/components";
+@import "global/flags";
+@import "admin/layout/themes/grey";
+@import "admin/layout/layout";
+@import "admin/pages/login3";
+@import "admin/pages/error";
+
+.form-inline {
+  display: inline;
+}
+
+.login-form {
+  .form-control {
+    padding-left: 30px;
+  }
+
+  .col-md-3,
+  .col-md-4 {
+    width: auto;
+    float: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+}

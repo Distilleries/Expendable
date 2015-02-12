@@ -1,0 +1,25 @@
+<?php namespace {{namespace}};
+
+use Distilleries\Expendable\Contracts\StateDisplayerContract;
+use Distilleries\Expendable\Controllers\AdminBaseComponent;
+use Forms\{{form}};
+use Datatables\{{datatable}};
+
+
+class {{class}} extends AdminBaseComponent {
+
+    public function __construct({{model}} $model, StateDisplayerContract $stateProvider, {{datatable}} $datatable, {{form}} $form)
+    {
+        parent::__construct($model, $stateProvider);
+        $this->datatable = $datatable;
+        $this->form      = $form;
+    }
+
+
+
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+
+
+}

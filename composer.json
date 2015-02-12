@@ -1,6 +1,8 @@
 {
     "name": "distilleries/expendable",
-    "description": "",
+    "description": "Tool to generate a backend",
+    "license": "MIT",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Maxime Francois",
@@ -8,15 +10,29 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "4.2.*"
+        "php": ">=5.5.0",
+        "illuminate/support": "4.*",
+        "illuminate/database": "4.*",
+        "illuminate/view": "4.*",
+        "illuminate/mail": "4.*",
+        "illuminate/filesystem": "4.*",
+        "distilleries/datatable": "2.3.*",
+        "distilleries/datatable-builder": "dev-master",
+        "distilleries/form-builder": "dev-master",
+        "netson/l4gettext": "1.5.*",
+        "ollieread/multiauth": "3.*",
+        "wpb/string-blade-compiler": "1.*",
+        "thomaswelton/laravel-gravatar": "0.1.*",
+        "maatwebsite/excel": "~1.3.0",
+        "mnshankar/CSV": "1.3.*",
+        "dompdf/dompdf": "~0.6.1"
     },
     "autoload": {
         "classmap": [
             "src/migrations"
         ],
-        "psr-0": {
-            "Distilleries\\Expendable\\": "src/"
+        "psr-4": {
+            "Distilleries\\Expendable\\": "src/Distilleries/Expendable"
         }
     },
     "minimum-stability": "stable"
