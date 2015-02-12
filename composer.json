@@ -2,7 +2,6 @@
     "name": "distilleries/expendable",
     "description": "Tool to generate a backend",
     "license": "MIT",
-    "version": "1.0.1",
     "authors": [
         {
             "name": "Maxime Francois",
