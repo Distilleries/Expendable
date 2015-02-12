@@ -11,18 +11,16 @@
             '\Distilleries\Expendable\Listeners\UserListener'
         ],
         'mail'               => [
-
-            'pretend'  => false,
             'template' => 'admin.templates.mails.default',
             "actions"  => [
                 'emails.auth.reminder'
             ],
 
             'override' => [
-                'enabled' => true,
-                'to'      => ['maxime@verdikt.com.au'],
-                'cc'      => ['maxime@verdikt.com.au'],
-                'bcc'     => ['maxime@verdikt.com.au']
+                'enabled' => false,
+                'to'      => [''],
+                'cc'      => [''],
+                'bcc'     => ['']
             ]
         ],
         'menu'               => \Distilleries\Expendable\Config\MenuConfig::menu([], 'beginning'),
