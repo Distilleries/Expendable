@@ -23,6 +23,8 @@ In you app.php config file add in `providers` table:
     'mnshankar\CSV\CSVServiceProvider',
     'Maatwebsite\Excel\ExcelServiceProvider',
 
+```
+
 In the `aliases` table:
 
 ```php
