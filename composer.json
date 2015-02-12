@@ -2,11 +2,18 @@
     "name": "distilleries/expendable",
     "description": "Tool to generate a backend",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "authors": [
         {
             "name": "Maxime Francois",
             "email": "kezho@me.com"
+        }
+    ],
+    "repositories": [
+        {
+            "name": "wpb/string-blade-compiler",
+            "url": "https://github.com/TerrePorter/StringBladeCompiler.git",
+            "type": "git"
         }
     ],
     "require": {
