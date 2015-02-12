@@ -1,4 +1,21 @@
-#Exependable
+#Expendable
+
+Expendable is a cms base on laravel 4.*.
+This Cms give view few tools to develop your content management easily and properly.
+To install a fresh instance go in (https://github.com/Distilleries/Xyz)[https://github.com/Distilleries/Xyz]. 
+
+
+## Require
+To use this project you have to install:
+
+1. Php 5.5 or more
+2. Active the gettext extension
+3. Active mpcrypt
+4. Composer (https://getcomposer.org/download/)[https://getcomposer.org/download/]
+5. Sass (`gem install sass`)
+6. NodeJs version 0.10.33
+7. gulp in general (npm install gulp -g)
+
 
 ##Installation
 
