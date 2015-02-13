@@ -13,7 +13,7 @@ class ComponentMakeCommand extends Command {
      *
      * @var string
      */
-    protected $name = 'component:make';
+    protected $name = 'expendable:component.make';
 
     /**
      * The filesystem instance.

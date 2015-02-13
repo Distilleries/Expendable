@@ -82,14 +82,14 @@ class ComponentController extends AdminBaseController implements FormStateContra
         {
             if (strpos($state, 'DatatableStateContract') !== false)
             {
-                Artisan::call('datatable:make', [
+                Artisan::call('expendable:datatable.make', [
                     '--fields' => Input::get('colon_datatable'),
                     'name'     => $source_path . 'Datatables/' . $libelle_datatable
                 ]);
             } else if (strpos($state, 'FormStateContract') !== false)
             {
 
-                Artisan::call('form:make', [
+                Artisan::call('expendable:form.make', [
                     '--fields' => Input::get('fields_form'),
                     'name'     => $source_path . 'Forms/' . $libelle_form
                 ]);
@@ -97,7 +97,7 @@ class ComponentController extends AdminBaseController implements FormStateContra
         }
 
 
-        Artisan::call('component:make', [
+        Artisan::call('expendable:component.make', [
             '--states'    => join(',', $states),
             '--model'     => $model,
             '--datatable' => $namespace . 'Datatables\\' . $libelle_datatable,

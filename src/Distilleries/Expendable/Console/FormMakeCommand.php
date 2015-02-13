@@ -14,7 +14,7 @@ class FormMakeCommand extends Command
      *
      * @var string
      */
-    protected $name = 'form:make';
+    protected $name = 'expendable:form.make';
 
     /**
      * The filesystem instance.

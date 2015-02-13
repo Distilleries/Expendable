@@ -14,7 +14,7 @@ class DatatableMakeCommand extends Command
      *
      * @var string
      */
-    protected $name = 'datatable:make';
+    protected $name = 'expendable:datatable.make';
 
     /**
      * The filesystem instance.
@@ -147,7 +147,7 @@ class DatatableMakeCommand extends Command
      */
     protected function replaceNamespace(&$stub, $name)
     {
-        
+
         $stub = str_replace(
             '{{namespace}}',
             $this->formGenerator->getClassInfo($name)->namespace,
