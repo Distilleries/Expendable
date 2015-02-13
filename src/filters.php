@@ -25,7 +25,8 @@ App::after(function ($request, $response)
 
 App::error(function (Exception $exception, $code)
 {
-    if (Request::segment(1) == Config::get('backend.admin_base_uri') and !Config::get('app.debug'))
+
+    if (Request::segment(1) == Config::get('expendable::admin_base_uri') and !Config::get('app.debug'))
     {
         return App::make('Distilleries\Expendable\Controllers\AdminErrorController')->callAction("display", [$exception, $code]);
     }
