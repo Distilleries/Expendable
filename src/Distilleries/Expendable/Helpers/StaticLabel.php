@@ -60,7 +60,7 @@ class StaticLabel {
 
     public static function mailActions($id = null)
     {
-        $config = Config::get('expendable::mail');
+        $config      = Config::get('expendable::mail');
         $dataActions = $config['actions'];
         $dataResult  = [];
 
@@ -74,7 +74,7 @@ class StaticLabel {
 
     public static function states($id = null)
     {
-        $config = Config::get('expendable::state');
+        $config      = Config::get('expendable::state');
         $dataActions = $config;
         $dataResult  = [];
 

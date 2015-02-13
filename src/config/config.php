@@ -34,14 +34,6 @@
                 'position'         => 0,
                 'action'           => 'getIndex'
             ],
-            'Distilleries\Expendable\Contracts\FormStateContract'      => [
-                'color'            => 'bg-yellow',
-                'icon'             => 'pencil',
-                'libelle'          => _('Add'),
-                'extended_libelle' => _('Detail of %s'),
-                'position'         => 2,
-                'action'           => 'getEdit'
-            ],
             'Distilleries\Expendable\Contracts\ExportStateContract'    => [
                 'color'            => 'bg-blue-hoki',
                 'icon'             => 'save-file',
@@ -49,6 +41,22 @@
                 'extended_libelle' => _('Chose date to export %s'),
                 'position'         => 1,
                 'action'           => 'getExport'
-            ]
+            ],
+            'Distilleries\Expendable\Contracts\ImportStateContract'    => [
+                'color'            => 'bg-red-sunglo',
+                'icon'             => 'open-file',
+                'libelle'          => _('Import'),
+                'extended_libelle' => _('Upload a file to import %s'),
+                'position'         => 2,
+                'action'           => 'getImport'
+            ],
+            'Distilleries\Expendable\Contracts\FormStateContract'      => [
+                'color'            => 'bg-yellow',
+                'icon'             => 'pencil',
+                'libelle'          => _('Add'),
+                'extended_libelle' => _('Detail of %s'),
+                'position'         => 3,
+                'action'           => 'getEdit'
+            ],
         ]
     ];

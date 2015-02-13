@@ -3,6 +3,8 @@
 use Distilleries\Expendable\Exporter\CsvExporter;
 use Distilleries\Expendable\Exporter\ExcelExporter;
 use Distilleries\Expendable\Exporter\PdfExporter;
+use Distilleries\Expendable\Importer\CsvImporter;
+use Distilleries\Expendable\Importer\XlsImporter;
 use Distilleries\Expendable\States\StateDisplayer;
 use Illuminate\Support\ServiceProvider;
 use \File;
@@ -39,6 +41,7 @@ class ExpendableServiceProvider extends ServiceProvider {
 		});
 
 
+		$this->registerImporters();
 		$this->registerExporters();
 		$this->registerCommands();
 
@@ -48,6 +51,23 @@ class ExpendableServiceProvider extends ServiceProvider {
 		include __DIR__.'/../../filters.php';
 	}
 
+	protected function registerImporters()
+	{
+		$this->app->singleton('CsvImporterContract', function ($app)
+		{
+			return new CsvImporter;
+		});
+
+		$this->app->singleton('XlsImporterContract', function ($app)
+		{
+			return new XlsImporter;
+		});
+
+		$this->app->singleton('XlsxImporterContract', function ($app)
+		{
+			return new XlsImporter;
+		});
+	}
 	protected function registerExporters()
 	{
 
