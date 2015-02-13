@@ -12,7 +12,7 @@
 */
 
 
-Route::get('app/storage/{path}', 'Front\AssetController@getIndex')->where('path', '([A-z\d-\/_.]+)?');;
+Route::get('app/storage/{path}', 'Front\AssetController@getIndex')->where('path', '([A-z\d-\/_.\s]+)?');
 
 
 Route::group(array(

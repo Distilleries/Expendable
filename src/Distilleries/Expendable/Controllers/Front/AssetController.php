@@ -9,7 +9,6 @@ class AssetController extends \Distilleries\Expendable\Controllers\FrontBaseCont
 
     public function getIndex($path = '')
     {
-
         $directory   = explode('/', $path);
         $directory   = reset($directory);
         $white_liste = \Config::get('expendable::folder_whiteliste');
