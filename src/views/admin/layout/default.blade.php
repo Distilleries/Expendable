@@ -25,7 +25,9 @@
         </div>
    </div>
 </body>
+<div class="page-footer">
+    @yield('footer')
+</div>
 
-@yield('footer')
 <!-- END BODY -->
 </html>
