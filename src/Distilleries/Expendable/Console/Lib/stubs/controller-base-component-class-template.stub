@@ -2,8 +2,6 @@
 
 use Distilleries\Expendable\Contracts\StateDisplayerContract;
 use Distilleries\Expendable\Controllers\AdminBaseComponent;
-use Forms\{{form}};
-use Datatables\{{datatable}};
 
 
 class {{class}} extends AdminBaseComponent {

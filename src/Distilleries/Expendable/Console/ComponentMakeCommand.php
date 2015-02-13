@@ -59,7 +59,7 @@ class ComponentMakeCommand extends Command {
 
         if ($this->files->exists($path))
         {
-            return $this->error('Form already exists!');
+            return $this->error('Component already exists!');
         }
 
 
@@ -67,7 +67,7 @@ class ComponentMakeCommand extends Command {
 
         $this->files->put($path . '.php', $this->buildClass($path));
 
-        $this->info('Form created successfully.');
+        $this->info('Component created successfully.');
         $this->call('dump-autoload');
     }
 
@@ -106,7 +106,7 @@ class ComponentMakeCommand extends Command {
     protected function getArguments()
     {
         return array(
-            array('name', InputArgument::REQUIRED, 'Full path for Form class.'),
+            array('name', InputArgument::REQUIRED, 'Full path for Component class.'),
         );
     }
 

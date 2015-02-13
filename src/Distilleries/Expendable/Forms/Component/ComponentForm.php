@@ -28,6 +28,10 @@ class ComponentForm extends \Distilleries\FormBuilder\FormValidator {
                     'empty_value' => _('-'),
                     'label'       => _('Model')
                 ])
+                ->add('source_path', 'text', [
+                    'label'      => _('Path repository'),
+                    'help'=>_('For exemple you have a folder Xyz in app/Xyz, just put Xyz.')
+                ])
                 ->add('colon_datatable', 'tag', [
                     'label' => _('Columns'),
                     'help'=>_('name: id, libelle...')

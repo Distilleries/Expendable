@@ -52,7 +52,7 @@ class DatatableMakeCommand extends Command
         $path = $this->getNameInput();
 
         if ($this->files->exists($path)) {
-            return $this->error('Form already exists!');
+            return $this->error('Datatable already exists!');
         }
 
 
@@ -61,7 +61,7 @@ class DatatableMakeCommand extends Command
 
         $this->files->put($path.'.php', $this->buildClass($path));
 
-        $this->info('Form created successfully.');
+        $this->info('Datatable created successfully.');
     }
 
     /**
@@ -98,7 +98,7 @@ class DatatableMakeCommand extends Command
     protected function getArguments()
     {
         return array(
-            array('name', InputArgument::REQUIRED, 'Full path for Form class.'),
+            array('name', InputArgument::REQUIRED, 'Full path for datatable class.'),
         );
     }
 
@@ -110,7 +110,7 @@ class DatatableMakeCommand extends Command
     protected function getOptions()
     {
         return array(
-            array('fields', null, InputOption::VALUE_OPTIONAL, 'Fields for the form'),
+            array('fields', null, InputOption::VALUE_OPTIONAL, 'Fields for the datatable'),
         );
     }
 
@@ -147,6 +147,7 @@ class DatatableMakeCommand extends Command
      */
     protected function replaceNamespace(&$stub, $name)
     {
+        
         $stub = str_replace(
             '{{namespace}}',
             $this->formGenerator->getClassInfo($name)->namespace,

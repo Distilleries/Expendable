@@ -1,6 +1,6 @@
 <?php namespace {{namespace}};
 
-use Distilleries\Expendable\Forms\FormValidator;
+use Distilleries\FormBuilder\FormValidator;
 
 class {{class}} extends FormValidator
 {

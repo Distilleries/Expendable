@@ -34,7 +34,7 @@ class Generator {
         $className = array_pop($fullNamespacedPath);
 
         return (object) [
-            'namespace' => join('\\', $fullNamespacedPath),
+            'namespace' => ltrim(str_replace('\\\\', '\\', join('\\', $fullNamespacedPath)),'\\'),
             'className' => $className
         ];
     }

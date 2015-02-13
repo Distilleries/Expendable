@@ -1,6 +1,6 @@
 <?php namespace {{namespace}};
 
-use Distilleries\Expendable\Datatables\EloquentDatatable;
+use Distilleries\DatatableBuilder\EloquentDatatable;
 
 class {{class}} extends EloquentDatatable
 {

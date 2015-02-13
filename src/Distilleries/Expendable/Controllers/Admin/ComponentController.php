@@ -73,23 +73,25 @@ class ComponentController extends AdminBaseController implements FormStateContra
         $libelle_controller = $libelle . 'Controller';
         $model              = Input::get('models');
         $states             = Input::get('state');
+        $namespace          = '\\' . Input::get('source_path') . '\\';
+        $source_path        = Input::get('source_path');
+        $source_path        = app_path() . '/' . (!empty($source_path) ? $namespace . '/' : '');
 
 
         foreach ($states as $state)
         {
             if (strpos($state, 'DatatableStateContract') !== false)
             {
-
                 Artisan::call('datatable:make', [
                     '--fields' => Input::get('colon_datatable'),
-                    'name'     => app_path() . '/Datatables/' . $libelle_datatable
+                    'name'     => $source_path . 'Datatables/' . $libelle_datatable
                 ]);
             } else if (strpos($state, 'FormStateContract') !== false)
             {
 
                 Artisan::call('form:make', [
                     '--fields' => Input::get('fields_form'),
-                    'name'     => app_path() . '/Forms/' . $libelle_form
+                    'name'     => $source_path . 'Forms/' . $libelle_form
                 ]);
             }
         }
@@ -98,8 +100,8 @@ class ComponentController extends AdminBaseController implements FormStateContra
         Artisan::call('component:make', [
             '--states'    => join(',', $states),
             '--model'     => $model,
-            '--datatable' => $libelle_datatable,
-            '--form'      => $libelle_form,
+            '--datatable' => $namespace . 'Datatables\\' . $libelle_datatable,
+            '--form'      => $namespace . 'Forms\\' . $libelle_form,
             'name'        => app_path() . '/controllers/Admin/' . $libelle_controller
         ]);
 
