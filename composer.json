@@ -11,8 +11,11 @@
 
     "require": {
         "php": ">=5.5.0",
-        "laravel/framework": "4.2.*",
-        "distilleries/datatable": "2.3.*",
+        "illuminate/support": "4.*",
+        "illuminate/database": "4.*",
+        "illuminate/view": "4.*",
+        "illuminate/mail": "4.*",
+        "illuminate/filesystem": "4.*",
         "distilleries/datatable-builder": "1.*",
         "distilleries/form-builder": "1.*",
         "netson/l4gettext": "1.5.*",
