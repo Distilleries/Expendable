@@ -1,8 +1,9 @@
 @section('menu_left')
+<?php $collapsed = Config::get('expendable::menu_left_collapsed'); ?>
 <div class="page-sidebar-wrapper">
 		<div class="page-sidebar navbar-collapse collapsee collapse">
-			<ul class="page-sidebar-menu page-sidebar-menu-closed"
-			data-keep-expanded="false"
+			<ul class="page-sidebar-menu {{$collapsed?'page-sidebar-menu-closed':''}} "
+			data-keep-expanded="{{$collapsed?'false':'true'}}"
 			data-auto-scroll="true"
 			data-slide-speed="200">
 				<li class="sidebar-toggler-wrapper">
