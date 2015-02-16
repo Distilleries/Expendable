@@ -1,9 +1,12 @@
 #Expendable
 
 Expendable is a cms base on laravel 4.*.
-This Cms give view few tools to develop your content management easily and properly.
-To install a fresh instance go in (https://github.com/Distilleries/Xyz)[https://github.com/Distilleries/Xyz]. 
+This package give you some implementation do add a content management system of your application.
+You can override everything. This Cms give view few tools to develop your content management easily and properly.
 
+If you want install a fresh install of laravel 4 with Expendable package configured and gulp, bower structure go in (https://github.com/Distilleries/Xyz)[https://github.com/Distilleries/Xyz].
+
+## Table of contents
 
 ## Require
 To use this project you have to install:
@@ -16,145 +19,144 @@ To use this project you have to install:
 6. NodeJs version 0.10.33
 7. gulp in general (npm install gulp -g)
 
-
 ##Installation
 
-```
-    "distilleries/expendable": "1.*",
-    
-```
+Add on your composer.json
 
-## Add service providers
-
-In you app.php config file add in `providers` table:
-
-```php
-
-    'Netson\L4gettext\L4gettextServiceProvider',
-    'Chumper\Datatable\DatatableServiceProvider',
-    'Distilleries\DatatableBuilder\DatatableBuilderServiceProvider',
-    'Distilleries\FormBuilder\FormBuilderServiceProvider',
-    "Ollieread\Multiauth\MultiauthServiceProvider",
-    "Ollieread\Multiauth\Reminders\ReminderServiceProvider",
-    'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
-    'Wpb\StringBladeCompiler\StringBladeCompilerServiceProvider',
-    'Distilleries\Expendable\ExpendableServiceProvider',
-    'Distilleries\Expendable\MailServiceProvider',
-    'mnshankar\CSV\CSVServiceProvider',
-    'Maatwebsite\Excel\ExcelServiceProvider',
-
+``` json
+    "require": {
+        "distilleries/expendable": "1.*",
+    }
 ```
 
-In the `aliases` table:
+run `composer update`.
 
-```php
+Add Service provider to `config/app.php`:
 
-    'Mail'              => 'Distilleries\Expendable\Facades\Mail',
-    'Datatable'         => 'Distilleries\DatatableBuilder\Facades\DatatableBuilder',
-    'FormBuilder'       => 'Distilleries\FormBuilder\Facades\FormBuilder',
-    'Gravatar'          => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
-    'CSV'               => 'mnshankar\CSV\CSVFacade',
-    'Excel'             => 'Maatwebsite\Excel\Facades\Excel',
+``` php
+    'providers' => [
+        // ...
+       'Netson\L4gettext\L4gettextServiceProvider',
+       'Chumper\Datatable\DatatableServiceProvider',
+       "Ollieread\Multiauth\MultiauthServiceProvider",
+       "Ollieread\Multiauth\Reminders\ReminderServiceProvider",
+       'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
+       'Wpb\StringBladeCompiler\StringBladeCompilerServiceProvider',
+       'mnshankar\CSV\CSVServiceProvider',
+       'Maatwebsite\Excel\ExcelServiceProvider',
+       'Distilleries\DatatableBuilder\DatatableBuilderServiceProvider',
+       'Distilleries\FormBuilder\FormBuilderServiceProvider',
+       'Distilleries\Expendable\ExpendableServiceProvider',
+       'Distilleries\MailerSaver\MailerSaverServiceProvider',
+    ]
 ```
-    
+
+And Facade (also in `config/app.php`) replace the laravel facade `Mail`
+   
+
+``` php
+    'aliases' => [
+        // ...
+       'Mail'              => 'Distilleries\MailerSaver\Facades\Mail',
+       'Datatable'         => 'Distilleries\DatatableBuilder\Facades\DatatableBuilder',
+       'FormBuilder'       => 'Distilleries\FormBuilder\Facades\FormBuilder',
+       'Gravatar'          => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
+       'CSV'               => 'mnshankar\CSV\CSVFacade',
+       'Excel'             => 'Maatwebsite\Excel\Facades\Excel',
+    ]
+```
+
 **Replace the service old facade Mail by the new one.**
     
 
 ##Configurations
 
-```
-    php artisan config:publish distilleries/expendable
-    
+```ssh
+php artisan config:publish distilleries/expendable
 ```
 
+```php
+    return [
+          'login_uri'           => 'admin/login',
+          'admin_base_uri'      => 'admin',
+          'config_file_assets'  => base_path() . '/package.json',
+          'folder_whitelist'   => [
+              'moximanager'
+          ],
+          'listener'            => [
+              '\Distilleries\Expendable\Listeners\UserListener'
+          ],
+          'mail'                => [
+              "actions"  => [
+                  'emails.auth.reminder'
+              ]
+          ],
+          'menu'                => \Distilleries\Expendable\Config\MenuConfig::menu([], 'beginning'),
+          'menu_left_collapsed' => false,
+          'state'               => [
+              'Distilleries\Expendable\Contracts\DatatableStateContract' => [
+                  'color'            => 'bg-green-haze',
+                  'icon'             => 'th-list',
+                  'libelle'          => _('Datatable'),
+                  'extended_libelle' => _('List of %s'),
+                  'position'         => 0,
+                  'action'           => 'getIndex'
+              ],
+              'Distilleries\Expendable\Contracts\ExportStateContract'    => [
+                  'color'            => 'bg-blue-hoki',
+                  'icon'             => 'save-file',
+                  'libelle'          => _('Export'),
+                  'extended_libelle' => _('Chose date to export %s'),
+                  'position'         => 1,
+                  'action'           => 'getExport'
+              ],
+              'Distilleries\Expendable\Contracts\ImportStateContract'    => [
+                  'color'            => 'bg-red-sunglo',
+                  'icon'             => 'open-file',
+                  'libelle'          => _('Import'),
+                  'extended_libelle' => _('Upload a file to import %s'),
+                  'position'         => 2,
+                  'action'           => 'getImport'
+              ],
+              'Distilleries\Expendable\Contracts\FormStateContract'      => [
+                  'color'            => 'bg-yellow',
+                  'icon'             => 'pencil',
+                  'libelle'          => _('Add'),
+                  'extended_libelle' => _('Detail of %s'),
+                  'position'         => 3,
+                  'action'           => 'getEdit'
+              ],
+          ]
+      ];
+```
 
 Field | Usage
 ----- | -----
-login_uri | Define the login page for the admin login
-admin_base_uri | Define the base uri for the admin urls
-config_file_assets| file when you have the version number of the application
-folder_whiteliste | Table of folders accessible to display the assets
-listener | Classes listener a specific event
-mail.template | Generic skeleton of the email template
-mail.actions | List of action available to send an email
-mail.override | If define to yes that send all the email with the email give in the table mail.override.to, mail.override.cc, mail.override.bcc
-menu.left | Use the method \Distilleries\Expendable\Config\MenuConfig::menu() to merge the default menu with your menu
-state | List of state available
+login_uri | Uri to access of the login page by default `admin/login`.
+admin_base_uri | base of the admin uri `admin` by default.
+config_file_assets| File loaded to get the version number of the application. This version number is use to add it of the generated css and javascript to force the reload when you deploy your application.
+folder_whitelist | Table of folders accessible to display the assets.
+listener | Table of class autoloaded to listen a custom event.
+mail.actions | List of action available to send an email. This list is display in email module backend.
+menu | Use the method \Distilleries\Expendable\Config\MenuConfig::menu() to merge the default menu with your menu. In the table you can define left key or tasks to display in menu left or in the menu task.
+menu_left_collapsed | Set to tru to keep close the menu left. By default it set to false and the menu is open.
+state | List of state available, with the color, the logo and the name.
 
 
+###Menu
+@todo
 
-```php
+###State
+@todo
 
-    return [
-        'login_uri'          => 'admin/login',
-        'admin_base_uri'     => 'admin',
-        'config_file_assets' => base_path() . '/package.json',
-        'folder_whiteliste'  => [
-            'moximanager'
-        ],
-        'listener'           => [
-            '\Distilleries\Expendable\Listeners\UserListener'
-        ],
-        'mail'               => [
-            'template' => 'admin.templates.mails.default',
-            "actions"  => [
-                'emails.auth.reminder'
-            ],
+##Views
+@todo
 
-            'override' => [
-                'enabled' => false,
-                'to'      => [''],
-                'cc'      => [''],
-                'bcc'     => ['']
-            ]
-        ],
-        'menu'               => \Distilleries\Expendable\Config\MenuConfig::menu([
-            'left' => [
-                [
-                    'icon'    => 'globe',
-                    'action'  => 'Admin\CountryController@getIndex',
-                    'libelle' => _('Country'),
-                    'submenu' => [
-                        [
-                            'icon'    => 'th-list',
-                            'libelle' => _('List of Country'),
-                            'action'  => 'Admin\CountryController@getIndex',
-                        ],
-                        [
-                            'icon'    => 'pencil',
-                            'libelle' => _('Add Country'),
-                            'action'  => 'Admin\CountryController@getEdit',
-                        ]
-                    ]
-                ],
-            ]
-        ], 'beginning'),
+##Assets (CSS and Javascript)
+@todo
 
-        'state'              => [
-            'Distilleries\Expendable\Contracts\DatatableStateContract' => [
-                'color'            => 'bg-green-haze',
-                'icon'             => 'th-list',
-                'libelle'          => _('Datatable'),
-                'extended_libelle' => _('List of %s'),
-                'position'         => 0,
-                'action'           => 'getIndex'
-            ],
-            'Distilleries\Expendable\Contracts\FormStateContract'      => [
-                'color'            => 'bg-yellow',
-                'icon'             => 'pencil',
-                'libelle'          => _('Add'),
-                'extended_libelle' => _('Detail of %s'),
-                'position'         => 2,
-                'action'           => 'getEdit'
-            ],
-            'Distilleries\Expendable\Contracts\ExportStateContract'    => [
-                'color'            => 'bg-blue-hoki',
-                'icon'             => 'save-file',
-                'libelle'          => _('Export'),
-                'extended_libelle' => _('Chose date to export %s'),
-                'position'         => 1,
-                'action'           => 'getExport'
-            ]
-        ]
-    ];
-```
+##Create a new backend module
+@todo
+
+##Case studies
+@todo

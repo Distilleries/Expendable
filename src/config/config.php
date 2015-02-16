@@ -4,23 +4,15 @@ return [
     'login_uri'           => 'admin/login',
     'admin_base_uri'      => 'admin',
     'config_file_assets'  => base_path() . '/package.json',
-    'folder_whiteliste'   => [
+    'folder_whitelist'   => [
         'moximanager'
     ],
     'listener'            => [
         '\Distilleries\Expendable\Listeners\UserListener'
     ],
     'mail'                => [
-        'template' => 'admin.templates.mails.default',
         "actions"  => [
             'emails.auth.reminder'
-        ],
-
-        'override' => [
-            'enabled' => false,
-            'to'      => [''],
-            'cc'      => [''],
-            'bcc'     => ['']
         ]
     ],
     'menu'                => \Distilleries\Expendable\Config\MenuConfig::menu([], 'beginning'),

@@ -11,7 +11,7 @@ class AssetController extends \Distilleries\Expendable\Controllers\FrontBaseCont
     {
         $directory   = explode('/', $path);
         $directory   = reset($directory);
-        $white_liste = \Config::get('expendable::folder_whiteliste');
+        $white_liste = \Config::get('expendable::folder_whitelist');
 
         if (in_array($directory, $white_liste))
         {
