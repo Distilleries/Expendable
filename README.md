@@ -144,10 +144,255 @@ state | List of state available, with the color, the logo and the name.
 
 
 ###Menu
-@todo
+I use a function to easily merge the default component with the component of the application.
+
+By default you can find on the menu left:
+
+1.  Email
+    1. List of email
+    2. Add email
+2.  User
+    1. List of user
+    2. Add user
+3.  Role
+    1. List of role
+    2. Add role
+4.  Permission
+    1. Associate permission
+    2. List of service
+    3. Add service
+    4. Synchronize all services
+5.  Language
+    1. List of language
+    2. Add language
+
+By default you can find on the menu task:
+
+1.  Generate a new component
+2.  Synchronize all services
+
+
+To add a new item it's easy
+
+```php
+        'menu'               => \Distilleries\Expendable\Config\MenuConfig::menu([
+                'left' => [
+                    [
+                        'icon'    => 'send',
+                        'action'  => 'Admin\ContactController@getIndex',
+                        'libelle' => _('Contact'),
+                        'submenu' => [
+                            [
+                                'icon'    => 'th-list',
+                                'libelle' => _('List of Contact'),
+                                'action'  => 'Admin\ContactController@getIndex',
+                            ],
+                            [
+                                'icon'    => 'pencil',
+                                'libelle' => _('Add Contact'),
+                                'action'  => 'Admin\ContactController@getEdit',
+                            ]
+                        ]
+                    ],
+                ],
+    
+                'tasks' => [
+                    [
+                        'icon'    => 'console',
+                        'action'  => 'Admin\TestController@getIndex',
+                        'libelle' => _('Test'),
+    
+                    ],
+                ]
+            ], 'beginning'),
+```
+
+Option | Description
+------ | -----------
+icon | Name of the icon class [http://getbootstrap.com/components/#glyphicons](http://getbootstrap.com/components/#glyphicons)
+action | Action call when you click ( use action helper to generate the url)
+libelle | Translation of your menu item
+submenu | If you want add sub-item you can add an array with the same options
+
+
+The method `\Distilleries\Expendable\Config\MenuConfig::menu` tak two parameters
+
+1. An array with the content of the meny `['left'=>[],'tasks'=>[]]` 
+2. The second one is a string `beginning` or `end` to define the direction of the merge.
+
+Example of menu left:
+
+![menu_left](http://distilleri.es/markdown/expendable/_images/menu_left.png)
+
+Example of menu task:
+
+![tasks](http://distilleri.es/markdown/expendable/_images/tasks.png)
+
 
 ###State
-@todo
+A state is a part of your controller where you define a list of actions.
+By default I implemented four states:
+
+1. Datatable
+2. Export
+3. Import
+4. Form
+
+
+####1. Datatable
+
+![datatable](http://distilleri.es/markdown/expendable/_images/states.png)
+
+A datatable state it's use to display a list of content with filter if you need it.
+To use it you have to implement the interface `Distilleries\Expendable\Contracts\DatatableStateContract`.
+
+```php
+  public function getIndexDatatable();
+  public function getDatatable();
+```
+
+* `getIndexDatatable` it's form initilize the datatable.
+* `getDatatable` it's for get the data in json.
+
+You can use the trait :
+
+```php
+use \Distilleries\Expendable\States\DatatableStateTrait;
+```
+
+On this trait you have a generic implementation to display the datatable and the data.
+This trait need to use two attributes of your controller:
+
+1. `$datatable`, it's an instance of `EloquentDatatable` (come from [DatatableBuilder](https://github.com/Distilleries/DatatableBuilder)).
+2. `model`, it's and instance of `Eloquant` (come from laravel).
+
+Inject them on your constructor:
+
+```php
+    public function __construct(\Address $model, AddressDatatable $datatable)
+    {
+        $this->datatable  = $datatable;
+        $this->model      = $model;
+    }
+```
+    
+
+####2. Export
+
+![export](http://distilleri.es/markdown/expendable/_images/export.png)
+
+An export state it's to export the data from your model between two dates.
+To use it you have to implement the interface `Distilleries\Expendable\Contracts\ExportStateContract`.
+
+```php
+     public function getExport();
+     public function postExport();
+```
+
+* `getExport` it's to display the form to select the dates and the type of export.
+* `postExport` proceed the export and return the file.
+
+You can use the trait :
+
+```php
+use \Distilleries\Expendable\States\ExportStateTrait;
+```
+
+On this trait you have a generic implementation to export your data.
+This trait need to use on attribute of your controller:
+
+1. `model`, it's and instance of `Eloquant` (come from laravel).
+
+Inject them on your constructor:
+
+```php
+    public function __construct(\Address $model)
+    {
+        $this->model      = $model;
+    }
+```
+
+You can change the class provide to export the data. Just add those methods on your service provider and change the class instantiated.
+
+```php
+    $this->app->singleton('Distilleries\Expendable\Contracts\CsvExporterContract', function ($app)
+    {
+        return new CsvExporter;
+    });
+    $this->app->singleton('Distilleries\Expendable\Contracts\ExcelExporterContract', function ($app)
+    {
+        return new ExcelExporter;
+    });
+    $this->app->singleton('Distilleries\Expendable\Contracts\PdfExporterContract', function ($app)
+    {
+        return new PdfExporter;
+    });
+```
+
+
+####3. Import
+
+![import](http://distilleri.es/markdown/expendable/_images/import.png)
+
+An import state it's to import the data from a file to your model.
+To use it you have to implement the interface `Distilleries\Expendable\Contracts\ImportStateContract`.
+
+```php
+     public function getImport();
+     public function postImport();
+```
+
+* `getImport` it's to display the form give the file.
+* `postImport` proceed the import and return back.
+
+You can use the trait :
+
+```php
+use \Distilleries\Expendable\States\ImportStateTrait;
+```
+
+On this trait you have a generic implementation to export your data.
+This trait need to use on attribute of your controller:
+
+1. `model`, it's and instance of `Eloquant` (come from laravel).
+
+Inject them on your constructor:
+
+```php
+    public function __construct(\Address $model)
+    {
+        $this->model      = $model;
+    }
+```
+
+
+You can change the class provide to import the data. Just add those methods on your service provider and change the class instantiated.
+
+```php
+    $this->app->singleton('CsvImporterContract', function ($app)
+    {
+        return new CsvImporter;
+    });
+    
+    $this->app->singleton('XlsImporterContract', function ($app)
+    {
+        return new XlsImporter;
+    });
+    
+    $this->app->singleton('XlsxImporterContract', function ($app)
+    {
+        return new XlsImporter;
+    });
+```
+
+####4. Form
+
+
+![form](http://distilleri.es/markdown/expendable/_images/form.png)
+
+
+##Permissions
+
 
 ##Views
 @todo
