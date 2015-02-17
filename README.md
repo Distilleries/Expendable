@@ -7,6 +7,37 @@ You can override everything. This Cms give view few tools to develop your conten
 If you want install a fresh install of laravel 4 with Expendable package configured and gulp, bower structure go in (https://github.com/Distilleries/Xyz)[https://github.com/Distilleries/Xyz].
 
 ## Table of contents
+1. [Require](#require)
+1. [Installation](#installation)
+1. [Configurations](#configurations)
+1. [Menu](#menu)
+1. [State](#state)
+    1. [Datatable](#1-datatable)
+    1. [Export](#2-export)
+    1. [Import](#3-import)
+    1. [Form](#4-form)
+    1. [Form](#4-form)
+1. [Component](#component)
+    1. [AdminBaseComponent](#adminbasecomponent)
+    1. [AdminModelBaseController](#adminmodelbasecontroller)
+    1. [AdminBaseController](#adminbasecontroller)
+1. [Model](#model)
+1. [Global scope](#global-scope)
+    1. [Status](#status)
+1. [Permissions](#permissions)
+1. [Views](#views)
+1. [Assets (CSS and Javascript)](#assets-css-and-javascript)
+    1. [Sass](#sass)
+    1. [Images](#images)
+    1. [Javascript](#javascript)
+    1. [Gulp](#gulp)
+1. [Create a new backend module](#create-a-new-backend-module)
+1. [Case studies](#case-studies)
+    1. [Generate your migration](#1-generate-your-migration)
+    1. [Generate your model](#2-generate-your-model)
+    1. [Generate you component](#3-generate-you-component)
+    1. [Add your controller in the routes file](#4-add-your-controller-in-the-routes-file)
+    1. [Add to the menu](#5-add-to-the-menu)
 
 ## Require
 To use this project you have to install:
@@ -491,7 +522,7 @@ class CityController extends AdminBaseComponent {
 }
 ```
 
-###AdminBaseComponent
+###AdminModelBaseController
 If you don't want use all the state and you use a model just extend `Distilleries\Expendable\Controllers\AdminModelBaseController`.
 
 Example:
@@ -701,7 +732,7 @@ default | Start the tasks clean, bower and after styles, scripts, images in asyn
 ##Case studies
 Try to create a blog post component. I use a fresh install of [Xyz](https://github.com/Distilleries/Xyz)
 
-1. Generate your migration.
+###1 Generate your migration
 
 ```ssh
 php artisan generate:migration create_posts_table --fields="libelle:string, content:text, status:t inyInteger"
@@ -713,7 +744,7 @@ php artisan migrate
 ```
 
 
-2. Generate your model.
+###2 Generate your model
 
 ```php
 <?php
@@ -731,7 +762,7 @@ class Post extends \Distilleries\Expendable\Models\BaseModel {
 }
 ```
 
-3. Generate you component.
+###3 Generate you component
 I use the backend generator `/admin/component/edit`.
 
 
@@ -854,7 +885,7 @@ class PostController extends AdminBaseComponent {
 ```
 
 
-4. Add your controller in the routes file.
+###4 Add your controller in the routes file
 I add ` Route::controller('post', 'Admin\PostController');` on the route file:
 
 ```php
@@ -885,7 +916,7 @@ I add ` Route::controller('post', 'Admin\PostController');` on the route file:
 ```
 
 
-5. Add to the menu
+###5 Add to the menu
 If you are not generate the config do it right now:
 
 ```ssh
