@@ -36,6 +36,14 @@ class PermissionController extends AdminModelBaseController implements FormState
 
     // ------------------------------------------------------------------------------------------------
 
+    public function getView($id)
+    {
+        return $this->getIndex();
+    }
+
+
+    // ------------------------------------------------------------------------------------------------
+
     public function postEdit()
     {
 

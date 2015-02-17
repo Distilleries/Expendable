@@ -31,6 +31,13 @@ class ComponentController extends AdminBaseController implements FormStateContra
         return Redirect::to(action(get_class($this) . '@getEdit'));
     }
 
+    // ------------------------------------------------------------------------------------------------
+
+    public function getView($id)
+    {
+        return $this->getIndex();
+    }
+
 
     // ------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------

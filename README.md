@@ -238,6 +238,18 @@ By default I implemented four states:
 3. Import
 4. Form
 
+To display the menu of state I provide a class for the interface `Distilleries\Expendable\Contracts\StateDisplayerContract`.
+ 
+```php
+ 	$this->app->singleton('Distilleries\Expendable\Contracts\StateDisplayerContract', function ($app)
+    {
+        return new StateDisplayer($app['view'],$app['config']);
+    });
+```
+
+This class check the interface use on your controller and with the config `exependable::state` display the logo and the name of the state.
+If you want change the state display, just provide a new class for the contract `Distilleries\Expendable\Contracts\StateDisplayerContract`.
+
 
 ####1. Datatable
 
@@ -387,21 +399,521 @@ You can change the class provide to import the data. Just add those methods on y
 
 ####4. Form
 
-
 ![form](http://distilleri.es/markdown/expendable/_images/form.png)
 
+The form state give you a part to add or edit an element and a part to view the element without edit.
+
+
+To use it you have to implement the interface `Distilleries\Expendable\Contracts\FormStateContract`.
+
+```php
+    public function getEdit($id);
+    public function postEdit();
+    public function getView($id);
+```
+
+* `getEdit` it's to display the form to edit or add new item.
+* `postEdit` proceed the save or update.
+* `getView` Display the form in not editable.
+
+You can use the trait :
+
+```php
+use \Distilleries\Expendable\States\FormStateTrait;
+```
+
+On this trait you have a generic implementation to display form, save and display view.
+This trait need to use two attributes of your controller:
+
+1. `model`, it's and instance of `Eloquant` (come from laravel).
+1. `form`, it's and instance of `Form` (come from [FormBuilder](https://github.com/Distilleries/FormBuilder)).
+
+Inject them on your constructor:
+
+```php
+     public function __construct(\Address $model, AddressForm $form)
+    {
+        $this->form      = $form;
+        $this->model     = $model;
+    }
+```
+
+##Component
+A component is just a composition of controller, form, datatable, model.
+To create a new component you can go in `/admin/component/edit` and fill the form, or use the command line:
+
+```ssh
+php artisan expendable:component.make app/controllers/Admin/TestController
+```
+You can check the options with the help.
+
+In the backend you have all this options:
+
+Field | Description
+----- | -----------
+Name | The name use to generate the controllers and other classes (ex: Address, AddressController, AddressForm, AddressDatatable).
+State | The state you want use on your controller
+Model | The model inject on your controller
+Path repository | Fill it if you want put your class on specific folder (ex: Project, that generate the classes on the folder app/Project).
+Columns | List of columns display on the datatable
+Fields | The field you want in your form (name:type ex: id:hidden, libelle:text...)
+
+To know all the types of fields you can [have look the documentation](https://github.com/Distilleries/FormBuilder#list-of-fields).
+
+![component](http://distilleri.es/markdown/expendable/_images/component.png)
+
+
+###AdminBaseComponent
+By default if you check all the state that generate a controller inheritance from `Distilleries\Expendable\Controllers\AdminBaseComponent`.
+This controller implement all the states interfaces.
+
+
+```php
+use Distilleries\Expendable\Contracts\StateDisplayerContract;
+use Distilleries\Expendable\Controllers\AdminBaseComponent;
+use Scolicare\Datatables\CityDatatable;
+use Scolicare\Forms\CityForm;
+
+
+class CityController extends AdminBaseComponent {
+
+    public function __construct(\City $model, StateDisplayerContract $stateProvider, CityDatatable $datatable, CityForm $form)
+    {
+        parent::__construct($model, $stateProvider);
+        $this->datatable = $datatable;
+        $this->form      = $form;
+    }
+
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+
+}
+```
+
+###AdminBaseComponent
+If you don't want use all the state and you use a model just extend `Distilleries\Expendable\Controllers\AdminModelBaseController`.
+
+Example:
+
+```php
+    namespace Distilleries\Expendable\Controllers\Admin;
+    
+    
+    use Distilleries\Expendable\Contracts\FormStateContract;
+    use Distilleries\Expendable\Contracts\StateDisplayerContract;
+    use Distilleries\Expendable\Controllers\AdminModelBaseController;
+    use Distilleries\Expendable\Forms\Permission\PermissionForm;
+    use Distilleries\Expendable\States\FormStateTrait;
+    
+    class PermissionController extends AdminModelBaseController implements FormStateContract {
+    
+        use FormStateTrait;
+    
+    
+        public function __construct(Permission $model, StateDisplayerContract $stateProvider, PermissionForm $form)
+        {
+            parent::__construct($model, $stateProvider);
+            $this->form = $form;
+        }
+    
+        // ------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------
+    
+    
+    }
+```
+
+###AdminBaseController
+If you don't want use all the state and you don't use a model just extend `Distilleries\Expendable\Controllers\AdminBaseController`.
+You just have to inject the `StateDisplayerContract`
+
+Example:
+
+```php
+    namespace Distilleries\Expendable\Controllers\Admin;
+    
+    use Distilleries\Expendable\Contracts\StateDisplayerContract;
+    use Distilleries\Expendable\Controllers\AdminModelBaseController;
+    
+    
+    class PermissionController extends AdminBaseController{
+  
+        public function __construct(StateDisplayerContract $stateProvider)
+        {
+            parent::__construct($stateProvider);
+        }
+    
+        // ------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------
+    
+    
+    }
+```
+
+##Model
+By default you can extend `\Distilleries\Expendable\Models\BaseModel`, this one extend `\Eloquent`.
+On it you have some method you can use:
+
+```php
+    public function getFillable();
+    public static function getChoice();
+    public function scopeSearch($query, $searchQuery);
+    public function getAllColumnsNames();
+    public function scopeBetweenCreate($query, $start, $end);
+    public function scopeBetweenupdate($query, $start, $end);
+```
+
+Method | Detail
+------ | ------
+getFillable | Return the table of fillable field
+getChoice   | Return a table with in key the id and the value the libelle
+scopeSearch | Query scope to search in all columns
+getAllColumnsNames | Get all the columns of your table
+scopeBetweenCreate | Query scope to get all the element between to date by the field created_at
+scopeBetweenupdate | Query scope to get all the element between to date by the field created_at
+
+##Global scope
+I provide some global scope usable on the model.
+
+
+###Status
+If you want display an element only if your are connected use this scope.
+The model check if the user is not connected and if the status equal online (1).
+
+
+To use it add the trait on your model `use \Distilleries\Expendable\Models\StatusTrait;`
 
 ##Permissions
+The system of permission is base on the public method of all your controller.
+To generate the list of all services use the `Synchronize all services` (`/admin/service/synchronize`).
+That use all the controller and get the public actions.
 
+If you go on `Associate Permission` you have the list of controller with all methods:
+
+![services](http://distilleri.es/markdown/expendable/_images/services.png)
+
+On this page you can allow a role to the method. 
+If the role is not allowed the application dispatch an error:
+
+```php
+App::abort(403, Lang::get('expendable::errors.unthorized'));
+```
+That is done in `auth.anthorized` filter. You can override the permission in role to allow automatically all the services.
+It's use for the developer to develop the application easily.
+
+You can use `UserUtils` to check the permission and display an element or not.
+To display the remove  button on the datatable the user need `putDestroy` action allowed.
+
+```php
+\Distilleries\Expendable\Helpers\UserUtils::hasAccess('Admin\RoleController@putDestroy'))
+```
 
 ##Views
-@todo
+
+To override the view publish them with command line: 
+
+```ssh
+php artisan view:publish distilleries/expendable
+```
 
 ##Assets (CSS and Javascript)
-@todo
+All the assets are one the folder `assets`.
+
+###Sass
+To use the sass file just add bootstrap and  `application.admin.scss` on your admin file scss.
+If you check the repo [Xyz](https://github.com/Distilleries/Xyz/tree/master/app/assets) you have a folder assets.
+I use the same structure.
+
+```scss
+@import "../../../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap-sprockets";
+@import "../../../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap";
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url("../fonts/glyphicons-halflings-regular.eot");
+  src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
+}
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url("../fonts/fontawesome-webfont.eot");
+  src: url("../fonts/fontawesome-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff") format("woff"), url("../fonts/fontawesome-webfont.ttf") format("truetype"), url("../fonts/fontawesome-webfont.svg#glyphicons_halflingsregular") format("svg");
+}
+
+@import "../../../../vendor/distilleries/expendable/assets/admin/sass/application.admin";
+@import "../../../../vendor/distilleries/expendable/assets/admin/sass/admin/layout/themes/grey";
+```
+
+###Images
+The images are copy by the gulp file.
+
+###Javascript
+The javascript is compiled by the gulp file.
+
+
+###Gulp
+
+* Copy the gulp.js from this link [https://github.com/Distilleries/Xyz/blob/master/gulpfile.js](https://github.com/Distilleries/Xyz/blob/master/gulpfile.js).
+* Copy the config file `build.config.js` from this link [https://github.com/Distilleries/Xyz/blob/master/build.config.js](https://github.com/Distilleries/Xyz/blob/master/build.config.js).
+* Copy the file package.json from this link [https://github.com/Distilleries/Xyz/blob/master/package.json](https://github.com/Distilleries/Xyz/blob/master/package.json).
+* Copy the file bower.json from this link [https://github.com/Distilleries/Xyz/blob/master/bower.json](https://github.com/Distilleries/Xyz/blob/master/bower.json).
+
+First thing run the command npm:
+
+```ssh
+npm install
+```
+
+When everything is installed you can run gulp:
+
+```ssh
+gulp
+```
+
+Task | Description
+---- | -----------
+bower | To load your bower dependencies
+css | To generate the sass and compile with the css files
+fonts | Copy the fonts the assets folder
+tinymce | Copy the skin of tinymce
+styles | Call css and after in asynchrone fonts and tinymce tasks
+scripts | Compile the javascript files 
+images | Cp[y and optimize the pictures
+clean | Remove the asset folder generated
+watch | Watcher to compile the css, javascript, sass, images when you change something
+patch | Generate a tag like x.x.1 and increment the version of your composer.json, bower.json, package.json 
+feature | Generate a tag like x.1.x and increment the version of your composer.json, bower.json, package.json 
+release | Generate a tag like 1.x.x and increment the version of your composer.json, bower.json, package.json 
+default | Start the tasks clean, bower and after styles, scripts, images in asynchrone. 
+
 
 ##Create a new backend module
-@todo
+
+1. Generate your migration.
+2. Generate your model.
+3. Generate you component.
+4. Add your controller in the routes file.
+
 
 ##Case studies
-@todo
+Try to create a blog post component. I use a fresh install of [Xyz](https://github.com/Distilleries/Xyz)
+
+1. Generate your migration.
+
+```ssh
+php artisan generate:migration create_posts_table --fields="libelle:string, content:text, status:t inyInteger"
+```
+
+
+```ssh
+php artisan migrate
+```
+
+
+2. Generate your model.
+
+```php
+<?php
+
+class Post extends \Distilleries\Expendable\Models\BaseModel {
+
+	use \Distilleries\Expendable\Models\StatusTrait;
+	
+	protected $fillable = [
+		'id',
+		'libelle',
+		'content',
+		'status',
+	];
+}
+```
+
+3. Generate you component.
+I use the backend generator `/admin/component/edit`.
+
+
+![studies](http://distilleri.es/markdown/expendable/_images/studies.png)
+
+
+
+Datatable:
+
+```php
+<?php namespace Xyz\Datatables;
+
+use Distilleries\DatatableBuilder\EloquentDatatable;
+
+class PostDatatable extends EloquentDatatable
+{
+    public function build()
+    {
+        $this
+            ->add('id',null,_('Id'))
+            ->add('libelle',null,_('Libelle'));
+
+        $this->addDefaultAction();
+
+    }
+}
+```
+
+Form:
+
+This file is generated:
+
+```php
+<?php namespace Xyz\Forms;
+
+use Distilleries\FormBuilder\FormValidator;
+
+class PostForm extends FormValidator
+{
+    public static $rules        = [];
+    public static $rules_update = null;
+
+    public function buildForm()
+    {
+        $this
+            ->add('id', 'hidden')
+            ->add('libelle', 'text')
+            ->add('content', 'tinymce')
+            ->add('status', 'choice');
+
+         $this->addDefaultActions();
+    }
+}
+```
+
+You have to update it for give a value for the choice and give the rules for the validation:
+
+```php
+<?php namespace Xyz\Forms;
+
+use Distilleries\Expendable\Helpers\StaticLabel;
+use Distilleries\FormBuilder\FormValidator;
+
+class PostForm extends FormValidator
+{
+    public static $rules = [
+        'libelle' => 'required',
+        'status'  => 'required|integer'
+    ];
+    public static $rules_update = null;
+
+    public function buildForm()
+    {
+        $this
+            ->add('id', 'hidden')
+            ->add('libelle', 'text',[
+                'validation'  => 'required',
+                'label'       => _('Title')
+            ])
+            ->add('content', 'tinymce')
+            ->add('status', 'choice', [
+                'choices'     => StaticLabel::status(),
+                'empty_value' => _('-'),
+                'validation'  => 'required',
+                'label'       => _('Status')
+            ]);
+
+
+        $this->addDefaultActions();
+    }
+}
+```
+
+Controller:
+
+```php
+<?php namespace Admin;
+
+use Distilleries\Expendable\Contracts\StateDisplayerContract;
+use Distilleries\Expendable\Controllers\AdminBaseComponent;
+
+
+class PostController extends AdminBaseComponent {
+
+    public function __construct(\Post $model, StateDisplayerContract $stateProvider, \Xyz\Datatables\PostDatatable $datatable, \Xyz\Forms\PostForm $form)
+    {
+        parent::__construct($model, $stateProvider);
+        $this->datatable = $datatable;
+        $this->form      = $form;
+    }
+
+
+
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+
+
+}
+```
+
+
+4. Add your controller in the routes file.
+I add ` Route::controller('post', 'Admin\PostController');` on the route file:
+
+```php
+    <?php
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Application Routes
+    |--------------------------------------------------------------------------
+    |
+    | Here is where you can register all of the routes for an application.
+    | It's a breeze. Simply tell Laravel the URIs it should respond to
+    | and give it the Closure to execute when that URI is requested.
+    |
+    */
+    
+    
+    Route::group(array('before' => 'admin.auth'), function ()
+    {
+    
+        Route::group(array('before' => 'auth.anthorized', 'prefix' => Config::get('expendable::admin_base_uri')), function ()
+        {
+            Route::controller('post', 'Admin\PostController');
+            Route::controller('country', 'Admin\CountryController');
+        });
+    });
+
+```
+
+
+5. Add to the menu
+If you are not generate the config do it right now:
+
+```ssh
+php artisan config:publish distilleries/expendable
+```
+
+On `app/config/packages/distilleries/expendable/config.php` id add the Post entry:
+
+```php
+        'menu'               => \Distilleries\Expendable\Config\MenuConfig::menu([
+            'left' => [
+                [
+                    'icon'    => 'pushpin',
+                    'action'  => 'Admin\PostController@getIndex',
+                    'libelle' => _('Post'),
+                    'submenu' => [
+                        [
+                            'icon'    => 'th-list',
+                            'libelle' => _('List of Post'),
+                            'action'  => 'Admin\PostController@getIndex',
+                        ],
+                        [
+                            'icon'    => 'pencil',
+                            'libelle' => _('Add Post'),
+                            'action'  => 'Admin\PostController@getEdit',
+                        ]
+                    ]
+                ],
+            ]
+        ], 'beginning'),
+```

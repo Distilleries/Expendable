@@ -13,5 +13,6 @@ interface FormStateContract {
 
     public function getEdit($id);
     public function postEdit();
+    public function getView($id);
 
 } 
