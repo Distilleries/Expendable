@@ -18,7 +18,6 @@
         "distilleries/mailersaver": "2.*",
         "distilleries/permission-util": "1.*",
         "xinax/laravel-gettext": "2.x",
-        "thomaswelton/laravel-gravatar": "0.1.*",
         "maatwebsite/excel": "2.0.*"
     },
     "autoload": {
