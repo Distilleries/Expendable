@@ -10,11 +10,6 @@ return [
     'listener'            => [
         '\Distilleries\Expendable\Listeners\UserListener'
     ],
-    'mail'                => [
-        "actions"  => [
-            'emails.auth.reminder'
-        ]
-    ],
     'menu'                => \Distilleries\Expendable\Config\MenuConfig::menu([], 'beginning'),
     'menu_left_collapsed' => false,
     'state'               => [

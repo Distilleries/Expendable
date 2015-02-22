@@ -25,7 +25,29 @@ class ExpendableServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('distilleries/expendable');
+		$this->loadViewsFrom(__DIR__ . '/../../views', 'mailersaver');
+
+		$this->publishes([
+			__DIR__ . '/../../config/config.php' => config_path('expendable.php'),
+		]);
+
+		$this->publishes([
+			__DIR__ . '/../../views' => base_path('resources/views/vendor/expendable'),
+		], 'views');
+
+		/*$this->publishes([
+			__DIR__ . '/../../models/Email.php' => base_path('app/Email.php'),
+		], 'models');*/
+
+
+		$this->publishes([
+			__DIR__ . '/../../database/migrations/' => base_path('/database/migrations')
+		], 'migrations');
+
+
+		$this->mergeConfigFrom(
+			__DIR__ . '/../../config/config.php', 'expendable'
+		);
 	}
 
 	/**
@@ -36,7 +58,7 @@ class ExpendableServiceProvider extends ServiceProvider {
 	public function register()
 	{
 
-		$this->app->singleton('Distilleries\MailerSaver\Contracts\MailModelContract', function ($app)
+	/*	$this->app->singleton('Distilleries\MailerSaver\Contracts\MailModelContract', function ($app)
 		{
 			return new \Email;
 		});
@@ -54,7 +76,7 @@ class ExpendableServiceProvider extends ServiceProvider {
 
 
 		include __DIR__.'/../../routes.php';
-		include __DIR__.'/../../filters.php';
+		include __DIR__.'/../../filters.php';*/
 	}
 
 	protected function registerImporters()
@@ -95,7 +117,8 @@ class ExpendableServiceProvider extends ServiceProvider {
 
 	protected function registerCommands()
 	{
-		$files = File::allFiles(__DIR__ . '/Console/');
+		$file = app('Illuminate\Contracts\Filesystem\Filesystem');
+		$files = $file->allFiles(__DIR__ . '/Console/');
 
 
 		foreach ($files as $file)

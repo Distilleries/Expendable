@@ -1,13 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: mfrancois
- * Date: 29/01/2015
- * Time: 1:53 PM
- */
-
-namespace Distilleries\Expendable\Models;
-
+<?php namespace Distilleries\Expendable\Models;
 
 use Distilleries\Expendable\Scopes\StatusScope;
 
@@ -42,8 +33,6 @@ trait StatusTrait {
     {
         $instance = new static;
 
-        $column = $instance->getQualifiedStatusColumn();
-
         return $instance->newQueryWithoutScope(new StatusScope);
     }
 
@@ -66,5 +55,4 @@ trait StatusTrait {
     {
         return defined('static::STATUS') ? static::STATUS : 'status';
     }
-
 } 

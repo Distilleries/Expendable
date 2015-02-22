@@ -1,11 +1,10 @@
-<?php
+<?php namespace Distilleries\Expendable\Models;
 
+use Illuminate\Database\Eloquent\Model;
+use \DB;
+use \Exception;
 
-namespace Distilleries\Expendable\Models;
-
-use \DB, \Exception;
-
-class BaseModel extends \Eloquent {
+class BaseModel extends Model {
 
     /**
      * @return string
@@ -97,5 +96,4 @@ class BaseModel extends \Eloquent {
     {
         return $query->whereBetween($this->getTable().'.updated_at', array($start, $end));
     }
-
-} 
+}

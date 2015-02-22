@@ -3,7 +3,10 @@
 
 namespace Distilleries\Expendable\States;
 
-use \View, \FormBuilder, \Input, \Redirect, \App;
+use \FormBuilder;
+use \Request;
+use \Redirect;
+use \App;
 
 trait ExportStateTrait {
 
@@ -18,10 +21,10 @@ trait ExportStateTrait {
             'model' => $this->model
         ]);
 
-        $form_content = View::make('expendable::admin.form.components.formgenerator.export', [
+        $form_content = view('expendable::admin.form.components.formgenerator.export', [
             'form' => $form
         ]);
-        $content      = View::make('expendable::admin.form.state.form', [
+        $content      = view('expendable::admin.form.state.form', [
 
         ]);
 
@@ -45,7 +48,7 @@ trait ExportStateTrait {
         }
 
 
-        $data = Input::all();
+        $data = Request::all();
 
         foreach ($data['range'] as $key => $date)
         {
@@ -56,7 +59,7 @@ trait ExportStateTrait {
 
         if (!$result->isEmpty())
         {
-            $exporter = App::make($data['type']);
+            $exporter = app($data['type']);
             $file     = $exporter->export($result->toArray(),$data['range']['start'].' '.$data['range']['end']);
 
             return $file;
