@@ -25,7 +25,7 @@
     },
     "autoload": {
         "classmap": [
-            "src/migrations"
+            "src/database/migrations"
         ],
         "psr-4": {
             "Distilleries\\Expendable\\": "src/Distilleries/Expendable"
