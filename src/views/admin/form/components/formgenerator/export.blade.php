@@ -4,7 +4,7 @@
             <div class="portlet box blue-hoki">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="glyphicon glyphicon-save-file"></i>{{_('Export')}}
+                        <i class="glyphicon glyphicon-save-file"></i>{!!_('Export')!!}
                     </div>
                     <div class="tools">
                         <a href="javascript:;" class="collapse"></a>
@@ -12,23 +12,23 @@
                 </div>
                 <div class="portlet-body form ">
                     <div class="form-horizontal form-bordered">
-                        {{ form_start($form) }}
+                        {!! form_start($form) !!}
                         <div class="form-actions top">
                             <div class="btn-set pull-right">
-                                {{ form_widget($form->back) }}
-                                {{ form_widget($form->submit) }}
+                                {!! form_widget($form->back) !!}
+                                {!! form_widget($form->submit) !!}
                             </div>
                         </div>
                         <div class="form-body">
-                            {{ form_rest($form) }}
+                            {!! form_rest($form) !!}
                         </div>
                         <div class="form-actions ">
                             <div class="btn-set pull-right">
-                                {{ form_widget($form->back) }}
-                                {{ form_widget($form->submit) }}
+                                {!! form_widget($form->back) !!}
+                                {!! form_widget($form->submit) !!}
                             </div>
                         </div>
-                        {{ form_end($form) }}
+                        {!! form_end($form) !!}
                     </div>
                 </div>
             </div>

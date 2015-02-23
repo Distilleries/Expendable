@@ -5,7 +5,7 @@
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
 			<a href="/">
-			    <img src="{{ asset('assets/admin/img/logo.jpg'); }}" alt="" class="logo-default" height="24" />
+			    <img src="{{ asset('assets/admin/img/logo.jpg') }}" alt="" class="logo-default" height="24" />
 			</a>
 			<div class="menu-toggler sidebar-toggler hide"></div>
 		</div>
@@ -16,12 +16,12 @@
 		<!-- BEGIN TOP NAVIGATION MENU -->
 		<div class="top-menu">
 			<ul class="nav navbar-nav pull-right">
-                <?php $languages = Language::all(); ?>
+                <?php $languages = \Distilleries\Expendable\Models\Language::all(); ?>
                 @if(!empty($languages))
                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                     <?php
-                    $iso = explode('_',L4gettext::getLocale());
+                    $iso = explode('_',LaravelGettext::getLocale());
                     $iso = isset($iso[1])?strtolower($iso[1]):strtolower($iso[0]);
                     ?>
                     <span class="flags-sprite flags-{{ $iso  }}"></span>
@@ -56,7 +56,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         @foreach($tasks as $task)
-                             @if(\Distilleries\Expendable\Helpers\UserUtils::hasAccess($task['action']))
+                             @if(PermissionUtil::hasAccess($task['action']))
                                 <li>
                                     <a href="{{action($task['action'])}}" target="_blank">
                                         <span class="details">
@@ -76,7 +76,7 @@
 
 				<li class="dropdown dropdown-user">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-					    <img alt="" class="img-circle" src="{{ Gravatar::src(\Distilleries\Expendable\Helpers\UserUtils::getEmail()) }}" />
+					    <img alt="" class="img-circle" src="{{ \forxer\Gravatar\Gravatar::image(\Distilleries\Expendable\Helpers\UserUtils::getEmail()) }}" />
 					    <span class="username username-hide-on-mobile">{{ \Distilleries\Expendable\Helpers\UserUtils::getDisplayName() }}</span>
 					    <i class="fa fa-angle-down"></i>
 					</a>

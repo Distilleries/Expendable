@@ -11,4 +11,12 @@ interface LayoutManagerContract {
     public function add(array $items);
 
     public function render();
+
+    public function getConfig();
+
+    public function getView();
+
+    public function getState();
+
+    public function getFilesystem();
 }

@@ -30,7 +30,7 @@ Route::group(array('before' => 'auth'), function ()
 {
     Route::group(array('before' => 'permission', 'prefix' => Config::get('expendable.admin_base_uri')), function ()
     {
-       /* Route::controller('user', 'Admin\UserController', [
+        Route::controller('user', 'Admin\UserController', [
             'getProfile' => 'user.profile'
         ]);
         Route::controller('email', 'Admin\EmailController');
@@ -38,7 +38,7 @@ Route::group(array('before' => 'auth'), function ()
         Route::controller('role', 'Admin\RoleController');
         Route::controller('service', 'Admin\ServiceController');
         Route::controller('permission', 'Admin\PermissionController');
-        Route::controller('language', 'Admin\LanguageController');*/
+        Route::controller('language', 'Admin\LanguageController');
     });
 });
 

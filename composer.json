@@ -18,6 +18,7 @@
         "distilleries/mailersaver": "2.*",
         "distilleries/permission-util": "1.*",
         "xinax/laravel-gettext": "2.x",
+        "forxer/Gravatar": "~1.2",
         "maatwebsite/excel": "2.0.*"
     },
     "require-dev": {

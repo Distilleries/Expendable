@@ -1,10 +1,8 @@
 <?php namespace Distilleries\Expendable\Datatables\Language;
 
+use Distilleries\Expendable\Datatables\BaseDatatable;
 
-
-use Distilleries\DatatableBuilder\EloquentDatatable;
-
-class LanguageDatatable extends EloquentDatatable {
+class LanguageDatatable extends BaseDatatable {
 
     public function build()
     {

@@ -75,7 +75,7 @@ class LoginController extends BaseController {
         {
             new UserEvent(UserEvent::LOGIN_EVENT, $this->auth->user());
 
-            $menu = config('expendable::menu');
+            $menu = config('expendable.menu');
 
             return redirect()->to($this->auth->user()->getFirstRedirect($menu['left']));
         } else
@@ -197,7 +197,7 @@ class LoginController extends BaseController {
                 return redirect()->back()->with('error', trans($response));
 
             case PasswordBroker::PASSWORD_RESET:
-                return redirect()->to(action(get_class($this).'@getIndex'));
+                return redirect()->to('\\'.action(get_class($this).'@getIndex'));
         }
 
     }

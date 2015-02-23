@@ -9,27 +9,27 @@ class UserUtils {
 
     public static function get()
     {
-        return Auth::administrator()->get();
+        return Auth::user();
     }
 
     public static function getEmail()
     {
-        return Auth::administrator()->get()->getReminderEmail();
+        return Auth::user()->getEmailForPasswordReset();
     }
 
     public static function getDisplayName()
     {
-        return Auth::administrator()->get()->getReminderEmail();
+        return Auth::user()->getEmailForPasswordReset();
     }
 
     public static function hasAccess($key)
     {
-        return Auth::administrator()->get()->hasAccess($key);
+        return Auth::user()->hasAccess($key);
     }
 
     public static function isNotSuperAdmin()
     {
-        return Auth::administrator()->get()->role->initials != '@sa';
+        return Auth::user()->role->initials != '@sa';
     }
 
 

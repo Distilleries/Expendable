@@ -1,9 +1,8 @@
 <?php namespace Distilleries\Expendable\Datatables\Service;
 
+use Distilleries\Expendable\Datatables\BaseDatatable;
 
-use Distilleries\DatatableBuilder\EloquentDatatable;
-
-class ServiceDatatable extends EloquentDatatable
+class ServiceDatatable extends BaseDatatable
 {
     public function build()
     {

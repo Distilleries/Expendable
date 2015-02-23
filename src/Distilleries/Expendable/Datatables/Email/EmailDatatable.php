@@ -1,13 +1,9 @@
-<?php
+<?php namespace Distilleries\Expendable\Datatables\Email;
 
-
-namespace Distilleries\Expendable\Datatables\Email;
-
-
-use Distilleries\DatatableBuilder\EloquentDatatable;
+use Distilleries\Expendable\Datatables\BaseDatatable;
 use Distilleries\Expendable\Helpers\StaticLabel;
 
-class EmailDatatable extends EloquentDatatable {
+class EmailDatatable extends BaseDatatable {
 
     public function build()
     {
@@ -25,4 +21,4 @@ class EmailDatatable extends EloquentDatatable {
         $this->add('bcc');
         $this->addDefaultAction();
     }
-} 
+}

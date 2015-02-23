@@ -14,7 +14,7 @@ return [
     'menu'                => \Distilleries\Expendable\Config\MenuConfig::menu([], 'beginning'),
     'menu_left_collapsed' => false,
     'state'               => [
-        'Distilleries\Expendable\Contracts\DatatableStateContract' => [
+        'Distilleries\DatatableBuilder\Contracts\DatatableStateContract' => [
             'color'            => 'bg-green-haze',
             'icon'             => 'th-list',
             'libelle'          => _('Datatable'),
@@ -38,7 +38,7 @@ return [
             'position'         => 2,
             'action'           => 'getImport'
         ],
-        'Distilleries\Expendable\Contracts\FormStateContract'      => [
+        'Distilleries\FormBuilder\Contracts\FormStateContract'      => [
             'color'            => 'bg-yellow',
             'icon'             => 'pencil',
             'libelle'          => _('Add'),

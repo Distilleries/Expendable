@@ -1,14 +1,10 @@
-<?php
+<?php namespace Distilleries\Expendable\Datatables\User;
 
-
-namespace Distilleries\Expendable\Datatables\User;
-
-
-use Distilleries\DatatableBuilder\EloquentDatatable;
+use Distilleries\Expendable\Datatables\BaseDatatable;
 use Distilleries\Expendable\Helpers\StaticLabel;
 use Distilleries\Expendable\Helpers\UserUtils;
 
-class UserDatatable extends EloquentDatatable {
+class UserDatatable extends BaseDatatable {
 
     public function build()
     {
@@ -42,5 +38,4 @@ class UserDatatable extends EloquentDatatable {
         ]);
 
     }
-
-} 
+}

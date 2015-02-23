@@ -6,7 +6,7 @@ class Service extends BaseModel {
 
     public function permissions()
     {
-        return $this->hasMany('Permission');
+        return $this->hasMany('Distilleries\Expendable\Models\Permission');
     }
 
     public function getByAction($action){

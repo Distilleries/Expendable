@@ -1,12 +1,7 @@
-<?php
-
-
-namespace Distilleries\Expendable\States;
+<?php namespace Distilleries\Expendable\States;
 
 use \FormBuilder;
-use \Request;
-use \Redirect;
-use \App;
+use Illuminate\Http\Request;
 
 trait ExportStateTrait {
 
@@ -28,13 +23,17 @@ trait ExportStateTrait {
 
         ]);
 
-        $this->addToLayout($form_content, 'form');
-        $this->addToLayout($content, 'content');
+        $this->layoutManager->add([
+            'form'=>$form_content,
+            'content'=>$content,
+        ]);
+
+        return $this->layoutManager->render();
     }
 
     // ------------------------------------------------------------------------------------------------
 
-    public function postExport()
+    public function postExport(Request $request)
     {
 
         $form = FormBuilder::create($this->export_form, [
@@ -48,7 +47,7 @@ trait ExportStateTrait {
         }
 
 
-        $data = Request::all();
+        $data = $request->all();
 
         foreach ($data['range'] as $key => $date)
         {
@@ -65,7 +64,7 @@ trait ExportStateTrait {
             return $file;
         }
 
-        return Redirect::to(action(get_class($this) . '@getExport'));
+        return redirect()->to(action('\\'.get_class($this) . '@getExport'));
 
     }
 } 

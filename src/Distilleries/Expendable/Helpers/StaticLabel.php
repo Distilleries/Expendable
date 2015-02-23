@@ -1,9 +1,4 @@
-<?php
-
-
-namespace Distilleries\Expendable\Helpers;
-
-use \Config, \Lang;
+<?php namespace Distilleries\Expendable\Helpers;
 
 class StaticLabel {
 
@@ -60,13 +55,13 @@ class StaticLabel {
 
     public static function mailActions($id = null)
     {
-        $config      = Config::get('expendable::mail');
+        $config      = app('config')->get('expendable.mail');
         $dataActions = $config['actions'];
         $dataResult  = [];
 
         foreach ($dataActions as $action)
         {
-            $dataResult[$action] = Lang::get('expendable::mail.' . $action);
+            $dataResult[$action] = trans('expendable::mail.'.$action);
         }
 
         return self::getLabel($dataResult, $id);
@@ -74,7 +69,7 @@ class StaticLabel {
 
     public static function states($id = null)
     {
-        $config      = Config::get('expendable::state');
+        $config      = app('config')->get('expendable.state');
         $dataActions = $config;
         $dataResult  = [];
 
@@ -96,4 +91,4 @@ class StaticLabel {
 
         return $items;
     }
-} 
+}

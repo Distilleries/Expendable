@@ -24,7 +24,6 @@ class ExpendableRouteServiceProvider extends ServiceProvider {
 	{
 		parent::boot($router);
 
-		//
 	}
 
 	/**

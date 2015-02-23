@@ -65,21 +65,9 @@ class ExpendableServiceProvider extends ServiceProvider {
         });
 
         $this->registerCommands();
+        $this->registerImporters();
+        $this->registerExporters();
 
-        /*	$this->app->singleton('Distilleries\MailerSaver\Contracts\MailModelContract', function ($app)
-            {
-                return new \Email;
-            });
-
-            $this->app->singleton('Distilleries\Expendable\Contracts\StateDisplayerContract', function ($app)
-            {
-                return new StateDisplayer($app['view'],$app['config']);
-            });
-
-
-            $this->registerImporters();
-            $this->registerExporters();
-            */
     }
 
     protected function registerImporters()

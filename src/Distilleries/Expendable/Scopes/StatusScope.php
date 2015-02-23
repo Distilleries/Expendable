@@ -6,6 +6,7 @@ namespace Distilleries\Expendable\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ScopeInterface;
+use Illuminate\Database\Eloquent\Model;
 use Distilleries\Expendable\Helpers\PermissionUtils;
 
 class StatusScope implements ScopeInterface {
@@ -13,13 +14,13 @@ class StatusScope implements ScopeInterface {
     /**
      * Apply the scope to a given Eloquent query builder.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder $builder
+     * @param  \Illuminate\Database\Eloquent\Builder  $builder
+     * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return void
      */
-    public function apply(Builder $builder)
+    public function apply(Builder $builder, Model $model)
     {
         if(!PermissionUtils::hasDisplayAllStatus()){
-            $model = $builder->getModel();
             $builder->where($model->getStatusColumn(),'=',true);
         }
 
@@ -31,7 +32,7 @@ class StatusScope implements ScopeInterface {
      * @param  \Illuminate\Database\Eloquent\Builder $builder
      * @return void
      */
-    public function remove(Builder $builder)
+    public function remove(Builder $builder, Model $model)
     {
 
     }

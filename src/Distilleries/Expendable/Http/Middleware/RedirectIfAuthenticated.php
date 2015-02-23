@@ -42,7 +42,6 @@ class RedirectIfAuthenticated {
 		if ($this->auth->check() && $this->router->current()->getActionName() != $this->config->get('expendable.logout_action'))
 		{
 			$menu = $this->config->get('expendable.menu');
-
 			return new RedirectResponse($this->auth->user()->getFirstRedirect($menu['left']));
 		}
 

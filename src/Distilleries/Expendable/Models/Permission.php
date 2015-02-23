@@ -1,8 +1,5 @@
 <?php namespace Distilleries\Expendable\Models;
 
-use Distilleries\Expendable\Models\Role;
-use Distilleries\Expendable\Models\Service;
-
 class Permission extends BaseModel {
 
     protected $fillable = [

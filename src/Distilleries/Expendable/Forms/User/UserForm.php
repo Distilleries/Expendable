@@ -1,6 +1,7 @@
 <?php namespace Distilleries\Expendable\Forms\User;
 
 use Distilleries\Expendable\Helpers\StaticLabel;
+use Distilleries\Expendable\Models\Role;
 use Distilleries\FormBuilder\FormValidator;
 
 class UserForm extends FormValidator {
@@ -65,7 +66,7 @@ class UserForm extends FormValidator {
                 'label'       => _('Status')
             ])
             ->add('role_id', 'choice', [
-                'choices'     => \Role::getChoice(),
+                'choices'     => Role::getChoice(),
                 'empty_value' => _('-'),
                 'validation'  => 'required',
                 'label'       => _('Role')
@@ -75,7 +76,7 @@ class UserForm extends FormValidator {
 
     protected function getUpdateRules()
     {
-        $key                           = \Input::get($this->model->getKeyName());
+        $key                           = \Request::get($this->model->getKeyName());
         static::$rules_update['email'] = 'required|email|unique:users,email,' . $key;
 
         return parent::getUpdateRules();

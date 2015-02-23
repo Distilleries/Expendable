@@ -9,12 +9,12 @@ class Role extends BaseModel {
 
     public function user()
     {
-        return $this->hasOne('User');
+        return $this->hasOne('Distilleries\Expendable\Models\User');
     }
 
     public function permissions()
     {
-        return $this->hasMany('Permission');
+        return $this->hasMany('Distilleries\Expendable\Models\Permission');
     }
 
     public function scopeClinic()

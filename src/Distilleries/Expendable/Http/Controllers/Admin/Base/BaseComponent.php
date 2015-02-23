@@ -1,20 +1,18 @@
-<?php
+<?php namespace Distilleries\Expendable\Http\Controllers\Admin\Base;
 
 
-namespace Distilleries\Expendable\Controllers;
-
-
-use Distilleries\Expendable\Contracts\DatatableStateContract;
+use Distilleries\DatatableBuilder\Contracts\DatatableStateContract;
 use Distilleries\Expendable\Contracts\ExportStateContract;
-use Distilleries\Expendable\Contracts\FormStateContract;
 use Distilleries\Expendable\Contracts\ImportStateContract;
 use Distilleries\Expendable\States\DatatableStateTrait;
 use Distilleries\Expendable\States\ExportStateTrait;
 use Distilleries\Expendable\States\FormStateTrait;
 use Distilleries\Expendable\States\ImportStateTrait;
-use \Input, \Redirect, \FormBuilder;
+use Distilleries\FormBuilder\Contracts\FormStateContract;
 
-class AdminBaseComponent extends AdminModelBaseController implements FormStateContract, DatatableStateContract, ExportStateContract, ImportStateContract {
+
+
+class BaseComponent extends ModelBaseController implements FormStateContract, DatatableStateContract, ExportStateContract, ImportStateContract {
 
     use FormStateTrait;
     use ExportStateTrait;
@@ -29,5 +27,4 @@ class AdminBaseComponent extends AdminModelBaseController implements FormStateCo
     {
         return $this->getIndexDatatable();
     }
-
-} 
+}

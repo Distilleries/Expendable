@@ -1,9 +1,7 @@
-<?php
-
-
-namespace Distilleries\Expendable\States;
+<?php namespace Distilleries\Expendable\States;
 
 use Distilleries\Expendable\Formatter\Message;
+use Illuminate\Http\Request;
 use \View, \FormBuilder, \Input, \Redirect, \Lang, \File, \App;
 
 trait ImportStateTrait {
@@ -20,20 +18,24 @@ trait ImportStateTrait {
             'model' => $this->model
         ]);
 
-        $form_content = View::make('expendable::admin.form.components.formgenerator.import', [
+        $form_content = view('expendable::admin.form.components.formgenerator.import', [
             'form' => $form
         ]);
-        $content      = View::make('expendable::admin.form.state.form', [
+        $content      = view('expendable::admin.form.state.form', [
 
         ]);
 
-        $this->addToLayout($form_content, 'form');
-        $this->addToLayout($content, 'content');
+        $this->layoutManager->add([
+        'form'=>$form_content,
+        'content'=>$content,
+        ]);
+
+        return $this->layoutManager->render();
     }
 
     // ------------------------------------------------------------------------------------------------
 
-    public function postImport()
+    public function postImport(Request $request)
     {
 
         $form = FormBuilder::create($this->import_form, [
@@ -47,16 +49,16 @@ trait ImportStateTrait {
         }
 
 
-        $file = Input::get('file');
+        $file = $request->get('file');
         $file = urldecode(app_path(preg_replace('/\/app\//', '', $file)));
 
-        if (!File::exists($file))
+        if (!app('files')->exists($file))
         {
-            return Redirect::back()->with(Message::WARNING, [Lang::get('expendable::errors.file_not_found')]);
+            return redirect()->back()->with(Message::WARNING, [trans('expendable::errors.file_not_found')]);
         }
 
-        $contract = ucfirst(File::extension($file)) . 'ImporterContract';
-        $exporter = App::make($contract);
+        $contract = ucfirst(app('files')->extension($file)) . 'ImporterContract';
+        $exporter = app($contract);
         $data     = $exporter->getArrayDataFromFile($file);
 
         foreach ($data as $item)
@@ -74,7 +76,7 @@ trait ImportStateTrait {
 
         }
 
-        return Redirect::back()->with(Message::MESSAGE, [Lang::get('expendable::success.imported')]);
+        return redirect()->back()->with(Message::MESSAGE, [trans('expendable::success.imported')]);
 
     }
 } 

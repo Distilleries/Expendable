@@ -1,9 +1,8 @@
 <?php namespace Distilleries\Expendable\Datatables\Role;
 
+use Distilleries\Expendable\Datatables\BaseDatatable;
 
-use Distilleries\DatatableBuilder\EloquentDatatable;
-
-class RoleDatatable extends EloquentDatatable
+class RoleDatatable extends BaseDatatable
 {
     public function build()
     {

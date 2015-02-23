@@ -56,7 +56,7 @@ class BaseController extends Controller {
 
 
             $layoutManager->add([
-                'state.menu' => $layoutManager->getStateProvider()->getRenderStateMenu(),
+                'state.menu' => $layoutManager->getState()->getRenderStateMenu(),
                 'menu_top'   => $menu_top,
                 'menu_left'  => $menu_left
             ]);

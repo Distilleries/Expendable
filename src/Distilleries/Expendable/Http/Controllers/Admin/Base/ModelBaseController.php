@@ -1,16 +1,13 @@
-<?php
+<?php namespace Distilleries\Expendable\Http\Controllers\Admin\Base;
 
-
-namespace Distilleries\Expendable\Controllers;
-
-use \Input, \Redirect, \Validator, \Response;
-use Distilleries\Expendable\Contracts\StateDisplayerContract;
+use Distilleries\Expendable\Contracts\LayoutManagerContract;
 use Distilleries\Expendable\Models\BaseModel;
+use Illuminate\Http\Request;
 
-class AdminModelBaseController extends AdminBaseController {
+class ModelBaseController extends BaseController {
 
     /**
-     * @var \Eloquant $model
+     * @var \Distilleries\Expendable\Models\BaseModel $model
      * Injected by the constructor
      */
     protected $model;
@@ -18,16 +15,16 @@ class AdminModelBaseController extends AdminBaseController {
 
     // ------------------------------------------------------------------------------------------------
 
-    public function __construct(BaseModel $model, StateDisplayerContract $stateProvider)
+    public function __construct(BaseModel $model, LayoutManagerContract $layoutManager)
     {
-        parent::__construct($stateProvider);
+        parent::__construct($layoutManager);
         $this->model = $model;
     }
 
     // ------------------------------------------------------------------------------------------------
 
     /**
-     * @return \Eloquant
+     * @return \Distilleries\Expendable\Models\BaseModel
      */
     public function getModel()
     {
@@ -37,7 +34,7 @@ class AdminModelBaseController extends AdminBaseController {
     // ------------------------------------------------------------------------------------------------
 
     /**
-     * @param \Eloquant $model
+     * @param \Distilleries\Expendable\Models\BaseModel $model
      */
     public function setModel($model)
     {
@@ -49,12 +46,12 @@ class AdminModelBaseController extends AdminBaseController {
     // ------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------
 
-    public function putDestroy()
+    public function putDestroy(Request $request)
     {
-        $data = $this->model->find(Input::get('id'));
+        $data = $this->model->find($request->get('id'));
         $data->delete();
 
-        $validation = Validator::make(Input::all(), [
+        $validation = $this->validate->make($request->all(), [
             'id' => 'required'
         ]);
         if ($validation->fails())
@@ -63,26 +60,26 @@ class AdminModelBaseController extends AdminBaseController {
         }
 
 
-        return Redirect::to(action(get_class($this) . '@getIndex'));
+        return redirect()->to(action('\\'.get_class($this) . '@getIndex'));
     }
 
     // ------------------------------------------------------------------------------------------------
-    public function postSearch()
+    public function postSearch(Request $request)
     {
 
-        $ids = Input::get('ids');
+        $ids = $request->get('ids');
 
 
         if (!empty($ids))
         {
             $data = $this->model->whereIn($this->model->getKeyName(), $ids)->get();
 
-            return Response::json($data);
+            return response()->json($data);
         }
 
-        $term  = Input::get('term');
-        $page  = Input::get('page');
-        $paged = Input::get('page_limit');
+        $term  = $request->get('term');
+        $page  = $request->get('page');
+        $paged = $request->get('page_limit');
 
         if (empty($paged))
         {
@@ -104,16 +101,10 @@ class AdminModelBaseController extends AdminBaseController {
 
         }
 
-        return Response::json([
+        return response()->json([
             'total'    => $total,
             'elements' => $elements
         ]);
 
     }
-
-
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-
-} 
+}

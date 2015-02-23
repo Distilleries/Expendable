@@ -1,17 +1,10 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: mfrancois
- * Date: 28/01/2015
- * Time: 11:26 AM
- */
+<?php namespace Distilleries\Expendable\Contracts;
 
-namespace Distilleries\Expendable\Contracts;
-
+use Illuminate\Http\Request;
 
 interface ImportStateContract {
 
     public function getImport();
-    public function postImport();
 
-} 
+    public function postImport(Request $request);
+}

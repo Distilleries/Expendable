@@ -6,7 +6,7 @@
 <div class="tiles pull-right">
     @foreach($states as $state)
 
-    @if(\Distilleries\Expendable\Helpers\UserUtils::hasAccess($action.$state['action']))
+    @if(PermissionUtil::hasAccess($action.$state['action']))
         <a href="{{ action($action.$state['action'])  }}" >
             <div class="tile {{ isset($state['color'])?$state['color']:'' }} {{$actionName ==$state['action']?'selected':'' }}">
                 @if($actionName ==$state['action'])

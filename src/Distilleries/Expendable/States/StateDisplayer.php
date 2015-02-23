@@ -57,7 +57,7 @@ class StateDisplayer implements StateDisplayerContract {
     {
         return $this->view->make($template, [
             'states' => $this->getTableState(),
-            'action' => $this->class.'@'
+            'action' => '\\'.$this->class.'@'
         ]);
     }
 
@@ -68,6 +68,7 @@ class StateDisplayer implements StateDisplayerContract {
     {
         $table  = [];
         $config = $this->config['state'];
+
         foreach ($this->states as $state)
         {
 
