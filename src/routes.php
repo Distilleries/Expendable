@@ -55,7 +55,6 @@ Route::group(array('before' => 'admin.auth'), function ()
 
 View::composer('expendable::admin.layout.default', function ($view)
 {
-    $user = Auth::administrator()->get();
     $view->with('title', '')
-        ->with('user', $user);
+        ->with('user', Auth::user());
 });

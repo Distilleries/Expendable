@@ -1,6 +1,7 @@
 <?php namespace Distilleries\Expendable\States;
 
 use Distilleries\Expendable\Contracts\StateDisplayerContract;
+use Illuminate\Contracts\View\Factory;
 
 class StateDisplayer implements StateDisplayerContract {
 
@@ -10,9 +11,9 @@ class StateDisplayer implements StateDisplayerContract {
     protected $view;
     public $config;
 
-    public function __construct($view, $config)
+    public function __construct(Factory $view, array $config)
     {
-        $this->view = $view;
+        $this->view   = $view;
         $this->config = $config;
     }
 
@@ -56,7 +57,7 @@ class StateDisplayer implements StateDisplayerContract {
     {
         return $this->view->make($template, [
             'states' => $this->getTableState(),
-            'action' => $this->class . '@'
+            'action' => $this->class.'@'
         ]);
     }
 
@@ -65,16 +66,19 @@ class StateDisplayer implements StateDisplayerContract {
 
     protected function getTableState()
     {
-        $table = [];
-        $config = $this->config->get('expendable::state');
-        foreach ($this->states as $state) {
+        $table  = [];
+        $config = $this->config['state'];
+        foreach ($this->states as $state)
+        {
 
-            if (in_array($state, array_keys($config))) {
+            if (in_array($state, array_keys($config)))
+            {
                 $table[] = $config[$state];
             }
         }
 
-        $table = array_sort($table, function ($value) {
+        $table = array_sort($table, function ($value)
+        {
             return $value['position'];
         });
 

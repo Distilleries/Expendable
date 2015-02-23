@@ -20,6 +20,9 @@
         "xinax/laravel-gettext": "2.x",
         "maatwebsite/excel": "2.0.*"
     },
+    "require-dev": {
+        "fzaninotto/faker": "1.4.*"
+    },
     "autoload": {
         "classmap": [
             "src/migrations"

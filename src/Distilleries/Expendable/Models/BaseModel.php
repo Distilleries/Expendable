@@ -6,13 +6,6 @@ use \Exception;
 
 class BaseModel extends Model {
 
-    /**
-     * @return string
-     */
-    public function getFillable()
-    {
-        return $this->fillable;
-    }
 
     public static function getChoice()
     {

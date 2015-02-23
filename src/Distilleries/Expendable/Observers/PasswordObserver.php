@@ -1,12 +1,9 @@
-<?php
+<?php namespace Distilleries\Expendable\Observers;
 
-
-namespace Distilleries\Expendable\Observers;
-
-use \Input, \Hash;
+use \Request;
+use \Hash;
 
 class PasswordObserver {
-
 
     public function creating($model)
     {
@@ -16,7 +13,7 @@ class PasswordObserver {
 
     public function updating($model)
     {
-        $newPassword = Input::get('password');
+        $newPassword = Request::get('password');
 
         if (empty($newPassword))
         {
@@ -39,5 +36,4 @@ class PasswordObserver {
         }
 
     }
-
-} 
+}

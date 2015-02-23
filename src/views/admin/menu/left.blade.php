@@ -1,5 +1,5 @@
 @section('menu_left')
-<?php $collapsed = Config::get('expendable::menu_left_collapsed'); ?>
+<?php $collapsed = Config::get('expendable.menu_left_collapsed'); ?>
 <div class="page-sidebar-wrapper">
 		<div class="page-sidebar navbar-collapse collapsee collapse">
 			<ul class="page-sidebar-menu {{$collapsed?'page-sidebar-menu-closed':''}} "
@@ -10,7 +10,7 @@
 					<div class="sidebar-toggler"></div>
 				</li>
 
-				<?php $items = Config::get('expendable::menu.left'); ?>
+				<?php $items = Config::get('expendable.menu.left'); ?>
 				@foreach($items as $key=>$item)
 
                     <?php $action = isset($item['action'])?preg_replace('/index/i','',action($item['action'])):''; ?>

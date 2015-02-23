@@ -12,7 +12,7 @@
 
 <!-- BEGIN BODY -->
 
-<?php $collapsed = Config::get('expendable::menu_left_collapsed'); ?>
+<?php $collapsed = Config::get('expendable.menu_left_collapsed'); ?>
 <body class="{{ !empty($class_layout)?$class_layout:'page-quick-sidebar-over-content '.($collapsed?'page-sidebar-closed':'') }}">
 
    @yield('menu_top')
