@@ -3,6 +3,7 @@
 use Distilleries\Expendable\Datatables\BaseDatatable;
 use Distilleries\Expendable\Helpers\StaticLabel;
 use Distilleries\Expendable\Helpers\UserUtils;
+use Distilleries\Expendable\Models\Role;
 
 class UserDatatable extends BaseDatatable {
 
@@ -18,7 +19,7 @@ class UserDatatable extends BaseDatatable {
         parent::applyFilters();
         if (UserUtils::isNotSuperAdmin())
         {
-            $super_admin = \Role::where('initials', '=', '@sa')->get()->last();
+            $super_admin = Role::where('initials', '=', '@sa')->get()->last();
 
             if (!empty($super_admin))
             {

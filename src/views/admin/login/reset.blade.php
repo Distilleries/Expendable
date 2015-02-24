@@ -3,7 +3,6 @@
         <h3 class="form-title">{!! _('Reset your password ?') !!}</h3>
         @include('expendable::admin.form.partial.errors')
          {!! form_widget($form->token) !!}
-         {!! form_widget($form->account) !!}
          <div class="form-group">
              <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
              {!! form_label($form->email,['class'=>'control-label visible-ie8 visible-ie9']) !!}

@@ -1,10 +1,6 @@
-<?php
+<?php namespace Distilleries\Expendable\Listeners;
 
-
-namespace Distilleries\Expendable\Listeners;
-
-
-use Distilleries\Expendable\Helpers\PermissionUtils;
+use Distilleries\Expendable\Helpers\UserUtils;
 
 class UserListener extends BaseListener {
 
@@ -38,16 +34,16 @@ class UserListener extends BaseListener {
             $areaServices[] = $permission->service->action;
         }
 
-        PermissionUtils::setArea($areaServices);
-        PermissionUtils::setIsLoggedIn();
-        PermissionUtils::setDisplayAllStatus();
+        UserUtils::setArea($areaServices);
+        UserUtils::setIsLoggedIn();
+        UserUtils::setDisplayAllStatus();
 
     }
 
-    public function handleLogOut($model)
+    public function handleLogOut()
     {
-        PermissionUtils::forgotArea();
-        PermissionUtils::forgotIsLoggedIn();
-        PermissionUtils::forgotDisplayAllStatus();
+        UserUtils::forgotArea();
+        UserUtils::forgotIsLoggedIn();
+        UserUtils::forgotDisplayAllStatus();
     }
-} 
+}

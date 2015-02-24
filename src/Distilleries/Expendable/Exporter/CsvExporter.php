@@ -1,13 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: mfrancois
- * Date: 6/02/2015
- * Time: 4:37 PM
- */
-
-namespace Distilleries\Expendable\Exporter;
-
+<?php namespace Distilleries\Expendable\Exporter;
 
 use Distilleries\Expendable\Contracts\CsvExporterContract;
 

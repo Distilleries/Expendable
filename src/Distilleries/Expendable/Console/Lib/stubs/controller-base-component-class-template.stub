@@ -1,23 +1,21 @@
 <?php namespace {{namespace}};
 
-use Distilleries\Expendable\Contracts\StateDisplayerContract;
-use Distilleries\Expendable\Controllers\AdminBaseComponent;
+use Distilleries\Expendable\Contracts\LayoutManagerContract;
+use Distilleries\Expendable\Http\Controllers\Admin\Base\BaseComponent;
+use {{app}}Forms\{{form}};
+use {{app}}Datatables\{{datatable}};
 
+class {{class}} extends BaseComponent {
 
-class {{class}} extends AdminBaseComponent {
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
 
-    public function __construct({{model}} $model, StateDisplayerContract $stateProvider, {{datatable}} $datatable, {{form}} $form)
+    public function __construct({{datatable}} $datatable, {{form}} $form, {{model}} $model, LayoutManagerContract $layoutManager)
     {
-        parent::__construct($model, $stateProvider);
-        $this->datatable = $datatable;
-        $this->form      = $form;
+       parent::__construct($model, $layoutManager);
+       
+       $this->datatable = $datatable;
+       $this->form      = $form;
     }
-
-
-
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-
-
 }

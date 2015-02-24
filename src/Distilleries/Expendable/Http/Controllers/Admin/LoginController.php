@@ -129,23 +129,22 @@ class LoginController extends BaseController {
             case PasswordBroker::INVALID_USER:
                 return redirect()->back()->with(Message::WARNING, [trans($response)]);
 
-            case PasswordBroker::REMINDER_SENT:
+            default:
                 return redirect()->back()->with(Message::MESSAGE, [trans($response)]);
         }
 
     }
 
 
-    public function getReset($account = null, $token = null)
+    public function getReset($token = null)
     {
-        if (is_null($token) or is_null($account)) abort(404);
+        if (is_null($token)) abort(404);
 
 
         $form = FormBuilder::create('Distilleries\Expendable\Forms\Login\Reset', [
             'class' => 'login-form'
         ], [
-            'token'   => $token,
-            'account' => $account
+            'token'   => $token
         ]);
 
         $content = view('expendable::admin.login.reset', [
@@ -197,7 +196,7 @@ class LoginController extends BaseController {
                 return redirect()->back()->with('error', trans($response));
 
             case PasswordBroker::PASSWORD_RESET:
-                return redirect()->to('\\'.action(get_class($this).'@getIndex'));
+                return redirect()->to(action('\\'.get_class($this).'@getIndex'));
         }
 
     }

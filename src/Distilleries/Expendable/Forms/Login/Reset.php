@@ -20,9 +20,6 @@ class Reset extends FormValidator {
             ->add('token', 'hidden', [
                 'default_value' => $this->getData('token')
             ])
-            ->add('account', 'hidden', [
-                'default_value' => $this->getData('account')
-            ])
             ->add('email', 'email',
                 [
                     'label'      => _('Email'),

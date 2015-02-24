@@ -18,7 +18,7 @@
                     $controller = preg_split("/@/",Route::current()->getActionName());
                     $controller = is_array($controller)?$controller[0]:$controller;
                     ?>
-                    @if(\Distilleries\Expendable\Helpers\UserUtils::hasAccess($item['action']))
+                    @if(PermissionUtil::hasAccess($item['action']))
 				    <li class="{{ ($key == 0)?'start':''}} {{ ($key == count($items)-1)?'last':''}} {{ isset($item['action'])?(strpos($item['action'],$controller) !== false ? 'active' : ''):'' }}">
 				        <a href="{{ (!empty($item['action']))?$action:'javascript;'  }}">
                             @if($item['icon'])
@@ -35,7 +35,7 @@
                         @if(!empty($item['submenu']))
                         <ul class="sub-menu">
                             @foreach($item['submenu'] as $subItem)
-                                @if(\Distilleries\Expendable\Helpers\UserUtils::hasAccess($subItem['action']))
+                                @if(PermissionUtil::hasAccess($subItem['action']))
                                     <li class="{{ ( isset($subItem['action']) and Route::current()->getActionName() == $subItem['action'])?'active':'' }}">
                                         <a href="{{ (!empty($subItem['action']))?action($subItem['action']):'javascript;'   }}">
                                         @if($item['icon'])

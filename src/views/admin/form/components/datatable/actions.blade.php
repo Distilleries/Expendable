@@ -1,10 +1,10 @@
-@if(\Distilleries\Expendable\Helpers\UserUtils::hasAccess($route.'getView'))
+@if(PermissionUtil::hasAccess($route.'getView'))
     <a href="{{ action($route.'getView',$data['id']) }}" class="btn btn-sm blue filter-submit margin-bottom"><i class="glyphicon glyphicon-edit"></i> {{_('View')}}</a>
 @endif
-@if(\Distilleries\Expendable\Helpers\UserUtils::hasAccess($route.'getEdit'))
+@if(PermissionUtil::hasAccess($route.'getEdit'))
     <a href="{{ action($route.'getEdit',$data['id']) }}" class="btn btn-sm yellow filter-submit margin-bottom"><i class="glyphicon glyphicon-edit"></i> {{_('Edit')}}</a>
 @endif
-@if(\Distilleries\Expendable\Helpers\UserUtils::hasAccess($route.'putDestroy'))
+@if(PermissionUtil::hasAccess($route.'putDestroy'))
         {!! Form::open([
         'url' => action($route.'putDestroy'),
         'method' => 'put',

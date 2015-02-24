@@ -1,11 +1,13 @@
 <?php namespace Distilleries\Expendable\Models;
 
+use Distilleries\Expendable\Helpers\UserUtils;
+use Distilleries\PermissionUtil\Contracts\PermissionUtilContract;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract {
+class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract, PermissionUtilContract {
 
     use Authenticatable, CanResetPassword, \Distilleries\Expendable\Models\StatusTrait;
 
@@ -45,10 +47,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
             return true;
         }
 
-        //@todo
-        return true;
-       // return \Distilleries\Expendable\Helpers\PermissionUtils::haveAccess($key);
-
+        return UserUtils::hasAccess($key);
     }
 
     public function getFirstRedirect($left)

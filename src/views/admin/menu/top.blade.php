@@ -18,7 +18,7 @@
 			<ul class="nav navbar-nav pull-right">
                 <?php $languages = \Distilleries\Expendable\Models\Language::all(); ?>
                 @if(!empty($languages))
-                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                <li class="dropdown dropdown-extended dropdown-notification">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                     <?php
                     $iso = explode('_',LaravelGettext::getLocale());
@@ -34,7 +34,7 @@
                                 $iso = isset($iso[1])?strtolower($iso[1]):strtolower($iso[0]);
                                 ?>
                                 <li>
-                                    <a href="/set-locale/{{$language['iso']}}">
+                                    <a href="{{ config('expendable.admin_base_uri') }}/set-lang/{{$language['iso']}}">
                                         <span class="details">
                                             <span class="flags-sprite flags-{{ $iso }}"></span>
                                             {{ $language['libelle'] }}

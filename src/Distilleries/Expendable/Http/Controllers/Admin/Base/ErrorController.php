@@ -2,7 +2,7 @@
 
 use \Exception;
 
-class AdminErrorController extends BaseController {
+class ErrorController extends BaseController {
 
 
     protected $layout = 'expendable::admin.layout.error';

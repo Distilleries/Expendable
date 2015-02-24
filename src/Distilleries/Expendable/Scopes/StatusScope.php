@@ -4,10 +4,11 @@
 namespace Distilleries\Expendable\Scopes;
 
 
+use Distilleries\Expendable\Helpers\UserUtils;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ScopeInterface;
 use Illuminate\Database\Eloquent\Model;
-use Distilleries\Expendable\Helpers\PermissionUtils;
+
 
 class StatusScope implements ScopeInterface {
 
@@ -20,7 +21,7 @@ class StatusScope implements ScopeInterface {
      */
     public function apply(Builder $builder, Model $model)
     {
-        if(!PermissionUtils::hasDisplayAllStatus()){
+        if(!UserUtils::hasDisplayAllStatus()){
             $builder->where($model->getStatusColumn(),'=',true);
         }
 

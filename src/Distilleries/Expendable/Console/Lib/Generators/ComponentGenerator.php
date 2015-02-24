@@ -1,6 +1,6 @@
 <?php  namespace Distilleries\Expendable\Console\Lib\Generators;
 
-class ComponentGenerator extends Generator {
+class ComponentGenerator extends \Kris\LaravelFormBuilder\Console\FormGenerator {
 
 
     public function getClassModel($model)
@@ -36,19 +36,5 @@ class ComponentGenerator extends Generator {
 
     }
 
-    /**
-     * @param string $name
-     * @return object
-     */
-    public function getClassInfo($name)
-    {
-        $fullNamespacedPath = explode('/', $name);
-        array_shift($fullNamespacedPath);
-        $className = array_pop($fullNamespacedPath);
 
-        return (object) [
-            'namespace' => trim(preg_replace('/controllers/', '', join('\\', $fullNamespacedPath)), '\\'),
-            'className' => $className
-        ];
-    }
 }

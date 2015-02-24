@@ -1,15 +1,20 @@
 <?php
 
 return [
-    'login_uri'           => 'admin/login',
-    'logout_action'       => 'Distilleries\Expendable\Http\Controllers\Admin\LoginController@getLogout',
-    'admin_base_uri'      => 'admin',
-    'config_file_assets'  => base_path().'/package.json',
-    'folder_whitelist'    => [
+    'login_uri'          => 'admin/login',
+    'logout_action'      => 'Distilleries\Expendable\Http\Controllers\Admin\LoginController@getLogout',
+    'admin_base_uri'     => 'admin',
+    'config_file_assets' => base_path().'/package.json',
+    'folder_whitelist'   => [
         'moximanager'
     ],
-    'listener'            => [
+    'listener'           => [
         '\Distilleries\Expendable\Listeners\UserListener'
+    ],
+    'mail'               => [
+        'actions' => [
+            'emails.password'
+        ]
     ],
     'menu'                => \Distilleries\Expendable\Config\MenuConfig::menu([], 'beginning'),
     'menu_left_collapsed' => false,
@@ -22,7 +27,7 @@ return [
             'position'         => 0,
             'action'           => 'getIndex'
         ],
-        'Distilleries\Expendable\Contracts\ExportStateContract'    => [
+        'Distilleries\Expendable\Contracts\ExportStateContract'          => [
             'color'            => 'bg-blue-hoki',
             'icon'             => 'save-file',
             'libelle'          => _('Export'),
@@ -30,7 +35,7 @@ return [
             'position'         => 1,
             'action'           => 'getExport'
         ],
-        'Distilleries\Expendable\Contracts\ImportStateContract'    => [
+        'Distilleries\Expendable\Contracts\ImportStateContract'          => [
             'color'            => 'bg-red-sunglo',
             'icon'             => 'open-file',
             'libelle'          => _('Import'),
@@ -38,7 +43,7 @@ return [
             'position'         => 2,
             'action'           => 'getImport'
         ],
-        'Distilleries\FormBuilder\Contracts\FormStateContract'      => [
+        'Distilleries\FormBuilder\Contracts\FormStateContract'           => [
             'color'            => 'bg-yellow',
             'icon'             => 'pencil',
             'libelle'          => _('Add'),

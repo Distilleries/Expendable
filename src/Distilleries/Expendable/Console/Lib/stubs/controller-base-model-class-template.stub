@@ -1,16 +1,20 @@
 <?php namespace {{namespace}};
 
-use Distilleries\Expendable\Controllers\AdminModelBaseController;
+use Distilleries\Expendable\Contracts\LayoutManagerContract;
+use Distilleries\Expendable\Http\Controllers\Admin\Base\ModelBaseController;
 
+class {{class}} extends ModelBaseController {{implement}} {
 
-class {{class}} extends AdminModelBaseController {{implement}} {
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
 
     {{trait}}
 
+     // ------------------------------------------------------------------------------------------------
 
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-
-
+    public function __construct({{model}} $model, LayoutManagerContract $layoutManager)
+    {
+        parent::__construct($model, $layoutManager);
+    }
 }

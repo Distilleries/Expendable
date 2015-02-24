@@ -6,10 +6,7 @@ use Distilleries\Expendable\Http\Controllers\Controller;
 
 class BaseController extends Controller {
 
-    /**
-     * @var Eloquant $model
-     * Injected by the constructor
-     */
+
     protected $layoutManager;
     protected $layout = 'expendable::admin.layout.default';
 

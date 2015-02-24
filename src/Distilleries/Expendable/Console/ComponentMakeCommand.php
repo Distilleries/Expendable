@@ -1,12 +1,11 @@
 <?php namespace Distilleries\Expendable\Console;
 
-use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Distilleries\Expendable\Console\Lib\Generators\ComponentGenerator;
 
-class ComponentMakeCommand extends Command {
+class ComponentMakeCommand extends \Illuminate\Console\GeneratorCommand {
 
     /**
      * The console command name.
@@ -20,7 +19,6 @@ class ComponentMakeCommand extends Command {
      *
      * @var \Illuminate\Filesystem\Filesystem
      */
-    protected $files;
     protected $states;
     protected $model;
     protected $form;
@@ -35,40 +33,20 @@ class ComponentMakeCommand extends Command {
     protected $description = 'Creates a controller for a backend component builder class.';
 
     /**
-     * @var FormGenerator
+     * @var ComponentGenerator
      */
     protected $formGenerator;
 
     public function __construct(Filesystem $files, ComponentGenerator $formGenerator)
     {
-        parent::__construct();
-
-        $this->files         = $files;
+        parent::__construct($files);
         $this->formGenerator = $formGenerator;
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
     public function fire()
     {
-        $path = $this->getNameInput();
         $this->initOptions();
-
-        if ($this->files->exists($path))
-        {
-            return $this->error('Component already exists!');
-        }
-
-
-        $this->makeDirectory($path);
-
-        $this->files->put($path . '.php', $this->buildClass($path));
-
-        $this->info('Component created successfully.');
-        $this->call('dump-autoload');
+        parent::fire();
     }
 
     /**
@@ -130,6 +108,7 @@ class ComponentMakeCommand extends Command {
     protected function initOptions()
     {
         $states = $this->option('states');
+
         if (!empty($states))
         {
             $this->states = explode(',', $states);
@@ -149,6 +128,7 @@ class ComponentMakeCommand extends Command {
         if (empty($this->template))
         {
             $defaultComponent = 0;
+
             foreach ($this->states as $state)
             {
                 if (strpos($state, 'DatatableStateContract') !== false or (strpos($state, 'FormStateContract') !== false))
@@ -212,6 +192,13 @@ class ComponentMakeCommand extends Command {
             $stub
         );
 
+
+        $stub = str_replace(
+            '{{app}}',
+            $this->getAppNamespace(),
+            $stub
+        );
+
         $stub = str_replace(
             '{{implement}}',
             $formGenerator->getImplementation($this->states),
@@ -252,7 +239,7 @@ class ComponentMakeCommand extends Command {
      */
     protected function getNameInput()
     {
-        return $this->argument('name');
+        return str_replace('/', '\\', $this->argument('name'));
     }
 
     /**
@@ -262,6 +249,6 @@ class ComponentMakeCommand extends Command {
      */
     protected function getStub()
     {
-        return __DIR__ . '/Lib/stubs/' . $this->getTemplate() . '.stub';
+        return __DIR__.'/Lib/stubs/'.$this->getTemplate().'.stub';
     }
 }

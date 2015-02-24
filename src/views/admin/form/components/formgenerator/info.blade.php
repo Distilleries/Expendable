@@ -14,7 +14,7 @@
                 <div class="form-actions top">
                     <div class="btn-set pull-right">
                        {{ form_widget($form->back) }}
-                       @if(\Distilleries\Expendable\Helpers\UserUtils::hasAccess($route.'getEdit'))
+                       @if(PermissionUtil::hasAccess($route.'getEdit'))
                            <a href="{{ action($route.'getEdit',$id) }}" class="btn btn-sm yellow filter-submit margin-bottom"><i class="glyphicon glyphicon-edit"></i> {{_('Edit')}}</a>
                        @endif
                     </div>
@@ -25,7 +25,7 @@
                 <div class="form-actions ">
                     <div class="btn-set pull-right">
                        {{ form_widget($form->back) }}
-                       @if(\Distilleries\Expendable\Helpers\UserUtils::hasAccess($route.'getEdit'))
+                       @if(PermissionUtil::hasAccess($route.'getEdit'))
                           <a href="{{ action($route.'getEdit',$id) }}" class="btn btn-sm yellow filter-submit margin-bottom"><i class="glyphicon glyphicon-edit"></i> {{_('Edit')}}</a>
                       @endif
                     </div>

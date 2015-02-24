@@ -5,6 +5,7 @@ use Distilleries\Expendable\Datatables\Language\LanguageDatatable;
 use Distilleries\Expendable\Forms\Language\LanguageForm;
 use Distilleries\Expendable\Http\Controllers\Admin\Base\BaseComponent;
 use Distilleries\Expendable\Models\Language;
+use \LaravelGettext;
 
 class LanguageController extends BaseComponent{
 
@@ -13,5 +14,14 @@ class LanguageController extends BaseComponent{
         parent::__construct($model, $layoutManager);
         $this->datatable = $datatable;
         $this->form      = $form;
+    }
+
+
+    public function getChangeLang($locale = null)
+    {
+
+        LaravelGettext::setLocale($locale);
+
+        return redirect()->to(url()->previous());
     }
 }

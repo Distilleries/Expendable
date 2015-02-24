@@ -1,21 +1,23 @@
 <?php namespace Distilleries\Expendable\Http\Controllers\Admin;
 
-
 use Distilleries\Expendable\Contracts\LayoutManagerContract;
 use Distilleries\Expendable\Formatter\Message;
 use Distilleries\Expendable\Forms\Component\ComponentForm;
 use Distilleries\Expendable\Http\Controllers\Admin\Base\BaseController;
 use Distilleries\FormBuilder\Contracts\FormStateContract;
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Http\Request;
-use \Artisan;
+use \FormBuilder;
 
 class ComponentController extends BaseController implements FormStateContract {
 
+    protected $artisan;
 
-    public function __construct(LayoutManagerContract $layoutManager, ComponentForm $form)
+    public function __construct(Kernel $artisan, ComponentForm $form, LayoutManagerContract $layoutManager)
     {
         parent::__construct($layoutManager);
-        $this->form = $form;
+        $this->form    = $form;
+        $this->artisan = $artisan;
     }
 
 
@@ -40,7 +42,7 @@ class ComponentController extends BaseController implements FormStateContract {
         $form = FormBuilder::create(get_class($this->form));
 
 
-        $form_content = view('expendable::admin.form.components.formgenerator.full', [
+        $form_content = view('form-builder::form.components.formgenerator.full', [
             'form' => $form
         ]);
         $content      = view('expendable::admin.form.state.form', [
@@ -73,36 +75,31 @@ class ComponentController extends BaseController implements FormStateContract {
         $libelle_controller = $libelle.'Controller';
         $model              = $request->get('models');
         $states             = $request->get('state');
-        $namespace          = '\\'.$request->get('source_path').'\\';
-        $source_path        = $request->get('source_path');
-        $source_path        = app_path().'/'.(!empty($source_path) ? $namespace.'/' : '');
-
 
         foreach ($states as $state)
         {
             if (strpos($state, 'DatatableStateContract') !== false)
             {
-                Artisan::call('expendable:datatable.make', [
+                $this->artisan->call('datatable:make', [
                     '--fields' => $request->get('colon_datatable'),
-                    'name'     => $source_path.'Datatables/'.$libelle_datatable
+                    'name'     => 'Datatables/'.$libelle_datatable
                 ]);
             } else if (strpos($state, 'FormStateContract') !== false)
             {
 
-                Artisan::call('expendable:form.make', [
+                $this->artisan->call('form:make', [
                     '--fields' => $request->get('fields_form'),
-                    'name'     => $source_path.'Forms/'.$libelle_form
+                    'name'     => 'Forms/'.$libelle_form
                 ]);
             }
         }
 
-
-        Artisan::call('expendable:component.make', [
+        $this->artisan->call('expendable:component.make', [
             '--states'    => join(',', $states),
             '--model'     => $model,
-            '--datatable' => $namespace.'Datatables\\'.$libelle_datatable,
-            '--form'      => $namespace.'Forms\\'.$libelle_form,
-            'name'        => app_path().'/controllers/Admin/'.$libelle_controller
+            '--datatable' => $libelle_datatable,
+            '--form'      => $libelle_form,
+            'name'        => 'Http/Controllers/Admin/'.$libelle_controller
         ]);
 
         return redirect()->back()->with(Message::MESSAGE, [trans('expendable::success.generated')]);

@@ -1,11 +1,11 @@
 <?php
 
 use \Route;
-use \Config;
 use \View;
 use \Auth;
 
 Route::get('app/storage/{path}', 'Front\AssetController@getIndex')->where('path', '([A-z\d-\/_.\s]+)?');
+
 Route::group(array(
     'prefix' => 'admin',
     'middleware' => 'guest'
@@ -22,13 +22,13 @@ Route::group(array(
         'getLogout' => 'login.logout',
         'getReset'  => 'login.reset',
     ]);
-
+    Route::get('set-lang/{locale?}', 'Admin\LanguageController@getChangeLang');
 
 });
 
-Route::group(array('before' => 'auth'), function ()
+Route::group(array('middleware' => 'auth'), function ()
 {
-    Route::group(array('before' => 'permission', 'prefix' => Config::get('expendable.admin_base_uri')), function ()
+    Route::group(array('middleware' => 'permission', 'prefix' => config('expendable.admin_base_uri')), function ()
     {
         Route::controller('user', 'Admin\UserController', [
             'getProfile' => 'user.profile'
