@@ -8,87 +8,87 @@
                $.validationEngineLanguage.allRules = {
                    "required": { // Add your regex rules here, you can take telephone as an example
                        "regex": "none",
-                       "alertText": "{{ _("* This field is required") }}",
-                       "alertTextCheckboxMultiple": "{{ _("* Please select an option") }}",
-                       "alertTextCheckboxe": "{{ _("* This checkbox is required") }}",
-                       "alertTextDateRange": "{{ _("* Both date range fields are required") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.required.alertText') }}",
+                       "alertTextCheckboxMultiple": "{{ trans('expendable::validation.validation-engine.required.alertTextCheckboxMultiple') }}",
+                       "alertTextCheckboxe": "{{ trans('expendable::validation.validation-engine.required.alertTextCheckboxe') }}",
+                       "alertTextDateRange": "{{ trans('expendable::validation.validation-engine.required.alertTextDateRange')  }}"
                     },
                    "dateRange": {
                        "regex": "none",
-                       "alertText": "{{ _("* Invalid ") }}",
-                       "alertText2": "{{ _("Date Range") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.dateRange.alertText') }}",
+                       "alertText2": "{{ trans('expendable::validation.validation-engine.dateRange.alertText2') }}"
                    },
                    "dateTimeRange": {
                        "regex": "none",
-                       "alertText": "{{ _("* Invalid ") }}",
-                       "alertText2": "{{ _("Date Time Range") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.dateTimeRange.alertText') }}",
+                       "alertText2": "{{ trans('expendable::validation.validation-engine.dateTimeRange.alertText2') }}"
                    },
                    "minSize": {
                        "regex": "none",
-                       "alertText": "{{ _("* Minimum ") }}",
-                       "alertText2": "{{ _(" characters required") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.minSize.alertText') }}",
+                       "alertText2": "{{ trans('expendable::validation.validation-engine.minSize.alertText2') }}"
                    },
                    "maxSize": {
                        "regex": "none",
-                       "alertText": "{{ _("* Maximum ") }}",
-                       "alertText2": "{{ _(" characters allowed") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.maxSize.alertText') }}",
+                       "alertText2": "{{ trans('expendable::validation.validation-engine.maxSize.alertText2') }}"
                    },
    				"groupRequired": {
                        "regex": "none",
-                       "alertText": "{{ _("* You must fill one of the following fields") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.alertText') }}"
                    },
                    "min": {
                        "regex": "none",
-                       "alertText": "{{ _("* Minimum value is ") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.min.alertText') }}"
                    },
                    "max": {
                        "regex": "none",
-                       "alertText": "{{ _("* Maximum value is ") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.max.alertText') }}"
                    },
                    "past": {
                        "regex": "none",
-                       "alertText": "{{ _("* Date prior to ") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.past.alertText') }}"
                    },
                    "future": {
                        "regex": "none",
-                       "alertText": "{{ _("* Date past ") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.future.alertText') }}"
                    },
                    "maxCheckbox": {
                        "regex": "none",
-                       "alertText": "{{ _("* Maximum ") }}",
-                       "alertText2": "{{ _(" options allowed") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.maxCheckbox.alertText') }}",
+                       "alertText2": "{{ trans('expendable::validation.validation-engine.groupRequired.maxCheckbox.alertText2') }}"
                    },
                    "minCheckbox": {
                        "regex": "none",
-                       "alertText": "{{ _("* Please select ") }}",
-                       "alertText2": "{{ _(" options") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.minCheckbox.alertText') }}",
+                       "alertText2": "{{ trans('expendable::validation.validation-engine.groupRequired.minCheckbox.alertText2') }}"
                    },
                    "equals": {
                        "regex": "none",
-                       "alertText": "{{ _("* Fields do not match") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.equals.alertText') }}"
                    },
                    "creditCard": {
                        "regex": "none",
-                       "alertText": "{{ _("* Invalid credit card number") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.creditCard.alertText') }}"
                    },
                    "phone": {
                        // credit: jquery.h5validate.js / orefalo
                        "regex": /^([\+][0-9]{1,3}[\ \.\-])?([\(]{1}[0-9]{2,6}[\)])?([0-9\ \.\-\/]{3,20})((x|ext|extension)[\ ]?[0-9]{1,4})?$/,
-                       "alertText":"{{ _( "* Invalid phone number") }}"
+                       "alertText":"{{ trans('expendable::validation.validation-engine.groupRequired.phone.alertText') }}"
                    },
                    "email": {
                        // HTML5 compatible email regex ( http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#    e-mail-state-%28type=email%29 )
                        "regex": /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                       "alertText": "{{ _("* Invalid email address") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.email.alertText') }}"
                    },
                    "integer": {
                        "regex": /^[\-\+]?\d+$/,
-                       "alertText": "{{ _("* Not a valid integer") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.integer.alertText') }}"
                    },
                    "number": {
                        // Number, including positive, negative, and floating decimal. credit: orefalo
                        "regex": /^[\-\+]?((([0-9]{1,3})([,][0-9]{3})*)|([0-9]+))?([\.]([0-9]+))?$/,
-                       "alertText": "{{ _("* Invalid floating decimal number") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.number.alertText') }}"
                    },
                    "date": {
                        //	Check if date is valid by leap year
@@ -105,40 +105,38 @@
 
                         return (date.getFullYear() == year && date.getMonth() == (month - 1) && date.getDate() == day);
    				},
-   			 "alertText": "{{ _("* Invalid date, must be in YYYY-MM-DD format") }}"
+   			 "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.date.alertText') }}"
                    },
                    "ipv4": {
                        "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
-                       "alertText": "{{ _("* Invalid IP address") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.ipv4.alertText') }}"
                    },
                    "url": {
                        "regex": /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i,
-                       "alertText": "{{ _("* Invalid URL") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.url.alertText') }}"
                    },
                    "onlyNumberSp": {
                        "regex": /^[0-9\ ]+$/,
-                       "alertText": "{{ _("* Numbers only") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.onlyNumberSp.alertText') }}"
                    },
                    "onlyLetterSp": {
                        "regex": /^[a-zA-Z\ \']+$/,
-                       "alertText": "{{ _("* Letters only") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.onlyLetterSp.alertText') }}"
                    },
                    "onlyLetterNumber": {
                        "regex": /^[0-9a-zA-Z]+$/,
-                       "alertText": "{{ _("* No special characters allowed") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.onlyLetterNumber.alertText') }}"
                    },
-                   //tls warning:homegrown not fielded
                    "dateFormat":{
                        "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(?:(?:0?[1-9]|1[0-2])(\/|-)(?:0?[1-9]|1\d|2[0-8]))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(0?2(\/|-)29)(\/|-)(?:(?:0[48]00|[13579][26]00|[2468][048]00)|(?:\d\d)?(?:0[48]|[2468][048]|[13579][26]))$/,
-                       "alertText": "{{ _("* Invalid Date") }}"
+                       "alertText": "{{ trans('expendable::validation.validation-engine.groupRequired.dateFormat.alertText') }}"
                    },
-                   //tls warning:homegrown not fielded
    				"dateTimeFormat": {
-   	                "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1}$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^((1[012]|0?[1-9]){1}\/(0?[1-9]|[12][0-9]|3[01]){1}\/\d{2,4}\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1})$/,
-                       "alertText": "{{ _("* Invalid Date or Date Format") }}",
-                       "alertText2": "{{ _("Expected Format: ") }}",
-                       "alertText3": "{{ _("mm/dd/yyyy hh:mm:ss AM|PM or ") }}",
-                       "alertText4": "{{ _("yyyy-mm-dd hh:mm:ss AM|PM") }}"
+                       "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1}$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^((1[012]|0?[1-9]){1}\/(0?[1-9]|[12][0-9]|3[01]){1}\/\d{2,4}\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1})$/,
+                       "alertText": "{{ trans('expendable::validation.validation-engine.dateTimeFormat.alertText') }}",
+                       "alertText2": "{{ trans('expendable::validation.validation-engine.dateTimeFormat.alertText2') }}",
+                       "alertText3": "{{ trans('expendable::validation.validation-engine.dateTimeFormat.alertText3') }}",
+                       "alertText4": "{{ trans('expendable::validation.validation-engine.dateTimeFormat.alertText4') }}"
    	            }
                };
 

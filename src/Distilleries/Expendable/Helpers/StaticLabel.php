@@ -11,8 +11,8 @@ class StaticLabel {
     public static function status($id = null)
     {
         $items = [
-            self::STATUS_OFFLINE => _('Offline'),
-            self::STATUS_ONLINE  => _('Online'),
+            self::STATUS_OFFLINE => trans('expendable::label.offline'),
+            self::STATUS_ONLINE  => trans('expendable::label.online'),
         ];
 
         return self::getLabel($items, $id);
@@ -22,8 +22,8 @@ class StaticLabel {
     public static function typeExport($id = null)
     {
         $items = [
-            'Distilleries\Expendable\Contracts\ExcelExporterContract' => _('Excel'),
-            'Distilleries\Expendable\Contracts\CsvExporterContract'   => _('Csv')
+            'Distilleries\Expendable\Contracts\ExcelExporterContract' => trans('expendable::label.excel'),
+            'Distilleries\Expendable\Contracts\CsvExporterContract'   => trans('expendable::label.csv')
         ];
 
         return self::getLabel($items, $id);
@@ -34,8 +34,8 @@ class StaticLabel {
     public static function yesNo($id = null)
     {
         $items = [
-            self::STATUS_OFFLINE => _('No'),
-            self::STATUS_ONLINE  => _('Yes'),
+            self::STATUS_OFFLINE => trans('expendable::label.no'),
+            self::STATUS_ONLINE  => trans('expendable::label.yes'),
         ];
 
         return self::getLabel($items, $id);
@@ -46,8 +46,8 @@ class StaticLabel {
     public static function bodyType($id = null)
     {
         $items = [
-            self::BODY_TYPE_HTML => _('Html'),
-            self::BODY_TYPE_TEXT => _('Text'),
+            self::BODY_TYPE_HTML => trans('expendable::label.html'),
+            self::BODY_TYPE_TEXT => trans('expendable::label.text'),
         ];
 
         return self::getLabel($items, $id);
@@ -86,7 +86,7 @@ class StaticLabel {
     {
         if (isset($id))
         {
-            return isset($items[$id]) ? $items[$id] : _('n/a');
+            return isset($items[$id]) ? $items[$id] : trans('expendable::label.na');
         }
 
         return $items;

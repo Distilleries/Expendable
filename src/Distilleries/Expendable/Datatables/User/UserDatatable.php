@@ -33,9 +33,9 @@ class UserDatatable extends BaseDatatable {
     {
         $this->form->add('status', 'choice', [
             'choices'     => StaticLabel::status(),
-            'empty_value' => _('-'),
+            'empty_value' => '-',
             'validation'  => 'required',
-            'label'       => _('Status')
+            'label'       => trans('expendable::datatable.status')
         ]);
 
     }

@@ -13,20 +13,25 @@
         "php": ">=5.5.0",
         "illuminate/support": "5.*",
         "illuminate/database": "5.*",
-        "distilleries/datatable-builder": "dev-dev",
+        "distilleries/datatable-builder": "2.*",
         "distilleries/form-builder": "2.*",
         "distilleries/mailersaver": "2.*",
         "distilleries/permission-util": "1.*",
-        "xinax/laravel-gettext": "2.x",
+        "xinax/laravel-gettext": "2.*",
         "forxer/Gravatar": "~1.2",
         "maatwebsite/excel": "2.0.*"
     },
     "require-dev": {
+        "orchestra/database": "~3.0",
+        "orchestra/testbench": "~3.0",
+        "phpunit/phpunit": "~4.5",
+        "mockery/mockery": "0.9.*",
         "fzaninotto/faker": "1.4.*"
     },
     "autoload": {
         "classmap": [
-            "src/database/migrations"
+            "src/database/migrations",
+            "tests"
         ],
         "psr-4": {
             "Distilleries\\Expendable\\": "src/Distilleries/Expendable"

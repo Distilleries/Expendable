@@ -14,28 +14,21 @@ class ExportForm extends FormValidator {
 
     // ------------------------------------------------------------------------------------------------
 
-
     public function buildForm()
     {
 
         $this
             ->add('range', 'datepicker',
                 [
-                    'label'      => _('Date'),
+                    'label'      => trans('expendable::form.date'),
                     'validation' => 'required',
                     'range'      => true
                 ])
             ->add('type', 'choice', [
                 'choices'    => StaticLabel::typeExport(),
                 'validation' => 'required',
-                'label'      => _('Type')
+                'label'      => trans('expendable::form.type')
             ])
             ->addDefaultActions();
     }
-
-
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-
 }

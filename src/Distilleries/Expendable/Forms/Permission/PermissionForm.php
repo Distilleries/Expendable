@@ -1,6 +1,5 @@
 <?php namespace Distilleries\Expendable\Forms\Permission;
 
-
 use Distilleries\FormBuilder\FormValidator;
 
 class PermissionForm extends FormValidator {

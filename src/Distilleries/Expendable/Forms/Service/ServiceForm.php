@@ -1,6 +1,5 @@
 <?php namespace Distilleries\Expendable\Forms\Service;
 
-
 use Distilleries\FormBuilder\FormValidator;
 
 class ServiceForm extends FormValidator {

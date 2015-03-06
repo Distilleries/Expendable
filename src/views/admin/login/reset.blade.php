@@ -1,6 +1,6 @@
 @section('content')
     {!! form_start($form) !!}
-        <h3 class="form-title">{!! _('Reset your password ?') !!}</h3>
+        <h3 class="form-title">{{trans('expendable::form.reset_your_password')}}</h3>
         @include('expendable::admin.form.partial.errors')
          {!! form_widget($form->token) !!}
          <div class="form-group">

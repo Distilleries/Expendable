@@ -83,12 +83,12 @@
 					<ul class="dropdown-menu dropdown-menu-default">
 						<li>
 							<a href="{{ route('user.profile') }}">
-							<i class="icon-user"></i> {{ _('My Profile') }} </a>
+							<i class="icon-user"></i> {{ trans('expendable::menu.my_profile') }}</a>
 						</li>
 						<li class="divider"></li>
 						<li>
 							<a href="{{ route('login.logout') }}">
-							<i class="icon-key"></i> {{ _('Log Out') }} </a>
+							<i class="icon-key"></i> {{ trans('expendable::menu.log_out') }}</a>
 						</li>
 					</ul>
 				</li>

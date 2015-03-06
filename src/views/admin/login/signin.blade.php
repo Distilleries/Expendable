@@ -1,6 +1,6 @@
 @section('content')
     {!! form_start($form) !!}
-        <h3 class="form-title">{!! _('Login to your account') !!}</h3>
+        <h3 class="form-title">{{trans('expendable::form.login_to_your_account')}}</h3>
         @include('expendable::admin.form.partial.errors')
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
@@ -21,8 +21,8 @@
             {!! form_widget($form->login) !!}
 		</div>
 		<div class="forget-password">
-			<h4>{!! _('Forgot your password ?') !!}</h4>
-			<p>{!! sprintf(_(' no worries, click <a href="%s" >here</a> to reset your password.'),route('login.remind')) !!}</p>
+			<h4>{{trans('expendable::form.forgot_your_password')}}</h4>
+			<p>{{ trans('expendable::form.click_here_to_reset_your_password',['link'=>route('login.remind')]) }}</p>
 		</div>
 	{!! form_end($form) !!}
 @stop

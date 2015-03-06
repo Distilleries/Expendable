@@ -28,8 +28,8 @@
            			 {{ $code }}
            		</div>
            		<div class="details">
-           			<h3>{{ _('Oops! The application is down!') }}</h3>
-           			<p>{{ _('Be right back in a couple of minutes!') }}</p>
+           			<h3>{{ trans('expendable::errors.oops') }}</h3>
+           			<p>{{ trans('expendable::errors.be_right_back') }}</p>
            		</div>
            	</div>
         </div>

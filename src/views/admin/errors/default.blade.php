@@ -5,12 +5,12 @@
 			 {{ $code }}
 		</div>
 		<div class=" details">
-			<h3>{{ _('Oops! Something went wrong.') }}</h3>
-			@if(Config::get('app.debug'))
+			<h3>{{ trans('expendable::errors.oops') }}</h3>
+			@if(config('app.debug'))
 			<p>{{ $message }}</p>
 			@else
-			<p>{{ _(' We are fixing it!') }}<br/>
-			{{ _('  Please come back in a while.') }}<br/><br/>
+			<p>{{ trans('expendable::errors.fixing_it') }}<br/>
+			{{ trans('expendable::errors.come_back_later') }}<br/><br/>
             </p>
 			@endif
 		</div>

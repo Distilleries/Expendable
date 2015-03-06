@@ -11,24 +11,23 @@ class RoleForm extends FormValidator {
         'overide_permission' => 'integer'
     ];
 
-
     public function buildForm()
     {
         $this
             ->add('id', 'hidden')
             ->add('libelle', 'text', [
                 'validation' => 'required',
-                'label'      => _('Libelle')
+                'label'      => trans('expendable::form.libelle')
             ])
             ->add('initials', 'text', [
                 'validation' => 'required',
-                'label'      => _('Initials')
+                'label'      => trans('expendable::form.initials')
             ])
             ->add('overide_permission', 'choice', [
                 'choices'     => StaticLabel::yesNo(),
-                'empty_value' => _('-'),
+                'empty_value' => '-',
                 'validation'  => 'required',
-                'label'       => _('Allow automatically all permission')
+                'label'       => trans('expendable::form.allow_automatically_all_permission')
             ]);
 
         $this->addDefaultActions();

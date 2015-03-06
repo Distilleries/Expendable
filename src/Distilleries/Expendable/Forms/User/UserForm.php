@@ -30,7 +30,7 @@ class UserForm extends FormValidator {
             ->add($this->model->getKeyName(), 'hidden')
             ->add('email', 'email',
                 [
-                    'label'      => _('Email'),
+                    'label'      => trans('expendable::form.email'),
                     'validation' => 'required,custom[email]',
                 ]);
 
@@ -40,7 +40,7 @@ class UserForm extends FormValidator {
         {
             $this->add('change_password', 'checkbox', [
                 'default_value' => 1,
-                'label'         => _('Check it if you want change your password'),
+                'label'         => trans('expendable::form.change_password_help'),
                 'checked'       => false,
                 'noInEditView'  => true
             ]);
@@ -48,28 +48,28 @@ class UserForm extends FormValidator {
 
         $this->add('password', 'password',
             [
-                'label'      => _('Password'),
-                'attr'       => ['id'=>'password'],
-                'validation' => 'required',
-                'noInEditView'  => true
+                'label'        => trans('expendable::form.password'),
+                'attr'         => ['id' => 'password'],
+                'validation'   => 'required',
+                'noInEditView' => true
             ])
             ->add('password_match', 'password',
                 [
-                    'label'      => _('Repeat Password'),
-                    'validation' => 'required,equals[password]',
-                    'noInEditView'  => true
+                    'label'        => trans('expendable::form.repeat_password'),
+                    'validation'   => 'required,equals[password]',
+                    'noInEditView' => true
                 ])
             ->add('status', 'choice', [
                 'choices'     => StaticLabel::status(),
-                'empty_value' => _('-'),
+                'empty_value' => '-',
                 'validation'  => 'required',
-                'label'       => _('Status')
+                'label'       => trans('expendable::form.status')
             ])
             ->add('role_id', 'choice', [
                 'choices'     => Role::getChoice(),
-                'empty_value' => _('-'),
+                'empty_value' => '-',
                 'validation'  => 'required',
-                'label'       => _('Role')
+                'label'       => trans('expendable::form.role')
             ])
             ->addDefaultActions();
     }
@@ -77,13 +77,8 @@ class UserForm extends FormValidator {
     protected function getUpdateRules()
     {
         $key                           = \Request::get($this->model->getKeyName());
-        static::$rules_update['email'] = 'required|email|unique:users,email,' . $key;
+        static::$rules_update['email'] = 'required|email|unique:users,email,'.$key;
 
         return parent::getUpdateRules();
     }
-
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-
 }

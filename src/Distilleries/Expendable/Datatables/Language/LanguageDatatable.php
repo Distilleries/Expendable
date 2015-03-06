@@ -7,9 +7,9 @@ class LanguageDatatable extends BaseDatatable {
     public function build()
     {
         $this
-            ->add('id', null, _('Id'))
-            ->add('libelle', null, _('Libelle'))
-            ->add('iso', null, _('Iso'));
+            ->add('id', null, trans('expendable::datatable.id'))
+            ->add('libelle', null, trans('expendable::datatable.libelle'))
+            ->add('iso', null, trans('expendable::datatable.iso'));
 
         $this->addDefaultAction();
 

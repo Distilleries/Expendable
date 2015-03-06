@@ -1,7 +1,4 @@
-<?php
-
-namespace Distilleries\Expendable\Forms\Login;
-
+<?php namespace Distilleries\Expendable\Forms\Login;
 
 use Distilleries\FormBuilder\FormValidator;
 
@@ -15,7 +12,7 @@ class Forgotten extends FormValidator {
     {
         $this->add('email', 'email',
             [
-                'label' => _('Email'),
+                'label' => trans('expendable::form.email'),
                 'validation' => 'required,custom[email]',
                 'attr' => [
                     'class' => 'placeholder-no-fix',
@@ -24,7 +21,7 @@ class Forgotten extends FormValidator {
             ])
             ->add('send', 'submit',
             [
-                'label' => _('Send'),
+                'label' => trans('expendable::form.send'),
                 'attr' => [
                     'class' =>'btn green-haze pull-right'
                 ],

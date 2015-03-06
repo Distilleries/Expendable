@@ -1,7 +1,4 @@
-<?php
-
-namespace Distilleries\Expendable\Forms\Login;
-
+<?php namespace Distilleries\Expendable\Forms\Login;
 
 use Distilleries\FormBuilder\FormValidator;
 
@@ -22,7 +19,7 @@ class Reset extends FormValidator {
             ])
             ->add('email', 'email',
                 [
-                    'label'      => _('Email'),
+                    'label'      => trans('expendable::form.email'),
                     'validation' => 'required,custom[email]',
                     'attr'       => [
                         'class' => 'placeholder-no-fix',
@@ -31,17 +28,17 @@ class Reset extends FormValidator {
                 ])
             ->add('password', 'password',
                 [
-                    'label'      => _('Password'),
+                    'label'      => trans('expendable::form.password'),
                     'validation' => 'required'
                 ])
             ->add('password_confirmation', 'password',
                 [
-                    'label'      => _('Repeat Password'),
+                    'label'      => trans('expendable::form.repeat_password'),
                     'validation' => 'required,equals[password]'
                 ])
             ->add('send', 'submit',
                 [
-                    'label' => _('Send'),
+                    'label' => trans('expendable::form.send'),
                     'attr'  => [
                         'class' => 'btn green-haze pull-right'
                     ],

@@ -12,9 +12,7 @@ class EmailForm extends FormValidator {
         'status'    => 'required|integer'
     ];
 
-
     // ------------------------------------------------------------------------------------------------
-
 
     public function buildForm()
     {
@@ -23,42 +21,36 @@ class EmailForm extends FormValidator {
             ->add($this->model->getKeyName(), 'hidden')
             ->add('libelle', 'text', [
                 'validation' => 'required',
-                'label'      => _('Subject')
+                'label'      => trans('expendable::form.subject')
             ])
             ->add('body_type', 'choice', [
-                'choices'    => StaticLabel::bodyType(),
-                'empty_value' => _('-'),
-                'validation' => 'required',
-                'label'      => _('Body Type')
+                'choices'     => StaticLabel::bodyType(),
+                'empty_value' => '-',
+                'validation'  => 'required',
+                'label'       => trans('expendable::form.body_type')
             ])
             ->add('action', 'choice', [
                 'choices'     => StaticLabel::mailActions(),
-                'empty_value' => _('-'),
+                'empty_value' => '-',
                 'validation'  => 'required',
-                'label'       => _('Action')
+                'label'       => trans('expendable::form.action')
             ])
             ->add('cc', 'tag', [
-                'label'       => _('CC')
+                'label' => trans('expendable::form.cc')
             ])
             ->add('bcc', 'tag', [
-                'label'       => _('BCC')
+                'label' => trans('expendable::form.bcc')
             ])
             ->add('content', 'tinymce', [
                 'validation' => 'required',
-                'label'      => _('Content')
+                'label'      => trans('expendable::form.content')
             ])
-
             ->add('status', 'choice', [
                 'choices'     => StaticLabel::status(),
-                'empty_value' => _('-'),
+                'empty_value' => '-',
                 'validation'  => 'required',
-                'label'       => _('Status')
+                'label'       => trans('expendable::form.status')
             ])
             ->addDefaultActions();
     }
-
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-
 }

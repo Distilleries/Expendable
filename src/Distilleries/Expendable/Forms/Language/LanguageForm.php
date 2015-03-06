@@ -21,21 +21,21 @@ class LanguageForm extends FormValidator {
             ->add('iso', 'text')
             ->add('not_visible', 'choice', [
                 'choices'     => StaticLabel::yesNo(),
-                'empty_value' => _('-'),
+                'empty_value' => '-',
                 'validation'  => 'required',
-                'label'       => _('Is visible for the customer')
+                'label'       => trans('expendable::form.is_visible_for_customer')
             ])
             ->add('is_default', 'choice', [
                 'choices'     => StaticLabel::yesNo(),
-                'empty_value' => _('-'),
+                'empty_value' => '-',
                 'validation'  => 'required',
-                'label'       => _('Default Language')
+                'label'       => trans('expendable::form.default_language')
             ])
             ->add('status', 'choice', [
                 'choices'     => StaticLabel::status(),
-                'empty_value' => _('-'),
+                'empty_value' => '-',
                 'validation'  => 'required',
-                'label'       => _('Status')
+                'label'       => trans('expendable::form.status')
             ]);
 
         $this->addDefaultActions();
@@ -43,7 +43,7 @@ class LanguageForm extends FormValidator {
 
     protected function getUpdateRules()
     {
-        $key                  = \Input::get($this->model->getKeyName());
+        $key                  = \Request::get($this->model->getKeyName());
         static::$rules['iso'] = 'required|unique:languages,iso,' . $key;
 
         return parent::getUpdateRules();

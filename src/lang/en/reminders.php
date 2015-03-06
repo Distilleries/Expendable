@@ -1,7 +1,6 @@
 <?php
 
 return array(
-
     /*
     |--------------------------------------------------------------------------
     | Password Reminder Language Lines
@@ -12,15 +11,9 @@ return array(
     | has failed, such as for an invalid token or invalid new password.
     |
     */
-
-    "password" => _("Passwords must be at least six characters and match the confirmation."),
-
-    "user"     => _("We can't find a user with that e-mail address."),
-
-    "token"    => _("This password reset token is invalid."),
-
-    "sent"     => _("Password reminder sent!"),
-
-    "reset"    => _("Password has been reset!"),
-
+    "password" => "Passwords must be at least six characters and match the confirmation.",
+    "user"     => "We can't find a user with that e-mail address.",
+    "token"    => "This password reset token is invalid.",
+    "sent"     => "Password reminder sent!",
+    "reset"    => "Password has been reset!",
 );
