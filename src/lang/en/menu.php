@@ -15,7 +15,7 @@ return [
     'sync_service'         => 'Synchronize all services',
     'associate_permission' => 'Associate Permission',
     'list_of'              => 'List of :component',
-    'Add'                  => 'Add :component',
+    'add'                  => 'Add :component',
     'generate_component'   => 'Generate a new component',
     'log_out'              => 'Log Out',
     'add_state'            => 'Add',

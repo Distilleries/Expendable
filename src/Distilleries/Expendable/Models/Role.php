@@ -4,7 +4,8 @@ class Role extends BaseModel {
 
     protected $fillable = [
         'libelle',
-        'initials'
+        'initials',
+        'overide_permission'
     ];
 
     public function user()

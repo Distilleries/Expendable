@@ -1,11 +1,7 @@
-<?php
-
-
-namespace Distilleries\Expendable\Listeners;
+<?php namespace Distilleries\Expendable\Listeners;
 
 use \Event;
 use Distilleries\Expendable\Contracts\ListenerContract;
-
 
 class BaseListener implements ListenerContract {
 
@@ -28,5 +24,4 @@ class BaseListener implements ListenerContract {
         }
 
     }
-
-} 
+}

@@ -75,7 +75,7 @@ class StaticLabel {
 
         foreach ($dataActions as $key => $action)
         {
-            $dataResult[$key] = $action['libelle'];
+            $dataResult[$key] = trans($action['libelle']);
         }
 
         return self::getLabel($dataResult, $id);

@@ -1,7 +1,4 @@
-<?php
-
-
-namespace Distilleries\Expendable\Events;
+<?php namespace Distilleries\Expendable\Events;
 
 use \Event;
 use Distilleries\Expendable\Contracts\EventContract;
@@ -34,10 +31,4 @@ class EventDispatcher implements EventContract {
     {
         Event::fire($this->event_name, array($params));
     }
-
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-
-
 }

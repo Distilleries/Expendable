@@ -1,6 +1,5 @@
 <?php
 
-use Faker\Factory as Faker;
 use Distilleries\Expendable\Models\Role;
 use Illuminate\Database\Seeder;
 
@@ -8,8 +7,6 @@ class RolesTableSeeder extends Seeder {
 
     public function run()
     {
-        $faker = Faker::create();
-
         Role::create([
             'libelle'            => 'superadmin',
             'initials'           => '@sa',
@@ -19,6 +16,7 @@ class RolesTableSeeder extends Seeder {
         Role::create([
             'libelle'  => 'admin',
             'initials' => '@a',
+            'overide_permission' => false,
         ]);
     }
 }

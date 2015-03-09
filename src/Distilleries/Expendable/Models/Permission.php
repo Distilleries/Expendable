@@ -11,12 +11,12 @@ class Permission extends BaseModel {
 
     public function role()
     {
-        return $this->hasOne('Role');
+        return $this->hasOne('Distilleries\Expendable\Models\Role');
     }
 
     public function service()
     {
-        return $this->belongsTo('Service');
+        return $this->belongsTo('Distilleries\Expendable\Models\Service');
     }
 
     public function getArea()

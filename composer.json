@@ -13,11 +13,11 @@
         "php": ">=5.5.0",
         "illuminate/support": "5.*",
         "illuminate/database": "5.*",
+        "illuminate/translation": "5.*",
         "distilleries/datatable-builder": "2.*",
         "distilleries/form-builder": "2.*",
         "distilleries/mailersaver": "2.*",
         "distilleries/permission-util": "1.*",
-        "xinax/laravel-gettext": "2.*",
         "forxer/Gravatar": "~1.2",
         "maatwebsite/excel": "2.0.*"
     },
@@ -30,7 +30,6 @@
     },
     "autoload": {
         "classmap": [
-            "src/database/migrations",
             "tests"
         ],
         "psr-4": {

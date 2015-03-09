@@ -1,12 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: mfrancois
- * Date: 13/02/2015
- * Time: 1:10 PM
- */
-
-namespace Distilleries\Expendable\Importer;
+<?php namespace Distilleries\Expendable\Importer;
 
 use Distilleries\Expendable\Contracts\XlsImporterContract;
 use \Excel;

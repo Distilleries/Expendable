@@ -22,28 +22,28 @@ return [
         'Distilleries\DatatableBuilder\Contracts\DatatableStateContract' => [
             'color'    => 'bg-green-haze',
             'icon'     => 'th-list',
-            'libelle'  => trans('expendable::menu.datatable'),
+            'libelle'  => 'expendable::menu.datatable',
             'position' => 0,
             'action'   => 'getIndex'
         ],
         'Distilleries\Expendable\Contracts\ExportStateContract'          => [
             'color'    => 'bg-blue-hoki',
             'icon'     => 'save-file',
-            'libelle'  => trans('expendable::menu.export'),
+            'libelle'  => 'expendable::menu.export',
             'position' => 1,
             'action'   => 'getExport'
         ],
         'Distilleries\Expendable\Contracts\ImportStateContract'          => [
             'color'    => 'bg-red-sunglo',
             'icon'     => 'open-file',
-            'libelle'  => trans('expendable::menu.import'),
+            'libelle'  => 'expendable::menu.import',
             'position' => 2,
             'action'   => 'getImport'
         ],
         'Distilleries\FormBuilder\Contracts\FormStateContract'           => [
             'color'    => 'bg-yellow',
             'icon'     => 'pencil',
-            'libelle'  => trans('expendable::menu.add_state'),
+            'libelle'  => 'expendable::menu.add_state',
             'position' => 3,
             'action'   => 'getEdit'
         ],

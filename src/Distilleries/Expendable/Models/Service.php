@@ -2,7 +2,7 @@
 
 class Service extends BaseModel {
 
-    protected $fillable = ['id'];
+    protected $fillable = ['id','action'];
 
     public function permissions()
     {

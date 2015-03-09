@@ -24,7 +24,7 @@
                             @if($item['icon'])
                                 <i class="glyphicon glyphicon-{{ $item['icon'] }}"></i>
                             @endif
-                            <span class="title">{{ $item['libelle']  }}</span>
+                            <span class="title">{{ trans($item['libelle'])  }}</span>
                             @if (isset($item['action']) and (strpos($item['action'],$controller) !== false))
                             <span class="selected"></span>
                             <span class="arrow open "></span>
@@ -41,7 +41,7 @@
                                         @if($item['icon'])
                                             <i class="glyphicon glyphicon-{{ $subItem['icon'] }}"></i>
                                         @endif
-                                        {{ $subItem['libelle'] }}</a>
+                                        {{ trans($subItem['libelle'],['component'=>trans($item['libelle'])]) }}</a>
                                     </li>
                                 @endif
                             @endforeach

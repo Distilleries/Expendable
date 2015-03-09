@@ -17,7 +17,7 @@ class ExpendableServiceProvider extends ServiceProvider {
      *
      * @var bool
      */
-    protected $defer = false;
+    protected $defer = true;
 
     /**
      * Bootstrap the application events.
@@ -39,6 +39,10 @@ class ExpendableServiceProvider extends ServiceProvider {
         $this->mergeConfigFrom(
             __DIR__.'/../../config/config.php', 'expendable'
         );
+
+        $autoLoaderListener = new \Distilleries\Expendable\Register\ListenerAutoLoader(config('expendable.listener'));
+        $autoLoaderListener->load();
+
     }
 
     /**
@@ -121,5 +125,20 @@ class ExpendableServiceProvider extends ServiceProvider {
 
 
         }
+    }
+
+    public function provides()
+    {
+        return [
+            'Distilleries\Expendable\Contracts\StateDisplayerContract',
+            'Distilleries\Expendable\Contracts\LayoutManagerContract',
+            'Distilleries\MailerSaver\Contracts\MailModelContract',
+            'CsvImporterContract',
+            'XlsImporterContract',
+            'XlsxImporterContract',
+            'Distilleries\Expendable\Contracts\CsvExporterContract',
+            'Distilleries\Expendable\Contracts\ExcelExporterContract',
+            'Distilleries\Expendable\Contracts\PdfExporterContract',
+        ];
     }
 }

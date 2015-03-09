@@ -20,7 +20,7 @@
                 </div>
                 <div class="tile-object">
                     <div class="text-center">
-                        {{ $state['libelle'] }}
+                        {{ trans($state['libelle']) }}
                     </div>
                     <div class="number"></div>
                 </div>

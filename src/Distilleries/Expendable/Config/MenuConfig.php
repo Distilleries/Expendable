@@ -1,8 +1,4 @@
-<?php
-
-
-namespace Distilleries\Expendable\Config;
-
+<?php namespace Distilleries\Expendable\Config;
 
 class MenuConfig {
 
@@ -14,16 +10,16 @@ class MenuConfig {
                 [
                     'icon'    => 'envelope',
                     'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\EmailController@getIndex',
-                    'libelle' => trans('expendable::menu.email'),
+                    'libelle' => 'expendable::menu.email',
                     'submenu' => [
                         [
                             'icon'    => 'th-list',
-                            'libelle' => trans('expendable::menu.list_of',['component'=>trans('expendable::menu.email')]),
+                            'libelle' => 'expendable::menu.list_of',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\EmailController@getIndex',
                         ],
                         [
                             'icon'    => 'pencil',
-                            'libelle' => trans('expendable::menu.add',['component'=>trans('expendable::menu.email')]),
+                            'libelle' => 'expendable::menu.add',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\EmailController@getEdit',
                         ]
                     ]
@@ -31,21 +27,21 @@ class MenuConfig {
                 [
                     'icon'    => 'user',
                     'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getIndex',
-                    'libelle' => trans('expendable::menu.user'),
+                    'libelle' => 'expendable::menu.user',
                     'submenu' => [
                         [
                             'icon'    => 'th-list',
-                            'libelle' => trans('expendable::menu.list_of',['component'=>trans('expendable::menu.user')]),
+                            'libelle' => 'expendable::menu.list_of',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getIndex',
                         ],
                         [
                             'icon'    => 'pencil',
-                            'libelle' => trans('expendable::menu.add',['component'=>trans('expendable::menu.user')]),
+                            'libelle' => 'expendable::menu.add',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getEdit',
                         ],
                         [
                             'icon'    => 'user',
-                            'libelle' => trans('expendable::menu.my_profile'),
+                            'libelle' => 'expendable::menu.my_profile',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getProfile',
                         ]
 
@@ -54,16 +50,16 @@ class MenuConfig {
                 [
                     'icon'    => 'paperclip',
                     'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\RoleController@getIndex',
-                    'libelle' => trans('expendable::menu.role'),
+                    'libelle' => 'expendable::menu.role',
                     'submenu' => [
                         [
                             'icon'    => 'th-list',
-                            'libelle' => trans('expendable::menu.list_of',['component'=>trans('expendable::menu.role')]),
+                            'libelle' => 'expendable::menu.list_of',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\RoleController@getIndex',
                         ],
                         [
                             'icon'    => 'pencil',
-                            'libelle' => trans('expendable::menu.add',['component'=>trans('expendable::menu.role')]),
+                            'libelle' => 'expendable::menu.add',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\RoleController@getEdit',
                         ]
 
@@ -72,26 +68,26 @@ class MenuConfig {
                 [
                     'icon'    => 'tags',
                     'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\PermissionController@getIndex',
-                    'libelle' => trans('expendable::menu.permission'),
+                    'libelle' => 'expendable::menu.permission',
                     'submenu' => [
                         [
                             'icon'    => 'pencil',
-                            'libelle' => trans('expendable::menu.associate_permission'),
+                            'libelle' => 'expendable::menu.associate_permission',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\PermissionController@getIndex',
                         ],
                         [
                             'icon'    => 'th-list',
-                            'libelle' => trans('expendable::menu.list_of',['component'=>trans('expendable::menu.service')]),
+                            'libelle' => 'expendable::menu.list_of',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\ServiceController@getIndex',
                         ],
                         [
                             'icon'    => 'pencil',
-                            'libelle' => trans('expendable::menu.add',['component'=>trans('expendable::menu.service')]),
+                            'libelle' => 'expendable::menu.add',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\ServiceController@getEdit',
                         ],
                         [
                             'icon'    => 'retweet',
-                            'libelle' => trans('expendable::menu.sync_service'),
+                            'libelle' => 'expendable::menu.sync_service',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\ServiceController@getSynchronize',
                         ]
                     ]
@@ -99,16 +95,16 @@ class MenuConfig {
                 [
                     'icon'    => 'flag',
                     'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\LanguageController@getIndex',
-                    'libelle' => trans('expendable::menu.language'),
+                    'libelle' => 'expendable::menu.language',
                     'submenu' => [
                         [
                             'icon'    => 'th-list',
-                            'libelle' => trans('expendable::menu.list_of',['component'=>trans('expendable::menu.language')]),
+                            'libelle' => 'expendable::menu.list_of',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\LanguageController@getIndex',
                         ],
                         [
                             'icon'    => 'pencil',
-                            'libelle' => trans('expendable::menu.add',['component'=>trans('expendable::menu.language')]),
+                            'libelle' => 'expendable::menu.add',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\LanguageController@getEdit',
                         ]
 
@@ -120,13 +116,13 @@ class MenuConfig {
                 [
                     'icon'    => 'console',
                     'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\ComponentController@getIndex',
-                    'libelle' => trans('expendable::menu.generate_component'),
+                    'libelle' => 'expendable::menu.generate_component',
 
                 ],
                 [
                     'icon'    => 'retweet',
                     'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\ServiceController@getSynchronize',
-                    'libelle' => trans('expendable::menu.sync_service'),
+                    'libelle' => 'expendable::menu.sync_service',
 
                 ],
             ]
@@ -146,4 +142,4 @@ class MenuConfig {
 
         return $first;
     }
-} 
+}

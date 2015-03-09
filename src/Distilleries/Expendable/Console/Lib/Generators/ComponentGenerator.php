@@ -2,7 +2,6 @@
 
 class ComponentGenerator extends \Kris\LaravelFormBuilder\Console\FormGenerator {
 
-
     public function getClassModel($model)
     {
         $model = preg_split('/\//i', $model);
@@ -35,6 +34,4 @@ class ComponentGenerator extends \Kris\LaravelFormBuilder\Console\FormGenerator 
         return $result;
 
     }
-
-
 }

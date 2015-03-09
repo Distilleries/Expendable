@@ -49,32 +49,7 @@ class ComponentMakeCommand extends \Illuminate\Console\GeneratorCommand {
         parent::fire();
     }
 
-    /**
-     * Build the directory for the class if necessary.
-     *
-     * @param  string $path
-     * @return string
-     */
-    protected function makeDirectory($path)
-    {
-        if (!$this->files->isDirectory(dirname($path)))
-        {
-            $this->files->makeDirectory(dirname($path), 0777, true, true);
-        }
-    }
 
-    /**
-     * Build the controller class with the given name.
-     *
-     * @param  string $name
-     * @return string
-     */
-    protected function buildClass($name)
-    {
-        $stub = $this->files->get($this->getStub());
-
-        return $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
-    }
 
     /**
      * Get the console command arguments.
@@ -96,7 +71,7 @@ class ComponentMakeCommand extends \Illuminate\Console\GeneratorCommand {
     protected function getOptions()
     {
         return array(
-            array('states', null, InputOption::VALUE_OPTIONAL, 'States use on the controller', ''),
+            array('states', [], InputOption::VALUE_OPTIONAL, 'States use on the controller', ''),
             array('template', null, InputOption::VALUE_OPTIONAL, 'Template use to generate the controller', ''),
             array('model', null, InputOption::VALUE_OPTIONAL, 'Model use', ''),
             array('datatable', null, InputOption::VALUE_OPTIONAL, 'Datatable use', ''),
@@ -112,6 +87,9 @@ class ComponentMakeCommand extends \Illuminate\Console\GeneratorCommand {
         if (!empty($states))
         {
             $this->states = explode(',', $states);
+        } else
+        {
+            $this->states = [];
         }
 
         $this->template  = $this->option('template');
@@ -129,6 +107,7 @@ class ComponentMakeCommand extends \Illuminate\Console\GeneratorCommand {
         {
             $defaultComponent = 0;
 
+
             foreach ($this->states as $state)
             {
                 if (strpos($state, 'DatatableStateContract') !== false or (strpos($state, 'FormStateContract') !== false))
@@ -138,7 +117,8 @@ class ComponentMakeCommand extends \Illuminate\Console\GeneratorCommand {
                 }
             }
 
-            if ($defaultComponent == 2)
+
+            if ($defaultComponent == 2 && !empty($this->model))
             {
                 $template = 'controller-base-component-class-template';
             } else if (!empty($this->model))

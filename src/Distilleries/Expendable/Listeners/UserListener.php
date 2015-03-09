@@ -14,7 +14,7 @@ class UserListener extends BaseListener {
      *
      */
     protected $events = [
-        'user.login' => [
+        'user.login'  => [
             'action'   => 'handleLogin',
             'priority' => 0,
         ],
@@ -24,14 +24,20 @@ class UserListener extends BaseListener {
         ]
     ];
 
-
     public function handleLogin($model)
     {
 
         $areaServices = [];
-        foreach ($model->role->permissions as $permission)
+
+        $role = $model->role;
+
+        if (!empty($role))
         {
-            $areaServices[] = $permission->service->action;
+            foreach ($model->role->permissions as $permission)
+            {
+                $areaServices[] = $permission->service->action;
+            }
+
         }
 
         UserUtils::setArea($areaServices);
