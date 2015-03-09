@@ -65,9 +65,9 @@ class UserUtilTest extends ExpendableTestCase {
     public function testHasAccess()
     {
         $this->login();
-        \Distilleries\Expendable\Helpers\UserUtils::setArea(['test_action'=>1]);
-        $this->assertTrue(is_array(\Distilleries\Expendable\Helpers\UserUtils::hasAccess('test_action')));
-        $this->assertFalse(is_array(\Distilleries\Expendable\Helpers\UserUtils::hasAccess('test_action_not_in')));
+        \Distilleries\Expendable\Helpers\UserUtils::setArea(['test_action']);
+        $this->assertTrue(\Distilleries\Expendable\Helpers\UserUtils::hasAccess('test_action'));
+        $this->assertFalse(\Distilleries\Expendable\Helpers\UserUtils::hasAccess('test_action_not_in'));
     }
 
 
