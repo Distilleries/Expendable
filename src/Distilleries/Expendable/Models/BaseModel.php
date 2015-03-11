@@ -85,7 +85,7 @@ class BaseModel extends Model {
         return $query->whereBetween($this->getTable().'.created_at', array($start, $end));
     }
 
-    public function scopeBetweenupdate($query, $start, $end)
+    public function scopeBetweenUpdate($query, $start, $end)
     {
         return $query->whereBetween($this->getTable().'.updated_at', array($start, $end));
     }

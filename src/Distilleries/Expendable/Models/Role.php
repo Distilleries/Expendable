@@ -17,14 +17,4 @@ class Role extends BaseModel {
     {
         return $this->hasMany('Distilleries\Expendable\Models\Permission');
     }
-
-    public function scopeClinic()
-    {
-        return $this->where('initials', '=', '@cl');
-    }
-
-    public function scopeCustomer()
-    {
-        return $this->where('initials', '=', '@cu');
-    }
 }

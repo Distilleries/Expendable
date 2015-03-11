@@ -11,7 +11,7 @@ class Permission extends BaseModel {
 
     public function role()
     {
-        return $this->hasOne('Distilleries\Expendable\Models\Role');
+        return $this->belongsTo('Distilleries\Expendable\Models\Role');
     }
 
     public function service()

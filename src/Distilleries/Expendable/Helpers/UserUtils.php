@@ -77,15 +77,12 @@ class UserUtils {
 
     public static function forgotIsLoggedIn()
     {
-        if (session_id() == '')
-        {
-            @session_start();
+        $session_id = session_id();
 
+        if (!empty($session_id))
+        {
+            unset($_SESSION['isLoggedIn']);
         }
 
-        $_SESSION['isLoggedIn'] = false;
-        unset($_SESSION['isLoggedIn']);
     }
-
-
-} 
+}
