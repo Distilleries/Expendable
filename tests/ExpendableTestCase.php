@@ -51,7 +51,6 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
             'Distilleries\FormBuilder\FormBuilderServiceProvider',
             'Distilleries\DatatableBuilder\DatatableBuilderServiceProvider',
             'Distilleries\PermissionUtil\PermissionUtilServiceProvider',
-            'Xinax\LaravelGettext\LaravelGettextServiceProvider',
             'Maatwebsite\Excel\ExcelServiceProvider',
             'Distilleries\Expendable\ExpendableServiceProvider',
             'Distilleries\Expendable\ExpendableRouteServiceProvider',
