@@ -17,12 +17,12 @@ class ConfigTest extends ExpendableTestCase {
             'submenu' => [
                 [
                     'icon'    => 'th-list',
-                    'libelle' => _('List of Contact'),
+                    'libelle' => 'List of Contact',
                     'action'  => 'Admin\ContactController@getIndex',
                 ],
                 [
                     'icon'    => 'pencil',
-                    'libelle' => _('Add Contact'),
+                    'libelle' => 'Add Contact',
                     'action'  => 'Admin\ContactController@getEdit',
                 ]
             ]
@@ -67,12 +67,12 @@ class ConfigTest extends ExpendableTestCase {
             'submenu' => [
                 [
                     'icon'    => 'th-list',
-                    'libelle' => _('List of Contact'),
+                    'libelle' => 'List of Contact',
                     'action'  => 'Admin\ContactController@getIndex',
                 ],
                 [
                     'icon'    => 'pencil',
-                    'libelle' => _('Add Contact'),
+                    'libelle' => 'Add Contact',
                     'action'  => 'Admin\ContactController@getEdit',
                 ]
             ]
