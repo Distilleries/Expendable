@@ -22,11 +22,13 @@ trait StatusTrait {
      */
     public static function onlyOffline()
     {
+
         $instance = new static;
 
         $column = $instance->getQualifiedStatusColumn();
 
-        return $instance->newQueryWithoutScope(new StatusScope)->where($column,'=',false);
+        return $instance->newQueryWithoutScope(new StatusScope)->where($column,false);
+
     }
 
     public static function offlineAndOnline()
