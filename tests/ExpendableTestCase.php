@@ -66,7 +66,6 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
             'HTML'           => 'Illuminate\Html\HtmlFacade',
             'Datatable'      => 'Distilleries\DatatableBuilder\Facades\DatatableBuilder',
             'PermissionUtil' => 'Distilleries\PermissionUtil\Facades\PermissionUtil',
-            'LaravelGettext' => 'Xinax\LaravelGettext\Facades\LaravelGettext',
             'Excel'          => 'Maatwebsite\Excel\Facades\Excel',
         ];
     }

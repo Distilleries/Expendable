@@ -5,6 +5,7 @@ use Distilleries\Expendable\Contracts\LayoutManagerContract;
 use Distilleries\Expendable\Contracts\StateDisplayerContract;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Filesystem\Filesystem;
+use PhpParser\Node\Expr\Cast\Object;
 
 class LayoutManager implements LayoutManagerContract {
 
@@ -48,13 +49,19 @@ class LayoutManager implements LayoutManagerContract {
     {
         if (!is_null($this->layout))
         {
-            $asstets = json_decode($this->filesystem->get($this->config['config_file_assets']));
-            $header  = $this->view->make('expendable::admin.part.header')->with([
-                'version' => $asstets->version,
+            $version = 0;
+            if ($this->filesystem->exists($this->config['config_file_assets']))
+            {
+                $asstets = json_decode($this->filesystem->get($this->config['config_file_assets']));
+                $version = $asstets->version;
+            }
+
+            $header = $this->view->make('expendable::admin.part.header')->with([
+                'version' => $version,
                 'title'   => ''
             ]);
-            $footer  = $this->view->make('expendable::admin.part.footer')->with([
-                'version' => $asstets->version,
+            $footer = $this->view->make('expendable::admin.part.footer')->with([
+                'version' => $version,
                 'title'   => ''
             ]);
 
