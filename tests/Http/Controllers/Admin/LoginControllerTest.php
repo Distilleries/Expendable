@@ -50,7 +50,7 @@ class LoginControllerTest extends ExpendableTestCase {
     }
 
 
-    public function testLogin()
+    public function testLoginLogout()
     {
 
         \Distilleries\Expendable\Models\Role::create([
@@ -85,6 +85,10 @@ class LoginControllerTest extends ExpendableTestCase {
 
         $newUser = $this->app->make('Illuminate\Contracts\Auth\Guard')->user();
         $this->assertEquals($user->id, $newUser->id);
+
+        $this->call('GET', action('Admin\LoginController@getLogout'));
+        $newUser = $this->app->make('Illuminate\Contracts\Auth\Guard')->user();
+        $this->assertEquals(null, $newUser);
     }
 
 
@@ -260,7 +264,7 @@ class LoginControllerTest extends ExpendableTestCase {
 
 
 
-        $response = $this->call('POST', action('Admin\LoginController@postReset'), [
+        $this->call('POST', action('Admin\LoginController@postReset'), [
             'token'                 => $token,
             'email'                 => $email,
             'password'              => 'testtesttesttest',

@@ -21,7 +21,7 @@
                 <li class="dropdown dropdown-extended dropdown-notification">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                     <?php
-                    $iso = explode('_',LaravelGettext::getLocale());
+                    $iso = app()->getLocale();
                     $iso = isset($iso[1])?strtolower($iso[1]):strtolower($iso[0]);
                     ?>
                     <span class="flags-sprite flags-{{ $iso  }}"></span>

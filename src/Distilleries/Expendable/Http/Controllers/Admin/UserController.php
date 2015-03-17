@@ -39,9 +39,9 @@ class UserController extends BaseComponent {
 
     // ------------------------------------------------------------------------------------------------
 
-    protected function searchWithRole(Request $request, $role)
+    public function postSearchWithRole(Request $request, $role)
     {
-        $this->model = $this->model->where('role_id', '=', $role);
+        $this->model->where('role_id', '=', $role);
 
         return $this->postSearch($request);
     }

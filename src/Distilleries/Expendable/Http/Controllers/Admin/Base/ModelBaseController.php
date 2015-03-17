@@ -48,17 +48,16 @@ class ModelBaseController extends BaseController {
 
     public function putDestroy(Request $request)
     {
-        $data = $this->model->find($request->get('id'));
-        $data->delete();
-
-        $validation = $this->validate->make($request->all(), [
+        $validation = \Validator::make($request->all(), [
             'id' => 'required'
         ]);
         if ($validation->fails())
         {
-            $this->hasError = true;
+            return redirect()->back()->withErrors($validation)->withInput($request->all());
         }
 
+        $data = $this->model->find($request->get('id'));
+        $data->delete();
 
         return redirect()->to(action('\\'.get_class($this) . '@getIndex'));
     }
