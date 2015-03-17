@@ -53,8 +53,8 @@ class UserControllerTest extends ExpendableTestCase {
         $faker = Faker\Factory::create();
 
         $role = \Distilleries\Expendable\Models\Role::create([
-            'libelle'            => $faker->name,
-            'initials'           => $faker->name,
+            'libelle'            => addslashes($faker->name),
+            'initials'           => addslashes($faker->name),
             'overide_permission' => true,
         ]);
 

@@ -59,12 +59,12 @@ class EmailControllerTest extends ExpendableTestCase {
     {
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'   => $faker->realText(20),
+            'libelle'   => addslashes($faker->realText(20)),
             'body_type' => \Distilleries\Expendable\Helpers\StaticLabel::BODY_TYPE_HTML,
             'action'    => 'emails.password',
             'cc'        => $faker->email,
             'bcc'       => $faker->email,
-            'content'   => $faker->text(),
+            'content'   => addslashes($faker->text()),
             'status'    => \Distilleries\Expendable\Helpers\StaticLabel::STATUS_ONLINE,
         ];
 
@@ -87,12 +87,12 @@ class EmailControllerTest extends ExpendableTestCase {
     {
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'   => $faker->name,
+            'libelle'   => addslashes($faker->name),
             'body_type' => \Distilleries\Expendable\Helpers\StaticLabel::BODY_TYPE_HTML,
             'action'    => 'emails.password',
             'cc'        => $faker->email,
             'bcc'       => $faker->email,
-            'content'   => $faker->name(),
+            'content'   => addslashes($faker->name()),
             'status'    => \Distilleries\Expendable\Helpers\StaticLabel::STATUS_ONLINE,
         ];
 
@@ -122,12 +122,12 @@ class EmailControllerTest extends ExpendableTestCase {
     {
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'   => $faker->realText(20),
+            'libelle'   => addslashes($faker->realText(20)),
             'body_type' => \Distilleries\Expendable\Helpers\StaticLabel::BODY_TYPE_HTML,
             'action'    => 'emails.password',
             'cc'        => $faker->email,
             'bcc'       => $faker->email,
-            'content'   => $faker->text(),
+            'content'   => addslashes($faker->text()),
             'status'    => \Distilleries\Expendable\Helpers\StaticLabel::STATUS_ONLINE,
         ];
 
@@ -153,12 +153,12 @@ class EmailControllerTest extends ExpendableTestCase {
     {
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'   => $faker->realText(20),
+            'libelle'   => addslashes($faker->realText(20)),
             'body_type' => \Distilleries\Expendable\Helpers\StaticLabel::BODY_TYPE_HTML,
             'action'    => 'emails.password',
             'cc'        => $faker->email,
             'bcc'       => $faker->email,
-            'content'   => $faker->text(),
+            'content'   => addslashes($faker->text()),
             'status'    => \Distilleries\Expendable\Helpers\StaticLabel::STATUS_ONLINE,
         ];
 

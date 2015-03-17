@@ -53,8 +53,8 @@ class RoleControllerTest extends ExpendableTestCase {
     {
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'            => $faker->name,
-            'initials'           => $faker->name,
+            'libelle'            => addslashes($faker->name),
+            'initials'           => addslashes($faker->name),
             'overide_permission' => true,
         ];
 
@@ -74,8 +74,8 @@ class RoleControllerTest extends ExpendableTestCase {
 
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'            => $faker->name,
-            'initials'           => $faker->name,
+            'libelle'            => addslashes($faker->name),
+            'initials'           => addslashes($faker->name),
             'overide_permission' => true,
         ];
 
