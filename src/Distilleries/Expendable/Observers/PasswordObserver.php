@@ -17,7 +17,14 @@ class PasswordObserver {
 
         if (empty($newPassword))
         {
-            $newPassword = $model->find($model->id)->password;
+            if (empty($model->password))
+            {
+                $newPassword = $model->find($model->id)->password;
+            } else
+            {
+                $newPassword = $model->password;
+            }
+
         }
 
         $this->hash($model, $newPassword);
@@ -26,6 +33,7 @@ class PasswordObserver {
 
     public function hash($model, $password)
     {
+
 
         if (Hash::needsRehash($password))
         {

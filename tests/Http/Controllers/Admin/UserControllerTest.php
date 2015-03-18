@@ -192,7 +192,7 @@ class UserControllerTest extends ExpendableTestCase {
 
         $email = $faker->email;
         $user  = \Distilleries\Expendable\Models\User::create([
-            'email'    => $email,
+            'email'    => addslashes($email),
             'password' => \Hash::make('test'),
             'status'   => true,
             'role_id'  => $role->id,
