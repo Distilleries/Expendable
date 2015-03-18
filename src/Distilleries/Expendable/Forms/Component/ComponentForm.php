@@ -5,6 +5,11 @@ use \File;
 
 class ComponentForm extends \Distilleries\FormBuilder\FormValidator {
 
+    public static $rules = [
+        'libelle'   => 'required'
+    ];
+    public static $rules_update = null;
+
     public function buildForm()
     {
 
