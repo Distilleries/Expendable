@@ -50,7 +50,7 @@ trait ImportStateTrait {
 
 
         $file = $request->get('file');
-        $file = urldecode(app_path(preg_replace('/\/app\//', '', $file)));
+        $file = urldecode(preg_replace('/\/app\//', '', $file));
 
         if (!app('files')->exists($file))
         {

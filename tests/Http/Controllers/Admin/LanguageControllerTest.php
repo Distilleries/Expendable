@@ -180,6 +180,17 @@ class LanguageControllerTest extends ExpendableTestCase {
 
     }
 
+
+    public function testExport()
+    {
+
+        $response = $this->call('GET', action('Admin\LanguageController@getExport'));
+        $this->assertResponseOk();
+
+        $this->assertContains(trans('expendable::form.date'), $response->getContent());
+        $this->assertContains(trans('expendable::form.type'), $response->getContent());
+    }
+
     public function testExportError()
     {
 
@@ -203,7 +214,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
         \File::delete(storage_path('exports'));
         $dateBegin = date('Y-m-d', time() - (24 * 60 * 60));
-        $dateEnd = date('Y-m-d', time() + (24 * 60 * 60));
+        $dateEnd   = date('Y-m-d', time() + (24 * 60 * 60));
 
         try
         {
@@ -223,8 +234,6 @@ class LanguageControllerTest extends ExpendableTestCase {
 
     }
 
-
-
     public function testExportXls()
     {
 
@@ -239,7 +248,7 @@ class LanguageControllerTest extends ExpendableTestCase {
         \Distilleries\Expendable\Models\Language::create($data);
 
         $dateBegin = date('Y-m-d', time() - (24 * 60 * 60));
-        $dateEnd = date('Y-m-d', time() + (24 * 60 * 60));
+        $dateEnd   = date('Y-m-d', time() + (24 * 60 * 60));
         \File::delete(storage_path('exports'));
         try
         {
@@ -257,6 +266,53 @@ class LanguageControllerTest extends ExpendableTestCase {
             $this->assertFileExists(storage_path('exports/'.$dateBegin.' '.$dateEnd.'.xls'));
         }
 
+    }
+
+    public function testImport()
+    {
+
+
+        $response = $this->call('GET', action('Admin\LanguageController@getImport'));
+        $this->assertResponseOk();
+        $this->assertContains(trans('expendable::form.file_import'), $response->getContent());
+    }
+
+
+    public function testImportNoFileCsv()
+    {
+        $this->call('POST', action('Admin\LanguageController@postImport'), [
+            'file' =>storage_path('test.csv')
+        ]);
+
+        $this->assertSessionHas(\Distilleries\Expendable\Formatter\Message::WARNING);
+    }
+
+    public function testImportCsv()
+    {
+
+        \DB::table('languages')->truncate();
+        copy(realpath(__DIR__.'/../../../data/exports/2015-03-17 2015-03-19.csv'),storage_path('2015-03-17 2015-03-19.csv'));
+        $this->call('POST', action('Admin\LanguageController@postImport'), [
+            'file' =>storage_path('2015-03-17 2015-03-19.csv')
+        ]);
+
+        $total = \Distilleries\Expendable\Models\Language::count();
+        $this->assertSessionHas(\Distilleries\Expendable\Formatter\Message::MESSAGE);
+        $this->assertEquals(1, $total);
+    }
+
+    public function testImportXls()
+    {
+
+        \DB::table('languages')->truncate();
+        copy(realpath(__DIR__.'/../../../data/exports/2015-03-17 2015-03-19.csv'),storage_path('2015-03-17 2015-03-19.xls'));
+        $this->call('POST', action('Admin\LanguageController@postImport'), [
+            'file' =>storage_path('2015-03-17 2015-03-19.xls')
+        ]);
+
+        $total = \Distilleries\Expendable\Models\Language::count();
+        $this->assertSessionHas(\Distilleries\Expendable\Formatter\Message::MESSAGE);
+        $this->assertEquals(1, $total);
     }
 
 }

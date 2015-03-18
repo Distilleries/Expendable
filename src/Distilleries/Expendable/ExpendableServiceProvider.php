@@ -106,10 +106,7 @@ class ExpendableServiceProvider extends ServiceProvider {
         {
             return new ExcelExporter;
         });
-        $this->app->singleton('Distilleries\Expendable\Contracts\PdfExporterContract', function ($app)
-        {
-            return new PdfExporter;
-        });
+
 
     }
 
