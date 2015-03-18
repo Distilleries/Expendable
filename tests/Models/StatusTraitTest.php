@@ -55,11 +55,27 @@ class StatusTraintTest extends ExpendableTestCase {
     }
 
 
+
+    public function testLanguageWithOffline()
+    {
+        $this->addContent();
+        $result = \Distilleries\Expendable\Models\Language::where('is_default',0)->withOffline()->get();
+
+        $count = [];
+        foreach ($result as $lang)
+        {
+            $count[$lang->status] = true;
+        }
+        $this->assertTrue(array_key_exists(0,$count));
+        $this->assertTrue(array_key_exists(1,$count));
+    }
+
+
+
     public function testLanguageOnlyOfflineNoStatic()
     {
         $this->addContent();
-        $model = new \Distilleries\Expendable\Models\Language;
-        $result = $model->onlyOffline()->get();
+        $result = \Distilleries\Expendable\Models\Language::where('is_default',0)->onlyOffline()->get();
 
         foreach ($result as $lang)
         {

@@ -48,6 +48,30 @@ class LanguageControllerTest extends ExpendableTestCase {
 
     }
 
+/*
+    public function testDatatableApi()
+    {
+
+        $faker    = Faker\Factory::create();
+        $data     = [
+            'libelle'     => str_replace('\'','',$faker->country),
+            'iso'         => $faker->countryCode,
+            'not_visible' => false,
+            'is_default'  => true,
+            'status'      => true,
+        ];
+        $language = \Distilleries\Expendable\Models\Language::create($data);
+
+        $response = $this->call('GET', action('Admin\LanguageController@getDatatable'));
+        $this->assertResponseOk();
+
+        $result = json_decode($response->getContent());
+
+        $this->assertEquals($language->id, $result[0]->id);
+        $this->assertEquals($language->libelle, $result[0]->libelle);
+    }
+*/
+
     public function testGetChangeLang()
     {
         $this->call('GET', action('Admin\LanguageController@getChangeLang', [
@@ -61,7 +85,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
         $faker    = Faker\Factory::create();
         $data     = [
-            'libelle'     => addslashes($faker->country),
+            'libelle'     => str_replace('\'','',$faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => false,
             'is_default'  => true,
@@ -82,7 +106,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
         $faker    = Faker\Factory::create();
         $data     = [
-            'libelle'     => addslashes($faker->country),
+            'libelle'     => str_replace('\'','',$faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => false,
             'is_default'  => true,
@@ -111,7 +135,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'     => addslashes($faker->country),
+            'libelle'     => str_replace('\'','',$faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => 0,
             'is_default'  => 1,
@@ -129,7 +153,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
         $faker    = Faker\Factory::create();
         $data     = [
-            'libelle'     => addslashes($faker->country),
+            'libelle'     => str_replace('\'','',$faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => 0,
             'is_default'  => 1,
@@ -164,7 +188,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
         $faker    = Faker\Factory::create();
         $data     = [
-            'libelle'     => addslashes($faker->country),
+            'libelle'     => str_replace('\'','',$faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => false,
             'is_default'  => true,
@@ -204,7 +228,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'     => addslashes($faker->country),
+            'libelle'     => str_replace('\'','',$faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => false,
             'is_default'  => true,
@@ -239,7 +263,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'     => addslashes($faker->country),
+            'libelle'     => str_replace('\'','',$faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => false,
             'is_default'  => true,

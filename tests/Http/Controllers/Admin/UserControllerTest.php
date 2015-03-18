@@ -53,8 +53,8 @@ class UserControllerTest extends ExpendableTestCase {
         $faker = Faker\Factory::create();
 
         $role = \Distilleries\Expendable\Models\Role::create([
-            'libelle'            => addslashes($faker->name),
-            'initials'           => addslashes($faker->name),
+            'libelle'            => str_replace('\'','',$faker->name),
+            'initials'           => str_replace('\'','',$faker->name),
             'overide_permission' => true,
         ]);
 
@@ -192,7 +192,7 @@ class UserControllerTest extends ExpendableTestCase {
 
         $email = $faker->email;
         $user  = \Distilleries\Expendable\Models\User::create([
-            'email'    => addslashes($email),
+            'email'    => str_replace('\'','',$email),
             'password' => \Hash::make('test'),
             'status'   => true,
             'role_id'  => $role->id,

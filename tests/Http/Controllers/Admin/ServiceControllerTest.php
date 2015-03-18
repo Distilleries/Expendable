@@ -52,7 +52,7 @@ class ServiceControllerTest extends ExpendableTestCase {
     {
         $faker = Faker\Factory::create();
         $data  = [
-            'action'            => addslashes($faker->name)
+            'action'            => str_replace('\'','',$faker->name)
         ];
 
         $service = \Distilleries\Expendable\Models\Service::create($data);
@@ -70,7 +70,7 @@ class ServiceControllerTest extends ExpendableTestCase {
 
         $faker = Faker\Factory::create();
         $data  = [
-            'action'            => addslashes($faker->name)
+            'action'            => str_replace('\'','',$faker->name)
         ];
 
         $service = \Distilleries\Expendable\Models\Service::create($data);
