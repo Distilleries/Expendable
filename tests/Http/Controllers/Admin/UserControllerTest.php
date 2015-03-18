@@ -36,7 +36,6 @@ class UserControllerTest extends ExpendableTestCase {
 
     }
 
-
     public function testDatatable()
     {
 
@@ -48,13 +47,89 @@ class UserControllerTest extends ExpendableTestCase {
 
     }
 
+
+    public function testDatatableApi()
+    {
+
+
+        $faker = Faker\Factory::create();
+
+        $role = \Distilleries\Expendable\Models\Role::create([
+            'libelle'            => str_replace('\'', '', $faker->name),
+            'initials'           => str_replace('\'', '', $faker->name),
+            'overide_permission' => true,
+        ]);
+
+        $data = [
+            'email'    => $faker->email,
+            'password' => \Hash::make('test'),
+            'status'   => true,
+            'role_id'  => $role->id,
+        ];
+
+
+        $user = \Distilleries\Expendable\Models\User::create($data);
+
+        $response = $this->call('GET', action($this->controller.'@getDatatable'));
+        $this->assertResponseOk();
+        $result = json_decode($response->getContent());
+
+        $this->assertEquals(2, $result->iTotalRecords);
+        $this->assertEquals($user->id, $result->aaData[1]->{0});
+        $this->assertEquals($user->email, $result->aaData[1]->{1});
+    }
+
+    public function testDatatableApiNoSuperAdmin()
+    {
+
+
+        $faker = Faker\Factory::create();
+
+        $role       = \Distilleries\Expendable\Models\Role::create([
+            'libelle'            => str_replace('\'', '', $faker->name),
+            'initials'           => str_replace('\'', '', $faker->name),
+            'overide_permission' => true,
+        ]);
+        $superadmin = \Distilleries\Expendable\Models\Role::create([
+            'libelle'            => str_replace('\'', '', $faker->name),
+            'initials'           => '@sa',
+            'overide_permission' => true,
+        ]);
+
+        $data = [
+            'email'    => $faker->email,
+            'password' => \Hash::make('test'),
+            'status'   => true,
+            'role_id'  => $role->id,
+        ];
+
+
+        $user = \Distilleries\Expendable\Models\User::create($data);
+
+        \Distilleries\Expendable\Models\User::create([
+            'email'    => $faker->email,
+            'password' => \Hash::make('test'),
+            'status'   => true,
+            'role_id'  => $superadmin->id,
+        ]);
+
+        $response = $this->call('GET', action($this->controller.'@getDatatable'));
+        $this->assertResponseOk();
+        $result = json_decode($response->getContent());
+
+        $this->assertEquals(2, $result->iTotalRecords);
+        $this->assertEquals($user->id, $result->aaData[1]->{0});
+        $this->assertEquals($user->email, $result->aaData[1]->{1});
+    }
+
+
     public function testView()
     {
         $faker = Faker\Factory::create();
 
         $role = \Distilleries\Expendable\Models\Role::create([
-            'libelle'            => str_replace('\'','',$faker->name),
-            'initials'           => str_replace('\'','',$faker->name),
+            'libelle'            => str_replace('\'', '', $faker->name),
+            'initials'           => str_replace('\'', '', $faker->name),
             'overide_permission' => true,
         ]);
 
@@ -192,7 +267,7 @@ class UserControllerTest extends ExpendableTestCase {
 
         $email = $faker->email;
         $user  = \Distilleries\Expendable\Models\User::create([
-            'email'    => str_replace('\'','',$email),
+            'email'    => str_replace('\'', '', $email),
             'password' => \Hash::make('test'),
             'status'   => true,
             'role_id'  => $role->id,
@@ -205,8 +280,48 @@ class UserControllerTest extends ExpendableTestCase {
 
         $this->be($user);
 
-        $response = $this->call('GET', action($this->controller.'@getProfile'), [
-            'auth' => $this->app->make('Illuminate\Auth\Guard')
+        $response = $this->call('GET', action($this->controller.'@getProfile'));
+
+        $this->assertResponseOk();
+        $this->assertContains($user->email, $response->getContent());
+        $this->assertContains($role->libelle, $response->getContent());
+    }
+
+
+    public function testSaveProfile()
+    {
+
+        $faker = Faker\Factory::create();
+        $role  = \Distilleries\Expendable\Models\Role::create([
+            'libelle'            => $faker->name,
+            'initials'           => $faker->name,
+            'overide_permission' => true,
+        ]);
+
+
+        $service = \Distilleries\Expendable\Models\Service::create([
+            'action' => $faker->name,
+        ]);
+
+
+        $email = $faker->email;
+        $user  = \Distilleries\Expendable\Models\User::create([
+            'email'    => str_replace('\'', '', $email),
+            'password' => \Hash::make('test'),
+            'status'   => true,
+            'role_id'  => $role->id,
+        ]);
+
+        \Distilleries\Expendable\Models\Permission::create([
+            'role_id'    => $role->id,
+            'service_id' => $service->id,
+        ]);
+
+        $this->be($user);
+
+        $response = $this->call('POST', action($this->controller.'@postProfile'), [
+            'id'    => $user->id,
+            'email' => str_replace('\'', '', $faker->email)
         ]);
 
         $this->assertResponseOk();
@@ -214,7 +329,60 @@ class UserControllerTest extends ExpendableTestCase {
         $this->assertContains($role->libelle, $response->getContent());
     }
 
-/*
+
+    public function testSaveProfileNotAuthorize()
+    {
+
+        $faker = Faker\Factory::create();
+        $role  = \Distilleries\Expendable\Models\Role::create([
+            'libelle'            => $faker->name,
+            'initials'           => $faker->name,
+            'overide_permission' => true,
+        ]);
+
+
+        $service = \Distilleries\Expendable\Models\Service::create([
+            'action' => $faker->name,
+        ]);
+
+
+        $email = $faker->email;
+        $user  = \Distilleries\Expendable\Models\User::create([
+            'email'    => str_replace('\'', '', $email),
+            'password' => \Hash::make('test'),
+            'status'   => true,
+            'role_id'  => $role->id,
+        ]);
+
+        \Distilleries\Expendable\Models\Permission::create([
+            'role_id'    => $role->id,
+            'service_id' => $service->id,
+        ]);
+
+        $this->be($user);
+
+        $userOther           = \Distilleries\Expendable\Models\User::create([
+            'email'    => $faker->email,
+            'password' => \Hash::make('test'),
+            'status'   => true,
+            'role_id'  => $role->id,
+        ]);
+
+        try
+        {
+            $this->call('POST', action($this->controller.'@postProfile'), [
+                'id'    => $userOther->id,
+                'email' => str_replace('\'', '', $faker->email)
+            ]);
+            $this->assertTrue(false);
+        } catch (\Symfony\Component\HttpKernel\Exception\HttpException $e)
+        {
+            $this->assertEquals(trans('permission-util::errors.unthorized'), $e->getMessage());
+        }
+
+    }
+
+
     public function testSearchWithRole()
     {
 
@@ -244,23 +412,23 @@ class UserControllerTest extends ExpendableTestCase {
             'service_id' => $service->id,
         ]);
 
-        $response = $this->call('POST', action($this->controller.'@postSearchWithRole',[
-            'role' => $role->role_id,
-        ]),[
-            'ids'  => [$user->id]
+        $response = $this->call('POST', action($this->controller.'@postSearchWithRole'), [
+            'ids'  => [$user->id],
+            'role' => $role->id,
         ]);
 
         $result = json_decode($response->getContent());
         $this->assertEquals($user->id, $result[0]->id);
-        $this->assertEquals($user->libelle, $result[0]->libelle);
+        $this->assertEquals($user->email, $result[0]->email);
+
 
         $response = $this->call('POST', action($this->controller.'@postSearchWithRole'), [
             'ids'  => [$user->id],
-            'role' => $faker->name,
+            'role' => - 1,
         ]);
 
         $result = json_decode($response->getContent());
-        $this->assertEquals(0, $result->total);
-    }*/
+        $this->assertEquals(0, count($result));
+    }
 }
 

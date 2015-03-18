@@ -14,6 +14,12 @@ class LoginControllerTest extends ExpendableTestCase {
 
     }
 
+    public function testRedirectNotLogin()
+    {
+        $this->call('GET', '/admin');
+        $this->assertRedirectedToRoute('login.index');
+    }
+
     public function testGetIndex()
     {
 
@@ -247,21 +253,20 @@ class LoginControllerTest extends ExpendableTestCase {
         $faker = Faker\Factory::create();
         $email = $faker->email;
         $user  = \Distilleries\Expendable\Models\User::create([
-            'email'          => $email,
-            'password'       => \Hash::make('test'),
-            'status'         => true,
-            'role_id'        => 1
+            'email'    => $email,
+            'password' => \Hash::make('test'),
+            'status'   => true,
+            'role_id'  => 1
         ]);
 
         \DB::table('password_resets')->insert(
-            array( 'email' => $email, 'token'=>$token, 'created_at'=>date('Y-m-d H:i:s'))
+            array('email' => $email, 'token' => $token, 'created_at' => date('Y-m-d H:i:s'))
         );
 
         \Distilleries\Expendable\Models\Permission::create([
             'role_id'    => 1,
             'service_id' => 1,
         ]);
-
 
 
         $this->call('POST', action('Admin\LoginController@postReset'), [

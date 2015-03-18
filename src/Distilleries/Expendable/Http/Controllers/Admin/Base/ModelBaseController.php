@@ -63,15 +63,19 @@ class ModelBaseController extends BaseController {
     }
 
     // ------------------------------------------------------------------------------------------------
-    public function postSearch(Request $request)
+    public function postSearch(Request $request, $query=null)
     {
 
         $ids = $request->get('ids');
 
+        if(empty($query)){
+            $query = $this->model;
+        }
+
 
         if (!empty($ids))
         {
-            $data = $this->model->whereIn($this->model->getKeyName(), $ids)->get();
+            $data = $query->whereIn($this->model->getKeyName(), $ids)->get();
 
             return response()->json($data);
         }
@@ -95,8 +99,8 @@ class ModelBaseController extends BaseController {
             $total    = 0;
         } else
         {
-            $elements = $this->model->search($term)->take($paged)->skip(($page - 1) * $paged)->get();
-            $total    = $this->model->search($term)->count();
+            $elements = $query->search($term)->take($paged)->skip(($page - 1) * $paged)->get();
+            $total    = $query->search($term)->count();
 
         }
 

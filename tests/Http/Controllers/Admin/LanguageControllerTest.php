@@ -48,7 +48,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
     }
 
-/*
+
     public function testDatatableApi()
     {
 
@@ -64,13 +64,13 @@ class LanguageControllerTest extends ExpendableTestCase {
 
         $response = $this->call('GET', action('Admin\LanguageController@getDatatable'));
         $this->assertResponseOk();
-
         $result = json_decode($response->getContent());
 
-        $this->assertEquals($language->id, $result[0]->id);
-        $this->assertEquals($language->libelle, $result[0]->libelle);
+        $this->assertEquals(1, $result->iTotalRecords);
+        $this->assertEquals($language->id, $result->aaData[0]->{0});
+        $this->assertEquals($language->libelle, $result->aaData[0]->{1});
     }
-*/
+
 
     public function testGetChangeLang()
     {

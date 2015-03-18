@@ -172,5 +172,29 @@ class EmailControllerTest extends ExpendableTestCase {
 
     }
 
+    public function testDatatableApi()
+    {
+        $faker = Faker\Factory::create();
+        $data  = [
+            'libelle'   => str_replace('\'','',$faker->realText(20)),
+            'body_type' => \Distilleries\Expendable\Helpers\StaticLabel::BODY_TYPE_HTML,
+            'action'    => 'emails.password',
+            'cc'        => $faker->email,
+            'bcc'       => $faker->email,
+            'content'   => str_replace('\'','',$faker->text()),
+            'status'    => \Distilleries\Expendable\Helpers\StaticLabel::STATUS_ONLINE,
+        ];
+
+        $email = \Distilleries\Expendable\Models\Email::create($data);
+
+        $response = $this->call('GET', action($this->controller.'@getDatatable'));
+        $this->assertResponseOk();
+        $result = json_decode($response->getContent());
+
+        $this->assertEquals(1, $result->iTotalRecords);
+        $this->assertEquals($email->id, $result->aaData[0]->{0});
+        $this->assertEquals($email->libelle, $result->aaData[0]->{1});
+    }
+
 }
 

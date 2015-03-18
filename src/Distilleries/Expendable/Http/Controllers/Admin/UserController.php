@@ -2,6 +2,7 @@
 
 use Distilleries\Expendable\Contracts\LayoutManagerContract;
 use Distilleries\Expendable\Datatables\User\UserDatatable;
+use Distilleries\Expendable\Formatter\Message;
 use Distilleries\Expendable\Forms\User\UserForm;
 use Distilleries\Expendable\Http\Controllers\Admin\Base\BaseComponent;
 use Distilleries\Expendable\Models\User;
@@ -32,17 +33,24 @@ class UserController extends BaseComponent {
 
     public function postProfile(Request $request, Guard $auth)
     {
-        $this->postEdit($request);
+        if ($auth->user()->getAuthIdentifier() == $request->get($this->model->getKeyName()))
+        {
+            $this->postEdit($request);
 
-        return $this->getProfile($auth);
+            return $this->getProfile($auth);
+        }
+
+        abort(403, trans('permission-util::errors.unthorized'));
     }
 
     // ------------------------------------------------------------------------------------------------
 
-    public function postSearchWithRole(Request $request, $role)
+    public function postSearchWithRole(Request $request)
     {
-        $this->model->where('role_id', '=', $role);
+        $query = $this->model->where('role_id', '=', $request->get('role'));
+        $this->postSearch($request, $query);
 
-        return $this->postSearch($request);
+        return $this->postSearch($request, $query);
     }
+
 }
