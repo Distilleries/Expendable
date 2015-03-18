@@ -8,6 +8,17 @@ class CsvExporter implements CsvExporterContract {
 
     public function export($data,$filename='')
     {
-        return  \CSV::fromArray($data)->render();
+       $excel = \Excel::create($filename, function($excel) use($data) {
+            $excel->sheet('export', function($sheet) use($data) {
+                $sheet->fromArray($data);
+            });
+        });
+
+        if (app()->environment('testing'))
+        {
+            $excel->store('csv');
+        }
+
+        return $excel->export('csv')->download('xls');
     }
 }

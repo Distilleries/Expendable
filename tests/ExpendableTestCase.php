@@ -1,8 +1,6 @@
 <?php
 
-
 abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
-
 
     protected $facade;
 
@@ -70,4 +68,3 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
         ];
     }
 }
-

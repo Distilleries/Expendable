@@ -9,6 +9,7 @@ use Distilleries\Expendable\Layouts\LayoutManager;
 use Distilleries\Expendable\Models\Email;
 use Distilleries\Expendable\States\StateDisplayer;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\AliasLoader;
 
 class ExpendableServiceProvider extends ServiceProvider {
 
@@ -68,9 +69,11 @@ class ExpendableServiceProvider extends ServiceProvider {
             return new Email;
         });
 
+        $this->alias();
         $this->registerCommands();
         $this->registerImporters();
         $this->registerExporters();
+
 
     }
 
@@ -140,5 +143,14 @@ class ExpendableServiceProvider extends ServiceProvider {
             'Distilleries\Expendable\Contracts\ExcelExporterContract',
             'Distilleries\Expendable\Contracts\PdfExporterContract',
         ];
+    }
+
+
+    public function alias() {
+
+        AliasLoader::getInstance()->alias(
+            'Excel',
+            'Maatwebsite\Excel\Facades\Excel'
+        );
     }
 }

@@ -159,6 +159,7 @@ class LanguageControllerTest extends ExpendableTestCase {
         $this->assertHasOldInput();
 
     }
+
     public function testDestroy()
     {
         $faker    = Faker\Factory::create();
@@ -170,12 +171,91 @@ class LanguageControllerTest extends ExpendableTestCase {
             'status'      => true,
         ];
         $language = \Distilleries\Expendable\Models\Language::create($data);
-        $this->call('PUT', action('Admin\LanguageController@putDestroy'),[
-            'id'=>$language->id
+        $this->call('PUT', action('Admin\LanguageController@putDestroy'), [
+            'id' => $language->id
         ]);
         $newLanguage = \Distilleries\Expendable\Models\Language::find($language->id);
 
-        $this->assertEquals(null,$newLanguage);
+        $this->assertEquals(null, $newLanguage);
+
+    }
+
+    public function testExportError()
+    {
+
+        $this->call('POST', action('Admin\LanguageController@postExport'));
+        $this->assertSessionHasErrors();
+        $this->assertHasOldInput();
+    }
+
+    public function testExportCsv()
+    {
+
+        $faker = Faker\Factory::create();
+        $data  = [
+            'libelle'     => addslashes($faker->country),
+            'iso'         => $faker->countryCode,
+            'not_visible' => false,
+            'is_default'  => true,
+            'status'      => true,
+        ];
+        \Distilleries\Expendable\Models\Language::create($data);
+
+        \File::delete(storage_path('exports'));
+        $dateBegin = date('Y-m-d', time() - (24 * 60 * 60));
+        $dateEnd = date('Y-m-d', time() + (24 * 60 * 60));
+
+        try
+        {
+            $this->call('POST', action('Admin\LanguageController@postExport'), [
+                'range' => [
+                    'start' => $dateBegin,
+                    'end'   => $dateEnd
+                ],
+                'type'  => 'Distilleries\Expendable\Contracts\CsvExporterContract'
+            ]);
+
+        } catch (\Maatwebsite\Excel\Exceptions\LaravelExcelException $e)
+        {
+            $this->assertEquals("[ERROR]: Headers already sent", $e->getMessage());
+            $this->assertFileExists(storage_path('exports/'.$dateBegin.' '.$dateEnd.'.csv'));
+        }
+
+    }
+
+
+
+    public function testExportXls()
+    {
+
+        $faker = Faker\Factory::create();
+        $data  = [
+            'libelle'     => addslashes($faker->country),
+            'iso'         => $faker->countryCode,
+            'not_visible' => false,
+            'is_default'  => true,
+            'status'      => true,
+        ];
+        \Distilleries\Expendable\Models\Language::create($data);
+
+        $dateBegin = date('Y-m-d', time() - (24 * 60 * 60));
+        $dateEnd = date('Y-m-d', time() + (24 * 60 * 60));
+        \File::delete(storage_path('exports'));
+        try
+        {
+            $this->call('POST', action('Admin\LanguageController@postExport'), [
+                'range' => [
+                    'start' => $dateBegin,
+                    'end'   => $dateEnd
+                ],
+                'type'  => 'Distilleries\Expendable\Contracts\ExcelExporterContract'
+            ]);
+
+        } catch (\Maatwebsite\Excel\Exceptions\LaravelExcelException $e)
+        {
+            $this->assertEquals("[ERROR]: Headers already sent", $e->getMessage());
+            $this->assertFileExists(storage_path('exports/'.$dateBegin.' '.$dateEnd.'.xls'));
+        }
 
     }
 

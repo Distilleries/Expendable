@@ -13,24 +13,27 @@ use Distilleries\Expendable\Contracts\ExcelExporterContract;
 class ExcelExporter implements ExcelExporterContract {
 
 
-
-    public function export($data,$filename='')
+    public function export($data, $filename = '')
     {
 
-        return \Excel::create($filename, function($excel) use($data) {
 
-            $excel->sheet('export', function($sheet) use($data) {
+        $excel = \Excel::create($filename, function ($excel) use ($data)
+        {
+
+            $excel->sheet('export', function ($sheet) use ($data)
+            {
 
                 $sheet->fromArray($data);
                 $sheet->freezeFirstRow();
                 $sheet->setAutoFilter();
-                $sheet->row(1, function($row) {
+                $sheet->row(1, function ($row)
+                {
                     $row->setValignment('middle');
                     $row->setAlignment('center');
                     $row->setFontColor('#ffffff');
                     $row->setFont(array(
-                        'size'       => '12',
-                        'bold'       =>  true
+                        'size' => '12',
+                        'bold' => true
                     ));
                     $row->setBackground('#000000');
 
@@ -39,7 +42,13 @@ class ExcelExporter implements ExcelExporterContract {
             });
 
 
+        });
 
-        })->export('xls')->download('xls');
+        if (app()->environment('testing'))
+        {
+            $excel->store('xls');
+        }
+
+        $excel->export('xls')->download('xls');
     }
 }
