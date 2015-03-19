@@ -54,7 +54,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
         $faker    = Faker\Factory::create();
         $data     = [
-            'libelle'     => str_replace('\'','',$faker->country),
+            'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => false,
             'is_default'  => true,
@@ -85,7 +85,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
         $faker    = Faker\Factory::create();
         $data     = [
-            'libelle'     => str_replace('\'','',$faker->country),
+            'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => false,
             'is_default'  => true,
@@ -106,7 +106,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
         $faker    = Faker\Factory::create();
         $data     = [
-            'libelle'     => str_replace('\'','',$faker->country),
+            'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => false,
             'is_default'  => true,
@@ -135,7 +135,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'     => str_replace('\'','',$faker->country),
+            'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => 0,
             'is_default'  => 1,
@@ -153,7 +153,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
         $faker    = Faker\Factory::create();
         $data     = [
-            'libelle'     => str_replace('\'','',$faker->country),
+            'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => 0,
             'is_default'  => 1,
@@ -175,6 +175,43 @@ class LanguageControllerTest extends ExpendableTestCase {
         $this->assertEquals(0, $result->total);
     }
 
+
+    public function testSearchWithException()
+    {
+        $faker    = Faker\Factory::create();
+        $data     = [
+            'libelle'     => str_replace('\'', '', $faker->country),
+            'iso'         => $faker->countryCode,
+            'not_visible' => 0,
+            'is_default'  => 1,
+            'status'      => 1,
+        ];
+        $language = \Distilleries\Expendable\Models\Language::create($data);
+        $response = $this->call('POST', action('Admin\LanguageController@postSearch'), [
+            'ids' => [$language->id]
+        ]);
+
+        $result = json_decode($response->getContent());
+        $this->assertEquals($language->id, $result[0]->id);
+        $this->assertEquals($language->libelle, $result[0]->libelle);
+
+        try
+        {
+            $response = $this->call('POST', action('Admin\LanguageController@postSearch'), [
+                'term' => $data['iso'].$data['iso'].$data['iso']
+            ]);
+
+            $result = json_decode($response->getContent());
+            $this->assertEquals(0, $result->total);
+
+        } catch (\Exception $e)
+        {
+            $this->assertEquals('Database driver not supported: sqlite', $e->getMessage());
+        }
+
+
+    }
+
     public function testDestroyNoId()
     {
 
@@ -188,7 +225,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
         $faker    = Faker\Factory::create();
         $data     = [
-            'libelle'     => str_replace('\'','',$faker->country),
+            'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => false,
             'is_default'  => true,
@@ -228,7 +265,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'     => str_replace('\'','',$faker->country),
+            'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => false,
             'is_default'  => true,
@@ -263,7 +300,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'     => str_replace('\'','',$faker->country),
+            'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
             'not_visible' => false,
             'is_default'  => true,
@@ -305,7 +342,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     public function testImportNoFileCsv()
     {
         $this->call('POST', action('Admin\LanguageController@postImport'), [
-            'file' =>storage_path('test.csv')
+            'file' => storage_path('test.csv')
         ]);
 
         $this->assertSessionHas(\Distilleries\Expendable\Formatter\Message::WARNING);
@@ -315,9 +352,9 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
 
         \DB::table('languages')->truncate();
-        copy(realpath(__DIR__.'/../../../data/exports/2015-03-17 2015-03-19.csv'),storage_path('2015-03-17 2015-03-19.csv'));
+        copy(realpath(__DIR__.'/../../../data/exports/2015-03-17 2015-03-19.csv'), storage_path('2015-03-17 2015-03-19.csv'));
         $this->call('POST', action('Admin\LanguageController@postImport'), [
-            'file' =>storage_path('2015-03-17 2015-03-19.csv')
+            'file' => storage_path('2015-03-17 2015-03-19.csv')
         ]);
 
         $total = \Distilleries\Expendable\Models\Language::count();
@@ -329,9 +366,9 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
 
         \DB::table('languages')->truncate();
-        copy(realpath(__DIR__.'/../../../data/exports/2015-03-17 2015-03-19.csv'),storage_path('2015-03-17 2015-03-19.xls'));
+        copy(realpath(__DIR__.'/../../../data/exports/2015-03-17 2015-03-19.csv'), storage_path('2015-03-17 2015-03-19.xls'));
         $this->call('POST', action('Admin\LanguageController@postImport'), [
-            'file' =>storage_path('2015-03-17 2015-03-19.xls')
+            'file' => storage_path('2015-03-17 2015-03-19.xls')
         ]);
 
         $total = \Distilleries\Expendable\Models\Language::count();

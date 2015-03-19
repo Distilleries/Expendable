@@ -20,6 +20,41 @@ class LoginControllerTest extends ExpendableTestCase {
         $this->assertRedirectedToRoute('login.index');
     }
 
+    public function testRedirectLogin()
+    {
+
+        $faker = Faker\Factory::create();
+        $role  = \Distilleries\Expendable\Models\Role::create([
+            'libelle'            => $faker->name,
+            'initials'           => $faker->name,
+            'overide_permission' => true,
+        ]);
+
+
+        $service = \Distilleries\Expendable\Models\Service::create([
+            'action' => $faker->name,
+        ]);
+
+
+        $email = $faker->email;
+        $user  = \Distilleries\Expendable\Models\User::create([
+            'email'    => str_replace('\'', '', $email),
+            'password' => \Hash::make('test'),
+            'status'   => true,
+            'role_id'  => $role->id,
+        ]);
+
+        \Distilleries\Expendable\Models\Permission::create([
+            'role_id'    => $role->id,
+            'service_id' => $service->id,
+        ]);
+
+        $this->be($user);
+
+        $this->call('GET', '/admin');
+        $this->assertRedirectedToAction('Admin\EmailController@getIndex');
+    }
+
     public function testGetIndex()
     {
 
