@@ -9,8 +9,7 @@ class AssetController extends BaseController {
 
         $directory   = explode('/', $path);
         $directory   = reset($directory);
-        $white_liste = config('expendable::folder_whiteliste');
-
+        $white_liste = config('expendable.folder_whitelist');
         if (in_array($directory, $white_liste))
         {
             $path = storage_path($path);

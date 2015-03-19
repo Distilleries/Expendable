@@ -4,7 +4,7 @@ use \Route;
 use \View;
 use \Auth;
 
-Route::get('app/storage/{path}', 'Front\AssetController@getIndex')->where('path', '([A-z\d-\/_.\s]+)?');
+Route::get('storage/{path}', 'Front\AssetController@getIndex')->where('path', '([A-z\d-\/_.\s]+)?');
 
 Route::group(array(
     'prefix' => 'admin',
