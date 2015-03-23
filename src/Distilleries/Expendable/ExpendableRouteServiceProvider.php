@@ -36,7 +36,7 @@ class ExpendableRouteServiceProvider extends ServiceProvider {
     {
         $router->group(['namespace' => $this->namespace], function()
         {
-            require __DIR__.'/Http/routes.php';
+            require __DIR__ . '/Http/routes.php';
         });
     }
 
