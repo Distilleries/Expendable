@@ -1,10 +1,10 @@
 #Expendable
 
-Expendable is a cms base on laravel 4.*.
+Expendable is a cms base on laravel 5.*.
 This package give you some implementation do add a content management system of your application.
 You can override everything. This Cms give view few tools to develop your content management easily and properly.
 
-If you want install a fresh install of laravel 4 with Expendable package configured and gulp, bower structure go in (https://github.com/Distilleries/Xyz)[https://github.com/Distilleries/Xyz].
+If you want install a fresh install of laravel 5 with Expendable package configured and gulp, bower structure go in (https://github.com/Distilleries/Xyz)[https://github.com/Distilleries/Xyz].
 
 ## Table of contents
 1. [Require](#require)
@@ -43,7 +43,6 @@ If you want install a fresh install of laravel 4 with Expendable package configu
 To use this project you have to install:
 
 1. Php 5.5 or more
-2. Active the gettext extension
 3. Active mpcrypt
 4. Composer (https://getcomposer.org/download/)[https://getcomposer.org/download/]
 5. Sass (`gem install sass`)
@@ -56,7 +55,7 @@ Add on your composer.json
 
 ``` json
     "require": {
-        "distilleries/expendable": "1.*",
+        "distilleries/expendable": "2.*",
     }
 ```
 
@@ -66,19 +65,16 @@ Add Service provider to `config/app.php`:
 
 ``` php
     'providers' => [
-        // ...
-       'Netson\L4gettext\L4gettextServiceProvider',
-       'Chumper\Datatable\DatatableServiceProvider',
-       "Ollieread\Multiauth\MultiauthServiceProvider",
-       "Ollieread\Multiauth\Reminders\ReminderServiceProvider",
-       'Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider',
-       'Wpb\StringBladeCompiler\StringBladeCompilerServiceProvider',
-       'mnshankar\CSV\CSVServiceProvider',
-       'Maatwebsite\Excel\ExcelServiceProvider',
-       'Distilleries\DatatableBuilder\DatatableBuilderServiceProvider',
-       'Distilleries\FormBuilder\FormBuilderServiceProvider',
-       'Distilleries\Expendable\ExpendableServiceProvider',
-       'Distilleries\MailerSaver\MailerSaverServiceProvider',
+          /**
+           * Vendor provider
+           */
+          'Distilleries\MailerSaver\MailerSaverServiceProvider',
+          'Distilleries\FormBuilder\FormBuilderServiceProvider',
+          'Distilleries\DatatableBuilder\DatatableBuilderServiceProvider',
+          'Distilleries\PermissionUtil\PermissionUtilServiceProvider',
+          'Maatwebsite\Excel\ExcelServiceProvider',
+          'Distilleries\Expendable\ExpendableServiceProvider',
+          'Distilleries\Expendable\ExpendableRouteServiceProvider',
     ]
 ```
 
@@ -87,78 +83,100 @@ And Facade (also in `config/app.php`) replace the laravel facade `Mail`
 
 ``` php
     'aliases' => [
-        // ...
-       'Mail'              => 'Distilleries\MailerSaver\Facades\Mail',
-       'Datatable'         => 'Distilleries\DatatableBuilder\Facades\DatatableBuilder',
-       'FormBuilder'       => 'Distilleries\FormBuilder\Facades\FormBuilder',
-       'Gravatar'          => 'Thomaswelton\LaravelGravatar\Facades\Gravatar',
-       'CSV'               => 'mnshankar\CSV\CSVFacade',
-       'Excel'             => 'Maatwebsite\Excel\Facades\Excel',
+                /**
+                * Vendor facade
+                *
+                */
+       
+               'Mail'           => 'Distilleries\MailerSaver\Facades\Mail',
+               'FormBuilder'    => 'Distilleries\FormBuilder\Facades\FormBuilder',
+               'Form'           => 'Illuminate\Html\FormFacade',
+               'HTML'           => 'Illuminate\Html\HtmlFacade',
+               'Datatable'      => 'Distilleries\DatatableBuilder\Facades\DatatableBuilder',
+               'PermissionUtil' => 'Distilleries\PermissionUtil\Facades\PermissionUtil',
+               'Excel'          => 'Maatwebsite\Excel\Facades\Excel',
     ]
 ```
 
 **Replace the service old facade Mail by the new one.**
+
+Publish the configuration:
+
+```ssh
+php artisan vendor:publish --provider="Distilleries\Expendable\ExpendableServiceProvider"
+```
+
+### Add the admin kernel
+To get all the default component you have to register the kernel.
+To do that only add this line in `bootstrap/app.php`:
     
+```php
+    $app->singleton(
+        'Distilleries\Expendable\Http\Kernel',
+    );
+```
+
+If you want stylize the errors with the backend style just add this line in `bootstrap/app.php`:
+    
+```php
+   $app->singleton(
+   	'Distilleries\Expendable\Exceptions\Handler',
+   );
+```
+
 
 ##Configurations
 
-```ssh
-php artisan config:publish distilleries/expendable
-```
-
 ```php
     return [
-          'login_uri'           => 'admin/login',
-          'admin_base_uri'      => 'admin',
-          'config_file_assets'  => base_path() . '/package.json',
-          'folder_whitelist'   => [
-              'moximanager'
-          ],
-          'listener'            => [
-              '\Distilleries\Expendable\Listeners\UserListener'
-          ],
-          'mail'                => [
-              "actions"  => [
-                  'emails.auth.reminder'
-              ]
-          ],
-          'menu'                => \Distilleries\Expendable\Config\MenuConfig::menu([], 'beginning'),
-          'menu_left_collapsed' => false,
-          'state'               => [
-              'Distilleries\Expendable\Contracts\DatatableStateContract' => [
-                  'color'            => 'bg-green-haze',
-                  'icon'             => 'th-list',
-                  'libelle'          => _('Datatable'),
-                  'extended_libelle' => _('List of %s'),
-                  'position'         => 0,
-                  'action'           => 'getIndex'
-              ],
-              'Distilleries\Expendable\Contracts\ExportStateContract'    => [
-                  'color'            => 'bg-blue-hoki',
-                  'icon'             => 'save-file',
-                  'libelle'          => _('Export'),
-                  'extended_libelle' => _('Chose date to export %s'),
-                  'position'         => 1,
-                  'action'           => 'getExport'
-              ],
-              'Distilleries\Expendable\Contracts\ImportStateContract'    => [
-                  'color'            => 'bg-red-sunglo',
-                  'icon'             => 'open-file',
-                  'libelle'          => _('Import'),
-                  'extended_libelle' => _('Upload a file to import %s'),
-                  'position'         => 2,
-                  'action'           => 'getImport'
-              ],
-              'Distilleries\Expendable\Contracts\FormStateContract'      => [
-                  'color'            => 'bg-yellow',
-                  'icon'             => 'pencil',
-                  'libelle'          => _('Add'),
-                  'extended_libelle' => _('Detail of %s'),
-                  'position'         => 3,
-                  'action'           => 'getEdit'
-              ],
-          ]
-      ];
+        'login_uri'           => 'admin/login',
+        'logout_action'       => 'Distilleries\Expendable\Http\Controllers\Admin\LoginController@getLogout',
+        'admin_base_uri'      => 'admin',
+        'config_file_assets'  => base_path().'/package.json',
+        'folder_whitelist'    => [
+            'moximanager'
+        ],
+        'listener'            => [
+            '\Distilleries\Expendable\Listeners\UserListener'
+        ],
+        'mail'                => [
+            'actions' => [
+                'emails.password'
+            ]
+        ],
+        'menu'                => \Distilleries\Expendable\Config\MenuConfig::menu([], 'beginning'),
+        'menu_left_collapsed' => false,
+        'state'               => [
+            'Distilleries\DatatableBuilder\Contracts\DatatableStateContract' => [
+                'color'    => 'bg-green-haze',
+                'icon'     => 'th-list',
+                'libelle'  => 'expendable::menu.datatable',
+                'position' => 0,
+                'action'   => 'getIndex'
+            ],
+            'Distilleries\Expendable\Contracts\ExportStateContract'          => [
+                'color'    => 'bg-blue-hoki',
+                'icon'     => 'save-file',
+                'libelle'  => 'expendable::menu.export',
+                'position' => 1,
+                'action'   => 'getExport'
+            ],
+            'Distilleries\Expendable\Contracts\ImportStateContract'          => [
+                'color'    => 'bg-red-sunglo',
+                'icon'     => 'open-file',
+                'libelle'  => 'expendable::menu.import',
+                'position' => 2,
+                'action'   => 'getImport'
+            ],
+            'Distilleries\FormBuilder\Contracts\FormStateContract'           => [
+                'color'    => 'bg-yellow',
+                'icon'     => 'pencil',
+                'libelle'  => 'expendable::menu.add_state',
+                'position' => 3,
+                'action'   => 'getEdit'
+            ],
+        ]
+    ];
 ```
 
 Field | Usage
@@ -211,16 +229,16 @@ To add a new item it's easy
                     [
                         'icon'    => 'send',
                         'action'  => 'Admin\ContactController@getIndex',
-                        'libelle' => _('Contact'),
+                        'libelle' => 'Contact',
                         'submenu' => [
                             [
                                 'icon'    => 'th-list',
-                                'libelle' => _('List of Contact'),
+                                'libelle' => 'List of Contact',
                                 'action'  => 'Admin\ContactController@getIndex',
                             ],
                             [
                                 'icon'    => 'pencil',
-                                'libelle' => _('Add Contact'),
+                                'libelle' => 'Add Contact',
                                 'action'  => 'Admin\ContactController@getEdit',
                             ]
                         ]
@@ -231,7 +249,7 @@ To add a new item it's easy
                     [
                         'icon'    => 'console',
                         'action'  => 'Admin\TestController@getIndex',
-                        'libelle' => _('Test'),
+                        'libelle' => 'Test',
     
                     ],
                 ]
@@ -281,13 +299,21 @@ To display the menu of state I provide a class for the interface `Distilleries\E
 This class check the interface use on your controller and with the config `exependable::state` display the logo and the name of the state.
 If you want change the state display, just provide a new class for the contract `Distilleries\Expendable\Contracts\StateDisplayerContract`.
 
+ 
+To display all the element I use a layout manager. you can override it to display what you want.
+```php
+ 	  $this->app->singleton('Distilleries\Expendable\Contracts\LayoutManagerContract', function ($app)
+    {
+        return new LayoutManager($app['config']->get('expendable'), $app['view'], $app['files'], app('Distilleries\Expendable\Contracts\StateDisplayerContract'));
+    });
+```
 
 ####1. Datatable
 
 ![datatable](http://distilleri.es/markdown/expendable/_images/states.png)
 
 A datatable state it's use to display a list of content with filter if you need it.
-To use it you have to implement the interface `Distilleries\Expendable\Contracts\DatatableStateContract`.
+To use it you have to implement the interface `Distilleries\DatatableBuilder\Contracts\DatatableStateContract`.
 
 ```php
   public function getIndexDatatable();
@@ -307,7 +333,7 @@ On this trait you have a generic implementation to display the datatable and the
 This trait need to use two attributes of your controller:
 
 1. `$datatable`, it's an instance of `EloquentDatatable` (come from [DatatableBuilder](https://github.com/Distilleries/DatatableBuilder)).
-2. `model`, it's and instance of `Eloquant` (come from laravel).
+2. `model`, it's and instance of `Model` (come from laravel).
 
 Inject them on your constructor:
 
@@ -435,7 +461,7 @@ You can change the class provide to import the data. Just add those methods on y
 The form state give you a part to add or edit an element and a part to view the element without edit.
 
 
-To use it you have to implement the interface `Distilleries\Expendable\Contracts\FormStateContract`.
+To use it you have to implement the interface `Distilleries\FormBuilder\Contracts\FormStateContract`.
 
 ```php
     public function getEdit($id);
@@ -485,7 +511,6 @@ Field | Description
 Name | The name use to generate the controllers and other classes (ex: Address, AddressController, AddressForm, AddressDatatable).
 State | The state you want use on your controller
 Model | The model inject on your controller
-Path repository | Fill it if you want put your class on specific folder (ex: Project, that generate the classes on the folder app/Project).
 Columns | List of columns display on the datatable
 Fields | The field you want in your form (name:type ex: id:hidden, libelle:text...)
 
@@ -494,86 +519,117 @@ To know all the types of fields you can [have look the documentation](https://gi
 ![component](http://distilleri.es/markdown/expendable/_images/component.png)
 
 
-###AdminBaseComponent
-By default if you check all the state that generate a controller inheritance from `Distilleries\Expendable\Controllers\AdminBaseComponent`.
+###Admin BaseComponent
+By default if you check all the state that generate a controller inheritance from `Distilleries\Expendable\Http\Controllers\Admin\Base\BaseComponent`.
 This controller implement all the states interfaces.
 
 
 ```php
-use Distilleries\Expendable\Contracts\StateDisplayerContract;
-use Distilleries\Expendable\Controllers\AdminBaseComponent;
-use Scolicare\Datatables\CityDatatable;
-use Scolicare\Forms\CityForm;
-
-
-class CityController extends AdminBaseComponent {
-
-    public function __construct(\City $model, StateDisplayerContract $stateProvider, CityDatatable $datatable, CityForm $form)
-    {
-        parent::__construct($model, $stateProvider);
-        $this->datatable = $datatable;
-        $this->form      = $form;
-    }
-
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-
-}
-```
-
-###AdminModelBaseController
-If you don't want use all the state and you use a model just extend `Distilleries\Expendable\Controllers\AdminModelBaseController`.
-
-Example:
-
-```php
-    namespace Distilleries\Expendable\Controllers\Admin;
-    
-    
-    use Distilleries\Expendable\Contracts\FormStateContract;
-    use Distilleries\Expendable\Contracts\StateDisplayerContract;
-    use Distilleries\Expendable\Controllers\AdminModelBaseController;
-    use Distilleries\Expendable\Forms\Permission\PermissionForm;
+    use Distilleries\DatatableBuilder\Contracts\DatatableStateContract;
+    use Distilleries\Expendable\Contracts\ExportStateContract;
+    use Distilleries\Expendable\Contracts\ImportStateContract;
+    use Distilleries\Expendable\States\DatatableStateTrait;
+    use Distilleries\Expendable\States\ExportStateTrait;
     use Distilleries\Expendable\States\FormStateTrait;
+    use Distilleries\Expendable\States\ImportStateTrait;
+    use Distilleries\FormBuilder\Contracts\FormStateContract;
     
-    class PermissionController extends AdminModelBaseController implements FormStateContract {
+    
+    
+    class BaseComponent extends ModelBaseController implements FormStateContract, DatatableStateContract, ExportStateContract, ImportStateContract {
     
         use FormStateTrait;
+        use ExportStateTrait;
+        use DatatableStateTrait;
+        use ImportStateTrait;
     
+        // ------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------
     
-        public function __construct(Permission $model, StateDisplayerContract $stateProvider, PermissionForm $form)
+        public function getIndex()
         {
-            parent::__construct($model, $stateProvider);
-            $this->form = $form;
+            return $this->getIndexDatatable();
         }
-    
-        // ------------------------------------------------------------------------------------------------
-        // ------------------------------------------------------------------------------------------------
-        // ------------------------------------------------------------------------------------------------
-    
-    
     }
 ```
 
-###AdminBaseController
-If you don't want use all the state and you don't use a model just extend `Distilleries\Expendable\Controllers\AdminBaseController`.
-You just have to inject the `StateDisplayerContract`
+###Admin ModelBaseController
+If you don't want use all the state and you use a model just extend `Distilleries\Expendable\Http\Controllers\Admin\Base\ModelBaseController`.
 
 Example:
 
 ```php
-    namespace Distilleries\Expendable\Controllers\Admin;
+   
+    use Distilleries\Expendable\Contracts\LayoutManagerContract;
+    use Distilleries\Expendable\Models\BaseModel;
+    use Illuminate\Http\Request;
     
-    use Distilleries\Expendable\Contracts\StateDisplayerContract;
-    use Distilleries\Expendable\Controllers\AdminModelBaseController;
+    class ModelBaseController extends BaseController {
+    
+        /**
+         * @var \Distilleries\Expendable\Models\BaseModel $model
+         * Injected by the constructor
+         */
+        protected $model;
     
     
-    class PermissionController extends AdminBaseController{
-  
-        public function __construct(StateDisplayerContract $stateProvider)
+        // ------------------------------------------------------------------------------------------------
+    
+        public function __construct(BaseModel $model, LayoutManagerContract $layoutManager)
         {
-            parent::__construct($stateProvider);
+            parent::__construct($layoutManager);
+            $this->model = $model;
+        }
+    
+    
+    
+        // ------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------
+
+        public function putDestroy(Request $request)
+        {
+            $validation = \Validator::make($request->all(), [
+                'id' => 'required'
+            ]);
+            if ($validation->fails())
+            {
+                return redirect()->back()->withErrors($validation)->withInput($request->all());
+            }
+    
+            $data = $this->model->find($request->get('id'));
+            $data->delete();
+    
+            return redirect()->to(action('\\'.get_class($this) . '@getIndex'));
+        }
+    }
+```
+
+###Admin BaseController
+If you don't want use all the state and you don't use a model just extend `Distilleries\Expendable\Http\Controllers\Admin\Base\BaseController`.
+You just have to inject the `LayoutManagerContract`
+
+Example:
+
+```php
+    
+    use Distilleries\Expendable\Contracts\LayoutManagerContract;
+    use Distilleries\Expendable\Http\Controllers\Controller;
+
+
+    class BaseController extends Controller {
+    
+    
+        protected $layoutManager;
+        protected $layout = 'expendable::admin.layout.default';
+    
+        // ------------------------------------------------------------------------------------------------
+    
+        public function __construct(LayoutManagerContract $layoutManager)
+        {
+            $this->layoutManager = $layoutManager;
+            $this->setupLayout();
         }
     
         // ------------------------------------------------------------------------------------------------
@@ -581,15 +637,50 @@ Example:
         // ------------------------------------------------------------------------------------------------
     
     
+        protected function setupLayout()
+        {
+            $this->layoutManager->setupLayout($this->layout);
+            $this->setupStateProvider();
+            $this->initStaticPart();
+    
+    
+        }
+    
+        // ------------------------------------------------------------------------------------------------
+    
+        protected function setupStateProvider()
+        {
+            $interfaces = class_implements($this);
+            $this->layoutManager->initInterfaces($interfaces, get_class($this));
+    
+        }
+    
+        // ------------------------------------------------------------------------------------------------
+    
+        protected function initStaticPart()
+        {
+            $this->layoutManager->initStaticPart(function ($layoutManager)
+            {
+    
+                $menu_top  = $layoutManager->getView()->make('expendable::admin.menu.top');
+                $menu_left = $layoutManager->getView()->make('expendable::admin.menu.left');
+    
+    
+                $layoutManager->add([
+                    'state.menu' => $layoutManager->getState()->getRenderStateMenu(),
+                    'menu_top'   => $menu_top,
+                    'menu_left'  => $menu_left
+                ]);
+            });
+        }
     }
 ```
 
 ##Model
-By default you can extend `\Distilleries\Expendable\Models\BaseModel`, this one extend `\Eloquent`.
+By default you can extend `\Distilleries\Expendable\Models\BaseModel`, this one extend `\Illuminate\Database\Eloquent\Model`.
 On it you have some method you can use:
 
 ```php
-    public function getFillable();
     public static function getChoice();
     public function scopeSearch($query, $searchQuery);
     public function getAllColumnsNames();
@@ -599,7 +690,6 @@ On it you have some method you can use:
 
 Method | Detail
 ------ | ------
-getFillable | Return the table of fillable field
 getChoice   | Return a table with in key the id and the value the libelle
 scopeSearch | Query scope to search in all columns
 getAllColumnsNames | Get all the columns of your table
@@ -626,20 +716,15 @@ If you go on `Associate Permission` you have the list of controller with all met
 
 ![services](http://distilleri.es/markdown/expendable/_images/services.png)
 
-On this page you can allow a role to the method. 
-If the role is not allowed the application dispatch an error:
+On this page you can allow a role to the method.
+By default Expendable use `Distilleries\PermissionUtil` package and add the good middleware in his kernel.
+You don't have to configure something.
+If the role is not allowed the application dispatch an error 403:
 
 ```php
-App::abort(403, Lang::get('expendable::errors.unthorized'));
-```
-That is done in `auth.anthorized` filter. You can override the permission in role to allow automatically all the services.
-It's use for the developer to develop the application easily.
-
-You can use `UserUtils` to check the permission and display an element or not.
-To display the remove  button on the datatable the user need `putDestroy` action allowed.
-
-```php
-\Distilleries\Expendable\Helpers\UserUtils::hasAccess('Admin\RoleController@putDestroy'))
+    if(!PermissionUtil::hasAccess('Controller@action')){
+        App::abort(403, Lang::get('expendable::errors.unthorized'));
+    }
 ```
 
 ##Views
@@ -647,35 +732,35 @@ To display the remove  button on the datatable the user need `putDestroy` action
 To override the view publish them with command line: 
 
 ```ssh
-php artisan view:publish distilleries/expendable
+php artisan vendor:publish --provider="Distilleries\Expendable\ExpendableServiceProvider"  --tag="views"
 ```
 
 ##Assets (CSS and Javascript)
-All the assets are one the folder `assets`.
+All the assets are one the folder `resources/assets`.
 
 ###Sass
 To use the sass file just add bootstrap and  `application.admin.scss` on your admin file scss.
-If you check the repo [Xyz](https://github.com/Distilleries/Xyz/tree/master/app/assets) you have a folder assets.
+If you check the repo [Xyz](https://github.com/Distilleries/Xyz/tree/master/resources/assets) you have a folder assets.
 I use the same structure.
 
 ```scss
-@import "../../../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap-sprockets";
-@import "../../../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap";
-
-@font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url("../fonts/glyphicons-halflings-regular.eot");
-  src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
-}
-
-@font-face {
-  font-family: 'FontAwesome';
-  src: url("../fonts/fontawesome-webfont.eot");
-  src: url("../fonts/fontawesome-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff") format("woff"), url("../fonts/fontawesome-webfont.ttf") format("truetype"), url("../fonts/fontawesome-webfont.svg#glyphicons_halflingsregular") format("svg");
-}
-
-@import "../../../../vendor/distilleries/expendable/assets/admin/sass/application.admin";
-@import "../../../../vendor/distilleries/expendable/assets/admin/sass/admin/layout/themes/grey";
+    @import "../../../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap-sprockets";
+    @import "../../../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap";
+    
+    @font-face {
+      font-family: 'Glyphicons Halflings';
+      src: url("../fonts/glyphicons-halflings-regular.eot");
+      src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
+    }
+    
+    @font-face {
+      font-family: 'FontAwesome';
+      src: url("../fonts/fontawesome-webfont.eot");
+      src: url("../fonts/fontawesome-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff") format("woff"), url("../fonts/fontawesome-webfont.ttf") format("truetype"), url("../fonts/fontawesome-webfont.svg#glyphicons_halflingsregular") format("svg");
+    }
+    
+    @import "../../../../vendor/distilleries/expendable/src/resources/assets/admin/sass/application.admin";
+    @import "../../../../vendor/distilleries/expendable/src/resources/assets/admin/sass/admin/layout/themes/grey";
 ```
 
 ###Images
@@ -720,7 +805,21 @@ feature | Generate a tag like x.1.x and increment the version of your composer.j
 release | Generate a tag like 1.x.x and increment the version of your composer.json, bower.json, package.json 
 default | Start the tasks clean, bower and after styles, scripts, images in asynchrone. 
 
+###Composer
+I update my composer json to add the npm install and gulp generation when I update my libraries.
 
+```json
+    "post-update-cmd": [
+      "php artisan clear-compiled",
+      "php artisan optimize",
+      "php artisan down",
+      "npm install",
+      "php artisan migrate --force",
+      "gulp",
+      "php artisan up"
+    ],
+```
+    
 ##Create a new backend module
 
 1. Generate your migration.
@@ -734,8 +833,43 @@ Try to create a blog post component. I use a fresh install of [Xyz](https://gith
 
 ###1 Generate your migration
 
-```ssh
-php artisan generate:migration create_posts_table --fields="libelle:string, content:text, status:t inyInteger"
+```php
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreatePostsTable extends Migration {
+
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		Schema::create('posts', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->string('libelle');
+			$table->text('content')->nullable();
+			$table->tinyInteger('status');
+			$table->timestamps();
+		});
+	}
+
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		Schema::drop('posts');
+	}
+
+}
+
 ```
 
 
@@ -747,33 +881,33 @@ php artisan migrate
 ###2 Generate your model
 
 ```php
-<?php
-
-class Post extends \Distilleries\Expendable\Models\BaseModel {
-
-	use \Distilleries\Expendable\Models\StatusTrait;
-	
-	protected $fillable = [
-		'id',
-		'libelle',
-		'content',
-		'status',
-	];
-}
+    <?php namespace App;
+    
+    use Distilleries\Expendable\Models\BaseModel;
+    
+    class Post extends BaseModel {
+        
+        use \Distilleries\Expendable\Models\StatusTrait;
+    
+        protected $fillable = [
+            'id',
+            'libelle',
+            'content',
+            'status',
+        ];
+    }
 ```
 
 ###3 Generate you component
 I use the backend generator `/admin/component/edit`.
 
-
 ![studies](http://distilleri.es/markdown/expendable/_images/studies.png)
-
 
 
 Datatable:
 
 ```php
-<?php namespace Xyz\Datatables;
+<?php namespace App\Datatables;
 
 use Distilleries\DatatableBuilder\EloquentDatatable;
 
@@ -782,13 +916,14 @@ class PostDatatable extends EloquentDatatable
     public function build()
     {
         $this
-            ->add('id',null,_('Id'))
-            ->add('libelle',null,_('Libelle'));
+            ->add('id',null,trans('datatable.id'))
+            ->add('libelle',null,trans('datatable.libelle'));
 
         $this->addDefaultAction();
 
     }
 }
+
 ```
 
 Form:
@@ -796,7 +931,7 @@ Form:
 This file is generated:
 
 ```php
-<?php namespace Xyz\Forms;
+<?php namespace App\Forms;
 
 use Distilleries\FormBuilder\FormValidator;
 
@@ -821,7 +956,7 @@ class PostForm extends FormValidator
 You have to update it for give a value for the choice and give the rules for the validation:
 
 ```php
-<?php namespace Xyz\Forms;
+<?php namespace App\Forms;
 
 use Distilleries\Expendable\Helpers\StaticLabel;
 use Distilleries\FormBuilder\FormValidator;
@@ -838,20 +973,15 @@ class PostForm extends FormValidator
     {
         $this
             ->add('id', 'hidden')
-            ->add('libelle', 'text',[
-                'validation'  => 'required',
-                'label'       => _('Title')
-            ])
-            ->add('content', 'tinymce')
+            ->add('libelle', 'text')
             ->add('status', 'choice', [
                 'choices'     => StaticLabel::status(),
-                'empty_value' => _('-'),
+                'empty_value' => '-',
                 'validation'  => 'required',
-                'label'       => _('Status')
+                'label'       => 'Status'
             ]);
 
-
-        $this->addDefaultActions();
+         $this->addDefaultActions();
     }
 }
 ```
@@ -859,28 +989,26 @@ class PostForm extends FormValidator
 Controller:
 
 ```php
-<?php namespace Admin;
+<?php namespace App\Http\Controllers\Admin;
 
-use Distilleries\Expendable\Contracts\StateDisplayerContract;
-use Distilleries\Expendable\Controllers\AdminBaseComponent;
+use Distilleries\Expendable\Contracts\LayoutManagerContract;
+use Distilleries\Expendable\Http\Controllers\Admin\Base\BaseComponent;
+use App\Forms\PostForm;
+use App\Datatables\PostDatatable;
 
+class PostController extends BaseComponent {
 
-class PostController extends AdminBaseComponent {
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
 
-    public function __construct(\Post $model, StateDisplayerContract $stateProvider, \Xyz\Datatables\PostDatatable $datatable, \Xyz\Forms\PostForm $form)
+    public function __construct(PostDatatable $datatable, PostForm $form, \App\Post $model, LayoutManagerContract $layoutManager)
     {
-        parent::__construct($model, $stateProvider);
-        $this->datatable = $datatable;
-        $this->form      = $form;
+       parent::__construct($model, $layoutManager);
+       
+       $this->datatable = $datatable;
+       $this->form      = $form;
     }
-
-
-
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-
-
 }
 ```
 
@@ -891,56 +1019,41 @@ I add ` Route::controller('post', 'Admin\PostController');` on the route file:
 ```php
     <?php
     
-    /*
-    |--------------------------------------------------------------------------
-    | Application Routes
-    |--------------------------------------------------------------------------
-    |
-    | Here is where you can register all of the routes for an application.
-    | It's a breeze. Simply tell Laravel the URIs it should respond to
-    | and give it the Closure to execute when that URI is requested.
-    |
-    */
+    use \Route;
     
+    Route::get('/', 'HomeController@index');
     
-    Route::group(array('before' => 'admin.auth'), function ()
+    Route::group(array('middleware' => 'auth'), function ()
     {
     
-        Route::group(array('before' => 'auth.anthorized', 'prefix' => Config::get('expendable::admin_base_uri')), function ()
+        Route::group(array('before' => 'permission', 'prefix' => config('expendable::admin_base_uri')), function ()
         {
             Route::controller('post', 'Admin\PostController');
-            Route::controller('country', 'Admin\CountryController');
         });
     });
-
 ```
 
 
 ###5 Add to the menu
-If you are not generate the config do it right now:
 
-```ssh
-php artisan config:publish distilleries/expendable
-```
-
-On `app/config/packages/distilleries/expendable/config.php` id add the Post entry:
+On `config/expendable.php` id add the Post entry:
 
 ```php
-        'menu'               => \Distilleries\Expendable\Config\MenuConfig::menu([
+        'menu'  => \Distilleries\Expendable\Config\MenuConfig::menu([
             'left' => [
                 [
                     'icon'    => 'pushpin',
                     'action'  => 'Admin\PostController@getIndex',
-                    'libelle' => _('Post'),
+                    'libelle' => 'Post',
                     'submenu' => [
                         [
                             'icon'    => 'th-list',
-                            'libelle' => _('List of Post'),
+                            'libelle' => 'List of Post',
                             'action'  => 'Admin\PostController@getIndex',
                         ],
                         [
                             'icon'    => 'pencil',
-                            'libelle' => _('Add Post'),
+                            'libelle' => 'Add Post',
                             'action'  => 'Admin\PostController@getEdit',
                         ]
                     ]

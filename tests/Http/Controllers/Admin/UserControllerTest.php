@@ -163,7 +163,7 @@ class UserControllerTest extends ExpendableTestCase {
         ]);
 
         $data = [
-            'email'    => $faker->email,
+            'email'    => str_replace("'","",$faker->email),
             'password' => \Hash::make('test'),
             'status'   => true,
             'role_id'  => $role->id,
@@ -199,7 +199,7 @@ class UserControllerTest extends ExpendableTestCase {
         ]);
 
         $data = [
-            'email'    => $faker->email,
+            'email'    => str_replace("'","",$faker->email),
             'password' => \Hash::make('test'),
             'status'   => true,
             'role_id'  => $role->id,
@@ -233,7 +233,7 @@ class UserControllerTest extends ExpendableTestCase {
         ]);
 
         $data = [
-            'email'    => $faker->email,
+            'email'    => str_replace("'","",$faker->email),
             'password' => \Hash::make('test'),
             'status'   => true,
             'role_id'  => $role->id,
