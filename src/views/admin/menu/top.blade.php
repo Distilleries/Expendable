@@ -22,7 +22,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                     <?php
                     $iso = app()->getLocale();
-                    $iso = isset($iso[1])?strtolower($iso[1]):strtolower($iso[0]);
+                    $iso = isset($iso[1]) ? strtolower($iso[1]) : strtolower($iso[0]);
                     ?>
                     <span class="flags-sprite flags-{{ $iso  }}"></span>
                     <span class="badge badge-grey">{{ count($languages) }}</span>
@@ -30,8 +30,8 @@
                     <ul class="dropdown-menu">
                         @foreach($languages as $language)
                                 <?php
-                                $iso = explode('_',$language['iso']);
-                                $iso = isset($iso[1])?strtolower($iso[1]):strtolower($iso[0]);
+                                $iso = explode('_', $language['iso']);
+                                $iso = isset($iso[1]) ? strtolower($iso[1]) : strtolower($iso[0]);
                                 ?>
                                 <li>
                                     <a href="{{ config('expendable.admin_base_uri') }}/set-lang/{{$language['iso']}}">

@@ -1,10 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mfrancois
- * Date: 6/02/2015
- * Time: 4:37 PM
- */
+     * Created by PhpStorm.
+     * User: mfrancois
+     * Date: 6/02/2015
+     * Time: 4:37 PM
+     */
 
 namespace Distilleries\Expendable\Exporter;
 
@@ -17,16 +17,16 @@ class ExcelExporter implements ExcelExporterContract {
     {
 
 
-        $excel = \Excel::create($filename, function ($excel) use ($data)
+        $excel = \Excel::create($filename, function($excel) use ($data)
         {
 
-            $excel->sheet('export', function ($sheet) use ($data)
+            $excel->sheet('export', function($sheet) use ($data)
             {
 
                 $sheet->fromArray($data);
                 $sheet->freezeFirstRow();
                 $sheet->setAutoFilter();
-                $sheet->row(1, function ($row)
+                $sheet->row(1, function($row)
                 {
                     $row->setValignment('middle');
                     $row->setAlignment('center');

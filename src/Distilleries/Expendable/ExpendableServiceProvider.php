@@ -54,17 +54,17 @@ class ExpendableServiceProvider extends ServiceProvider {
     public function register()
     {
 
-        $this->app->singleton('Distilleries\Expendable\Contracts\StateDisplayerContract', function ($app)
+        $this->app->singleton('Distilleries\Expendable\Contracts\StateDisplayerContract', function($app)
         {
             return new StateDisplayer($app['view'], $app['config']->get('expendable'));
         });
 
-        $this->app->singleton('Distilleries\Expendable\Contracts\LayoutManagerContract', function ($app)
+        $this->app->singleton('Distilleries\Expendable\Contracts\LayoutManagerContract', function($app)
         {
             return new LayoutManager($app['config']->get('expendable'), $app['view'], $app['files'], app('Distilleries\Expendable\Contracts\StateDisplayerContract'));
         });
 
-        $this->app->singleton('Distilleries\MailerSaver\Contracts\MailModelContract', function ()
+        $this->app->singleton('Distilleries\MailerSaver\Contracts\MailModelContract', function()
         {
             return new Email;
         });
@@ -79,17 +79,17 @@ class ExpendableServiceProvider extends ServiceProvider {
 
     protected function registerImporters()
     {
-        $this->app->singleton('CsvImporterContract', function ()
+        $this->app->singleton('CsvImporterContract', function()
         {
             return new CsvImporter;
         });
 
-        $this->app->singleton('XlsImporterContract', function ()
+        $this->app->singleton('XlsImporterContract', function()
         {
             return new XlsImporter;
         });
 
-        $this->app->singleton('XlsxImporterContract', function ()
+        $this->app->singleton('XlsxImporterContract', function()
         {
             return new XlsImporter;
         });
@@ -98,11 +98,11 @@ class ExpendableServiceProvider extends ServiceProvider {
     protected function registerExporters()
     {
 
-        $this->app->singleton('Distilleries\Expendable\Contracts\CsvExporterContract', function ()
+        $this->app->singleton('Distilleries\Expendable\Contracts\CsvExporterContract', function()
         {
             return new CsvExporter;
         });
-        $this->app->singleton('Distilleries\Expendable\Contracts\ExcelExporterContract', function ()
+        $this->app->singleton('Distilleries\Expendable\Contracts\ExcelExporterContract', function()
         {
             return new ExcelExporter;
         });

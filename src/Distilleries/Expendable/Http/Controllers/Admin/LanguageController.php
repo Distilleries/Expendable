@@ -6,7 +6,7 @@ use Distilleries\Expendable\Forms\Language\LanguageForm;
 use Distilleries\Expendable\Http\Controllers\Admin\Base\BaseComponent;
 use Distilleries\Expendable\Models\Language;
 
-class LanguageController extends BaseComponent{
+class LanguageController extends BaseComponent {
 
     public function __construct(LanguageDatatable $datatable, LanguageForm $form, Language $model, LayoutManagerContract $layoutManager)
     {

@@ -1,7 +1,7 @@
 @section('state.menu')
 <?php
-    $controller = preg_split("/@/",Route::current()->getActionName());
-    $actionName = is_array($controller)?$controller[1]:$controller;
+    $controller = preg_split("/@/", Route::current()->getActionName());
+    $actionName = is_array($controller) ? $controller[1] : $controller;
 ?>
 <div class="tiles pull-right">
     @foreach($states as $state)

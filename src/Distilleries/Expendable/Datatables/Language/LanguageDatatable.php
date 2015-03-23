@@ -18,7 +18,7 @@ class LanguageDatatable extends BaseDatatable {
 
     public function setClassRow($datatable)
     {
-        $datatable->setRowClass(function ($row)
+        $datatable->setRowClass(function($row)
         {
             $class = (isset($row->status) && empty($row->status)) ? 'danger' : '';
             $class = (empty($class) && !empty($row->not_visible)) ? 'warning' : $class;

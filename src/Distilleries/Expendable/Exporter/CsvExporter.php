@@ -6,9 +6,9 @@ class CsvExporter implements CsvExporterContract {
 
 
 
-    public function export($data,$filename='')
+    public function export($data, $filename = '')
     {
-       $excel = \Excel::create($filename, function($excel) use($data) {
+        $excel = \Excel::create($filename, function($excel) use($data) {
             $excel->sheet('export', function($sheet) use($data) {
                 $sheet->fromArray($data);
             });

@@ -2,7 +2,6 @@
 
 use Distilleries\Expendable\Contracts\LayoutManagerContract;
 use Distilleries\Expendable\Datatables\User\UserDatatable;
-use Distilleries\Expendable\Formatter\Message;
 use Distilleries\Expendable\Forms\User\UserForm;
 use Distilleries\Expendable\Http\Controllers\Admin\Base\BaseComponent;
 use Distilleries\Expendable\Models\User;

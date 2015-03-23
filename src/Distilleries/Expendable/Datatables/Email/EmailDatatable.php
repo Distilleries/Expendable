@@ -8,12 +8,12 @@ class EmailDatatable extends BaseDatatable {
     public function build()
     {
         $this->add('id');
-        $this->add('libelle',null,trans('expendable::datatable.subject'));
-        $this->add('body_type', function ($model)
+        $this->add('libelle', null, trans('expendable::datatable.subject'));
+        $this->add('body_type', function($model)
         {
             return StaticLabel::bodyType($model->body_type);
         },trans('expendable::datatable.type'));
-        $this->add('action', function ($model)
+        $this->add('action', function($model)
         {
             return StaticLabel::mailActions($model->action);
         });

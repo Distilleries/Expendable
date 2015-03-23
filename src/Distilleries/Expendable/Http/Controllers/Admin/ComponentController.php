@@ -28,7 +28,7 @@ class ComponentController extends BaseController implements FormStateContract {
 
     public function getIndex()
     {
-        return redirect()->to(action('\\'.get_class($this).'@getEdit'));
+        return redirect()->to(action('\\' . get_class($this) . '@getEdit'));
     }
 
 
@@ -70,9 +70,9 @@ class ComponentController extends BaseController implements FormStateContract {
         }
 
         $libelle            = $request->get('libelle');
-        $libelle_form       = $libelle.'Form';
-        $libelle_datatable  = $libelle.'Datatable';
-        $libelle_controller = $libelle.'Controller';
+        $libelle_form       = $libelle . 'Form';
+        $libelle_datatable  = $libelle . 'Datatable';
+        $libelle_controller = $libelle . 'Controller';
         $model              = $request->get('models');
         $states             = $request->get('state');
 
@@ -82,14 +82,14 @@ class ComponentController extends BaseController implements FormStateContract {
             {
                 $this->artisan->call('datatable:make', [
                     '--fields' => $request->get('colon_datatable'),
-                    'name'     => 'Datatables/'.$libelle_datatable
+                    'name'     => 'Datatables/' . $libelle_datatable
                 ]);
             } else if (strpos($state, 'FormStateContract') !== false)
             {
 
                 $this->artisan->call('form:make', [
                     '--fields' => $request->get('fields_form'),
-                    'name'     => 'Forms/'.$libelle_form
+                    'name'     => 'Forms/' . $libelle_form
                 ]);
             }
         }
@@ -99,7 +99,7 @@ class ComponentController extends BaseController implements FormStateContract {
             '--model'     => $model,
             '--datatable' => $libelle_datatable,
             '--form'      => $libelle_form,
-            'name'        => 'Http/Controllers/Admin/'.$libelle_controller
+            'name'        => 'Http/Controllers/Admin/' . $libelle_controller
         ]);
 
         return redirect()->back()->with(Message::MESSAGE, [trans('expendable::success.generated')]);

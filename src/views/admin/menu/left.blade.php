@@ -13,10 +13,10 @@
 				<?php $items = Config::get('expendable.menu.left'); ?>
 				@foreach($items as $key=>$item)
 
-                    <?php $action = isset($item['action'])?preg_replace('/index/i','',action($item['action'])):''; ?>
+                    <?php $action = isset($item['action']) ? preg_replace('/index/i', '', action($item['action'])) : ''; ?>
                     <?php
-                    $controller = preg_split("/@/",Route::current()->getActionName());
-                    $controller = is_array($controller)?$controller[0]:$controller;
+                    $controller = preg_split("/@/", Route::current()->getActionName());
+                    $controller = is_array($controller) ? $controller[0] : $controller;
                     ?>
                     @if(PermissionUtil::hasAccess($item['action']))
 				    <li class="{{ ($key == 0)?'start':''}} {{ ($key == count($items)-1)?'last':''}} {{ isset($item['action'])?(strpos($item['action'],$controller) !== false ? 'active' : ''):'' }}">

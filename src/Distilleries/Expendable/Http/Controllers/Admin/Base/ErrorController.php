@@ -8,7 +8,7 @@ class ErrorController extends BaseController {
     protected $layout = 'expendable::admin.layout.error';
     public function display(Exception $exception, $code)
     {
-        $class = ($code == 404)?'page-404':'page-500';
+        $class = ($code == 404) ? 'page-404' : 'page-500';
 
         $content = view('expendable::admin.errors.default', [
             'code'    => $code,
@@ -18,7 +18,7 @@ class ErrorController extends BaseController {
 
 
         $this->layoutManager->add([
-            'class_layout'=>$class.'-full-page',
+            'class_layout'=>$class . '-full-page',
             'content'=>$content,
         ]);
 
