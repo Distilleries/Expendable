@@ -63,7 +63,7 @@
                                             <span class="label label-sm label-icon label-success">
                                                 <i class="glyphicon glyphicon-{{ $task['icon'] }}"></i>
                                             </span>
-                                            {{ $task['libelle'] }}
+                                            {{ trans($task['libelle']) }}
                                         </span>
                                     </a>
                                 </li>
