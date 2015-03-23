@@ -35,7 +35,7 @@ class ModelBaseController extends BaseController {
             return redirect()->back()->withErrors($validation)->withInput($request->all());
         }
 
-        $data = $this->model->find($request->get('id'));
+        $data = $this->model->where($this->model->getKeyName(),$request->get('id'))->get()->last();
         $data->delete();
 
         return redirect()->to(action('\\'.get_class($this) . '@getIndex'));

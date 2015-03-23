@@ -22,7 +22,7 @@ class LoginController extends BaseController {
      *
      * @param  \Illuminate\Contracts\Auth\Guard $auth
      * @param  \Illuminate\Contracts\Auth\PasswordBroker $passwords
-     * @return void
+     * @param  \Distilleries\Expendable\Contracts\LayoutManagerContract $layoutManager
      */
     public function __construct(Guard $auth, PasswordBroker $passwords, LayoutManagerContract $layoutManager)
     {
@@ -162,7 +162,7 @@ class LoginController extends BaseController {
     /**
      * Handle a POST request to reset a user's password.
      *
-     * @return Response
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function postReset(Request $request)
     {

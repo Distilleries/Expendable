@@ -64,7 +64,7 @@ class ExpendableServiceProvider extends ServiceProvider {
             return new LayoutManager($app['config']->get('expendable'), $app['view'], $app['files'], app('Distilleries\Expendable\Contracts\StateDisplayerContract'));
         });
 
-        $this->app->singleton('Distilleries\MailerSaver\Contracts\MailModelContract', function ($app)
+        $this->app->singleton('Distilleries\MailerSaver\Contracts\MailModelContract', function ()
         {
             return new Email;
         });
@@ -79,17 +79,17 @@ class ExpendableServiceProvider extends ServiceProvider {
 
     protected function registerImporters()
     {
-        $this->app->singleton('CsvImporterContract', function ($app)
+        $this->app->singleton('CsvImporterContract', function ()
         {
             return new CsvImporter;
         });
 
-        $this->app->singleton('XlsImporterContract', function ($app)
+        $this->app->singleton('XlsImporterContract', function ()
         {
             return new XlsImporter;
         });
 
-        $this->app->singleton('XlsxImporterContract', function ($app)
+        $this->app->singleton('XlsxImporterContract', function ()
         {
             return new XlsImporter;
         });
@@ -98,11 +98,11 @@ class ExpendableServiceProvider extends ServiceProvider {
     protected function registerExporters()
     {
 
-        $this->app->singleton('Distilleries\Expendable\Contracts\CsvExporterContract', function ($app)
+        $this->app->singleton('Distilleries\Expendable\Contracts\CsvExporterContract', function ()
         {
             return new CsvExporter;
         });
-        $this->app->singleton('Distilleries\Expendable\Contracts\ExcelExporterContract', function ($app)
+        $this->app->singleton('Distilleries\Expendable\Contracts\ExcelExporterContract', function ()
         {
             return new ExcelExporter;
         });

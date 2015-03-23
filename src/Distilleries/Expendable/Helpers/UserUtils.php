@@ -44,7 +44,7 @@ class UserUtils {
     public static function hasAccess($key)
     {
         $area = self::getArea();
-        $area = (is_array($area) and !empty($area)) ? $area : [];
+        $area = (is_array($area) && !empty($area)) ? $area : [];
 
         return in_array($key, $area);
     }

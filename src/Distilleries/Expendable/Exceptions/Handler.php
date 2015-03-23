@@ -15,7 +15,7 @@ class Handler extends ExceptionHandler {
 	public function render($request, Exception $e)
 	{
 		if($this->isHttpException($e)){
-			if ($request->segment(1) == config('expendable.admin_base_uri') and !config('app.debug'))
+			if ($request->segment(1) == config('expendable.admin_base_uri') && !config('app.debug'))
 			{
 				return app('Distilleries\Expendable\Http\Controllers\Admin\Base\ErrorController')->callAction("display", [$e, $e->getStatusCode()]);
 			}

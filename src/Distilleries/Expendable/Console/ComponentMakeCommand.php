@@ -14,11 +14,7 @@ class ComponentMakeCommand extends \Illuminate\Console\GeneratorCommand {
      */
     protected $name = 'expendable:component.make';
 
-    /**
-     * The filesystem instance.
-     *
-     * @var \Illuminate\Filesystem\Filesystem
-     */
+
     protected $states;
     protected $model;
     protected $form;
@@ -110,7 +106,7 @@ class ComponentMakeCommand extends \Illuminate\Console\GeneratorCommand {
 
             foreach ($this->states as $state)
             {
-                if (strpos($state, 'DatatableStateContract') !== false or (strpos($state, 'FormStateContract') !== false))
+                if (strpos($state, 'DatatableStateContract') !== false || (strpos($state, 'FormStateContract') !== false))
                 {
                     $defaultComponent ++;
 

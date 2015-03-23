@@ -20,8 +20,8 @@ class LanguageDatatable extends BaseDatatable {
     {
         $datatable->setRowClass(function ($row)
         {
-            $class = (isset($row->status) and empty($row->status)) ? 'danger' : '';
-            $class = (empty($class) and !empty($row->not_visible)) ? 'warning' : $class;
+            $class = (isset($row->status) && empty($row->status)) ? 'danger' : '';
+            $class = (empty($class) && !empty($row->not_visible)) ? 'warning' : $class;
 
             return $class;
         });
