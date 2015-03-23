@@ -17,7 +17,7 @@ class LayoutManager implements LayoutManagerContract {
     protected $items = [];
     protected $layout = null;
 
-    function __construct(array $config, Factory $view, Filesystem $filesystem, StateDisplayerContract $state)
+    public function __construct(array $config, Factory $view, Filesystem $filesystem, StateDisplayerContract $state)
     {
         $this->config     = $config;
         $this->view       = $view;

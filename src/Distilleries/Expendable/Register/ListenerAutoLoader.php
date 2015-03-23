@@ -1,13 +1,10 @@
-<?php
-
-
-namespace Distilleries\Expendable\Register;
+<?php namespace Distilleries\Expendable\Register;
 
 use \File;
 
 class ListenerAutoLoader {
 
-    protected $loaded     = [];
+    protected $loaded = [];
     protected $haveToLoad = [];
 
     // ------------------------------------------------------------------------------------------------
@@ -53,14 +50,14 @@ class ListenerAutoLoader {
         if (class_exists($file, true))
         {
             $listener = new $file();
+            $object   = new \ReflectionClass($file);
 
-            if (is_subclass_of($listener, 'Distilleries\Expendable\Contracts\ListenerContract'))
+            if ($object->implementsInterface('Distilleries\Expendable\Contracts\ListenerContract'))
             {
                 $listener->listen();
-                $this->loaded = $listener;
+                $this->loaded[$file] = $listener;
             }
 
         }
     }
-
-} 
+}

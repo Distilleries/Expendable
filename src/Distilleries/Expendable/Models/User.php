@@ -55,7 +55,7 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
         foreach ($left as $item)
         {
 
-            if (!empty($item['action']) and $this->hasAccess($item['action']))
+            if (!empty($item['action']) && $this->hasAccess($item['action']))
             {
                 return preg_replace('/\/index/i', '', action($item['action']));
 

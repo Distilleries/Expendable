@@ -73,11 +73,19 @@ class LoginController extends BaseController {
 
         if ($this->auth->attempt($credential, true))
         {
-            new UserEvent(UserEvent::LOGIN_EVENT, $this->auth->user());
+            $user = $this->auth->user();
+            new UserEvent(UserEvent::LOGIN_EVENT, $user);
 
             $menu = config('expendable.menu');
 
-            return redirect()->to($this->auth->user()->getFirstRedirect($menu['left']));
+
+            if (method_exists($user, 'getFirstRedirect'))
+            {
+                return redirect()->to($this->auth->user()->getFirstRedirect($menu['left']));
+            }
+
+            return redirect()->to('/');
+
         } else
         {
 
@@ -144,7 +152,7 @@ class LoginController extends BaseController {
         $form = FormBuilder::create('Distilleries\Expendable\Forms\Login\Reset', [
             'class' => 'login-form'
         ], [
-            'token'   => $token
+            'token' => $token
         ]);
 
         $content = view('expendable::admin.login.reset', [
@@ -180,7 +188,7 @@ class LoginController extends BaseController {
             'token'
         );
 
-        $response = $this->passwords->reset($credentials, function($user, $password)
+        $response = $this->passwords->reset($credentials, function ($user, $password)
         {
             $user->password = bcrypt($password);
             $user->save();

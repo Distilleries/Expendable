@@ -62,7 +62,6 @@ class BaseModel extends Model {
             default:
                 $error = 'Database driver not supported: ' . DB::connection()->getConfig('driver');
                 throw new Exception($error);
-                break;
         }
 
         $columns = array();
