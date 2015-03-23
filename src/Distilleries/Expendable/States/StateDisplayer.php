@@ -30,7 +30,7 @@ class StateDisplayer implements StateDisplayerContract {
     // ------------------------------------------------------------------------------------------------
 
     /**
-     * @param string $states
+     * @param string $state
      */
     public function setState($state)
     {
@@ -57,7 +57,7 @@ class StateDisplayer implements StateDisplayerContract {
     {
         return $this->view->make($template, [
             'states' => $this->getTableState(),
-            'action' => '\\'.$this->class.'@'
+            'action' => '\\' . $this->class . '@'
         ]);
     }
 
@@ -78,7 +78,7 @@ class StateDisplayer implements StateDisplayerContract {
             }
         }
 
-        $table = array_sort($table, function ($value)
+        $table = array_sort($table, function($value)
         {
             return $value['position'];
         });

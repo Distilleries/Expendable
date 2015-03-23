@@ -57,14 +57,14 @@ trait FormStateTrait {
             return $result;
         }
 
-        $result = $this->save($this->dataToSave($request),$request);
+        $result = $this->save($this->dataToSave($request), $request);
 
         if ($result != null)
         {
             return $result;
         }
 
-        return redirect()->to(action($this->getControllerNameForAction().'@getIndex'));
+        return redirect()->to(action($this->getControllerNameForAction() . '@getIndex'));
 
     }
 
@@ -121,7 +121,7 @@ trait FormStateTrait {
         $form_content = view('form-builder::form.components.formgenerator.info', [
             'form'  => $form,
             'id'    => $id,
-            'route' => $this->getControllerNameForAction().'@',
+            'route' => $this->getControllerNameForAction() . '@',
         ]);
 
         $this->layoutManager->add([
@@ -138,8 +138,8 @@ trait FormStateTrait {
 
     protected function getControllerNameForAction() {
 
-        $action    = explode('@', \Route::currentRouteAction());
+        $action = explode('@', \Route::currentRouteAction());
 
-        return '\\'.$action[0];
+        return '\\' . $action[0];
     }
 }

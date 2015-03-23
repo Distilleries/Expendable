@@ -9,9 +9,9 @@ Route::get('storage/{path}', 'Front\AssetController@getIndex')->where('path', '(
 Route::group(array(
     'prefix' => 'admin',
     'middleware' => 'guest'
-), function ()
+), function()
 {
-    Route::get('', function ()
+    Route::get('', function()
     {
         return Redirect::to(route('login.index'));
     });
@@ -26,9 +26,9 @@ Route::group(array(
 
 });
 
-Route::group(array('middleware' => 'auth'), function ()
+Route::group(array('middleware' => 'auth'), function()
 {
-    Route::group(array('middleware' => 'permission', 'prefix' => config('expendable.admin_base_uri')), function ()
+    Route::group(array('middleware' => 'permission', 'prefix' => config('expendable.admin_base_uri')), function()
     {
         Route::controller('user', 'Admin\UserController', [
             'getProfile' => 'user.profile'
@@ -43,7 +43,7 @@ Route::group(array('middleware' => 'auth'), function ()
 });
 
 
-View::composer('expendable::admin.layout.default', function ($view)
+View::composer('expendable::admin.layout.default', function($view)
 {
     $view->with('title', '')
         ->with('user', Auth::user());

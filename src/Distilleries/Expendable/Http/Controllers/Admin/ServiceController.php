@@ -6,8 +6,6 @@ use Distilleries\Expendable\Forms\Service\ServiceForm;
 use Distilleries\Expendable\Http\Controllers\Admin\Base\BaseComponent;
 use Distilleries\Expendable\Models\Service;
 use Illuminate\Contracts\Routing\Registrar;
-use ReflectionClass;
-use ReflectionMethod;
 
 class ServiceController extends BaseComponent {
 
@@ -28,9 +26,9 @@ class ServiceController extends BaseComponent {
 
         foreach ($routes->getRoutes() as $controller)
         {
-            $actions       = $controller->getAction();
+            $actions = $controller->getAction();
 
-            if(!empty($actions['controller'])){
+            if (!empty($actions['controller'])) {
                 $service       = $actions['controller'];
                 $serviceObject = $this->model->getByAction($service);
 

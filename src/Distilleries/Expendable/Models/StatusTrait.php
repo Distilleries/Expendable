@@ -27,7 +27,7 @@ trait StatusTrait {
 
         $column = $instance->getQualifiedStatusColumn();
 
-        return $instance->newQueryWithoutScope(new StatusScope)->where($column,false);
+        return $instance->newQueryWithoutScope(new StatusScope)->where($column, false);
 
     }
 
@@ -45,7 +45,7 @@ trait StatusTrait {
      */
     public function getQualifiedStatusColumn()
     {
-        return $this->getTable().'.'.$this->getStatusColumn();
+        return $this->getTable() . '.' . $this->getStatusColumn();
     }
 
     /**

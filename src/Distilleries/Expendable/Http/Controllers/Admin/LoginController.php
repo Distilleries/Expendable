@@ -146,7 +146,9 @@ class LoginController extends BaseController {
 
     public function getReset($token = null)
     {
-        if (is_null($token)) abort(404);
+        if (is_null($token)) {
+            abort(404);
+        }
 
 
         $form = FormBuilder::create('Distilleries\Expendable\Forms\Login\Reset', [

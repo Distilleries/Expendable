@@ -108,7 +108,7 @@ class ComponentMakeCommand extends \Illuminate\Console\GeneratorCommand {
             {
                 if (strpos($state, 'DatatableStateContract') !== false || (strpos($state, 'FormStateContract') !== false))
                 {
-                    $defaultComponent ++;
+                    $defaultComponent++;
 
                 }
             }
@@ -225,6 +225,6 @@ class ComponentMakeCommand extends \Illuminate\Console\GeneratorCommand {
      */
     protected function getStub()
     {
-        return __DIR__.'/Lib/stubs/'.$this->getTemplate().'.stub';
+        return __DIR__ . '/Lib/stubs/' . $this->getTemplate() . '.stub';
     }
 }

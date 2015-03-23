@@ -26,12 +26,12 @@ class PermissionController extends ModelBaseController  implements FormStateCont
 
     public function getIndex()
     {
-        return redirect()->to(action('\\'.get_class($this) . '@getEdit'));
+        return redirect()->to(action('\\' . get_class($this) . '@getEdit'));
     }
 
     // ------------------------------------------------------------------------------------------------
 
-    public function postEdit(Request $request )
+    public function postEdit(Request $request)
     {
 
         $form = FormBuilder::create(get_class($this->form), [
@@ -47,9 +47,9 @@ class PermissionController extends ModelBaseController  implements FormStateCont
         $this->model->truncate();
 
 
-        foreach($permissions as $role_id=>$permission){
+        foreach ($permissions as $role_id=>$permission) {
 
-            foreach($permission as $service_id){
+            foreach ($permission as $service_id) {
                 $permModel = new $this->model;
                 $permModel->role_id = $role_id;
                 $permModel->service_id = $service_id;
@@ -58,7 +58,7 @@ class PermissionController extends ModelBaseController  implements FormStateCont
         }
 
 
-        return redirect()->to(action('\\'.get_class($this).'@getIndex'));
+        return redirect()->to(action('\\' . get_class($this) . '@getIndex'));
 
     }
 }

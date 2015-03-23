@@ -77,7 +77,7 @@ class UserForm extends FormValidator {
     protected function getUpdateRules()
     {
         $key                           = \Request::get($this->model->getKeyName());
-        static::$rules_update['email'] = 'required|email|unique:users,email,'.$key;
+        static::$rules_update['email'] = 'required|email|unique:users,email,' . $key;
 
         return parent::getUpdateRules();
     }

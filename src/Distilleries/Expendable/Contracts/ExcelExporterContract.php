@@ -2,5 +2,5 @@
 
 interface ExcelExporterContract {
 
-    public function export($data,$filename);
+    public function export($data, $filename);
 }

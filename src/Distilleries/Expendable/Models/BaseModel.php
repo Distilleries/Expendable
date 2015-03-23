@@ -23,7 +23,7 @@ class BaseModel extends Model {
     public function scopeSearch($query, $searchQuery)
     {
 
-        return $query->where(function ($query) use ($searchQuery)
+        return $query->where(function($query) use ($searchQuery)
         {
             $columns = $this->getAllColumnsNames();
 
@@ -81,11 +81,11 @@ class BaseModel extends Model {
 
     public function scopeBetweenCreate($query, $start, $end)
     {
-        return $query->whereBetween($this->getTable().'.created_at', array($start, $end));
+        return $query->whereBetween($this->getTable() . '.created_at', array($start, $end));
     }
 
     public function scopeBetweenUpdate($query, $start, $end)
     {
-        return $query->whereBetween($this->getTable().'.updated_at', array($start, $end));
+        return $query->whereBetween($this->getTable() . '.updated_at', array($start, $end));
     }
 }

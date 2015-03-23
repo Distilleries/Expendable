@@ -59,12 +59,12 @@ trait ExportStateTrait {
         if (!$result->isEmpty())
         {
             $exporter = app($data['type']);
-            $file     = $exporter->export($result->toArray(),$data['range']['start'].' '.$data['range']['end']);
+            $file     = $exporter->export($result->toArray(), $data['range']['start'] . ' ' . $data['range']['end']);
 
             return $file;
         }
 
-        return redirect()->to(action('\\'.get_class($this) . '@getExport'));
+        return redirect()->to(action('\\' . get_class($this) . '@getExport'));
 
     }
 } 

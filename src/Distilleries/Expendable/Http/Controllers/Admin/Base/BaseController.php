@@ -45,7 +45,7 @@ class BaseController extends Controller {
 
     protected function initStaticPart()
     {
-        $this->layoutManager->initStaticPart(function ($layoutManager)
+        $this->layoutManager->initStaticPart(function($layoutManager)
         {
 
             $menu_top  = $layoutManager->getView()->make('expendable::admin.menu.top');

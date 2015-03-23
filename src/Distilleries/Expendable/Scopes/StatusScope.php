@@ -95,7 +95,7 @@ class StatusScope implements ScopeInterface {
      */
     protected function addWithOffline(Builder $builder)
     {
-        $builder->macro('withOffline', function (Builder $builder)
+        $builder->macro('withOffline', function(Builder $builder)
         {
             $this->remove($builder, $builder->getModel());
 
@@ -112,7 +112,7 @@ class StatusScope implements ScopeInterface {
      */
     protected function addOnlyOffline(Builder $builder)
     {
-        $builder->macro('onlyOffline', function (Builder $builder)
+        $builder->macro('onlyOffline', function(Builder $builder)
         {
             $model = $builder->getModel();
 
