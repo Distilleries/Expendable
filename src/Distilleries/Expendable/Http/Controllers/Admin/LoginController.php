@@ -188,7 +188,7 @@ class LoginController extends BaseController {
             'token'
         );
 
-        $response = $this->passwords->reset($credentials, function ($user, $password)
+        $response = $this->passwords->reset($credentials, function($user, $password)
         {
             $user->password = bcrypt($password);
             $user->save();
@@ -204,7 +204,7 @@ class LoginController extends BaseController {
                 return redirect()->back()->with('error', trans($response));
 
             case PasswordBroker::PASSWORD_RESET:
-                return redirect()->to(action('\\'.get_class($this).'@getIndex'));
+                return redirect()->to(action('\\' . get_class($this) . '@getIndex'));
         }
 
     }

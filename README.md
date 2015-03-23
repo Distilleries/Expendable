@@ -1,6 +1,13 @@
+[![Code quality](http://img.shields.io/scrutinizer/g/distilleries/Expendable.svg?style=flat)](https://scrutinizer-ci.com/g/distilleries/Expendable/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/Distilleries/Expendable/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Distilleries/Expendable/?branch=master)
+[![Build Status](https://travis-ci.org/Distilleries/Expendable.svg?branch=master)](https://travis-ci.org/Distilleries/Expendable)
+[![Total Downloads](https://img.shields.io/packagist/dt/distilleries/expendable.svg?style=flat)](https://packagist.org/packages/distilleries/expendable)
+[![Latest Stable Version](https://img.shields.io/packagist/v/distilleries/expendable.svg?style=flat)](https://packagist.org/packages/distilleries/expendable)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE) 
+
 #Expendable
 
-Expendable is a cms base on laravel 5.*.
+Expendable is an admin panel base on laravel 5.*.
 This package give you some implementation do add a content management system of your application.
 You can override everything. This Cms give view few tools to develop your content management easily and properly.
 

@@ -27,18 +27,18 @@ class ExpendableServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/../../views', 'expendable');
-        $this->loadTranslationsFrom(__DIR__.'/../../lang', 'expendable');
+        $this->loadViewsFrom(__DIR__ . '/../../views', 'expendable');
+        $this->loadTranslationsFrom(__DIR__ . '/../../lang', 'expendable');
         $this->publishes([
-            __DIR__.'/../../config/config.php'    => config_path('expendable.php'),
-            __DIR__.'/../../database/migrations/' => base_path('/database/migrations'),
-            __DIR__.'/../../database/seeds/'      => base_path('/database/seeds'),
+            __DIR__ . '/../../config/config.php'    => config_path('expendable.php'),
+            __DIR__ . '/../../database/migrations/' => base_path('/database/migrations'),
+            __DIR__ . '/../../database/seeds/'      => base_path('/database/seeds'),
         ]);
         $this->publishes([
-            __DIR__.'/../../views' => base_path('resources/views/vendor/expendable'),
+            __DIR__ . '/../../views' => base_path('resources/views/vendor/expendable'),
         ], 'views');
         $this->mergeConfigFrom(
-            __DIR__.'/../../config/config.php', 'expendable'
+            __DIR__ . '/../../config/config.php', 'expendable'
         );
 
         $autoLoaderListener = new \Distilleries\Expendable\Register\ListenerAutoLoader(config('expendable.listener'));
@@ -114,16 +114,14 @@ class ExpendableServiceProvider extends ServiceProvider {
     protected function registerCommands()
     {
         $file  = app('files');
-        $files = $file->allFiles(__DIR__.'/Console/');
+        $files = $file->allFiles(__DIR__ . '/Console/');
 
         foreach ($files as $file)
         {
             if (strpos($file->getPathName(), 'Lib') === false)
             {
-                $this->commands('Distilleries\Expendable\Console\\'.preg_replace('/\.php/i', '', $file->getFilename()));
+                $this->commands('Distilleries\Expendable\Console\\' . preg_replace('/\.php/i', '', $file->getFilename()));
             }
-
-
         }
     }
 
@@ -143,7 +141,8 @@ class ExpendableServiceProvider extends ServiceProvider {
     }
 
 
-    public function alias() {
+    public function alias()
+    {
 
         AliasLoader::getInstance()->alias(
             'Excel',

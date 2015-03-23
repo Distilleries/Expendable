@@ -35,19 +35,20 @@ class ModelBaseController extends BaseController {
             return redirect()->back()->withErrors($validation)->withInput($request->all());
         }
 
-        $data = $this->model->where($this->model->getKeyName(),$request->get('id'))->get()->last();
+        $data = $this->model->where($this->model->getKeyName(), $request->get('id'))->get()->last();
         $data->delete();
 
-        return redirect()->to(action('\\'.get_class($this) . '@getIndex'));
+        return redirect()->to(action('\\' . get_class($this) . '@getIndex'));
     }
 
     // ------------------------------------------------------------------------------------------------
-    public function postSearch(Request $request, $query=null)
+    public function postSearch(Request $request, $query = null)
     {
 
         $ids = $request->get('ids');
 
-        if(empty($query)){
+        if (empty($query))
+        {
             $query = $this->model;
         }
 
