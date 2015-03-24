@@ -2,6 +2,16 @@
     "name": "distilleries/expendable",
     "description": "Expendable is an admin panel base on laravel 5.*. This package give you some implementation do add a content management system of your application. You can override everything. This Cms give view few tools to develop your content management easily and properly.",
     "license": "MIT",
+    "keywords": [
+        "framework",
+        "laravel",
+        "admin",
+        "form-generator",
+        "datatable-generator",
+        "expendable",
+        "distilleries",
+        "gulp"
+    ],
     "authors": [
         {
             "name": "Maxime Francois",
