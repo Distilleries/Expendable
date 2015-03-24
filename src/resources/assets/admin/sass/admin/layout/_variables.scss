@@ -6,7 +6,7 @@
 $header-height:             				            				46px  !default; // header height on table and desktop view. default: 42px
 $header-height-xs:             											($header-height * 2) !default; // header height on mobile view
 
-$header-logo-height:                                    				14px; 
+$header-logo-height:                                    				24px;
 $header-menu-toggler-width:                             				24px;  
 $header-menu-toggler-height:                            				24px;
 $header-sidebar-toggler-margin:                         				($header-height - $header-menu-toggler-height) / 2 0 0 0 !default;
