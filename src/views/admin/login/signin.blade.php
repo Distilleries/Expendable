@@ -22,7 +22,7 @@
 		</div>
 		<div class="forget-password">
 			<h4>{{trans('expendable::form.forgot_your_password')}}</h4>
-			<p>{{ trans('expendable::form.click_here_to_reset_your_password',['link'=>route('login.remind')]) }}</p>
+			<p>{!! trans('expendable::form.click_here_to_reset_your_password',['link'=>route('login.remind')]) !!}</p>
 		</div>
 	{!! form_end($form) !!}
 @stop
