@@ -11,7 +11,7 @@ Expendable is an admin panel base on laravel 5.*.
 This package give you some implementation do add a content management system of your application.
 You can override everything. This Cms give view few tools to develop your content management easily and properly.
 
-If you want install a fresh install of laravel 5 with Expendable package configured and gulp, bower structure go in (https://github.com/Distilleries/Xyz)[https://github.com/Distilleries/Xyz].
+If you want install a fresh install of laravel 5 with Expendable package configured and gulp, bower structure go in https://github.com/Distilleries/Xyz.
 
 ## Table of contents
 1. [Require](#require)
@@ -51,7 +51,7 @@ To use this project you have to install:
 
 1. Php 5.5 or more
 3. Active mpcrypt
-4. Composer (https://getcomposer.org/download/)[https://getcomposer.org/download/]
+4. Composer https://getcomposer.org/download/
 5. Sass (`gem install sass`)
 6. NodeJs version 0.10.33
 7. gulp in general (npm install gulp -g)
