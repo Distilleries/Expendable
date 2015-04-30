@@ -54,7 +54,7 @@ To use this project you have to install:
 4. Composer https://getcomposer.org/download/
 5. Sass (`gem install sass`)
 6. NodeJs version 0.10.33
-7. gulp in general (npm install gulp -g)
+7. gulp in global (npm install gulp -g)
 
 ##Installation
 
