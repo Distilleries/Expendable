@@ -30,6 +30,15 @@ class EmailTest extends ExpendableTestCase {
 
 
         $result = \Distilleries\Expendable\Models\Email::create($data);
+
+        \Distilleries\Expendable\Models\Translation::create([
+            'id_element' => $result->id,
+            'model'      => $result->getTable(),
+            'id_source'  => 0,
+            'iso'        => app()->getLocale(),
+        ]);
+
+
         $result = \Distilleries\Expendable\Models\Email::find($result->id);
 
         return [$data, $result];
