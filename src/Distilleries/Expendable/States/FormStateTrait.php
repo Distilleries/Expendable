@@ -18,8 +18,13 @@ trait FormStateTrait {
 
     public function getEdit($id = '')
     {
-        $model = (!empty($id)) ? $this->model->withoutTranslation()->findOrFail($id) : $this->model;
-        $form  = FormBuilder::create(get_class($this->form), [
+        if (method_exists($this->model, 'withoutTranslation')) {
+            $model = (!empty($id)) ? $this->model->withoutTranslation()->findOrFail($id) : $this->model;
+        } else {
+            $model = (!empty($id)) ? $this->model->findOrFail($id) : $this->model;
+        }
+
+        $form = FormBuilder::create(get_class($this->form), [
             'model' => $model
         ]);
 
