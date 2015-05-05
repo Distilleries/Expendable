@@ -21,9 +21,9 @@
 
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "5.*",
-        "illuminate/database": "5.*",
-        "illuminate/translation": "5.*",
+        "illuminate/support": "5.0.*",
+        "illuminate/database": "5.0.*",
+        "illuminate/translation": "5.0.*",
         "distilleries/datatable-builder": "2.*",
         "distilleries/form-builder": "2.*",
         "distilleries/mailersaver": "2.*",

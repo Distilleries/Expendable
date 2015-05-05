@@ -1,18 +1,17 @@
 <?php namespace Distilleries\Expendable\Scopes;
 
-use Distilleries\Expendable\Helpers\UserUtils;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ScopeInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class StatusScope implements ScopeInterface {
+class TranslatableScope implements ScopeInterface {
 
     /**
      * All of the extensions to be added to the builder.
      *
      * @var array
      */
-    protected $extensions = ['WithOffline', 'OnlyOffline'];
+    protected $extensions = ['WithoutTranslation'];
 
     /**
      * The index in which we added a where clause
@@ -35,13 +34,25 @@ class StatusScope implements ScopeInterface {
      */
     public function apply(Builder $builder, Model $model)
     {
-        if (!UserUtils::hasDisplayAllStatus())
-        {
-            $builder->where($model->getQualifiedStatusColumn(), true);
-            $query               = $builder->getQuery();
-            $this->where_index   = count($query->wheres) - 1;
-            $this->binding_index = count($query->getRawBindings()['where']) - 1;
+        //Check if is an override
+        //
+        $iso = config()->get('local_override');
+
+        if (empty($iso)) {
+            $iso = app()->getLocale();
         }
+
+        $builder->whereExists(function ($query) use ($model, $iso) {
+            $query->select(\DB::raw(1))
+                ->from($model->getQualifiedTable())
+                ->whereRaw($model->getTable() . '.' . $model->getKeyName() . ' = ' . $model->getQualifiedIdElementColumn())
+                ->where($model->getQualifiedIsoColumn(), $iso)
+                ->where($model->getQualifiedModelColumn(), $model->getTable());
+        });
+
+        $query               = $builder->getQuery();
+        $this->where_index   = count($query->wheres) - 1;
+        $this->binding_index = count($query->getRawBindings()['where']) - 1;
 
         $this->extend($builder);
 
@@ -60,6 +71,7 @@ class StatusScope implements ScopeInterface {
         unset($query->wheres[$this->where_index]);
         $where_bindings = $query->getRawBindings()['where'];
         unset($where_bindings[$this->binding_index]);
+        unset($where_bindings[$this->binding_index-1]);
         $query->setBindings(array_values($where_bindings));
         $query->wheres = array_values($query->wheres);
 
@@ -74,8 +86,7 @@ class StatusScope implements ScopeInterface {
      */
     public function extend(Builder $builder)
     {
-        foreach ($this->extensions as $extension)
-        {
+        foreach ($this->extensions as $extension) {
             $this->{"add{$extension}"}($builder);
         }
 
@@ -88,35 +99,12 @@ class StatusScope implements ScopeInterface {
      * @param  \Illuminate\Database\Eloquent\Builder $builder
      * @return void
      */
-    protected function addWithOffline(Builder $builder)
+    protected function addWithoutTranslation(Builder $builder)
     {
-        $builder->macro('withOffline', function(Builder $builder)
-        {
+        $builder->macro('withoutTranslation', function (Builder $builder) {
             $this->remove($builder, $builder->getModel());
 
             return $builder;
         });
     }
-
-
-    /**
-     * Add the only-trashed extension to the builder.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder $builder
-     * @return void
-     */
-    protected function addOnlyOffline(Builder $builder)
-    {
-        $builder->macro('onlyOffline', function(Builder $builder)
-        {
-            $model = $builder->getModel();
-
-            $this->remove($builder, $model);
-
-            $builder->getQuery()->where($model->getQualifiedStatusColumn(), '=', false);
-
-            return $builder;
-        });
-    }
-
 }

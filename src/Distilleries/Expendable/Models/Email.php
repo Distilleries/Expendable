@@ -1,6 +1,10 @@
 <?php namespace Distilleries\Expendable\Models;
 
+use Distilleries\Expendable\Scopes\Translatable;
+
 class Email extends BaseModel implements \Distilleries\MailerSaver\Contracts\MailModelContract {
+
+    use Translatable;
 
     protected $fillable = [
         'libelle',

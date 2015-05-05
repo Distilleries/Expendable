@@ -19,6 +19,7 @@ class EmailDatatable extends BaseDatatable {
         });
         $this->add('cc');
         $this->add('bcc');
+        $this->addTranslationAction();
         $this->addDefaultAction();
     }
 }

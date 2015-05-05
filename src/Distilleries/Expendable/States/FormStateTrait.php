@@ -18,7 +18,7 @@ trait FormStateTrait {
 
     public function getEdit($id = '')
     {
-        $model = (!empty($id)) ? $this->model->findOrFail($id) : $this->model;
+        $model = (!empty($id)) ? $this->model->withoutTranslation()->findOrFail($id) : $this->model;
         $form  = FormBuilder::create(get_class($this->form), [
             'model' => $model
         ]);
@@ -28,12 +28,74 @@ trait FormStateTrait {
         ]);
 
         $this->layoutManager->add([
-            'content'=>view('expendable::admin.form.state.form', [
-                'form'=>$form_content
+            'content' => view('expendable::admin.form.state.form', [
+                'form' => $form_content
             ])
         ]);
 
         return $this->layoutManager->render();
+    }
+
+    // ------------------------------------------------------------------------------------------------
+
+    public function getTranslation($iso, $id)
+    {
+
+        $id_element = $this->model->hasBeenTranslated($this->model->getTable(), $id);
+        if (!empty($id_element)) {
+            return redirect()->to(action($this->getControllerNameForAction() . '@getEdit', $id_element));
+        }
+
+        $model = (!empty($id)) ? $this->model->withoutTranslation()->findOrFail($id) : $this->model;
+        $form  = FormBuilder::create(get_class($this->form), [
+            'model' => $model
+        ])
+            ->remove('id')
+            ->add('translation_iso', 'hidden', ['default_value' => $iso])
+            ->add('translation_id_source', 'hidden', ['default_value' => $id]);
+
+        $form_content = view('form-builder::form.components.formgenerator.full', [
+            'form' => $form
+        ]);
+
+        $this->layoutManager->add([
+            'content' => view('expendable::admin.form.state.form', [
+                'form' => $form_content
+            ])
+        ]);
+
+        return $this->layoutManager->render();
+    }
+
+    // ------------------------------------------------------------------------------------------------
+
+    public function postTranslation(Request $request)
+    {
+
+
+        $form = FormBuilder::create(get_class($this->form), [
+            'model' => $this->model
+        ]);
+
+
+        if ($form->hasError()) {
+            return $form->validateAndRedirectBack();
+        }
+
+        $result = $this->beforeSave();
+
+        if ($result != null) {
+            return $result;
+        }
+
+        $result = $this->save($this->dataToSave($request), $request);
+        $this->saveTranslation($request);
+
+        if ($result != null) {
+            return $result;
+        }
+
+        return redirect()->to(action($this->getControllerNameForAction() . '@getIndex'));
     }
 
     // ------------------------------------------------------------------------------------------------
@@ -45,22 +107,19 @@ trait FormStateTrait {
         ]);
 
 
-        if ($form->hasError())
-        {
+        if ($form->hasError()) {
             return $form->validateAndRedirectBack();
         }
 
         $result = $this->beforeSave();
 
-        if ($result != null)
-        {
+        if ($result != null) {
             return $result;
         }
 
         $result = $this->save($this->dataToSave($request), $request);
 
-        if ($result != null)
-        {
+        if ($result != null) {
             return $result;
         }
 
@@ -96,16 +155,22 @@ trait FormStateTrait {
     {
 
         $primary = $request->get($this->model->getKeyName());
-        if (empty($primary))
-        {
+        if (empty($primary)) {
             $this->model = $this->model->create($data);
-        } else
-        {
+        } else {
             $this->model = $this->model->find($primary);
             $this->model->update($data);
         }
 
         return $this->afterSave();
+    }
+
+    // ------------------------------------------------------------------------------------------------
+
+    protected function saveTranslation(Request $request)
+    {
+
+        $this->model->setTranslation($this->model->getKey(), $this->model->getTable(), $request->get('translation_id_source'), $request->get('translation_iso'));
     }
 
 
@@ -125,8 +190,8 @@ trait FormStateTrait {
         ]);
 
         $this->layoutManager->add([
-            'content'=>view('expendable::admin.form.state.form', [
-                'form'=>$form_content
+            'content' => view('expendable::admin.form.state.form', [
+                'form' => $form_content
             ])
         ]);
 
@@ -136,7 +201,8 @@ trait FormStateTrait {
 
     // ------------------------------------------------------------------------------------------------
 
-    protected function getControllerNameForAction() {
+    protected function getControllerNameForAction()
+    {
 
         $action = explode('@', \Route::currentRouteAction());
 
