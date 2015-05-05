@@ -133,7 +133,8 @@ trait FormStateTrait {
 
         $result = $this->save($this->dataToSave($request), $request);
 
-        if (!$this->model->hasTranslation($this->model->getTable(),$this->model->getKey())) {
+
+        if ($this->isTranslatableModel() && !$this->model->hasTranslation($this->model->getTable(),$this->model->getKey())) {
             $this->saveTranslation(app()->getLocale());
         }
 
