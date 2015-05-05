@@ -15,10 +15,16 @@ trait FormStateTrait {
     // ------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------
+    protected function isTranslatableModel()
+    {
+        return method_exists($this->model, 'withoutTranslation');
+    }
+
+    // ------------------------------------------------------------------------------------------------
 
     public function getEdit($id = '')
     {
-        if (method_exists($this->model, 'withoutTranslation')) {
+        if ($this->isTranslatableModel()) {
             $model = (!empty($id)) ? $this->model->withoutTranslation()->findOrFail($id) : $this->model;
         } else {
             $model = (!empty($id)) ? $this->model->findOrFail($id) : $this->model;
@@ -94,7 +100,10 @@ trait FormStateTrait {
         }
 
         $result = $this->save($this->dataToSave($request), $request);
-        $this->saveTranslation($request);
+
+        if ($this->isTranslatableModel()) {
+            $this->saveTranslation($request->get('translation_iso'), $request->get('translation_id_source'));
+        }
 
         if ($result != null) {
             return $result;
@@ -123,6 +132,10 @@ trait FormStateTrait {
         }
 
         $result = $this->save($this->dataToSave($request), $request);
+
+        if (!$this->model->hasTranslation($this->model->getTable(),$this->model->getKey())) {
+            $this->saveTranslation(app()->getLocale());
+        }
 
         if ($result != null) {
             return $result;
@@ -172,10 +185,9 @@ trait FormStateTrait {
 
     // ------------------------------------------------------------------------------------------------
 
-    protected function saveTranslation(Request $request)
+    protected function saveTranslation($translation_iso, $translation_id_source = 0)
     {
-
-        $this->model->setTranslation($this->model->getKey(), $this->model->getTable(), $request->get('translation_id_source'), $request->get('translation_iso'));
+        $this->model->setTranslation($this->model->getKey(), $this->model->getTable(), $translation_id_source, $translation_iso);
     }
 
 

@@ -63,6 +63,7 @@ trait Translatable {
 
         return $translation->getTable() . '.' . $translation->getModelColumn();
     }
+
     /**
      * Get the fully qualified "id_source" column.
      *
@@ -108,11 +109,19 @@ trait Translatable {
         return $translation->save();
     }
 
-    public function hasBeenTranslated($model, $id_element)
+    public function hasBeenTranslated($model, $id_source)
     {
-        $translation = Translation::where($this->getQualifiedIdSourceColumn(), '=', $id_element)
+        $translation = Translation::where($this->getQualifiedIdSourceColumn(), '=', $id_source)
             ->where($this->getQualifiedModelColumn(), '=', $model)->get()->last();
 
         return (!empty($translation->id_element)) ? $translation->id_element : false;
+    }
+
+    public function hasTranslation($model, $id_element)
+    {
+        $translation = Translation::where($this->getQualifiedIdElementColumn(), '=', $id_element)
+            ->where($this->getQualifiedModelColumn(), '=', $model)->count();
+
+        return (!empty($translation)) ? true : false;
     }
 }
