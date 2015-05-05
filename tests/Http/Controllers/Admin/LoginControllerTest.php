@@ -181,7 +181,14 @@ class LoginControllerTest extends ExpendableTestCase {
         ];
 
 
-        \Distilleries\Expendable\Models\Email::create($data);
+        $result = \Distilleries\Expendable\Models\Email::create($data);
+        \Distilleries\Expendable\Models\Translation::create([
+            'id_element' => $result->id,
+            'model'      => $result->getTable(),
+            'id_source'  => 0,
+            'iso'        => app()->getLocale(),
+        ]);
+
 
         \Distilleries\Expendable\Models\Role::create([
             'libelle'            => 'admin',
