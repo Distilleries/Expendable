@@ -10,7 +10,7 @@ class EmailControllerTest extends ExpendableTestCase {
 
         $this->artisan('migrate', [
             '--database' => 'testbench',
-            '--realpath' => realpath(__DIR__.'/../../../../vendor/distilleries/mailersaver/src/database/migrations'),
+            '--realpath' => realpath(__DIR__ . '/../../../../vendor/distilleries/mailersaver/src/database/migrations'),
         ]);
 
         \Distilleries\Expendable\Models\Role::create([
@@ -45,7 +45,7 @@ class EmailControllerTest extends ExpendableTestCase {
     public function testDatatable()
     {
 
-        $response = $this->call('GET', action($this->controller.'@getIndex'));
+        $response = $this->call('GET', action($this->controller . '@getIndex'));
         $this->assertResponseOk();
 
         $this->assertContains(trans('expendable::datatable.subject'), $response->getContent());
@@ -59,25 +59,30 @@ class EmailControllerTest extends ExpendableTestCase {
     {
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'   => str_replace('\'','',$faker->realText(20)),
+            'libelle'   => str_replace('\'', '', $faker->realText(20)),
             'body_type' => \Distilleries\Expendable\Helpers\StaticLabel::BODY_TYPE_HTML,
             'action'    => 'emails.password',
             'cc'        => $faker->email,
             'bcc'       => $faker->email,
-            'content'   => str_replace('\'','',$faker->text()),
+            'content'   => str_replace('\'', '', $faker->text()),
             'status'    => \Distilleries\Expendable\Helpers\StaticLabel::STATUS_ONLINE,
         ];
 
         $email = \Distilleries\Expendable\Models\Email::create($data);
+        \Distilleries\Expendable\Models\Translation::create([
+            'id_element' => $email->id,
+            'model'      => 'emails',
+            'id_source'  => 0,
+            'iso'        => app()->getLocale(),
+        ]);
 
-        $response = $this->call('GET', action($this->controller.'@getView', [
+        $response = $this->call('GET', action($this->controller . '@getView', [
             'id' => $email->id
         ]));
 
         $this->assertResponseOk();
         $this->assertContains($data['libelle'], $response->getContent());
         $this->assertContains($data['body_type'], $response->getContent());
-        $this->assertContains($data['action'], $response->getContent());
         $this->assertContains($data['cc'], $response->getContent());
         $this->assertContains($data['bcc'], $response->getContent());
         $this->assertContains($data['content'], $response->getContent());
@@ -87,18 +92,25 @@ class EmailControllerTest extends ExpendableTestCase {
     {
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'   => str_replace('\'','',$faker->name),
+            'libelle'   => str_replace('\'', '', $faker->name),
             'body_type' => \Distilleries\Expendable\Helpers\StaticLabel::BODY_TYPE_HTML,
             'action'    => 'emails.password',
             'cc'        => $faker->email,
             'bcc'       => $faker->email,
-            'content'   => str_replace('\'','',$faker->name()),
+            'content'   => str_replace('\'', '', $faker->name()),
             'status'    => \Distilleries\Expendable\Helpers\StaticLabel::STATUS_ONLINE,
         ];
 
         $email = \Distilleries\Expendable\Models\Email::create($data);
+        \Distilleries\Expendable\Models\Translation::create([
+            'id_element' => $email->id,
+            'model'     => 'emails',
+            'id_source'  => 0,
+            'iso'        => app()->getLocale(),
+        ]);
 
-        $response = $this->call('GET', action($this->controller.'@getEdit', [
+
+        $response = $this->call('GET', action($this->controller . '@getEdit', [
             'id' => $email->id
         ]));
 
@@ -113,7 +125,7 @@ class EmailControllerTest extends ExpendableTestCase {
 
     public function testSaveError()
     {
-        $this->call('POST', action($this->controller.'@postEdit'));
+        $this->call('POST', action($this->controller . '@postEdit'));
         $this->assertSessionHasErrors();
         $this->assertHasOldInput();
     }
@@ -122,17 +134,17 @@ class EmailControllerTest extends ExpendableTestCase {
     {
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'   => str_replace('\'','',$faker->realText(20)),
+            'libelle'   => str_replace('\'', '', $faker->realText(20)),
             'body_type' => \Distilleries\Expendable\Helpers\StaticLabel::BODY_TYPE_HTML,
             'action'    => 'emails.password',
             'cc'        => $faker->email,
             'bcc'       => $faker->email,
-            'content'   => str_replace('\'','',$faker->text()),
+            'content'   => str_replace('\'', '', $faker->text()),
             'status'    => \Distilleries\Expendable\Helpers\StaticLabel::STATUS_ONLINE,
         ];
 
 
-        $this->call('POST', action($this->controller.'@postEdit'), $data);
+        $this->call('POST', action($this->controller . '@postEdit'), $data);
         $total = \Distilleries\Expendable\Models\Email::where('libelle', $data['libelle'])->where('action', $data['action'])->count();
 
         $this->assertEquals(1, $total);
@@ -143,7 +155,7 @@ class EmailControllerTest extends ExpendableTestCase {
     public function testDestroyNoId()
     {
 
-        $this->call('PUT', action($this->controller.'@putDestroy'));
+        $this->call('PUT', action($this->controller . '@putDestroy'));
         $this->assertSessionHasErrors();
         $this->assertHasOldInput();
 
@@ -153,17 +165,24 @@ class EmailControllerTest extends ExpendableTestCase {
     {
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'   => str_replace('\'','',$faker->realText(20)),
+            'libelle'   => str_replace('\'', '', $faker->realText(20)),
             'body_type' => \Distilleries\Expendable\Helpers\StaticLabel::BODY_TYPE_HTML,
             'action'    => 'emails.password',
             'cc'        => $faker->email,
             'bcc'       => $faker->email,
-            'content'   => str_replace('\'','',$faker->text()),
+            'content'   => str_replace('\'', '', $faker->text()),
             'status'    => \Distilleries\Expendable\Helpers\StaticLabel::STATUS_ONLINE,
         ];
 
         $email = \Distilleries\Expendable\Models\Email::create($data);
-        $this->call('PUT', action($this->controller.'@putDestroy'), [
+        \Distilleries\Expendable\Models\Translation::create([
+            'id_element' => $email->id,
+            'model'     => 'emails',
+            'id_source'  => 0,
+            'iso'        => app()->getLocale(),
+        ]);
+
+        $this->call('PUT', action($this->controller . '@putDestroy'), [
             'id' => $email->id
         ]);
         $newEmail = \Distilleries\Expendable\Models\Email::find($email->id);
@@ -176,18 +195,24 @@ class EmailControllerTest extends ExpendableTestCase {
     {
         $faker = Faker\Factory::create();
         $data  = [
-            'libelle'   => str_replace('\'','',$faker->realText(20)),
+            'libelle'   => str_replace('\'', '', $faker->realText(20)),
             'body_type' => \Distilleries\Expendable\Helpers\StaticLabel::BODY_TYPE_HTML,
             'action'    => 'emails.password',
             'cc'        => $faker->email,
             'bcc'       => $faker->email,
-            'content'   => str_replace('\'','',$faker->text()),
+            'content'   => str_replace('\'', '', $faker->text()),
             'status'    => \Distilleries\Expendable\Helpers\StaticLabel::STATUS_ONLINE,
         ];
 
         $email = \Distilleries\Expendable\Models\Email::create($data);
+        \Distilleries\Expendable\Models\Translation::create([
+            'id_element' => $email->id,
+            'model'     => 'emails',
+            'id_source'  => 0,
+            'iso'        => app()->getLocale(),
+        ]);
 
-        $response = $this->call('GET', action($this->controller.'@getDatatable'));
+        $response = $this->call('GET', action($this->controller . '@getDatatable'));
         $this->assertResponseOk();
         $result = json_decode($response->getContent());
 

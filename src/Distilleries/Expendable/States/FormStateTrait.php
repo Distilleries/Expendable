@@ -195,7 +195,13 @@ trait FormStateTrait {
 
     public function getView($id)
     {
-        $model = (!empty($id)) ? $this->model->findOrFail($id) : $this->model;
+
+        if ($this->isTranslatableModel()) {
+            $model = (!empty($id)) ? $this->model->withoutTranslation()->findOrFail($id) : $this->model;
+        } else {
+            $model = (!empty($id)) ? $this->model->findOrFail($id) : $this->model;
+        }
+
         $form  = FormBuilder::create(get_class($this->form), [
             'model' => $model
         ]);

@@ -7,6 +7,7 @@ class Translation extends BaseModel {
     protected $fillable = [
         'iso',
         'id_element',
+        'model',
         'id_source'
     ];
 
