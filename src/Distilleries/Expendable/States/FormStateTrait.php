@@ -28,7 +28,7 @@ trait FormStateTrait {
             } else {
                 return $this->model->findOrFail($id);
             }
-        }else{
+        } else {
             if ($this->isTranslatableModel()) {
                 return $this->model->withoutTranslation()->find($id);
             } else {
@@ -45,9 +45,17 @@ trait FormStateTrait {
     public function getEdit($id = '')
     {
         $model = (!empty($id)) ? $this->findAutoDetectTranslation($id) : $this->model;
-        $form = FormBuilder::create(get_class($this->form), [
+        $form  = FormBuilder::create(get_class($this->form), [
             'model' => $model
         ]);
+
+
+        if ($this->isTranslatableModel()) {
+            $local_overide = $this->model->getIso($model->getTable(), $model->id);
+            if (!empty($local_overide)) {
+                $form->add('local_override', 'hidden', ['default_value' => $local_overide]);
+            }
+        }
 
         $form_content = view('form-builder::form.components.formgenerator.full', [
             'form' => $form
@@ -78,7 +86,8 @@ trait FormStateTrait {
         ])
             ->remove('id')
             ->add('translation_iso', 'hidden', ['default_value' => $iso])
-            ->add('translation_id_source', 'hidden', ['default_value' => $id]);
+            ->add('translation_id_source', 'hidden', ['default_value' => $id])
+            ->add('local_override', 'hidden', ['default_value' => $iso]);
 
         $form_content = view('form-builder::form.components.formgenerator.full', [
             'form' => $form
@@ -193,7 +202,7 @@ trait FormStateTrait {
         if (empty($primary)) {
             $this->model = $this->model->create($data);
         } else {
-            $this->model = $this->findAutoDetectTranslation($primary,false);
+            $this->model = $this->findAutoDetectTranslation($primary, false);
             $this->model->update($data);
         }
 
@@ -214,7 +223,7 @@ trait FormStateTrait {
     {
 
         $model = (!empty($id)) ? $this->findAutoDetectTranslation($id) : $this->model;
-        $form = FormBuilder::create(get_class($this->form), [
+        $form  = FormBuilder::create(get_class($this->form), [
             'model' => $model
         ]);
 

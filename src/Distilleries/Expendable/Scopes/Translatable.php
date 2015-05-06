@@ -109,6 +109,14 @@ trait Translatable {
         return $translation->save();
     }
 
+    public function getIso($model, $id_element)
+    {
+        $translation = Translation::where($this->getQualifiedIdElementColumn(), '=', $id_element)
+            ->where($this->getQualifiedModelColumn(), '=', $model)->get()->last();
+
+        return (!empty($translation->iso)) ? $translation->iso : false;
+    }
+
     public function hasBeenTranslated($model, $id_source)
     {
         $translation = Translation::where($this->getQualifiedIdSourceColumn(), '=', $id_source)

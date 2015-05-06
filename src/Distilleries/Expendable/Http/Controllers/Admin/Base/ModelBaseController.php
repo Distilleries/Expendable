@@ -30,8 +30,7 @@ class ModelBaseController extends BaseController {
         $validation = \Validator::make($request->all(), [
             'id' => 'required'
         ]);
-        if ($validation->fails())
-        {
+        if ($validation->fails()) {
             return redirect()->back()->withErrors($validation)->withInput($request->all());
         }
 
@@ -45,16 +44,25 @@ class ModelBaseController extends BaseController {
     public function postSearch(Request $request, $query = null)
     {
 
-        $ids = $request->get('ids');
+        $ids            = $request->get('ids');
+        $no_edit        = $request->get('no_edit');
+        $local_override = $request->get('local_override');
 
-        if (empty($query))
-        {
+
+        if (!empty($local_override)) {
+            config(['local_override' => $local_override]);
+        }
+
+        if (empty($query)) {
             $query = $this->model;
         }
 
 
-        if (!empty($ids))
-        {
+        if (!empty($ids)) {
+            if (!empty($no_edit) && method_exists($this->model, 'withoutTranslation')) {
+                $query = $query->withoutTranslation();
+            }
+
             $data = $query->whereIn($this->model->getKeyName(), $ids)->get();
 
             return response()->json($data);
@@ -64,21 +72,17 @@ class ModelBaseController extends BaseController {
         $page  = $request->get('page');
         $paged = $request->get('page_limit');
 
-        if (empty($paged))
-        {
+        if (empty($paged)) {
             $paged = 10;
         }
 
-        if (empty($page))
-        {
+        if (empty($page)) {
             $page = 1;
         }
-        if (empty($term))
-        {
+        if (empty($term)) {
             $elements = array();
             $total    = 0;
-        } else
-        {
+        } else {
             $elements = $query->search($term)->take($paged)->skip(($page - 1) * $paged)->get();
             $total    = $query->search($term)->count();
 
