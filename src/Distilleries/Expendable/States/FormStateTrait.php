@@ -20,16 +20,31 @@ trait FormStateTrait {
         return method_exists($this->model, 'withoutTranslation');
     }
 
+    protected function findAutoDetectTranslation($id, $orfail = true)
+    {
+        if ($orfail) {
+            if ($this->isTranslatableModel()) {
+                return $this->model->withoutTranslation()->findOrFail($id);
+            } else {
+                return $this->model->findOrFail($id);
+            }
+        }else{
+            if ($this->isTranslatableModel()) {
+                return $this->model->withoutTranslation()->find($id);
+            } else {
+                return $this->model->find($id);
+            }
+        }
+
+        return null;
+
+    }
+
     // ------------------------------------------------------------------------------------------------
 
     public function getEdit($id = '')
     {
-        if ($this->isTranslatableModel()) {
-            $model = (!empty($id)) ? $this->model->withoutTranslation()->findOrFail($id) : $this->model;
-        } else {
-            $model = (!empty($id)) ? $this->model->findOrFail($id) : $this->model;
-        }
-
+        $model = (!empty($id)) ? $this->findAutoDetectTranslation($id) : $this->model;
         $form = FormBuilder::create(get_class($this->form), [
             'model' => $model
         ]);
@@ -116,6 +131,7 @@ trait FormStateTrait {
 
     public function postEdit(Request $request)
     {
+
         $form = FormBuilder::create(get_class($this->form), [
             'model' => $this->model
         ]);
@@ -134,7 +150,7 @@ trait FormStateTrait {
         $result = $this->save($this->dataToSave($request), $request);
 
 
-        if ($this->isTranslatableModel() && !$this->model->hasTranslation($this->model->getTable(),$this->model->getKey())) {
+        if ($this->isTranslatableModel() && !$this->model->hasTranslation($this->model->getTable(), $this->model->getKey())) {
             $this->saveTranslation(app()->getLocale());
         }
 
@@ -177,7 +193,7 @@ trait FormStateTrait {
         if (empty($primary)) {
             $this->model = $this->model->create($data);
         } else {
-            $this->model = $this->model->find($primary);
+            $this->model = $this->findAutoDetectTranslation($primary,false);
             $this->model->update($data);
         }
 
@@ -197,13 +213,8 @@ trait FormStateTrait {
     public function getView($id)
     {
 
-        if ($this->isTranslatableModel()) {
-            $model = (!empty($id)) ? $this->model->withoutTranslation()->findOrFail($id) : $this->model;
-        } else {
-            $model = (!empty($id)) ? $this->model->findOrFail($id) : $this->model;
-        }
-
-        $form  = FormBuilder::create(get_class($this->form), [
+        $model = (!empty($id)) ? $this->findAutoDetectTranslation($id) : $this->model;
+        $form = FormBuilder::create(get_class($this->form), [
             'model' => $model
         ]);
 
