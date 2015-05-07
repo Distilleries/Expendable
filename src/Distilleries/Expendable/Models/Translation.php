@@ -53,7 +53,8 @@ class Translation extends BaseModel {
 
     public function scopeByElement($query, Model $model)
     {
-        return $query->where($this->getTable() . '.' . $this->getModelColumn(), '=', $model->getTable());
+        return $query->where($this->getTable() . '.' . $this->getModelColumn(), '=', $model->getTable())
+                     ->where($this->getTable() . '.' . $this->getIdSourceColumn(), '=', $model->getKey());
     }
 
 }
