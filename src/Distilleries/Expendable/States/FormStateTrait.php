@@ -75,7 +75,7 @@ trait FormStateTrait {
     public function getTranslation($iso, $id)
     {
 
-        $id_element = $this->model->hasBeenTranslated($this->model->getTable(), $id);
+        $id_element = $this->model->hasBeenTranslated($this->model->getTable(), $id, $iso);
         if (!empty($id_element)) {
             return redirect()->to(action($this->getControllerNameForAction() . '@getEdit', $id_element));
         }

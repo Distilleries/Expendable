@@ -117,10 +117,12 @@ trait Translatable {
         return (!empty($translation->iso)) ? $translation->iso : false;
     }
 
-    public function hasBeenTranslated($model, $id_source)
+    public function hasBeenTranslated($model, $id_source, $iso)
     {
         $translation = Translation::where($this->getQualifiedIdSourceColumn(), '=', $id_source)
-            ->where($this->getQualifiedModelColumn(), '=', $model)->get()->last();
+            ->where($this->getQualifiedModelColumn(), '=', $model)
+            ->where($this->getQualifiedIsoColumn(), '=', $iso)
+            ->get()->last();
 
         return (!empty($translation->id_element)) ? $translation->id_element : false;
     }
