@@ -43,6 +43,7 @@ class UserUtils {
 
     public static function hasAccess($key)
     {
+        $key  = ltrim($key, "\\");
         $area = self::getArea();
         $area = (is_array($area) && !empty($area)) ? $area : [];
 
