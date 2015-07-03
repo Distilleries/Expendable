@@ -1,5 +1,6 @@
 <?php namespace Distilleries\Expendable\Console;
 
+use Illuminate\Console\AppNamespaceDetectorTrait;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -7,6 +8,7 @@ use Distilleries\Expendable\Console\Lib\Generators\ComponentGenerator;
 
 class ComponentMakeCommand extends \Illuminate\Console\GeneratorCommand {
 
+    use AppNamespaceDetectorTrait;
     /**
      * The console command name.
      *
