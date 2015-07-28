@@ -7,7 +7,7 @@ use \Auth;
 Route::get('storage/{path}', 'Front\AssetController@getIndex')->where('path', '([A-z\d-\/_.\s]+)?');
 
 Route::group(array(
-    'prefix' => 'admin',
+    'prefix' => config('expendable.admin_base_uri'),
     'middleware' => 'guest'
 ), function()
 {
