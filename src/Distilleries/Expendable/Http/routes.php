@@ -1,8 +1,8 @@
 <?php
 
-use \Route;
-use \View;
-use \Auth;
+use \Route as Route;
+use \View as View;
+use \Auth as Auth;
 
 Route::get('storage/{path}', 'Front\AssetController@getIndex')->where('path', '([A-z\d-\/_.\s]+)?');
 
