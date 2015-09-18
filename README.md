@@ -1,8 +1,8 @@
-[![Code quality](http://img.shields.io/scrutinizer/g/distilleries/Expendable.svg?style=flat)](https://scrutinizer-ci.com/g/distilleries/Expendable/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Distilleries/Expendable/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Distilleries/Expendable/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/Distilleries/Expendable/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Distilleries/Expendable/?branch=master)
 [![Build Status](https://travis-ci.org/Distilleries/Expendable.svg?branch=master)](https://travis-ci.org/Distilleries/Expendable)
-[![Total Downloads](https://img.shields.io/packagist/dt/distilleries/expendable.svg?style=flat)](https://packagist.org/packages/distilleries/expendable)
-[![Latest Stable Version](https://img.shields.io/packagist/v/distilleries/expendable.svg?style=flat)](https://packagist.org/packages/distilleries/expendable)
+[![Total Downloads](https://poser.pugx.org/distilleries/expendable/downloads)](https://packagist.org/packages/distilleries/expendable)
+[![Latest Stable Version](https://poser.pugx.org/distilleries/expendable/version)](https://packagist.org/packages/distilleries/expendable)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE) 
 
 #Expendable
