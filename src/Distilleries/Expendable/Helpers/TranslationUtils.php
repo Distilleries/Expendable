@@ -10,7 +10,8 @@ class TranslationUtils {
 
     }
 
-    public function resetOverrideLocal(){
+    public static function resetOverrideLocal()
+    {
         config([self::KEY_OVERRIDE_LOCAL => null]);
     }
 
