@@ -5,6 +5,11 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler {
 
+    protected $dontReport = [
+        'Symfony\Component\HttpKernel\Exception\HttpException',
+        'Symfony\Component\HttpKernel\Exception\NotFoundHttpException'
+    ];
+
     /**
      * Render an exception into an HTTP response.
      *
