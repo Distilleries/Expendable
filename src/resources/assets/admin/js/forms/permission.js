@@ -61,12 +61,12 @@ dist.Form.Permission.Global.prototype = {
 
     checkAll: function (evt) {
         var $target = jQuery(evt.target);
-        jQuery('input[name="permission['+$target.prop('name')+'][]"]').iCheck('check');
+        jQuery('input[name*="['+$target.prop('name')+'][]"]').iCheck('check');
     },
 
     uncheckAll: function (evt) {
         var $target = jQuery(evt.target);
-        jQuery('input[name="permission['+$target.prop('name')+'][]"]').iCheck('uncheck');
+        jQuery('input[name*="['+$target.prop('name')+'][]"]').iCheck('uncheck');
     }
 
 
