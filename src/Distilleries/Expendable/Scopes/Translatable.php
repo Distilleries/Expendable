@@ -24,7 +24,7 @@ trait Translatable {
     {
         $instance = new static;
 
-        return $instance->newQueryWithoutScope(new TranslatableScope);
+        return $instance->withoutGlobalScope(TranslatableScope::class);
 
     }
 

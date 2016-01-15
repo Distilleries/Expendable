@@ -16,7 +16,6 @@
 		<!-- BEGIN TOP NAVIGATION MENU -->
 		<div class="top-menu">
 			<ul class="nav navbar-nav pull-right">
-                <?php $languages = \Distilleries\Expendable\Models\Language::all(); ?>
                 @if(!empty($languages))
                 <li class="dropdown dropdown-extended dropdown-notification">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">

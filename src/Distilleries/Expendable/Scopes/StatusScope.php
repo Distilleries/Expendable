@@ -2,10 +2,10 @@
 
 use Distilleries\Expendable\Helpers\UserUtils;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\ScopeInterface;
+use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 
-class StatusScope implements ScopeInterface {
+class StatusScope implements Scope{
 
     /**
      * All of the extensions to be added to the builder.
@@ -14,17 +14,6 @@ class StatusScope implements ScopeInterface {
      */
     protected $extensions = ['WithOffline', 'OnlyOffline'];
 
-    /**
-     * The index in which we added a where clause
-     * @var int
-     */
-    private $where_index;
-
-    /**
-     * The index in which we added a where binding
-     * @var int
-     */
-    private $binding_index;
 
     /**
      * Apply the scope to a given Eloquent query builder.
@@ -38,31 +27,8 @@ class StatusScope implements ScopeInterface {
         if (!UserUtils::hasDisplayAllStatus())
         {
             $builder->where($model->getQualifiedStatusColumn(), true);
-            $query               = $builder->getQuery();
-            $this->where_index   = count($query->wheres) - 1;
-            $this->binding_index = count($query->getRawBindings()['where']) - 1;
         }
-
         $this->extend($builder);
-
-    }
-
-    /**
-     * Remove the scope from the given Eloquent query builder.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder $builder
-     * @return void
-     */
-    public function remove(Builder $builder, Model $model)
-    {
-        $query = $builder->getQuery();
-
-        unset($query->wheres[$this->where_index]);
-        $where_bindings = $query->getRawBindings()['where'];
-        unset($where_bindings[$this->binding_index]);
-        $query->setBindings(array_values($where_bindings));
-        $query->wheres = array_values($query->wheres);
-
 
     }
 
@@ -92,9 +58,7 @@ class StatusScope implements ScopeInterface {
     {
         $builder->macro('withOffline', function(Builder $builder)
         {
-            $this->remove($builder, $builder->getModel());
-
-            return $builder;
+            return $builder->withoutGlobalScope($this);
         });
     }
 
@@ -111,9 +75,8 @@ class StatusScope implements ScopeInterface {
         {
             $model = $builder->getModel();
 
-            $this->remove($builder, $model);
-
-            $builder->getQuery()->where($model->getQualifiedStatusColumn(), '=', false);
+            $builder->withoutGlobalScope($this)
+                ->where($model->getQualifiedStatusColumn(), '=', false);
 
             return $builder;
         });

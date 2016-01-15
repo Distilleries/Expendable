@@ -17,15 +17,16 @@ class UserUtilTest extends ExpendableTestCase {
 
         $faker = Faker\Factory::create();
         $email = $faker->email;
-        \Distilleries\Expendable\Models\User::create([
+
+
+        $user = \Distilleries\Expendable\Models\User::create([
             'email'    => $email,
             'password' => \Hash::make('test'),
             'status'   => true,
             'role_id'  => 1,
         ]);
 
-        $this->app->make('Illuminate\Contracts\Auth\Guard')->attempt(['email' => $email, 'password' => 'test']);
-
+        $this->app->make('Illuminate\Contracts\Auth\Guard')->login($user);
         return $email;
 
     }

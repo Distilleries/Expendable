@@ -27,7 +27,7 @@ trait StatusTrait {
 
         $column = $instance->getQualifiedStatusColumn();
 
-        return $instance->newQueryWithoutScope(new StatusScope)->where($column, false);
+        return $instance->withoutGlobalScope(StatusScope::class)->where($column, false);
 
     }
 
@@ -35,7 +35,7 @@ trait StatusTrait {
     {
         $instance = new static;
 
-        return $instance->newQueryWithoutScope(new StatusScope);
+        return $instance->withoutGlobalScope(StatusScope::class);
     }
 
     /**

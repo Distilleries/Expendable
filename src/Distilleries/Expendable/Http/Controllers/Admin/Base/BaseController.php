@@ -2,6 +2,7 @@
 
 use Distilleries\Expendable\Contracts\LayoutManagerContract;
 use Distilleries\Expendable\Http\Controllers\Controller;
+use Distilleries\Expendable\Models\Language;
 
 
 class BaseController extends Controller {
@@ -48,7 +49,9 @@ class BaseController extends Controller {
         $this->layoutManager->initStaticPart(function($layoutManager)
         {
 
-            $menu_top  = $layoutManager->getView()->make('expendable::admin.menu.top');
+            $menu_top  = $layoutManager->getView()->make('expendable::admin.menu.top',[
+                'languages'=>Language::all()
+            ]);
             $menu_left = $layoutManager->getView()->make('expendable::admin.menu.left');
 
 

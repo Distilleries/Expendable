@@ -173,7 +173,7 @@ class LoginControllerTest extends ExpendableTestCase {
         $data  = [
             'libelle'   => $faker->realText(20),
             'body_type' => \Distilleries\Expendable\Helpers\StaticLabel::BODY_TYPE_HTML,
-            'action'    => 'emails.password',
+            'action'    => 'auth.emails.password',
             'cc'        => $faker->email,
             'bcc'       => $faker->email,
             'content'   => $faker->text(),
@@ -214,10 +214,10 @@ class LoginControllerTest extends ExpendableTestCase {
             'service_id' => 1,
         ]);
 
-
         $response = $this->call('POST', action('Admin\LoginController@postRemind'), [
             'email' => $email
         ]);
+
         $this->assertSessionHas(\Distilleries\Expendable\Formatter\Message::MESSAGE);
 
 

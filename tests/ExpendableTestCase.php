@@ -32,7 +32,7 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
 
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('auth.model', 'Distilleries\Expendable\Models\User');
+        $app['config']->set('auth.providers.users.model', Distilleries\Expendable\Models\User::class);
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', array(
             'driver'   => 'sqlite',
@@ -42,9 +42,10 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
     }
 
 
-    protected function getPackageProviders()
+    protected function getPackageProviders($app)
     {
         return [
+            'Wpb\String_Blade_Compiler\ViewServiceProvider',
             'Distilleries\MailerSaver\MailerSaverServiceProvider',
             'Distilleries\FormBuilder\FormBuilderServiceProvider',
             'Distilleries\DatatableBuilder\DatatableBuilderServiceProvider',
@@ -55,7 +56,7 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
         ];
     }
 
-    protected function getPackageAliases()
+    protected function getPackageAliases($app)
     {
         return [
             'Mail'           => 'Distilleries\MailerSaver\Facades\Mail',

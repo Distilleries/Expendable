@@ -32,6 +32,7 @@ class ComponentControllerTest extends ExpendableTestCase {
             'service_id' => 1,
         ]);
 
+
         $this->be($user);
 
     }
@@ -46,6 +47,7 @@ class ComponentControllerTest extends ExpendableTestCase {
 
     public function testEdit()
     {
+
         $response = $this->call('GET', action($this->controller.'@getEdit'));
 
         $this->assertResponseOk();
