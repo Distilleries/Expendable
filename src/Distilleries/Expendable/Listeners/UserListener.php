@@ -35,7 +35,10 @@ class UserListener extends BaseListener
     {
 
 
-        $model->unlock();
+        if($model->email != ''){
+            $model->unlock();
+        }
+
         $areaServices = [];
 
         $role = $model->role;
