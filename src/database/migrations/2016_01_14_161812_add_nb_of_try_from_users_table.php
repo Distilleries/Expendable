@@ -13,7 +13,7 @@ class AddNbOfTryFromUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('nb_of_try');
+            $table->integer('nb_of_try')->default(0);
         });
     }
 
