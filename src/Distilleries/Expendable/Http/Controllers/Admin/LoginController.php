@@ -209,6 +209,12 @@ class LoginController extends BaseController
         {
             $user->password = bcrypt($password);
             $user->save();
+
+            if (method_exists($user, 'unlock'))
+            {
+                $user->unlock();
+            }
+
             $this->auth->login($user);
         });
 
