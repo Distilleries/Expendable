@@ -72,9 +72,9 @@ class LoginController extends BaseController
         }
 
         $credential = $request->only('email', 'password');
-        $isLocked   = app('Distilleries\Expendable\Contracts\LockableContract')->where('email', $credential['email'])->get()->last()->isLocked();
+        $userCredential = app('Distilleries\Expendable\Contracts\LockableContract')->where('email', $credential['email'])->get()->last();
 
-        if (UserUtils::securityCheckLockEnabled() && $isLocked)
+        if (UserUtils::securityCheckLockEnabled() && !empty($userCredential) && $userCredential->isLocked())
         {
             return redirect()->back()->with(Message::WARNING, [trans('expendable::login.credential')]);
         }
