@@ -1,5 +1,6 @@
 <?php namespace Distilleries\Expendable\Models;
 
+use Distilleries\Expendable\Contracts\LockableContract;
 use Distilleries\Expendable\Helpers\UserUtils;
 use Distilleries\PermissionUtil\Contracts\PermissionUtilContract;
 use Illuminate\Auth\Authenticatable;
@@ -7,9 +8,9 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract, PermissionUtilContract {
+class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract, PermissionUtilContract, LockableContract {
 
-    use Authenticatable, CanResetPassword, \Distilleries\Expendable\Models\StatusTrait;
+    use Authenticatable, CanResetPassword, \Distilleries\Expendable\Models\StatusTrait, LockableTrait;
 
     protected $tabPermission = [];
     protected $fillable = [

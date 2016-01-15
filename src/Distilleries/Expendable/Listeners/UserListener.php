@@ -1,8 +1,11 @@
 <?php namespace Distilleries\Expendable\Listeners;
 
+use Distilleries\Expendable\Contracts\LockableContract;
 use Distilleries\Expendable\Helpers\UserUtils;
+use Distilleries\Expendable\Models\User;
 
-class UserListener extends BaseListener {
+class UserListener extends BaseListener
+{
 
     /**
      * @var array[
@@ -14,19 +17,25 @@ class UserListener extends BaseListener {
      *
      */
     protected $events = [
-        'user.login'  => [
+        'user.login'    => [
             'action'   => 'handleLogin',
             'priority' => 0,
         ],
-        'user.logout' => [
+        'user.logout'   => [
             'action'   => 'handleLogOut',
+            'priority' => 0,
+        ],
+        'user.security' => [
+            'action'   => 'handleLockIncrement',
             'priority' => 0,
         ]
     ];
 
-    public function handleLogin($model)
+    public function handleLogin(LockableContract $model)
     {
 
+
+        $model->unlock();
         $areaServices = [];
 
         $role = $model->role;
@@ -40,6 +49,7 @@ class UserListener extends BaseListener {
 
         }
 
+
         UserUtils::setArea($areaServices);
         UserUtils::setIsLoggedIn();
         UserUtils::setDisplayAllStatus();
@@ -51,5 +61,18 @@ class UserListener extends BaseListener {
         UserUtils::forgotArea();
         UserUtils::forgotIsLoggedIn();
         UserUtils::forgotDisplayAllStatus();
+
+
+    }
+
+    public function handleLockIncrement($email)
+    {
+        $model = app('Distilleries\Expendable\Contracts\LockableContract');
+        $user  = $model->where('email', $email)->get()->last();
+
+        if (!empty($user))
+        {
+            $user->incrementLock();
+        }
     }
 }

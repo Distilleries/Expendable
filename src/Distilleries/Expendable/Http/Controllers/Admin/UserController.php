@@ -52,4 +52,24 @@ class UserController extends BaseComponent {
         return $this->postSearch($request, $query);
     }
 
+
+    public function postUnLock(Request $request){
+
+        $model = $this->model->findOrFail($request->get('id'));
+        $model->nb_of_try = 0;
+        $model->save();
+
+        return redirect()->back();
+    }
+
+
+    public function postLock(Request $request){
+
+        $model = $this->model->findOrFail($request->get('id'));
+        $model->nb_of_try = config('expendable.auth.nb_of_try');
+        $model->save();
+
+        return redirect()->back();
+    }
+
 }

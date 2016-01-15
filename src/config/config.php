@@ -47,5 +47,9 @@ return [
             'position' => 3,
             'action'   => 'getEdit'
         ],
+    ],
+    'auth'                => [
+        'security_enabled' => true,
+        'nb_of_try'        => 5
     ]
 ];

@@ -7,6 +7,7 @@ use Distilleries\Expendable\Importer\CsvImporter;
 use Distilleries\Expendable\Importer\XlsImporter;
 use Distilleries\Expendable\Layouts\LayoutManager;
 use Distilleries\Expendable\Models\Email;
+use Distilleries\Expendable\Models\User;
 use Distilleries\Expendable\States\StateDisplayer;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
@@ -53,6 +54,11 @@ class ExpendableServiceProvider extends ServiceProvider {
      */
     public function register()
     {
+
+        $this->app->singleton('Distilleries\Expendable\Contracts\LockableContract', function($app)
+        {
+            return new User;
+        });
 
         $this->app->singleton('Distilleries\Expendable\Contracts\StateDisplayerContract', function($app)
         {
