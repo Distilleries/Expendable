@@ -11,7 +11,7 @@ class UserDatatable extends BaseDatatable {
     {
         $this->add('id');
         $this->add('email');
-        $this->addDefaultAction();
+        $this->addDefaultAction('expendable::admin.user.datatable.action');
     }
 
     public function applyFilters()

@@ -3,7 +3,8 @@
 use \Auth;
 use \Session;
 
-class UserUtils {
+class UserUtils
+{
 
     public static function get()
     {
@@ -85,5 +86,10 @@ class UserUtils {
             unset($_SESSION['isLoggedIn']);
         }
 
+    }
+
+    public static function securityCheckLockEnabled()
+    {
+        return config('expendable.auth.security_enabled') === true;
     }
 }

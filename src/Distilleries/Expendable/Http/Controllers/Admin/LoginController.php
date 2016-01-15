@@ -3,6 +3,7 @@
 use Distilleries\Expendable\Contracts\LayoutManagerContract;
 use Distilleries\Expendable\Events\UserEvent;
 use Distilleries\Expendable\Formatter\Message;
+use Distilleries\Expendable\Helpers\UserUtils;
 use Distilleries\Expendable\Http\Controllers\Admin\Base\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
@@ -10,7 +11,8 @@ use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use FormBuilder;
 
-class LoginController extends BaseController {
+class LoginController extends BaseController
+{
 
     use ResetsPasswords;
 
@@ -70,6 +72,12 @@ class LoginController extends BaseController {
         }
 
         $credential = $request->only('email', 'password');
+        $userCredential = app('Distilleries\Expendable\Contracts\LockableContract')->where('email', $credential['email'])->get()->last();
+
+        if (UserUtils::securityCheckLockEnabled() && !empty($userCredential) && $userCredential->isLocked())
+        {
+            return redirect()->back()->with(Message::WARNING, [trans('expendable::login.credential')]);
+        }
 
         if ($this->auth->attempt($credential, true))
         {
@@ -88,6 +96,12 @@ class LoginController extends BaseController {
 
         } else
         {
+
+            if (UserUtils::securityCheckLockEnabled())
+            {
+                new UserEvent(UserEvent::SECURITY_EVENT, $credential['email']);
+            }
+
 
             return redirect()->back()->with(Message::WARNING, [trans('expendable::login.credential')]);
         }
@@ -146,7 +160,8 @@ class LoginController extends BaseController {
 
     public function getReset($token = null)
     {
-        if (is_null($token)) {
+        if (is_null($token))
+        {
             abort(404);
         }
 
@@ -190,10 +205,16 @@ class LoginController extends BaseController {
             'token'
         );
 
-        $response = $this->passwords->reset($credentials, function($user, $password)
+        $response = $this->passwords->reset($credentials, function ($user, $password)
         {
             $user->password = bcrypt($password);
             $user->save();
+
+            if (method_exists($user, 'unlock'))
+            {
+                $user->unlock();
+            }
+
             $this->auth->login($user);
         });
 
@@ -235,4 +256,6 @@ class LoginController extends BaseController {
     {
         $this->layoutManager->initStaticPart();
     }
+
 }
+
