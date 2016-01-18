@@ -11,11 +11,7 @@ Route::group(array(
     'middleware' => 'guest'
 ), function()
 {
-    Route::get('', function()
-    {
-        return Redirect::to(route('login.index'));
-    });
-
+    Route::get('', 'Admin\LoginController@getIndex');
     Route::controller('login', 'Admin\LoginController', [
         'getIndex'  => 'login.index',
         'getRemind' => 'login.remind',
