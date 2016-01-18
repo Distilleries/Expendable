@@ -39,6 +39,10 @@ class LoginController extends BaseController
     // ------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------
 
+    public function getLoginRedirect()
+    {
+        return redirect()->action('\\' . self::class . '@getIndex');
+    }
 
     public function getIndex()
     {
@@ -71,7 +75,7 @@ class LoginController extends BaseController
             return $form->validateAndRedirectBack();
         }
 
-        $credential = $request->only('email', 'password');
+        $credential     = $request->only('email', 'password');
         $userCredential = app('Distilleries\Expendable\Contracts\LockableContract')->where('email', $credential['email'])->get()->last();
 
         if (UserUtils::securityCheckLockEnabled() && !empty($userCredential) && $userCredential->isLocked())

@@ -11,13 +11,13 @@ Route::group(array(
     'middleware' => 'guest'
 ), function()
 {
-    Route::get('', 'Admin\LoginController@getIndex');
     Route::controller('login', 'Admin\LoginController', [
         'getIndex'  => 'login.index',
         'getRemind' => 'login.remind',
         'getLogout' => 'login.logout',
         'getReset'  => 'login.reset',
     ]);
+    Route::get('', 'Admin\LoginController@getLoginRedirect');
     Route::get('set-lang/{locale?}', 'Admin\LanguageController@getChangeLang');
 
 });
