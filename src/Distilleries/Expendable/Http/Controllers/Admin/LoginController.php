@@ -7,7 +7,6 @@ use Distilleries\Expendable\Helpers\UserUtils;
 use Distilleries\Expendable\Http\Controllers\Admin\Base\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use FormBuilder;
 
@@ -23,15 +22,13 @@ class LoginController extends BaseController
      * Create a new password controller instance.
      *
      * @param  \Illuminate\Contracts\Auth\Guard $auth
-     * @param  \Illuminate\Contracts\Auth\PasswordBroker $passwords
      * @param  \Distilleries\Expendable\Contracts\LayoutManagerContract $layoutManager
      */
-    public function __construct(Guard $auth, PasswordBroker $passwords, LayoutManagerContract $layoutManager)
+    public function __construct(Guard $auth, LayoutManagerContract $layoutManager)
     {
         parent::__construct($layoutManager);
 
         $this->auth      = $auth;
-        $this->passwords = $passwords;
 
     }
 
@@ -148,11 +145,14 @@ class LoginController extends BaseController
             return $form->validateAndRedirectBack();
         }
 
-        $response = $this->passwords->sendResetLink($request->only('email'));
+        $this->validate($request, ['email' => 'required|email']);
+
+        $broker = $this->getBroker();
+        $response = \Password::broker($broker)->sendResetLink($request->only('email'));
 
         switch ($response)
         {
-            case PasswordBroker::INVALID_USER:
+            case Password::INVALID_USER:
                 return redirect()->back()->with(Message::WARNING, [trans($response)]);
 
             default:
@@ -209,8 +209,9 @@ class LoginController extends BaseController
             'token'
         );
 
-        $response = $this->passwords->reset($credentials, function ($user, $password)
-        {
+        $broker = $this->getBroker();
+
+        $response = \Password::broker($broker)->reset($credentials, function ($user, $password) {
             $user->password = bcrypt($password);
             $user->save();
 
@@ -225,12 +226,12 @@ class LoginController extends BaseController
 
         switch ($response)
         {
-            case PasswordBroker::INVALID_PASSWORD:
-            case PasswordBroker::INVALID_TOKEN:
-            case PasswordBroker::INVALID_USER:
+            case Password::INVALID_PASSWORD:
+            case Password::INVALID_TOKEN:
+            case Password::INVALID_USER:
                 return redirect()->back()->with('error', trans($response));
 
-            case PasswordBroker::PASSWORD_RESET:
+            case Password::PASSWORD_RESET:
                 return redirect()->to(action('\\' . get_class($this) . '@getIndex'));
         }
 
@@ -262,4 +263,3 @@ class LoginController extends BaseController
     }
 
 }
-
