@@ -59,6 +59,7 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
     protected function getPackageAliases($app)
     {
         return [
+            'Password'       => 'Illuminate\Support\Facades\Password',
             'Mail'           => 'Distilleries\MailerSaver\Facades\Mail',
             'FormBuilder'    => 'Distilleries\FormBuilder\Facades\FormBuilder',
             'Form'           => 'Illuminate\Html\FormFacade',

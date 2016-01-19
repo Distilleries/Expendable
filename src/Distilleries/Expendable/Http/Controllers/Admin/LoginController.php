@@ -152,7 +152,7 @@ class LoginController extends BaseController
 
         switch ($response)
         {
-            case Password::INVALID_USER:
+            case \Password::INVALID_USER:
                 return redirect()->back()->with(Message::WARNING, [trans($response)]);
 
             default:
@@ -226,12 +226,12 @@ class LoginController extends BaseController
 
         switch ($response)
         {
-            case Password::INVALID_PASSWORD:
-            case Password::INVALID_TOKEN:
-            case Password::INVALID_USER:
+            case \Password::INVALID_PASSWORD:
+            case \Password::INVALID_TOKEN:
+            case \Password::INVALID_USER:
                 return redirect()->back()->with('error', trans($response));
 
-            case Password::PASSWORD_RESET:
+            case \Password::PASSWORD_RESET:
                 return redirect()->to(action('\\' . get_class($this) . '@getIndex'));
         }
 
