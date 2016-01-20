@@ -4,7 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 use \DB;
 use \Exception;
 
-class BaseModel extends Model {
+class BaseModel extends Model
+{
 
 
     public static function getChoice()
@@ -23,20 +24,20 @@ class BaseModel extends Model {
     public function scopeSearch($query, $searchQuery)
     {
 
-        return $query->where(function($query) use ($searchQuery)
+        return $query->where(function ($query) use ($searchQuery)
         {
             $columns = $this->getAllColumnsNames();
 
             foreach ($columns as $column)
             {
-                $query->orwhere($column, 'like', '%' . $searchQuery . '%');
+                $query->orWhereRaw('LOWER(' . $column . ') like ?', ['%' . strtolower($searchQuery) . '%']);
             }
         });
     }
 
     public function getAllColumnsNames()
     {
-        switch (DB::connection()->getConfig('driver'))
+        switch (DB::connection()->getDriverName())
         {
             case 'pgsql':
                 $query       = "SELECT column_name FROM information_schema.columns WHERE table_name = '" . $this->getTable() . "'";
@@ -58,7 +59,11 @@ class BaseModel extends Model {
                 $column_name = 'column_name';
                 $reverse     = false;
                 break;
-
+            case 'oracle':
+                $query       = 'SELECT COLUMN_NAME from ALL_TAB_COLUMNS WHERE TABLE_NAME=\'' . strtoupper($this->getTable()) . '\' AND DATA_TYPE <> \'CLOB\' AND DATA_TYPE <> \'NUMBER\' AND DATA_TYPE <> \'TIMESTAMP\'';
+                $column_name = 'column_name';
+                $reverse     = false;
+                break;
             default:
                 $error = 'Database driver not supported: ' . DB::connection()->getConfig('driver');
                 throw new Exception($error);
