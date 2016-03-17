@@ -499,7 +499,8 @@ class BaseModel extends Model
      */
     public function isReserved($value)
     {
-        return DB::connection()->getDriverName() == 'oracle' && in_array(Str::upper(trim($value)), $this->reserves, true);
+        return DB::connection()->getDriverName() == 'oracle' && in_array(Str::upper(trim($value)), $this->reserves,
+            true);
     }
 
 
@@ -508,8 +509,7 @@ class BaseModel extends Model
 
         $data   = self::all();
         $result = [];
-        foreach ($data as $item)
-        {
+        foreach ($data as $item) {
             $result[$item['id']] = isset($item['libelle']) ? $item['libelle'] : $item['id'];
         }
 
@@ -519,22 +519,25 @@ class BaseModel extends Model
     public function scopeSearch($query, $searchQuery)
     {
 
-        return $query->where(function ($query) use ($searchQuery)
-        {
+        return $query->where(function ($query) use ($searchQuery) {
             $columns = $this->getAllColumnsNames();
 
-            foreach ($columns as $column)
-            {
-                $column = $this->isReserved($column)?'"'.$column.'"':$column;
-                $query->orWhereRaw('LOWER(' . $column . ') like ?', ['%' . strtolower($searchQuery) . '%']);
+            foreach ($columns as $column) {
+                $column = $this->isReserved($column) ? '"' . $column . '"' : $column;
+
+                if ((DB::connection()->getDriverName()) == 'oracle') {
+                    $query->orWhereRaw('LOWER(' . $column . ') like ?', ['%' . strtolower($searchQuery) . '%']);
+                } else {
+                    $query->orwhere($column, 'like', '%' . $searchQuery . '%');
+                }
+
             }
         });
     }
 
     public function getAllColumnsNames()
     {
-        switch (DB::connection()->getDriverName())
-        {
+        switch (DB::connection()->getDriverName()) {
             case 'pgsql':
                 $query       = "SELECT column_name FROM information_schema.columns WHERE table_name = '" . $this->getTable() . "'";
                 $column_name = 'column_name';
@@ -565,15 +568,13 @@ class BaseModel extends Model
                 throw new Exception($error);
         }
 
-        $columns = array();
+        $columns = [];
 
-        foreach (DB::select($query) as $column)
-        {
+        foreach (DB::select($query) as $column) {
             $columns[] = $column->$column_name;
         }
 
-        if ($reverse)
-        {
+        if ($reverse) {
             $columns = array_reverse($columns);
         }
 
@@ -582,14 +583,13 @@ class BaseModel extends Model
 
     public function scopeBetweenCreate($query, $start, $end)
     {
-        return $query->whereBetween($this->getTable() . '.created_at', array($start, $end));
+        return $query->whereBetween($this->getTable() . '.created_at', [$start, $end]);
     }
 
     public function scopeBetweenUpdate($query, $start, $end)
     {
-        return $query->whereBetween($this->getTable() . '.updated_at', array($start, $end));
+        return $query->whereBetween($this->getTable() . '.updated_at', [$start, $end]);
     }
-
 
 
 }
