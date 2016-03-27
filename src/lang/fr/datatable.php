@@ -1,20 +1,21 @@
 <?php
 
 return [
-    'subject'      => 'Subject',
+
+    'subject'      => 'Sujet',
     'type'         => 'Type',
-    'id'           => 'Id',
-    'libelle'      => 'Libelle',
-    'iso'          => 'Iso',
-    'initials'     => 'Initials',
+    'id'           => 'ID',
+    'libelle'      => 'Libellé',
+    'email'        => 'Email',
+    'iso'          => 'ISO',
+    'initials'     => 'Initiales',
     'action'       => 'Action',
-    'status'       => 'Status',
-    'view'         => 'View',
-    'edit'         => 'Edit',
-    'remove'       => 'Remove',
-    'no'           => 'No',
-    'yes'          => 'Yes',
-    'are_you_sure' => 'Are you sure?',
-    'unlock'       => 'Unlock',
-    'lock'         => 'Lock',
+    'status'       => 'Statut',
+    'view'         => 'Voir',
+    'edit'         => 'Editer',
+    'remove'       => 'Supprimer',
+    'no'           => 'Non',
+    'yes'          => 'Oui',
+    'are_you_sure' => 'Etes-vous sûr ?',
+
 ];

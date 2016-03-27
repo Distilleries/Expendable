@@ -1,13 +1,15 @@
 <?php
 
 return [
-    'offline' => 'Offline',
-    'online'  => 'Online',
+
+    'offline' => 'Hors ligne',
+    'online'  => 'En ligne',
     'excel'   => 'Excel',
-    'csv'     => 'Csv',
-    'no'      => 'No',
-    'yes'     => 'Yes',
-    'html'    => 'Html',
-    'text'    => 'Text',
+    'csv'     => 'CSV',
+    'no'      => 'Non',
+    'yes'     => 'Oui',
+    'html'    => 'HTML',
+    'text'    => 'Texte',
     'na'      => 'n/a',
+
 ];

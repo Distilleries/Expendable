@@ -1,6 +1,8 @@
 <?php
 
 return [
-    'emails.auth.reminder' => 'User - Email Reminder',
-    'emails.password'      => 'User - Email Reminder',
+
+    'emails.password'      => 'Utilisateur - Email reminder',
+    'emails.auth.reminder' => 'Utilisateur - Email reminder',
+
 ];
