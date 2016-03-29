@@ -1,11 +1,12 @@
 <?php
 
-
 return [
-    'unthorized'      => 'Unauthorized action.',
-    'file_not_found'  => 'File not found.',
-    'oops'            => 'Oops! Something went wrong.',
-    'fixing_it'       => 'We are fixing it!',
-    'come_back_later' => 'Please come back in a while.',
-    'be_right_back'   => 'Be right back in a couple of minutes!',
+
+    'unthorized'      => 'Action non autorisée.',
+    'file_not_found'  => 'Fichier non trouvé.',
+    'oops'            => 'Oops! Quelque chose est allé de travers.',
+    'fixing_it'       => 'Nous sommes en train de le fixer !',
+    'come_back_later' => 'Veuillez revenir dans quelques instants.',
+    'be_right_back'   => 'De retour dans quelques minutes !',
+
 ];

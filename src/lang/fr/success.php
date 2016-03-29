@@ -1,8 +1,10 @@
 <?php
 
 return [
-    'updated'   => 'Your entry has been updated',
-    'created'   => 'Your entry has been created',
-    'generated' => 'Your entry has been generated',
-    'imported'  => 'File imported',
+
+    'updated'   => 'Votre entrée a été mise à jour',
+    'created'   => 'Votre entrée a été crée avec succès',
+    'generated' => 'Votre entrée a été enregistrée',
+    'imported'  => 'Fichier importé',
+
 ];

@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'credential' => "Invalid login credentials, please try again."
+
+    'credential' => 'Vos données de connexion ne sont pas correctes, veuillez réessayer à nouveau.',
+
 ];

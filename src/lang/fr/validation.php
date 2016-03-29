@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -9,68 +9,76 @@ return array(
     |
     | The following language lines contain the default error messages used by
     | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
+    | such as the size rules. Feel free to tweak each of these messages.
     |
     */
-    "accepted"             => "The :attribute must be accepted.",
-    "active_url"           => "The :attribute is not a valid URL.",
-    "after"                => "The :attribute must be a date after :date.",
-    "alpha"                => "The :attribute may only contain letters.",
-    "alpha_dash"           => "The :attribute may only contain letters, numbers, and dashes.",
-    "alpha_num"            => "The :attribute may only contain letters and numbers.",
-    "array"                => "The :attribute must be an array.",
-    "before"               => "The :attribute must be a date before :date.",
-    "between"              => array(
-        "numeric" => "The :attribute must be between :min and :max.",
-        "file"    => "The :attribute must be between :min and :max kilobytes.",
-        "string"  => "The :attribute must be between :min and :max characters.",
-        "array"   => "The :attribute must have between :min and :max items.",
-    ),
-    "boolean"              => "The :attribute field must be true or false.",
-    "confirmed"            => "The :attribute confirmation does not match.",
-    "date"                 => "The :attribute is not a valid date.",
-    "date_format"          => "The :attribute does not match the format :format.",
-    "different"            => "The :attribute and :other must be different.",
-    "digits"               => "The :attribute must be :digits digits.",
-    "digits_between"       => "The :attribute must be between :min and :max digits.",
-    "email"                => "The :attribute must be a valid email address.",
-    "exists"               => "The selected :attribute is invalid.",
-    "image"                => "The :attribute must be an image.",
-    "in"                   => "The selected :attribute is invalid.",
-    "integer"              => "The :attribute must be an integer.",
-    "ip"                   => "The :attribute must be a valid IP address.",
-    "max"                  => array(
-        "numeric" => "The :attribute may not be greater than :max.",
-        "file"    => "The :attribute may not be greater than :max kilobytes.",
-        "string"  => "The :attribute may not be greater than :max characters.",
-        "array"   => "The :attribute may not have more than :max items.",
-    ),
-    "mimes"                => "The :attribute must be a file of type: :values.",
-    "min"                  => array(
-        "numeric" => "The :attribute must be at least :min.",
-        "file"    => "The :attribute must be at least :min kilobytes.",
-        "string"  => "The :attribute must be at least :min characters.",
-        "array"   => "The :attribute must have at least :min items.",
-    ),
-    "not_in"               => "The selected :attribute is invalid.",
-    "numeric"              => "The :attribute must be a number.",
-    "regex"                => "The :attribute format is invalid.",
-    "required"             => "The :attribute field is required.",
-    "required_if"          => "The :attribute field is required when :other is :value.",
-    "required_with"        => "The :attribute field is required when :values is present.",
-    "required_with_all"    => "The :attribute field is required when :values is present.",
-    "required_without"     => "The :attribute field is required when :values is not present.",
-    "required_without_all" => "The :attribute field is required when none of :values are present.",
-    "same"                 => "The :attribute and :other must match.",
-    "size"                 => array(
-        "numeric" => "The :attribute must be :size.",
-        "file"    => "The :attribute must be :size kilobytes.",
-        "string"  => "The :attribute must be :size characters.",
-        "array"   => "The :attribute must contain :size items.",
-    ),
-    "unique"               => "The :attribute has already been taken.",
-    "url"                  => "The :attribute format is invalid.",
-    "timezone"             => "The :attribute must be a valid zone.",
+
+    'accepted'             => 'Le champ :attribute doit être accepté.',
+    'active_url'           => "Le champ :attribute n'est pas une URL valide.",
+    'after'                => 'Le champ :attribute doit être une date postérieure au :date.',
+    'alpha'                => 'Le champ :attribute doit seulement contenir des lettres.',
+    'alpha_dash'           => 'Le champ :attribute doit seulement contenir des lettres, des chiffres et des tirets.',
+    'alpha_num'            => 'Le champ :attribute doit seulement contenir des chiffres et des lettres.',
+    'array'                => 'Le champ :attribute doit être un tableau.',
+    'before'               => 'Le champ :attribute doit être une date antérieure au :date.',
+    'between'              => [
+        'numeric' => 'La valeur de :attribute doit être comprise entre :min et :max.',
+        'file'    => 'Le fichier :attribute doit avoir une taille entre :min et :max kilo-octets.',
+        'string'  => 'Le texte :attribute doit avoir entre :min et :max caractères.',
+        'array'   => 'Le tableau :attribute doit avoir entre :min et :max éléments.',
+    ],
+    'boolean'              => 'Le champ :attribute doit être vrai ou faux.',
+    'confirmed'            => 'Le champ de confirmation :attribute ne correspond pas.',
+    'date'                 => "Le champ :attribute n'est pas une date valide.",
+    'date_format'          => 'Le champ :attribute ne correspond pas au format :format.',
+    'different'            => 'Les champs :attribute et :other doivent être différents.',
+    'digits'               => 'Le champ :attribute doit avoir :digits chiffres.',
+    'digits_between'       => 'Le champ :attribute doit avoir entre :min et :max chiffres.',
+    'distinct'             => 'Le champ :attribute a une valeur dupliquée.',
+    'email'                => 'Le champ :attribute doit être une adresse email valide.',
+    'exists'               => 'Le champ :attribute sélectionné est invalide.',
+    'filled'               => 'Le champ :attribute est obligatoire.',
+    'image'                => 'Le champ :attribute doit être une image.',
+    'in'                   => 'Le champ :attribute est invalide.',
+    'in_array'             => 'Le champ :attribute n\'existe pas dans :other.',
+    'integer'              => 'Le champ :attribute doit être un entier.',
+    'ip'                   => 'Le champ :attribute doit être une adresse IP valide.',
+    'json'                 => 'Le champ :attribute doit être un document JSON valide.',
+    'max'                  => [
+        'numeric' => 'La valeur de :attribute ne peut être supérieure à :max.',
+        'file'    => 'Le fichier :attribute ne peut être plus gros que :max kilo-octets.',
+        'string'  => 'Le texte de :attribute ne peut contenir plus de :max caractères.',
+        'array'   => 'Le tableau :attribute ne peut avoir plus de :max éléments.',
+    ],
+    'mimes'                => 'Le champ :attribute doit être un fichier de type : :values.',
+    'min'                  => [
+        'numeric' => 'La valeur de :attribute doit être supérieure à :min.',
+        'file'    => 'Le fichier :attribute doit être plus gros que :min kilo-octets.',
+        'string'  => 'Le texte :attribute doit contenir au moins :min caractères.',
+        'array'   => 'Le tableau :attribute doit avoir au moins :min éléments.',
+    ],
+    'not_in'               => "Le champ :attribute sélectionné n'est pas valide.",
+    'numeric'              => 'Le champ :attribute doit contenir un nombre.',
+    'present'              => 'Le champ :attribute doit être présent.',
+    'regex'                => 'Le format du champ :attribute est invalide.',
+    'required'             => 'Le champ :attribute est obligatoire.',
+    'required_if'          => 'Le champ :attribute est obligatoire quand la valeur de :other est :value.',
+    'required_unless'      => 'Le champ :attribute est obligatoire sauf si :other est :values.',
+    'required_with'        => 'Le champ :attribute est obligatoire quand :values est présent.',
+    'required_with_all'    => 'Le champ :attribute est obligatoire quand :values est présent.',
+    'required_without'     => "Le champ :attribute est obligatoire quand :values n'est pas présent.",
+    'required_without_all' => "Le champ :attribute est requis quand aucun de :values n'est présent.",
+    'same'                 => 'Les champs :attribute et :other doivent être identiques.',
+    'size'                 => [
+        'numeric' => 'La valeur de :attribute doit être :size.',
+        'file'    => 'La taille du fichier de :attribute doit être de :size kilo-octets.',
+        'string'  => 'Le texte de :attribute doit contenir :size caractères.',
+        'array'   => 'Le tableau :attribute doit contenir :size éléments.',
+    ],
+    'string'               => 'Le champ :attribute doit être une chaîne de caractères.',
+    'timezone'             => 'Le champ :attribute doit être un fuseau horaire valide.',
+    'unique'               => 'La valeur du champ :attribute est déjà utilisée.',
+    'url'                  => "Le format de l'URL de :attribute n'est pas valide.",
 
     /*
     |--------------------------------------------------------------------------
@@ -83,11 +91,11 @@ return array(
     |
     */
 
-    'custom'               => array(
-        'attribute-name' => array(
+    'custom'               => [
+        'attribute-name' => [
             'rule-name' => 'custom-message',
-        ),
-    ),
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -100,103 +108,136 @@ return array(
     |
     */
 
-    'attributes'           => array(),
+    'attributes'           => [
+        'name'                  => 'Nom',
+        'username'              => 'Pseudo',
+        'email'                 => 'E-mail',
+        'first_name'            => 'Prénom',
+        'last_name'             => 'Nom',
+        'password'              => 'Mot de passe',
+        'password_confirmation' => 'Confirmation du mot de passe',
+        'city'                  => 'Ville',
+        'country'               => 'Pays',
+        'address'               => 'Adresse',
+        'phone'                 => 'Téléphone',
+        'mobile'                => 'Portable',
+        'age'                   => 'Age',
+        'sex'                   => 'Sexe',
+        'gender'                => 'Genre',
+        'day'                   => 'Jour',
+        'month'                 => 'Mois',
+        'year'                  => 'Année',
+        'hour'                  => 'Heure',
+        'minute'                => 'Minute',
+        'second'                => 'Seconde',
+        'title'                 => 'Titre',
+        'content'               => 'Contenu',
+        'description'           => 'Description',
+        'excerpt'               => 'Extrait',
+        'date'                  => 'Date',
+        'time'                  => 'Heure',
+        'available'             => 'Disponible',
+        'size'                  => 'Taille',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validation Engine translations
+    |--------------------------------------------------------------------------
+    |
+    */
 
     'validation-engine'    => [
-
         "required"         => [
-            "alertText"                 => "* This field is required",
-            "alertTextCheckboxMultiple" => "* Please select an option",
-            "alertTextCheckboxe"        => "* This checkbox is required",
-            "alertTextDateRange"        => "* Both date range fields are required"
+            "alertText"                 => "* Ce champ est requis",
+            "alertTextCheckboxMultiple" => "* Choisir une option",
+            "alertTextCheckboxe"        => "* Cette option est requise",
+            "alertTextDateRange"        => "* Les deux champs date sont requis",
         ],
         "dateRange"        => [
-            "alertText"  => "* Invalid ",
-            "alertText2" => "Date Range"
+            "alertText"  => "* Invalide ",
+            "alertText2" => "plage de dates",
         ],
         "dateTimeRange"    => [
-            "alertText"  => "* Invalid ",
-            "alertText2" => "Date Time Range"
+            "alertText"  => "* Invalide ",
+            "alertText2" => "plage de dates - heures",
         ],
         "minSize"          => [
             "alertText"  => "* Minimum ",
-            "alertText2" => " characters required"
+            "alertText2" => " caractères requis",
         ],
         "maxSize"          => [
             "alertText"  => "* Maximum ",
-            "alertText2" => " characters allowed"
+            "alertText2" => " caractères autorisés",
         ],
         "groupRequired"    => [
-            "alertText" => "* You must fill one of the following fields"
+            "alertText" => "* Vous devez saisir au moins un des champs suivants",
         ],
         "min"              => [
-            "alertText" => "* Minimum value is "
+            "alertText" => "* La valeur minimum est ",
         ],
         "max"              => [
-            "alertText" => "* Maximum value is "
+            "alertText" => "* La valeur maximum est ",
         ],
         "past"             => [
-            "alertText" => "* Date prior to "
+            "alertText" => "* Date antérieure au ",
         ],
         "future"           => [
-            "alertText" => "* Date past "
+            "alertText" => "* Date postérieure au ",
         ],
         "maxCheckbox"      => [
-            "alertText"  => "* Maximum ",
-            "alertText2" => " options allowed"
+            "alertText"  => "* Nombre maximum ",
+            "alertText2" => " de choix autorisés",
         ],
         "minCheckbox"      => [
-            "alertText"  => "* Please select ",
-            "alertText2" => " options"
+            "alertText"  => "* Veuillez choisir ",
+            "alertText2" => " options",
         ],
         "equals"           => [
-            "alertText" => "* Fields do not match"
+            "alertText" => "* Votre champ n'est pas identique",
         ],
         "creditCard"       => [
-            "alertText" => "* Invalid credit card number"
+            "alertText" => "* Numéro de carte bancaire invalide",
         ],
         "phone"            => [
-            "alertText" => "* Invalid phone number"
+            "alertText" => "* Numéro de téléphone invalide",
         ],
         "email"            => [
-            "alertText" => " * Invalid email address"
+            "alertText" => " * Adresse email non valide",
         ],
         "integer"          => [
-            "alertText" => " * Not a valid integer"
+            "alertText" => " * Nombre entier non valide",
         ],
         "number"           => [
-            "alertText" => " * Invalid floating decimal number"
+            "alertText" => " * Nombre décimal non valide",
         ],
         "date"             => [
-            "alertText" => " * Invalid date, must be in YYYY - MM - DD format"
+            "alertText" => " * Date invalide, format YYYY-MM-DD requis",
         ],
         "ipv4"             => [
-            "alertText" => " * Invalid IP address"
+            "alertText" => " * Adresse IP invalide",
         ],
         "url"              => [
-            "alertText" => " * Invalid URL"
+            "alertText" => " * URL invalide",
         ],
         "onlyNumberSp"     => [
-            "alertText" => " * Numbers only"
+            "alertText" => " * Seuls les chiffres sont acceptés",
         ],
         "onlyLetterSp"     => [
-            "alertText" => " * Letters only"
+            "alertText" => " * Seules les lettres sont acceptées",
         ],
         "onlyLetterNumber" => [
-            "alertText" => " * No special characters allowed"
+            "alertText" => " * Aucun caractère spécial n'est accepté",
         ],
-
         "dateFormat"       => [
-            "alertText" => " * Invalid Date"
+            "alertText" => " * Date non valide",
         ],
-
         "dateTimeFormat"   => [
-            "alertText"  => " * Invalid Date or Date Format",
-            "alertText2" => "Expected Format: ",
-            "alertText3" => "mm / dd / yyyy hh=>mm:ss AM | PM or ",
-            "alertText4" => "yyyy - mm - dd hh:mm:ss AM | PM"
-        ]
+            "alertText"  => " * Date non valide",
+            "alertText2" => "Format attendu : ",
+            "alertText3" => "mm / dd / yyyy hh=>mm:ss AM | PM ou ",
+            "alertText4" => "yyyy - mm - dd hh:mm:ss AM | PM",
+        ],
     ]
 
-
-);
+];
