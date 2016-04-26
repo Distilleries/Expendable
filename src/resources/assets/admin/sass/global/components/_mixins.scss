@@ -27,11 +27,11 @@
 // Border radius.
 
 @mixin border-radius($radius, $important: '') {
-  -webkit-border-radius: $radius#{$important};
-  -moz-border-radius: $radius#{$important};
-  -ms-border-radius: $radius#{$important};  
-  -o-border-radius: $radius#{$important};  
-  border-radius: $radius#{$important}; 
+  -webkit-border-radius: unquote("#{$radius}#{$important}");
+  -moz-border-radius: unquote("#{$radius}#{$important}");
+  -ms-border-radius: unquote("#{$radius}#{$important}");
+  -o-border-radius: unquote("#{$radius}#{$important}");
+  border-radius: unquote("#{$radius}#{$important}");
 }
 
 // Placeholder text
