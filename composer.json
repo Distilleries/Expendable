@@ -27,7 +27,7 @@
         "distilleries/datatable-builder": "2.3.*",
         "distilleries/form-builder": "2.4.*",
         "distilleries/mailersaver": "2.3.*",
-        "distilleries/permission-util": "1.3.*",
+        "distilleries/permission-util": "1.4.*",
         "forxer/Gravatar": "~1.2",
         "maatwebsite/excel": "2.1.*"
     },
