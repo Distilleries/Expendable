@@ -199,7 +199,7 @@ trait FormStateTrait {
     {
 
         $primary = $request->get($this->model->getKeyName());
-        if (empty($primary) || $primary === "0") {
+        if ($primary !== "0" && empty($primary)) {
             $this->model = $this->model->create($data);
         } else {
             $this->model = $this->findAutoDetectTranslation($primary, false);
