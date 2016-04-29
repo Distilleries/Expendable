@@ -44,7 +44,7 @@ trait FormStateTrait {
 
     public function getEdit($id = '')
     {
-        $model = (!empty($id)) ? $this->findAutoDetectTranslation($id) : $this->model;
+        $model = (!empty($id) || $id === "0") ? $this->findAutoDetectTranslation($id) : $this->model;
         $form  = FormBuilder::create(get_class($this->form), [
             'model' => $model
         ]);
@@ -80,7 +80,7 @@ trait FormStateTrait {
             return redirect()->to(action($this->getControllerNameForAction() . '@getEdit', $id_element));
         }
 
-        $model = (!empty($id)) ? $this->model->withoutTranslation()->findOrFail($id) : $this->model;
+        $model = (!empty($id) || $id === "0") ? $this->model->withoutTranslation()->findOrFail($id) : $this->model;
         $form  = FormBuilder::create(get_class($this->form), [
             'model' => $model
         ])
@@ -199,7 +199,7 @@ trait FormStateTrait {
     {
 
         $primary = $request->get($this->model->getKeyName());
-        if (empty($primary)) {
+        if (empty($primary) || $primary === "0") {
             $this->model = $this->model->create($data);
         } else {
             $this->model = $this->findAutoDetectTranslation($primary, false);
@@ -222,7 +222,7 @@ trait FormStateTrait {
     public function getView($id)
     {
 
-        $model = (!empty($id)) ? $this->findAutoDetectTranslation($id) : $this->model;
+        $model = (!empty($id) || $id === "0") ? $this->findAutoDetectTranslation($id) : $this->model;
         $form  = FormBuilder::create(get_class($this->form), [
             'model' => $model
         ]);
