@@ -43,7 +43,7 @@
                 @endif
 
 
-				<?php $tasks = Config::get('expendable.menu.tasks'); ?>
+				<?php $tasks = config('expendable.menu.tasks'); ?>
 				@if(!empty($tasks) && PermissionUtil::hasAccessArray($tasks, false, 'action'))
 				<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">

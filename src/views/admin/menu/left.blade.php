@@ -10,7 +10,7 @@
 					<div class="sidebar-toggler"></div>
 				</li>
 
-				<?php $items = Config::get('expendable.menu.left'); ?>
+				<?php $items = config('expendable.menu.left'); ?>
 				@foreach($items as $key=>$item)
                     @include('expendable::admin.menu.left.main',[ 'item'=>$item])
 				@endforeach
