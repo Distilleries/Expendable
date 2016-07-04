@@ -1,6 +1,7 @@
 <?php namespace Distilleries\Expendable\Http\Middleware;
 
 use Closure;
+use Distilleries\Expendable\Helpers\Security;
 use Illuminate\Http\Request;
 
 class XSS
@@ -14,7 +15,7 @@ class XSS
 
         array_walk_recursive($input, function (&$input) {
 
-            $input = strip_tags($input);
+            $input = (new Security)->xss_clean($input);
 
         });
 
