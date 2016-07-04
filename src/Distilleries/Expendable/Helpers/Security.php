@@ -550,7 +550,7 @@ class Security
      */
     protected function _decode_entity($match)
     {
-        return $this->entity_decode($match[0], strtoupper(config_item('charset')));
+        return $this->entity_decode($match[0]);
     }
 
     // --------------------------------------------------------------------
