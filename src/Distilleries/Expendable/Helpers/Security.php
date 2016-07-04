@@ -19,7 +19,7 @@ class Security
      * @var string
      * @access protected
      */
-    protected $_xss_hash			= '';
+    protected $_xss_hash = '';
 
     /**
      * List of never allowed strings
@@ -27,18 +27,18 @@ class Security
      * @var array
      * @access protected
      */
-    protected $_never_allowed_str = array(
-        'document.cookie'	=> '[removed]',
-        'document.write'	=> '[removed]',
-        '.parentNode'		=> '[removed]',
-        '.innerHTML'		=> '[removed]',
-        'window.location'	=> '[removed]',
-        '-moz-binding'		=> '[removed]',
-        '<!--'				=> '&lt;!--',
-        '-->'				=> '--&gt;',
-        '<![CDATA['			=> '&lt;![CDATA[',
-        '<comment>'			=> '&lt;comment&gt;'
-    );
+    protected $_never_allowed_str = [
+        'document.cookie' => '[removed]',
+        'document.write'  => '[removed]',
+        '.parentNode'     => '[removed]',
+        '.innerHTML'      => '[removed]',
+        'window.location' => '[removed]',
+        '-moz-binding'    => '[removed]',
+        '<!--'            => '&lt;!--',
+        '-->'             => '--&gt;',
+        '<![CDATA['       => '&lt;![CDATA[',
+        '<comment>'       => '&lt;comment&gt;'
+    ];
 
     /* never allowed, regex replacement */
     /**
@@ -47,13 +47,13 @@ class Security
      * @var array
      * @access protected
      */
-    protected $_never_allowed_regex = array(
+    protected $_never_allowed_regex = [
         'javascript\s*:',
         'expression\s*(\(|&\#40;)', // CSS and IE
         'vbscript\s*:', // IE, surprise!
         'Redirect\s+302',
         "([\"'])?data\s*:[^\\1]*?base64[^\\1]*?,[^\\1]*?\\1?"
-    );
+    ];
 
 
     /**
@@ -81,18 +81,17 @@ class Security
      * @param    mixed    string or array
      * @return    string
      */
-    public function xss_clean($str, $is_image = FALSE, $evilAttribute = TRUE)
+    public function xss_clean($str, $is_image = false, $evilAttribute = true)
     {
         /*
            * Is the string an array?
            *
            */
-        if (is_array($str))
-        {
-            while (list($key) = each($str))
-            {
+        if (is_array($str)) {
+            while (list($key) = each($str)) {
                 $str[$key] = $this->xss_clean($str[$key], $is_image, $evilAttribute);
             }
+
             return $str;
         }
 
@@ -125,9 +124,9 @@ class Security
            *
            */
 
-        $str = preg_replace_callback("/[a-z]+=([\'\"]).*?\\1/si", array($this, '_convert_attribute'), $str);
+        $str = preg_replace_callback("/[a-z]+=([\'\"]).*?\\1/si", [$this, '_convert_attribute'], $str);
 
-        $str = preg_replace_callback("/<\w+.*?(?=>|<|$)/si", array($this, '_decode_entity'), $str);
+        $str = preg_replace_callback("/<\w+.*?(?=>|<|$)/si", [$this, '_decode_entity'], $str);
 
         /*
            * Remove Invisible Characters Again!
@@ -143,8 +142,7 @@ class Security
            * large blocks of data, so we use str_replace.
            */
 
-        if (strpos($str, "\t") !== FALSE)
-        {
+        if (strpos($str, "\t") !== false) {
             $str = str_replace("\t", ' ', $str);
         }
 
@@ -165,16 +163,13 @@ class Security
            *
            * But it doesn't seem to pose a problem.
            */
-        if ($is_image === TRUE)
-        {
+        if ($is_image === true) {
             // Images have a tendency to have the PHP short opening and
             // closing tags every so often so we skip those and only
             // do the long opening tags.
             $str = preg_replace('/<\?(php)/i', "&lt;?\\1", $str);
-        }
-        else
-        {
-            $str = str_replace(array('<?', '?' . '>'), array('&lt;?', '?&gt;'), $str);
+        } else {
+            $str = str_replace(['<?', '?' . '>'], ['&lt;?', '?&gt;'], $str);
         }
 
         /*
@@ -183,23 +178,29 @@ class Security
            * This corrects words like:  j a v a s c r i p t
            * These words are compacted back to their correct state.
            */
-        $words = array(
-            'javascript', 'expression', 'vbscript', 'script',
-            'applet', 'alert', 'document', 'write', 'cookie', 'window'
-        );
+        $words = [
+            'javascript',
+            'expression',
+            'vbscript',
+            'script',
+            'applet',
+            'alert',
+            'document',
+            'write',
+            'cookie',
+            'window'
+        ];
 
-        foreach ($words as $word)
-        {
+        foreach ($words as $word) {
             $temp = '';
 
-            for ($i = 0, $wordlen = strlen($word); $i < $wordlen; $i++)
-            {
+            for ($i = 0, $wordlen = strlen($word); $i < $wordlen; $i++) {
                 $temp .= substr($word, $i, 1) . "\s*";
             }
 
             // We only want to do this when it is followed by a non-word character
             // That way valid stuff like "dealer to" does not become "dealerto"
-            $str = preg_replace_callback('#(' . substr($temp, 0, -3) . ')(\W)#is', array($this, '_compact_exploded_words'), $str);
+            $str = preg_replace_callback('#(' . substr($temp, 0, -3) . ')(\W)#is', [$this, '_compact_exploded_words'], $str);
         }
 
         /*
@@ -208,26 +209,21 @@ class Security
            * but it is dog slow compared to these simplified non-capturing
            * preg_match(), especially if the pattern exists in the string
            */
-        do
-        {
+        do {
             $original = $str;
 
-            if (preg_match("/<a/i", $str))
-            {
-                $str = preg_replace_callback("#<a\s+([^>]*?)(>|$)#si", array($this, '_js_link_removal'), $str);
+            if (preg_match("/<a/i", $str)) {
+                $str = preg_replace_callback("#<a\s+([^>]*?)(>|$)#si", [$this, '_js_link_removal'], $str);
             }
 
-            if (preg_match("/<img/i", $str))
-            {
-                $str = preg_replace_callback("#<img\s+([^>]*?)(\s?/?>|$)#si", array($this, '_js_img_removal'), $str);
+            if (preg_match("/<img/i", $str)) {
+                $str = preg_replace_callback("#<img\s+([^>]*?)(\s?/?>|$)#si", [$this, '_js_img_removal'], $str);
             }
 
-            if (preg_match("/script/i", $str) OR preg_match("/xss/i", $str))
-            {
+            if (preg_match("/script/i", $str) OR preg_match("/xss/i", $str)) {
                 $str = preg_replace("#<(/*)(script|xss)(.*?)\>#si", '[removed]', $str);
             }
-        }
-        while ($original != $str);
+        } while ($original != $str);
 
         unset($original);
 
@@ -244,7 +240,7 @@ class Security
            * Becomes: &lt;blink&gt;
            */
         $naughty = 'alert|applet|audio|basefont|base|behavior|bgsound|blink|body|embed|expression|form|frameset|frame|head|html|ilayer|iframe|input|isindex|layer|link|meta|object|plaintext|style|script|textarea|title|video|xml|xss';
-        $str     = preg_replace_callback('#<(/*\s*)(' . $naughty . ')([^><]*)([><]*)#is', array($this, '_sanitize_naughty_html'), $str);
+        $str     = preg_replace_callback('#<(/*\s*)(' . $naughty . ')([^><]*)([><]*)#is', [$this, '_sanitize_naughty_html'], $str);
 
         /*
            * Sanitize naughty scripting elements
@@ -276,9 +272,8 @@ class Security
            * code found and removed/changed during processing.
            */
 
-        if ($is_image === TRUE)
-        {
-            return ($str == $converted_string) ? TRUE : FALSE;
+        if ($is_image === true) {
+            return ($str == $converted_string) ? true : false;
         }
 
         return $str;
@@ -304,17 +299,13 @@ class Security
     protected function _remove_evil_attributes($str, $is_image, $evilAttribute)
     {
         // All javascript event handlers (e.g. onload, onclick, onmouseover), style, and xmlns
-        if ($evilAttribute)
-        {
-            $evil_attributes = array('on\w*', 'style', 'xmlns');
-        }
-        else
-        {
-            $evil_attributes = array('on\w*', 'xmlns');
+        if ($evilAttribute) {
+            $evil_attributes = ['on\w*', 'style', 'xmlns'];
+        } else {
+            $evil_attributes = ['on\w*', 'xmlns'];
         }
 
-        if ($is_image === TRUE)
-        {
+        if ($is_image === true) {
             /*
                 * Adobe Photoshop puts XML metadata into JFIF images,
                 * including namespacing, so we have to allow this for images.
@@ -322,8 +313,7 @@ class Security
             unset($evil_attributes[array_search('xmlns', $evil_attributes)]);
         }
 
-        do
-        {
+        do {
             $str = preg_replace(
                 "#<(/?[^><]+?)([^A-Za-z\-])(" . implode('|', $evil_attributes) . ")(\s*=\s*)([\"][^>]*?[\"]|[\'][^>]*?[\']|[^>]*?)([\s><])([><]*)#i",
                 "<$1$6",
@@ -349,19 +339,19 @@ class Security
      * correctly.  html_entity_decode() does not convert entities without
      * semicolons, so we are left with our own little solution here. Bummer.
      *
-     * @param	string
-     * @param	string
-     * @return	string
+     * @param    string
+     * @param    string
+     * @return    string
      */
-    public function entity_decode($str, $charset='UTF-8')
+    public function entity_decode($str, $charset = 'UTF-8')
     {
-        if (stristr($str, '&') === FALSE)
-        {
+        if (stristr($str, '&') === false) {
             return $str;
         }
 
         $str = html_entity_decode($str, ENT_COMPAT, $charset);
         $str = preg_replace('~&#x(0*[0-9a-f]{2,5})~ei', 'chr(hexdec("\\1"))', $str);
+
         return preg_replace('~&#([0-9]{2,4})~e', 'chr(\\1)', $str);
     }
 
@@ -370,13 +360,13 @@ class Security
     /**
      * Filename Security
      *
-     * @param	string
-     * @param 	bool
-     * @return	string
+     * @param    string
+     * @param    bool
+     * @return    string
      */
-    public function sanitize_filename($str, $relative_path = FALSE)
+    public function sanitize_filename($str, $relative_path = false)
     {
-        $bad = array(
+        $bad = [
             "../",
             "<!--",
             "-->",
@@ -396,27 +386,27 @@ class Security
             '?',
             "%20",
             "%22",
-            "%3c",		// <
-            "%253c",	// <
-            "%3e",		// >
-            "%0e",		// >
-            "%28",		// (
-            "%29",		// )
-            "%2528",	// (
-            "%26",		// &
-            "%24",		// $
-            "%3f",		// ?
-            "%3b",		// ;
-            "%3d"		// =
-        );
+            "%3c",        // <
+            "%253c",    // <
+            "%3e",        // >
+            "%0e",        // >
+            "%28",        // (
+            "%29",        // )
+            "%2528",    // (
+            "%26",        // &
+            "%24",        // $
+            "%3f",        // ?
+            "%3b",        // ;
+            "%3d"        // =
+        ];
 
-        if ( ! $relative_path)
-        {
+        if (!$relative_path) {
             $bad[] = './';
             $bad[] = '/';
         }
 
-        $str = $this->remove_invisible_characters($str, FALSE);
+        $str = $this->remove_invisible_characters($str, false);
+
         return stripslashes(str_replace($bad, '', $str));
     }
 
@@ -428,12 +418,12 @@ class Security
      * Callback function for xss_clean() to remove whitespace from
      * things like j a v a s c r i p t
      *
-     * @param	type
-     * @return	type
+     * @param    type
+     * @return    type
      */
     protected function _compact_exploded_words($matches)
     {
-        return preg_replace('/\s+/s', '', $matches[1]).$matches[2];
+        return preg_replace('/\s+/s', '', $matches[1]) . $matches[2];
     }
 
     // --------------------------------------------------------------------
@@ -443,16 +433,16 @@ class Security
      *
      * Callback function for xss_clean() to remove naughty HTML elements
      *
-     * @param	array
-     * @return	string
+     * @param    array
+     * @return    string
      */
     protected function _sanitize_naughty_html($matches)
     {
         // encode opening brace
-        $str = '&lt;'.$matches[1].$matches[2].$matches[3];
+        $str = '&lt;' . $matches[1] . $matches[2] . $matches[3];
 
         // encode captured opening or closing brace to prevent recursive vectors
-        $str .= str_replace(array('>', '<'), array('&gt;', '&lt;'),
+        $str .= str_replace(['>', '<'], ['&gt;', '&lt;'],
             $matches[4]);
 
         return $str;
@@ -468,8 +458,8 @@ class Security
      * and prevents PREG_BACKTRACK_LIMIT_ERROR from being triggered in
      * PHP 5.2+ on link-heavy strings
      *
-     * @param	array
-     * @return	string
+     * @param    array
+     * @return    string
      */
     protected function _js_link_removal($match)
     {
@@ -478,7 +468,7 @@ class Security
             preg_replace(
                 '#href=.*?(alert\(|alert&\#40;|javascript\:|livescript\:|mocha\:|charset\=|window\.|document\.|\.cookie|<script|<xss|data\s*:)#si',
                 '',
-                $this->_filter_attributes(str_replace(array('<', '>'), '', $match[1]))
+                $this->_filter_attributes(str_replace(['<', '>'], '', $match[1]))
             ),
             $match[0]
         );
@@ -494,8 +484,8 @@ class Security
      * and prevents PREG_BACKTRACK_LIMIT_ERROR from being triggered in
      * PHP 5.2+ on image tag heavy strings
      *
-     * @param	array
-     * @return	string
+     * @param    array
+     * @return    string
      */
     protected function _js_img_removal($match)
     {
@@ -504,7 +494,7 @@ class Security
             preg_replace(
                 '#src=.*?(alert\(|alert&\#40;|javascript\:|livescript\:|mocha\:|charset\=|window\.|document\.|\.cookie|<script|<xss|base64\s*,)#si',
                 '',
-                $this->_filter_attributes(str_replace(array('<', '>'), '', $match[1]))
+                $this->_filter_attributes(str_replace(['<', '>'], '', $match[1]))
             ),
             $match[0]
         );
@@ -517,12 +507,12 @@ class Security
      *
      * Used as a callback for XSS Clean
      *
-     * @param	array
-     * @return	string
+     * @param    array
+     * @return    string
      */
     protected function _convert_attribute($match)
     {
-        return str_replace(array('>', '<', '\\'), array('&gt;', '&lt;', '\\\\'), $match[0]);
+        return str_replace(['>', '<', '\\'], ['&gt;', '&lt;', '\\\\'], $match[0]);
     }
 
     // --------------------------------------------------------------------
@@ -532,17 +522,15 @@ class Security
      *
      * Filters tag attributes for consistency and safety
      *
-     * @param	string
-     * @return	string
+     * @param    string
+     * @return    string
      */
     protected function _filter_attributes($str)
     {
         $out = '';
 
-        if (preg_match_all('#\s*[a-z\-]+\s*=\s*(\042|\047)([^\\1]*?)\\1#is', $str, $matches))
-        {
-            foreach ($matches[0] as $match)
-            {
+        if (preg_match_all('#\s*[a-z\-]+\s*=\s*(\042|\047)([^\\1]*?)\\1#is', $str, $matches)) {
+            foreach ($matches[0] as $match) {
                 $out .= preg_replace("#/\*.*?\*/#s", '', $match);
             }
         }
@@ -557,8 +545,8 @@ class Security
      *
      * Used as a callback for XSS Clean
      *
-     * @param	array
-     * @return	string
+     * @param    array
+     * @return    string
      */
     protected function _decode_entity($match)
     {
@@ -572,8 +560,8 @@ class Security
      *
      * Called by xss_clean()
      *
-     * @param 	string
-     * @return 	string
+     * @param    string
+     * @return    string
      */
     protected function _validate_entities($str)
     {
@@ -583,7 +571,7 @@ class Security
 
         // 901119URL5918AMP18930PROTECT8198
 
-        $str = preg_replace('|\&([a-z\_0-9\-]+)\=([a-z\_0-9\-]+)|i', $this->xss_hash()."\\1=\\2", $str);
+        $str = preg_replace('|\&([a-z\_0-9\-]+)\=([a-z\_0-9\-]+)|i', $this->xss_hash() . "\\1=\\2", $str);
 
         /*
          * Validate standard character entities
@@ -600,7 +588,7 @@ class Security
          * Just as above, adds a semicolon if missing.
          *
          */
-        $str = preg_replace('#(&\#x?)([0-9A-F]+);?#i',"\\1\\2;",$str);
+        $str = preg_replace('#(&\#x?)([0-9A-F]+);?#i', "\\1\\2;", $str);
 
 
         return $str;
@@ -613,42 +601,38 @@ class Security
      *
      * A utility function for xss_clean()
      *
-     * @param 	string
-     * @return 	string
+     * @param    string
+     * @return    string
      */
     protected function _do_never_allowed($str)
     {
         $str = str_replace(array_keys($this->_never_allowed_str), $this->_never_allowed_str, $str);
 
-        foreach ($this->_never_allowed_regex as $regex)
-        {
-            $str = preg_replace('#'.$regex.'#is', '[removed]', $str);
+        foreach ($this->_never_allowed_regex as $regex) {
+            $str = preg_replace('#' . $regex . '#is', '[removed]', $str);
         }
 
         return $str;
     }
 
 
-    protected function remove_invisible_characters($str, $url_encoded = TRUE)
+    protected function remove_invisible_characters($str, $url_encoded = true)
     {
-        $non_displayables = array();
+        $non_displayables = [];
 
         // every control character except newline (dec 10)
         // carriage return (dec 13), and horizontal tab (dec 09)
 
-        if ($url_encoded)
-        {
-            $non_displayables[] = '/%0[0-8bcef]/';	// url encoded 00-08, 11, 12, 14, 15
-            $non_displayables[] = '/%1[0-9a-f]/';	// url encoded 16-31
+        if ($url_encoded) {
+            $non_displayables[] = '/%0[0-8bcef]/';    // url encoded 00-08, 11, 12, 14, 15
+            $non_displayables[] = '/%1[0-9a-f]/';    // url encoded 16-31
         }
 
-        $non_displayables[] = '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S';	// 00-08, 11, 12, 14-31, 127
+        $non_displayables[] = '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S';    // 00-08, 11, 12, 14-31, 127
 
-        do
-        {
+        do {
             $str = preg_replace($non_displayables, '', $str, -1, $count);
-        }
-        while ($count);
+        } while ($count);
 
         return $str;
     }
@@ -656,12 +640,11 @@ class Security
     /**
      * Random Hash for protecting URLs
      *
-     * @return	string
+     * @return    string
      */
     public function xss_hash()
     {
-        if ($this->_xss_hash == '')
-        {
+        if ($this->_xss_hash == '') {
             mt_srand();
             $this->_xss_hash = md5(time() + mt_rand(0, 1999999999));
         }
@@ -670,4 +653,11 @@ class Security
     }
 
 
+    public static function escapeLike($str, $escape = '\'\'')
+    {
+
+        return str_replace(
+            ['%', '_', '\'', '"', '<', '>', '(', ')', '{', ']', ':', '/', '_', '\\'],
+            ['\%', '\_', $escape, '\"', '\<', '\>', '\(', '\)', '\{', '\}', '\:', '\/', '\_', '\\\\'], $str);
+    }
 }

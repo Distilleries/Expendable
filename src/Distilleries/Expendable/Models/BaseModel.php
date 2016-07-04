@@ -1,5 +1,6 @@
 <?php namespace Distilleries\Expendable\Models;
 
+use Distilleries\Expendable\Helpers\Security;
 use Illuminate\Database\Eloquent\Model;
 use \DB;
 use \Exception;
@@ -526,9 +527,9 @@ class BaseModel extends Model
                 $column = $this->isReserved($column) ? '"' . $column . '"' : $column;
 
                 if ((DB::connection()->getDriverName()) == 'oracle') {
-                    $query->orWhereRaw('LOWER(' . $column . ') like ?', ['%' . strtolower($searchQuery) . '%']);
+                    $query->orWhereRaw('LOWER(' . $column . ') like ?', ['%' . Security::escapeLike(strtolower($searchQuery)) . '%']);
                 } else {
-                    $query->orwhere($column, 'like', '%' . $searchQuery . '%');
+                    $query->orwhere($column, 'like', '%' . Security::escapeLike($searchQuery,'\\\'') . '%');
                 }
 
             }
