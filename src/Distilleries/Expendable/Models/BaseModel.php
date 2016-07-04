@@ -527,7 +527,7 @@ class BaseModel extends Model
                 $column = $this->isReserved($column) ? '"' . $column . '"' : $column;
 
                 if ((DB::connection()->getDriverName()) == 'oracle') {
-                    $query->orWhereRaw('LOWER(' . $column . ') like ?', ['%' . Security::escapeLike(strtolower($searchQuery)) . '%']);
+                    $query->orWhereRaw('LOWER(' . $column . ') like ? ESCAPE \'\\\'', ['%' . Security::escapeLike(strtolower($searchQuery)) . '%']);
                 } else {
                     $query->orwhere($column, 'like', '%' . Security::escapeLike($searchQuery,'\\\'') . '%');
                 }
