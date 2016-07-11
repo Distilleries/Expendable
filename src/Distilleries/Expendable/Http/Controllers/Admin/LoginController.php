@@ -80,7 +80,7 @@ class LoginController extends BaseController
             return redirect()->back()->with(Message::WARNING, [trans('expendable::login.credential')]);
         }
 
-        if ($this->auth->attempt($credential, true))
+        if ($this->auth->attempt($credential, config('expendable.remember_me')))
         {
             $user = $this->auth->user();
             new UserEvent(UserEvent::LOGIN_EVENT, $user);
