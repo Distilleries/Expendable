@@ -11,6 +11,12 @@ class RoleForm extends FormValidator {
         'overide_permission' => 'integer'
     ];
 
+    public static $rules_update = [
+        'libelle'            => 'required',
+        'initials'           => 'required|unique:roles,initials',
+        'overide_permission' => 'integer'
+    ];
+
     public function buildForm()
     {
         $this
