@@ -17,7 +17,6 @@ class RoleForm extends FormValidator {
         'overide_permission' => 'integer'
     ];
 
-
     public function buildForm()
     {
         $this
