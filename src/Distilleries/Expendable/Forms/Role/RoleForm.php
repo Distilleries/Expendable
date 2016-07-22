@@ -11,6 +11,13 @@ class RoleForm extends FormValidator {
         'overide_permission' => 'integer'
     ];
 
+    public static $rules_update = [
+        'libelle'            => 'required',
+        'initials'           => 'required|unique:roles,initials',
+        'overide_permission' => 'integer'
+    ];
+
+
     public function buildForm()
     {
         $this
@@ -31,5 +38,13 @@ class RoleForm extends FormValidator {
             ]);
 
         $this->addDefaultActions();
+    }
+
+    protected function getUpdateRules()
+    {
+        $key                           = \Request::get($this->model->getKeyName());
+        static::$rules_update['initials'] = 'required|unique:roles,initials' . $key;
+
+        return parent::getUpdateRules();
     }
 }

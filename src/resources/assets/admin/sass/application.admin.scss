@@ -1,9 +1,11 @@
+@import "admin/components/font-awsome";
 @import "global/plugins";
 @import "global/components";
 @import "global/flags";
 @import "admin/layout/layout";
 @import "admin/pages/login3";
 @import "admin/pages/error";
+@import "admin/components/_form";
 
 .form-inline {
   display: inline;

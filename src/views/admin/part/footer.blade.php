@@ -5,7 +5,7 @@
     <i class="glyphicon glyphicon-upload"></i>
 </div>
 
-{!! HTML::script('assets/admin/js/app.admin.min.js?v='.$version) !!}
+<script src="{{ elixir('js/all.js','assets/backend/build') }}"></script>
 @include('expendable::admin.part.validation')
 @yield('javascript')
 @stop

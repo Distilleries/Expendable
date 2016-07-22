@@ -5,7 +5,7 @@
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
 			<a href="/">
-			    <img src="{{ asset('assets/admin/img/logo.jpg') }}" alt="" class="logo-default" height="24" />
+			    <img src="{{ asset('assets/backend/images/logo.jpg') }}" alt="" class="logo-default" height="24" />
 			</a>
 			<div class="menu-toggler sidebar-toggler hide"></div>
 		</div>

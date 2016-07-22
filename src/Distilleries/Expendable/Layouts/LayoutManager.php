@@ -49,19 +49,10 @@ class LayoutManager implements LayoutManagerContract {
     {
         if (!is_null($this->layout))
         {
-            $version = 0;
-            if ($this->filesystem->exists($this->config['config_file_assets']))
-            {
-                $asstets = json_decode($this->filesystem->get($this->config['config_file_assets']));
-                $version = $asstets->version;
-            }
-
             $header = $this->view->make('expendable::admin.part.header')->with([
-                'version' => $version,
                 'title'   => ''
             ]);
             $footer = $this->view->make('expendable::admin.part.footer')->with([
-                'version' => $version,
                 'title'   => ''
             ]);
 

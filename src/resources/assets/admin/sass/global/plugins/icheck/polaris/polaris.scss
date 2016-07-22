@@ -9,7 +9,7 @@
     padding: 0;
     width: 29px;
     height: 29px;
-    background: url("../img/icheck/polaris/polaris.png") no-repeat;
+    background: url("../../images/icheck/polaris/polaris.png") no-repeat;
     border: none;
     cursor: pointer;
 }
@@ -52,7 +52,7 @@
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
     .icheckbox_polaris,
     .iradio_polaris {
-        background-image: url("../img/icheck/polaris/polaris@2x.png");
+        background-image: url("../../images/icheck/polaris/polaris@2x.png");
         -webkit-background-size: 310px 31px;
         background-size: 310px 31px;
     }

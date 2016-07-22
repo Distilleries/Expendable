@@ -1,0 +1,22 @@
+.form-horizontal {
+
+  .radio {
+    min-height: 36px;
+  }
+
+  .icheck-list {
+    .icheckbox_line-blue.disabled {
+      background: #2489c5;
+      &.checked {
+        background: #2489C6;
+      }
+    }
+    .icheckbox_line-grey.disabled {
+      background: #73716e;
+      &.checked {
+        background: #73716e;
+      }
+    }
+  }
+
+}
