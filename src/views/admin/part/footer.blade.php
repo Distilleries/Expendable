@@ -5,7 +5,7 @@
     <i class="glyphicon glyphicon-upload"></i>
 </div>
 
-<script src="{{ elixir('js/all.js','assets/backend/build') }}"></script>
+<script src="/assets/backend/js/all.js?v={{ rand() }}"></script>
 @include('expendable::admin.part.validation')
 @yield('javascript')
 @stop

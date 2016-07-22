@@ -16,7 +16,7 @@ Theme Panel
         padding:20px;
         cursor:pointer;
         position:absolute;
-        background:#d5dade url(../../images/icon-color.png) center no-repeat;
+        background:#d5dade url(../images/icon-color.png) center no-repeat;
 
         @include border-radius($general-border-radius);
 
@@ -33,7 +33,7 @@ Theme Panel
         z-index: 101;
         cursor:pointer;
         position:absolute;
-        background: #3d3d3d url(../../images/icon-color-close.png) center no-repeat !important;
+        background: #3d3d3d url(../images/icon-color-close.png) center no-repeat !important;
 
         @include border-radius($general-border-radius); 
 
@@ -147,7 +147,7 @@ Theme Panel
         right: 0;
 
         > .toggler {
-            background:#BFCAD1 url(../../images/icon-color.png) center no-repeat;
+            background:#BFCAD1 url(../images/icon-color.png) center no-repeat;
         }
     }
 

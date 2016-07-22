@@ -133,7 +133,7 @@ Page Header
 		height: $header-menu-toggler-height;
 		background-repeat: no-repeat;
 		background-position: center center;
-		background-image: url(../../images/sidebar-toggler.png);
+		background-image: url(../images/sidebar-toggler.png);
 
 		&:hover { 
 			filter: alpha(opacity=100);
@@ -153,7 +153,7 @@ Page Header
 			display: none;
 			float: right;
 			margin: $header-responsive-toggler-margin;
-			background-image: url(../../images/sidebar-toggler-inverse.png);
+			background-image: url(../images/sidebar-toggler-inverse.png);
 		}
 	}
 
@@ -914,7 +914,7 @@ Page Header
 		}
 
 		.menu-toggler.responsive-toggler {
-			background-image: url(../../images/sidebar-toggler.png);
+			background-image: url(../images/sidebar-toggler.png);
 		}
 
 		.search-form {

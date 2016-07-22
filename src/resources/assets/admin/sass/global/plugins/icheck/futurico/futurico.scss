@@ -9,7 +9,7 @@
     padding: 0;
     width: 16px;
     height: 17px;
-    background: url("../../images/icheck/futurico/futurico.png") no-repeat;
+    background: url("../images/icheck/futurico/futurico.png") no-repeat;
     border: none;
     cursor: pointer;
 }
@@ -46,7 +46,7 @@
 @media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
     .icheckbox_futurico,
     .iradio_futurico {
-        background-image: url("../../images/icheck/futurico/futurico@2x.png");
+        background-image: url("../images/icheck/futurico/futurico@2x.png");
         -webkit-background-size: 144px 19px;
         background-size: 144px 19px;
     }

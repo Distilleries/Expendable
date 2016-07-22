@@ -102,8 +102,8 @@
 }
 
 
-$sprite: "../../images/uniform/sprite.png" !default;
-$sprite-retina: "../../images/uniform/sprite-retina.png" !default;
+$sprite: "../images/uniform/sprite.png" !default;
+$sprite-retina: "../images/uniform/sprite-retina.png" !default;
 $sprite-size: 493px !default;
 $button-height: 30px !default;
 $button-margin-left: 13px !default;
@@ -112,10 +112,10 @@ $button-span-height: $button-height !default;
 $checkbox-height: 19px !default;
 $checkbox-width: 19px !default;
 $input-padding: 3px !default;
-$input-background: "../../images/uniform/bg-input.png" !default;
-$input-background-retina: "../../images/uniform/bg-input-retina.png" !default;
-$input-background-focus: "../../images/uniform/bg-input-focus.png" !default;
-$input-background-focus-retina: "../../images/uniform/bg-input-focus-retina.png" !default;
+$input-background: "../images/uniform/bg-input.png" !default;
+$input-background-retina: "../images/uniform/bg-input-retina.png" !default;
+$input-background-focus: "../images/uniform/bg-input-focus.png" !default;
+$input-background-focus-retina: "../images/uniform/bg-input-focus-retina.png" !default;
 $input-background-size: 1px !default;
 $radio-height: 18px !default;
 $radio-width: 18px !default;
