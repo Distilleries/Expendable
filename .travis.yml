@@ -10,13 +10,6 @@ env:
   global:
     - setup=basic
 
-matrix:
-  include:
-    - php: 5.5.9
-      env: setup=lowest
-    - php: 5.5.9
-      env: setup=stable
-
 sudo: false
 
 before_install:
