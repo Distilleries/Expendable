@@ -350,9 +350,12 @@ class Security
         }
 
         $str = html_entity_decode($str, ENT_COMPAT, $charset);
-        $str = preg_replace('~&#x(0*[0-9a-f]{2,5})~ei', 'chr(hexdec("\\1"))', $str);
-
-        return preg_replace('~&#([0-9]{2,4})~e', 'chr(\\1)', $str);
+        $str = preg_replace_callback('~&#x(0*[0-9a-f]{2,5})~i', function($matches) {
+            return chr(hexdec($matches[1]));
+        }, $str);
+        return preg_replace_callback('~&#([0-9]{2,4})~', function($matches) {
+            return chr($matches[1]);
+        }, $str);
     }
 
     // --------------------------------------------------------------------
