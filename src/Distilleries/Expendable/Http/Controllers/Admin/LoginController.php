@@ -77,7 +77,7 @@ class LoginController extends BaseController
 
         if (UserUtils::securityCheckLockEnabled() && !empty($userCredential) && $userCredential->isLocked())
         {
-            return redirect()->back()->with(Message::WARNING, [trans('expendable::login.credential')]);
+            return redirect()->back()->with(Message::WARNING, [trans('expendable::login.locked')]);
         }
 
         if ($this->auth->attempt($credential, config('expendable.remember_me')))
