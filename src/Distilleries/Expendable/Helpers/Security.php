@@ -666,15 +666,13 @@ class Security
     }
 
 
-    public static function getUrlEmbeddable($url)
+    public static function getUrlEmbeddable($url,$host=[])
     {
         $value      = parse_url($url);
-        $app_url    = parse_url(config('app.url'));
-        $app_host   = isset($app_url['host']) ? $app_url['host'] : null;
         $url_params = $value;
-        $value      = isset($value['path']) ? $value['path'] : null;
+        $value      = $url;
 
-        if (isset($url_params['host']) && $url_params['host'] != $app_host) {
+        if (isset($url_params['host']) && !in_array($url_params['host'],$host)) {
             $value = null;
         }
 
