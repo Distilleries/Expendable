@@ -666,20 +666,21 @@ class Security
     }
 
 
-    public static function getUrlEmbeddable($url,$host=[])
+    public static function getUrlEmbeddable($url, $host = [], $checkSecure = true)
     {
         $value      = parse_url($url);
         $url_params = $value;
         $value      = $url;
 
-        if (isset($url_params['host']) && !in_array($url_params['host'],$host)) {
+        if (isset($url_params['host']) && preg_match('#(' . join('|', $host) . ')$#i', $url_params['host']) > 0) {
             $value = null;
         }
 
-        if (isset($url_params['scheme']) && (config('session.secure') == true && $url_params['scheme'] != 'https')) {
+        if ((isset($url_params['scheme']) && (config('session.secure') == true && $url_params['scheme'] != 'https')) && $checkSecure === true) {
             $value = null;
         }
 
         return $value;
     }
+
 }
