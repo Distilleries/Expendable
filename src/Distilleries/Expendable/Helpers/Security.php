@@ -350,10 +350,11 @@ class Security
         }
 
         $str = html_entity_decode($str, ENT_COMPAT, $charset);
-        $str = preg_replace_callback('~&#x(0*[0-9a-f]{2,5})~i', function($matches) {
+        $str = preg_replace_callback('~&#x(0*[0-9a-f]{2,5})~i', function ($matches) {
             return chr(hexdec($matches[1]));
         }, $str);
-        return preg_replace_callback('~&#([0-9]{2,4})~', function($matches) {
+
+        return preg_replace_callback('~&#([0-9]{2,4})~', function ($matches) {
             return chr($matches[1]);
         }, $str);
     }
@@ -662,5 +663,25 @@ class Security
         return str_replace(
             ['%', '_', '\'', '"', '<', '>', '(', ')', '{', ']', ':', '/', '_', '\\'],
             ['\%', '\_', $escape, '\"', '\<', '\>', '\(', '\)', '\{', '\}', '\:', '\/', '\_', '\\\\'], $str);
+    }
+
+
+    public static function getUrlEmbeddable($url)
+    {
+        $value      = parse_url($url);
+        $app_url    = parse_url(config('app.url'));
+        $app_host   = isset($app_url['host']) ? $app_url['host'] : null;
+        $url_params = $value;
+        $value      = isset($value['path']) ? $value['path'] : null;
+
+        if (isset($url_params['host']) && $url_params['host'] != $app_host) {
+            $value = null;
+        }
+
+        if (isset($url_params['scheme']) && (config('session.secure') == true && $url_params['scheme'] != 'https')) {
+            $value = null;
+        }
+
+        return $value;
     }
 }
