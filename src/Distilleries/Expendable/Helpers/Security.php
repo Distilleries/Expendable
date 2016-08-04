@@ -683,4 +683,9 @@ class Security
         return $value;
     }
 
+    public static function getOnlyString($str)
+    {
+        return strip_tags($str);
+    }
+
 }
