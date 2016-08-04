@@ -672,7 +672,7 @@ class Security
         $url_params = $value;
         $value      = $url;
 
-        if (isset($url_params['host']) && preg_match('#(' . join('|', $host) . ')$#i', $url_params['host']) > 0) {
+        if (isset($url_params['host']) && preg_match('#(' . join('|', $host) . ')$#i', $url_params['host']) <= 0) {
             $value = null;
         }
 
