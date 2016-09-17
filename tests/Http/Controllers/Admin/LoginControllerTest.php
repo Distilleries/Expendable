@@ -159,6 +159,7 @@ class LoginControllerTest extends ExpendableTestCase {
             'email' => $faker->email.rand()
         ]);
 
+
         $this->assertSessionHas(\Distilleries\Expendable\Formatter\Message::WARNING);
 
     }

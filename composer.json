@@ -20,20 +20,20 @@
     ],
 
     "require": {
-        "php": ">=5.5.0",
-        "illuminate/support": "5.2.*",
-        "illuminate/database": "5.2.*",
-        "illuminate/translation": "5.2.*",
-        "distilleries/datatable-builder": "2.5.*",
-        "distilleries/form-builder": "2.5.*",
-        "distilleries/mailersaver": "2.3.*",
-        "distilleries/permission-util": "1.4.*",
+        "php": ">=5.6.4",
+        "illuminate/support": "5.3.*",
+        "illuminate/database": "5.3.*",
+        "illuminate/translation": "5.3.*",
+        "distilleries/datatable-builder": "2.6.*",
+        "distilleries/form-builder": "2.6.*",
+        "distilleries/mailersaver": "2.4.*",
+        "distilleries/permission-util": "1.5.*",
         "forxer/Gravatar": "~1.2",
         "maatwebsite/excel": "2.1.*"
     },
     "require-dev": {
-        "orchestra/database": "~3.2",
-        "orchestra/testbench": "~3.2",
+        "orchestra/database": "~3.3",
+        "orchestra/testbench": "~3.3",
         "phpunit/phpunit": "~4.7",
         "mockery/mockery": "0.9.*",
         "fzaninotto/faker": "1.5.*"

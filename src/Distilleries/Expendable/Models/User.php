@@ -8,11 +8,12 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends BaseModel implements AuthenticatableContract, CanResetPasswordContract, PermissionUtilContract, LockableContract {
 
     use Authenticatable, Authorizable, CanResetPassword, \Distilleries\Expendable\Models\StatusTrait, LockableTrait;
-
+    use Notifiable;
     protected $tabPermission = [];
     protected $fillable = [
         'email',

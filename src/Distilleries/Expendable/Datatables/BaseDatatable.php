@@ -13,7 +13,7 @@ abstract class BaseDatatable extends EloquentDatatable {
         $this->add('translation', function ($model) use ($template, $route) {
 
             $languages    = Language::withoutCurrentLanguage()->get();
-            $translations = Translation::byElement($model)->lists('id_element','iso')->toArray();
+            $translations = Translation::byElement($model)->pluck('id_element','iso')->toArray();
             return view($template, array(
                 'languages'    => $languages,
                 'translations' => $translations,

@@ -3,6 +3,7 @@
 use Distilleries\Expendable\Exporter\CsvExporter;
 use Distilleries\Expendable\Exporter\ExcelExporter;
 use Distilleries\Expendable\Exporter\PdfExporter;
+use Distilleries\Expendable\Http\Router\Router;
 use Distilleries\Expendable\Importer\CsvImporter;
 use Distilleries\Expendable\Importer\XlsImporter;
 use Distilleries\Expendable\Layouts\LayoutManager;
@@ -28,6 +29,7 @@ class ExpendableServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
+
         $this->loadViewsFrom(__DIR__ . '/../../views', 'expendable');
         $this->loadTranslationsFrom(__DIR__ . '/../../lang', 'expendable');
         $this->publishes([
@@ -55,6 +57,7 @@ class ExpendableServiceProvider extends ServiceProvider {
     public function register()
     {
 
+               
         $this->app->singleton('Distilleries\Expendable\Contracts\LockableContract', function($app)
         {
             return new User;
@@ -74,7 +77,7 @@ class ExpendableServiceProvider extends ServiceProvider {
         {
             return new Email;
         });
-
+        
         $this->alias();
         $this->registerCommands();
         $this->registerImporters();
@@ -82,6 +85,7 @@ class ExpendableServiceProvider extends ServiceProvider {
 
 
     }
+    
 
     protected function registerImporters()
     {
@@ -142,6 +146,7 @@ class ExpendableServiceProvider extends ServiceProvider {
             'XlsxImporterContract',
             'Distilleries\Expendable\Contracts\CsvExporterContract',
             'Distilleries\Expendable\Contracts\ExcelExporterContract',
+            'Distilleries\Expendable\Contracts\PdfExporterContract',
             'Distilleries\Expendable\Contracts\PdfExporterContract',
         ];
     }

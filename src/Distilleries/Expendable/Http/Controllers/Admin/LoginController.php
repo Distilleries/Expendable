@@ -146,17 +146,15 @@ class LoginController extends BaseController
         }
 
         $this->validate($request, ['email' => 'required|email']);
-
-        $broker = $this->getBroker();
-        $response = \Password::broker($broker)->sendResetLink($request->only('email'));
+        
+        $response = $this->broker()->sendResetLink($request->only('email'));
 
         switch ($response)
         {
-            case \Password::INVALID_USER:
-                return redirect()->back()->with(Message::WARNING, [trans($response)]);
-
-            default:
+            case \Password::RESET_LINK_SENT:
                 return redirect()->back()->with(Message::MESSAGE, [trans($response)]);
+            default:
+                return redirect()->back()->with(Message::WARNING, [trans($response)]);
         }
 
     }
@@ -209,9 +207,8 @@ class LoginController extends BaseController
             'token'
         );
 
-        $broker = $this->getBroker();
 
-        $response = \Password::broker($broker)->reset($credentials, function ($user, $password) {
+        $response = $this->broker()->reset($credentials, function ($user, $password) {
             $user->password = bcrypt($password);
             $user->save();
 

@@ -201,8 +201,7 @@ class LanguageControllerTest extends ExpendableTestCase {
                 'term' => $data['iso'].$data['iso'].$data['iso']
             ]);
 
-            $result = json_decode($response->getContent());
-            $this->assertEquals(0, $result->total);
+            $this->assertEquals(500, $response->getStatusCode());
 
         } catch (\Exception $e)
         {
