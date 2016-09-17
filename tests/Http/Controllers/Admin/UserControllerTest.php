@@ -370,11 +370,13 @@ class UserControllerTest extends ExpendableTestCase {
 
         try
         {
-            $this->call('POST', action($this->controller.'@postProfile'), [
+            $response = $this->call('POST', action($this->controller.'@postProfile'), [
                 'id'    => $userOther->id,
                 'email' => str_replace('\'', '', $faker->email)
             ]);
-            $this->assertTrue(false);
+
+            $this->assertEquals(403,$response->getStatusCode());
+            
         } catch (\Symfony\Component\HttpKernel\Exception\HttpException $e)
         {
             $this->assertEquals(trans('permission-util::errors.unthorized'), $e->getMessage());
