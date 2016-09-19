@@ -14,6 +14,20 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
         return $service;
     }
 
+    /**
+     * Resolve application implementation.
+     *
+     * @return \Illuminate\Foundation\Application
+     */
+    protected function resolveApplication()
+    {
+        $app = new \Distilleries\Expendable\Fondation\Application($this->getBasePath());
+        $app->bind('Illuminate\Foundation\Bootstrap\LoadConfiguration', 'Orchestra\Testbench\Bootstrap\LoadConfiguration');
+
+        return $app;
+    }
+
+
     public function setUp()
     {
         parent::setUp();

@@ -41,32 +41,7 @@ class ExpendableRouteServiceProvider extends ServiceProvider
 
         //
     }
-
-
-
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-
-        $this->registerRouter();
-
-    }
-
-
-    protected function registerRouter(){
-
-        $this->app['router'] = $this->app->share(function($app)
-        {
-            $router = new Router($app['events'], $app);
-         
-            return $router;
-        });
-    }
-
+    
 
     /**
      * Define the "web" routes for the application.
