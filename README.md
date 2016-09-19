@@ -100,13 +100,14 @@ Add Service provider to `config/app.php`:
           /**
            * Vendor provider
            */
-          'Distilleries\MailerSaver\MailerSaverServiceProvider',
-          'Distilleries\FormBuilder\FormBuilderServiceProvider',
-          'Distilleries\DatatableBuilder\DatatableBuilderServiceProvider',
-          'Distilleries\PermissionUtil\PermissionUtilServiceProvider',
-          'Maatwebsite\Excel\ExcelServiceProvider',
-          'Distilleries\Expendable\ExpendableServiceProvider',
-          'Distilleries\Expendable\ExpendableRouteServiceProvider',
+        Wpb\String_Blade_Compiler\ViewServiceProvider::class,
+        Distilleries\FormBuilder\FormBuilderServiceProvider::class,
+        Distilleries\PermissionUtil\PermissionUtilServiceProvider::class,
+        Distilleries\MailerSaver\MailerSaverServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Distilleries\Expendable\ExpendableServiceProvider::class,
+        Distilleries\Expendable\ExpendableRouteServiceProvider::class,
+
     ]
 ```
 
@@ -115,18 +116,18 @@ And Facade (also in `config/app.php`) replace the laravel facade `Mail`
 
 ``` php
     'aliases' => [
-                /**
-                * Vendor facade
-                *
-                */
+        /**
+        * Vendor facade
+        *
+        */
        
-               'Mail'           => 'Distilleries\MailerSaver\Facades\Mail',
-               'FormBuilder'    => 'Distilleries\FormBuilder\Facades\FormBuilder',
-               'Form'           => 'Illuminate\Html\FormFacade',
-               'HTML'           => 'Illuminate\Html\HtmlFacade',
-               'Datatable'      => 'Distilleries\DatatableBuilder\Facades\DatatableBuilder',
-               'PermissionUtil' => 'Distilleries\PermissionUtil\Facades\PermissionUtil',
-               'Excel'          => 'Maatwebsite\Excel\Facades\Excel',
+      'Mail'           => \Distilleries\MailerSaver\Facades\Mail::class,
+      'FormBuilder'    => \Distilleries\FormBuilder\Facades\FormBuilder::class,
+      'Form'           => \Illuminate\Html\FormFacade::class,
+      'HTML'           => \Illuminate\Html\HtmlFacade::class,
+      'Datatable'      => \Distilleries\DatatableBuilder\Facades\DatatableBuilder::class,
+      'PermissionUtil' => \Distilleries\PermissionUtil\Facades\PermissionUtil::class,
+      'Excel'          => \Maatwebsite\Excel\Facades\Excel::class,
     ]
 ```
 
