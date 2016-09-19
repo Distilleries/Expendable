@@ -16,6 +16,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Distilleries\Expendable\Http\Middleware\Secure::class,
+        \Distilleries\Expendable\Http\Middleware\AuthenticateOnceWithBasicAuth::class,
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Distilleries\Expendable\Http\Middleware\ResponseXFrameHeaderMiddleware::class
     ];
