@@ -68,6 +68,31 @@ Add on your composer.json
 
 run `composer update`.
 
+
+Add Application override to `bootstrap/app.php`:
+
+
+``` php
+
+
+$app = new \Distilleries\Expendable\Fondation\Application(
+    realpath(__DIR__ . '/../')
+);
+
+
+$app->bind('path.storage', function ($app) {
+    $path = env('STORAGE_PATH', base_path() . DIRECTORY_SEPARATOR . 'storage');
+
+    return $path;
+});
+
+
+```
+
+
+I add a bind event to override the storage path. If you want overrid it juste add `STORAGE_PATH=` on your .env. If you don't want override it juste to put it on your .env.
+
+
 Add Service provider to `config/app.php`:
 
 ``` php
