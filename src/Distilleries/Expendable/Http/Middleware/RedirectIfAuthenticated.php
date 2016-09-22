@@ -1,4 +1,6 @@
-<?php namespace Distilleries\Expendable\Http\Middleware;
+<?php 
+
+namespace Distilleries\Expendable\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;

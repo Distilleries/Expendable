@@ -4,14 +4,20 @@ namespace Distilleries\Expendable\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Foundation\Application;
+use Distilleries\Expendable\Helpers\UserUtils;
 
-class OpCache
-{
+class SetDisplayStatus {
+
+
     protected $app;
-
+    
+    /**
+     * Create a new filter instance.
+     *
+     */
     public function __construct(Application $app)
     {
-        $this->app = $app;
+        $this->app        = $app;
     }
 
     /**
@@ -24,11 +30,11 @@ class OpCache
     public function handle($request, Closure $next)
     {
 
-        if (($this->app->environment() != 'production')) {
-            if (function_exists('opcache_reset')) {
-                opcache_reset();
-            }
-
+        if (UserUtils::isBackendRole())
+        {
+            UserUtils::setDisplayAllStatus();
+        }else{
+            UserUtils::forgotDisplayAllStatus();
         }
 
         return $next($request);

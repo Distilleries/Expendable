@@ -6,6 +6,34 @@ use \Session;
 class UserUtils
 {
 
+
+    public static function isBackendRole()
+    {
+        $user = Auth::user();
+
+        if (empty($user)) return false;
+
+        return Auth::user()->role->initials == '@sa' || Auth::user()->role->initials == '@a';
+    }
+
+    public static function frontendInitialRole()
+    {
+        return [
+            '@g', //guest
+        ];
+    }
+
+    public static function isFrontendRole()
+    {
+        $user = Auth::user();
+
+        if (empty($user)) return false;
+
+        return in_array(Auth::user()->role->initials, self::frontendInitialRole());
+    }
+
+
+
     public static function get()
     {
         return Auth::user();
