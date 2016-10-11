@@ -26,10 +26,9 @@
             </div>
         </div>
    </div>
+   <div class="page-footer">
+       @yield('footer')
+   </div>
 </body>
-<div class="page-footer">
-    @yield('footer')
-</div>
-
 <!-- END BODY -->
 </html>
