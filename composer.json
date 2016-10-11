@@ -24,7 +24,7 @@
         "illuminate/support": "5.3.*",
         "illuminate/database": "5.3.*",
         "illuminate/translation": "5.3.*",
-        "distilleries/datatable-builder": "2.6.*",
+        "distilleries/datatable-builder": "2.7.*",
         "distilleries/form-builder": "2.7.*",
         "distilleries/mailersaver": "2.4.*",
         "distilleries/permission-util": "1.5.*",
