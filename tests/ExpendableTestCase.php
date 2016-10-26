@@ -1,6 +1,7 @@
 <?php
 
-abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
+abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase
+{
 
     protected $facade;
 
@@ -34,7 +35,7 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
         $this->app['Illuminate\Contracts\Console\Kernel']->call('vendor:publish');
         $this->artisan('migrate', [
             '--database' => 'testbench',
-            '--realpath' => realpath(__DIR__.'/../src/database/migrations'),
+            '--realpath' => realpath(__DIR__ . '/../src/database/migrations'),
         ]);
 
     }
@@ -48,11 +49,11 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
     {
         $app['config']->set('auth.providers.users.model', Distilleries\Expendable\Models\User::class);
         $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', array(
+        $app['config']->set('database.connections.testbench', [
             'driver'   => 'sqlite',
             'database' => ':memory:',
             'prefix'   => '',
-        ));
+        ]);
     }
 
 
@@ -66,7 +67,7 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
             'Distilleries\PermissionUtil\PermissionUtilServiceProvider',
             'Maatwebsite\Excel\ExcelServiceProvider',
             'Distilleries\Expendable\ExpendableServiceProvider',
-            'Distilleries\Expendable\ExpendableRouteServiceProvider',
+            'Distilleries\Expendable\ExpendableRouteServiceProvider'
         ];
     }
 
@@ -76,8 +77,8 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase {
             'Password'       => 'Illuminate\Support\Facades\Password',
             'Mail'           => 'Distilleries\MailerSaver\Facades\Mail',
             'FormBuilder'    => 'Distilleries\FormBuilder\Facades\FormBuilder',
-            'Form'           => 'Illuminate\Html\FormFacade',
-            'HTML'           => 'Illuminate\Html\HtmlFacade',
+            'Form'           => 'Collective\Html\FormFacade',
+            'HTML'           => 'Collective\Html\HtmlFacade',
             'Datatable'      => 'Distilleries\DatatableBuilder\Facades\DatatableBuilder',
             'PermissionUtil' => 'Distilleries\PermissionUtil\Facades\PermissionUtil',
             'Excel'          => 'Maatwebsite\Excel\Facades\Excel',

@@ -87,7 +87,7 @@ class ComponentController extends BaseController implements FormStateContract {
             } else if (strpos($state, 'FormStateContract') !== false)
             {
 
-                $this->artisan->call('form:make', [
+                $this->artisan->call('make:form', [
                     '--fields' => $request->get('fields_form'),
                     'name'     => 'Forms/' . $libelle_form
                 ]);

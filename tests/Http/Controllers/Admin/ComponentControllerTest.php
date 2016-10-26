@@ -73,7 +73,7 @@ class ComponentControllerTest extends ExpendableTestCase {
         $faker = Faker\Factory::create();
 
         $data = [
-            'libelle'         => $faker->userName,
+            'libelle'         => $faker->word,
             'state'           => [
                 'Distilleries\DatatableBuilder\Contracts\DatatableStateContract',
                 'Distilleries\Expendable\Contracts\ExportStateContract',
