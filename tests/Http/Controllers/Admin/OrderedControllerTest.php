@@ -84,8 +84,6 @@ class OrderedControllerTest extends ExpendableTestCase
 class OrderedController extends \Distilleries\Expendable\Http\Controllers\Admin\Base\ModelBaseController implements \Distilleries\Expendable\Contracts\OrderStateContract
 {
     use \Distilleries\Expendable\States\OrderStateTrait;
-    
-    protected $model;
 
     public function __construct(Ordered $model, \Distilleries\Expendable\Contracts\LayoutManagerContract $layoutManager)
     {
