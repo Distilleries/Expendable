@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 interface OrderStateContract
 {
     /**
-     * Return default orderig page.
+     * Return default ordering page.
      *
      * @return \Illuminate\Contracts\View\View
      */
