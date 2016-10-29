@@ -19,4 +19,5 @@ return [
     'generate_component'   => 'Generate a new component',
     'log_out'              => 'Log Out',
     'add_state'            => 'Add',
+    'order_state'          => 'Order',
 ];

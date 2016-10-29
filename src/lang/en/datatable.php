@@ -17,4 +17,6 @@ return [
     'are_you_sure' => 'Are you sure?',
     'unlock'       => 'Unlock',
     'lock'         => 'Lock',
+    'order'        => 'Order',
+    'label'        => 'Label',
 ];

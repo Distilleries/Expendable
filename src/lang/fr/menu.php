@@ -19,5 +19,6 @@ return [
     'generate_component'   => 'Générer un nouveau composant',
     'log_out'              => 'Se déconnecter',
     'add_state'            => 'Ajouter',
+    'order_state'          => 'Ordonner',
 
 ];
