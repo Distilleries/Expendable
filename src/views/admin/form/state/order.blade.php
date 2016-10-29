@@ -1,5 +1,4 @@
 @section('content')
-    @yield('state.menu')
     <style>
         #order_table_body tr {
             cursor: ns-resize;
