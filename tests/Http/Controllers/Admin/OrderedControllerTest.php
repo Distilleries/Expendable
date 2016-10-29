@@ -90,8 +90,6 @@ class OrderedController extends \Distilleries\Expendable\Http\Controllers\Admin\
     public function __construct(Ordered $model, \Distilleries\Expendable\Contracts\LayoutManagerContract $layoutManager)
     {
         parent::__construct($model, $layoutManager);
-
-        $this->model = $model;
     }
 }
 
