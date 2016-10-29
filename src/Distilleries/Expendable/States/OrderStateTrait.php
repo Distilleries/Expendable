@@ -14,7 +14,7 @@ trait OrderStateTrait
         $rows = $this->model->orderBy($this->model->orderFieldName(), 'asc')->get();
 
         $this->layoutManager->add([
-            'content' => view('expendable::admin.layout.order', [
+            'content' => view('expendable::admin.form.state.order', [
                 'rows' => $rows,
             ]),
         ]);
