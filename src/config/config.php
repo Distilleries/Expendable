@@ -28,7 +28,7 @@ return [
             'action'   => 'getIndex'
         ],
         'Distilleries\Expendable\Contracts\OrderStateContract'           => [
-            'color'    => 'bg-purple-plum',
+            'color'    => 'bg-grey-cascade',
             'icon'     => 'resize-vertical',
             'libelle'  => 'expendable::menu.order_state',
             'position' => 1,
