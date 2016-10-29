@@ -54,12 +54,30 @@ class OrderedControllerTest extends ExpendableTestCase
     public function testGetOrder()
     {
         \Route::get('/admin/ordered/order', '\OrderedController@getOrder');
-        \Route::post('/admin/ordered/order', '\OrderedController@postOrder');
-
         $response = $this->call('GET', action('\OrderedController@getOrder'));
 
         $this->assertResponseOk();
         $this->assertContains(trans('expendable::datatable.order'), $response->getContent());
+        $this->assertContains('foo', $response->getContent());
+        $this->assertContains('bar', $response->getContent());
+        $this->assertContains('baz', $response->getContent());
+    }
+
+    public function testPostOrder()
+    {
+        $orderField = (new \Ordered)->orderFieldName();
+        $before = \Ordered::orderBy($orderField, 'asc')->get();
+
+        \Route::post('/admin/ordered/order', '\OrderedController@postOrder');
+        $this->call('POST', action('\OrderedController@postOrder'), ['ids' => [2, 1, 3]]);
+
+        $after = \Ordered::orderBy($orderField, 'asc')->get();
+
+        $this->assertResponseOk();
+        $this->assertNotEquals($before, $after);
+        $this->assertEquals(2, \Ordered::find(1)->{$orderField});
+        $this->assertEquals(1, \Ordered::find(2)->{$orderField});
+        $this->assertEquals(3, \Ordered::find(3)->{$orderField});
     }
 }
 
