@@ -18,6 +18,7 @@ class LanguageController extends BaseComponent {
 
     public function getChangeLang($locale = null)
     {
+        session()->set('language',$locale);
         app()->setLocale($locale);
         return redirect()->back();
     }

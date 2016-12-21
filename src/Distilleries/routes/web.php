@@ -29,7 +29,7 @@ $router->group(array(
 
 });
 
-$router->group(array('middleware' => 'auth'), function() use($router)
+$router->group(array('middleware' => ['auth','language']), function() use($router)
 {
     $router->group(array('middleware' => 'permission', 'prefix' => config('expendable.admin_base_uri')), function() use($router)
     {
@@ -42,6 +42,7 @@ $router->group(array('middleware' => 'auth'), function() use($router)
         $router->controller('service', 'Admin\ServiceController');
         $router->controller('permission', 'Admin\PermissionController');
         $router->controller('language', 'Admin\LanguageController');
+        $router->get('set-lang/{locale?}', 'Admin\LanguageController@getChangeLang');
     });
 });
 
