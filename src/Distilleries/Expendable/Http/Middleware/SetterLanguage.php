@@ -1,4 +1,3 @@
-
 <?php
 
 namespace Distilleries\Expendable\Http\Middleware;
