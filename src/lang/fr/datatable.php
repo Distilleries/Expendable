@@ -17,7 +17,7 @@ return [
     'no'           => 'Non',
     'yes'          => 'Oui',
     'are_you_sure' => 'Etes-vous sûr ?',
-    'unlock'       => 'Unlock',
-    'lock'         => 'Lock',
+    'unlock'       => 'Vérouiller',
+    'lock'         => 'Déverouiller',
 
 ];
