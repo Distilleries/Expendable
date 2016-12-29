@@ -5,6 +5,7 @@ return [
     'type'         => 'Type',
     'id'           => 'Id',
     'libelle'      => 'Libelle',
+    'email'        => 'Email',
     'iso'          => 'Iso',
     'initials'     => 'Initials',
     'action'       => 'Action',
