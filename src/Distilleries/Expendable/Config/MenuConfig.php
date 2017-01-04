@@ -8,106 +8,110 @@ class MenuConfig {
         $first = [
             'left'  => [
                 [
-                    'icon'    => 'envelope',
-                    'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\EmailController@getIndex',
-                    'libelle' => 'expendable::menu.email',
-                    'submenu' => [
-                        [
-                            'icon'    => 'th-list',
-                            'libelle' => 'expendable::menu.list_of',
-                            'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\EmailController@getIndex',
-                        ],
-                        [
-                            'icon'    => 'pencil',
-                            'libelle' => 'expendable::menu.add',
-                            'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\EmailController@getEdit',
-                        ]
-                    ]
-                ],
-                [
                     'icon'    => 'user',
                     'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getIndex',
                     'libelle' => 'expendable::menu.user',
                     'submenu' => [
                         [
                             'icon'    => 'th-list',
-                            'libelle' => 'expendable::menu.list_of',
+                            'libelle' => 'expendable::menu.list',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getIndex',
                         ],
                         [
                             'icon'    => 'pencil',
-                            'libelle' => 'expendable::menu.add',
+                            'libelle' => 'expendable::menu.add_state',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getEdit',
                         ],
                         [
-                            'icon'    => 'user',
+                            'icon'    => 'barcode',
                             'libelle' => 'expendable::menu.my_profile',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getProfile',
-                        ]
-
-                    ]
+                        ],
+                    ],
                 ],
                 [
-                    'icon'    => 'paperclip',
+                    'icon'    => 'envelope',
+                    'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\EmailController@getIndex',
+                    'libelle' => 'expendable::menu.email',
+                    'submenu' => [
+                        [
+                            'icon'    => 'th-list',
+                            'libelle' => 'expendable::menu.list',
+                            'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\EmailController@getIndex',
+                        ],
+                        [
+                            'icon'    => 'pencil',
+                            'libelle' => 'expendable::menu.add_state',
+                            'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\EmailController@getEdit',
+                        ],
+                    ],
+                ],
+                [
+                    'icon'    => 'cog',
                     'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\RoleController@getIndex',
-                    'libelle' => 'expendable::menu.role',
+                    'libelle' => 'expendable::menu.administration',
                     'submenu' => [
                         [
-                            'icon'    => 'th-list',
-                            'libelle' => 'expendable::menu.list_of',
+                            'icon'    => 'certificate',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\RoleController@getIndex',
+                            'libelle' => 'expendable::menu.role',
+                            'submenu' => [
+                                [
+                                    'icon'    => 'th-list',
+                                    'libelle' => 'expendable::menu.list',
+                                    'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\RoleController@getIndex',
+                                ],
+                                [
+                                    'icon'    => 'pencil',
+                                    'libelle' => 'expendable::menu.add_state',
+                                    'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\RoleController@getEdit',
+                                ],
+                            ],
                         ],
                         [
-                            'icon'    => 'pencil',
-                            'libelle' => 'expendable::menu.add',
-                            'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\RoleController@getEdit',
-                        ]
-
-                    ]
-                ],
-                [
-                    'icon'    => 'tags',
-                    'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\PermissionController@getIndex',
-                    'libelle' => 'expendable::menu.permission',
-                    'submenu' => [
-                        [
-                            'icon'    => 'pencil',
-                            'libelle' => 'expendable::menu.associate_permission',
+                            'icon'    => 'wrench',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\PermissionController@getIndex',
+                            'libelle' => 'expendable::menu.permission',
+                            'submenu' => [
+                                [
+                                    'icon'    => 'th-list',
+                                    'libelle' => 'expendable::menu.list',
+                                    'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\ServiceController@getIndex',
+                                ],
+                                [
+                                    'icon'    => 'pencil',
+                                    'libelle' => 'expendable::menu.add_state',
+                                    'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\ServiceController@getEdit',
+                                ],
+                                [
+                                    'icon'    => 'refresh',
+                                    'libelle' => 'expendable::menu.sync_service',
+                                    'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\ServiceController@getSynchronize',
+                                ],
+                                [
+                                    'icon'    => 'ok-circle',
+                                    'libelle' => 'expendable::menu.associate_permission',
+                                    'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\PermissionController@getIndex',
+                                ],
+                            ],
                         ],
                         [
-                            'icon'    => 'th-list',
-                            'libelle' => 'expendable::menu.list_of',
-                            'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\ServiceController@getIndex',
-                        ],
-                        [
-                            'icon'    => 'pencil',
-                            'libelle' => 'expendable::menu.add',
-                            'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\ServiceController@getEdit',
-                        ],
-                        [
-                            'icon'    => 'retweet',
-                            'libelle' => 'expendable::menu.sync_service',
-                            'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\ServiceController@getSynchronize',
-                        ]
-                    ]
-                ],
-                [
-                    'icon'    => 'flag',
-                    'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\LanguageController@getIndex',
-                    'libelle' => 'expendable::menu.language',
-                    'submenu' => [
-                        [
-                            'icon'    => 'th-list',
-                            'libelle' => 'expendable::menu.list_of',
+                            'icon'    => 'flag',
                             'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\LanguageController@getIndex',
+                            'libelle' => 'expendable::menu.language',
+                            'submenu' => [
+                                [
+                                    'icon'    => 'th-list',
+                                    'libelle' => 'expendable::menu.list',
+                                    'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\LanguageController@getIndex',
+                                ],
+                                [
+                                    'icon'    => 'pencil',
+                                    'libelle' => 'expendable::menu.add_state',
+                                    'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\LanguageController@getEdit',
+                                ],
+                            ],
                         ],
-                        [
-                            'icon'    => 'pencil',
-                            'libelle' => 'expendable::menu.add',
-                            'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\LanguageController@getEdit',
-                        ]
-
                     ]
                 ],
             ],
