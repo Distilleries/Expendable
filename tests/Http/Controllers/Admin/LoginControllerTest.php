@@ -52,7 +52,7 @@ class LoginControllerTest extends ExpendableTestCase {
         $this->be($user);
 
         $this->call('GET', '/admin');
-        $this->assertRedirectedToAction('Admin\EmailController@getIndex');
+        $this->assertRedirectedToAction('Admin\UserController@getIndex');
     }
 
     public function testGetIndex()
