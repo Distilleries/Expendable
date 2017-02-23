@@ -6,10 +6,7 @@ class LoginControllerTest extends ExpendableTestCase {
     {
         parent::setUp();
 
-        $this->artisan('migrate', [
-            '--database' => 'testbench',
-            '--realpath' => realpath(__DIR__.'/../../../../vendor/distilleries/mailersaver/src/database/migrations'),
-        ]);
+        $this->artisan('migrate');
 
 
     }
