@@ -77,11 +77,6 @@ class ExpendableServiceProvider extends ServiceProvider {
             return new LayoutManager($app['config']->get('expendable'), $app['view'], $app['files'], app('Distilleries\Expendable\Contracts\StateDisplayerContract'));
         });
 
-        $this->app->singleton('Distilleries\MailerSaver\Contracts\MailModelContract', function()
-        {
-            return new Email;
-        });
-        
         $this->alias();
         $this->registerCommands();
         $this->registerImporters();
