@@ -14,12 +14,6 @@ class ExpendableProviderTest extends ExpendableTestCase {
         $this->assertTrue(in_array('Distilleries\Expendable\Contracts\LayoutManagerContract', $this->facades));
     }
 
-    public function testMailModelContractProvided()
-    {
-        $this->initService();
-        $this->assertTrue(in_array('Distilleries\MailerSaver\Contracts\MailModelContract', $this->facades));
-    }
-
     public function testCsvImporterContractProvided()
     {
         $this->initService();

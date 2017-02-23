@@ -1,6 +1,6 @@
 <?php
 
-abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase
+abstract class ExpendableTestCase extends \Orchestra\Testbench\BrowserKit\TestCase
 {
 
     protected $facade;
@@ -33,10 +33,7 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase
     {
         parent::setUp();
         $this->app['Illuminate\Contracts\Console\Kernel']->call('vendor:publish');
-        $this->artisan('migrate', [
-            '--database' => 'testbench',
-            '--realpath' => realpath(__DIR__ . '/../src/database/migrations'),
-        ]);
+        $this->artisan('migrate');
 
     }
 
@@ -60,14 +57,14 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase
     protected function getPackageProviders($app)
     {
         return [
-            'Wpb\String_Blade_Compiler\ViewServiceProvider',
-            'Distilleries\MailerSaver\MailerSaverServiceProvider',
             'Distilleries\FormBuilder\FormBuilderServiceProvider',
             'Distilleries\DatatableBuilder\DatatableBuilderServiceProvider',
             'Distilleries\PermissionUtil\PermissionUtilServiceProvider',
             'Maatwebsite\Excel\ExcelServiceProvider',
             'Distilleries\Expendable\ExpendableServiceProvider',
+            'Distilleries\Expendable\ExpendableRoutingServiceProvider',
             'Distilleries\Expendable\ExpendableRouteServiceProvider'
+            
         ];
     }
 
@@ -75,7 +72,6 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\TestCase
     {
         return [
             'Password'       => 'Illuminate\Support\Facades\Password',
-            'Mail'           => 'Distilleries\MailerSaver\Facades\Mail',
             'FormBuilder'    => 'Distilleries\FormBuilder\Facades\FormBuilder',
             'Form'           => 'Collective\Html\FormFacade',
             'HTML'           => 'Collective\Html\HtmlFacade',

@@ -30,23 +30,6 @@ class MenuConfig {
                     ],
                 ],
                 [
-                    'icon'    => 'envelope',
-                    'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\EmailController@getIndex',
-                    'libelle' => 'expendable::menu.email',
-                    'submenu' => [
-                        [
-                            'icon'    => 'th-list',
-                            'libelle' => 'expendable::menu.list',
-                            'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\EmailController@getIndex',
-                        ],
-                        [
-                            'icon'    => 'pencil',
-                            'libelle' => 'expendable::menu.add_state',
-                            'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\EmailController@getEdit',
-                        ],
-                    ],
-                ],
-                [
                     'icon'    => 'cog',
                     'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\RoleController@getIndex',
                     'libelle' => 'expendable::menu.administration',

@@ -21,22 +21,22 @@
 
     "require": {
         "php": ">=5.6.4",
-        "illuminate/support": "5.3.*",
-        "illuminate/database": "5.3.*",
-        "illuminate/translation": "5.3.*",
-        "distilleries/datatable-builder": "2.8.*",
-        "distilleries/form-builder": "2.8.*",
-        "distilleries/mailersaver": "2.5.*",
-        "distilleries/permission-util": "1.5.*",
+        "illuminate/support": "5.4.*",
+        "illuminate/database": "5.4.*",
+        "illuminate/translation": "5.4.*",
+        "distilleries/datatable-builder": "2.9.*",
+        "distilleries/form-builder": "2.9.*",
+        "distilleries/permission-util": "1.6.*",
         "forxer/Gravatar": "~1.2",
         "maatwebsite/excel": "2.1.*"
     },
     "require-dev": {
-        "orchestra/database": "~3.3",
-        "orchestra/testbench": "~3.3",
-        "phpunit/phpunit": "~4.7",
+        "orchestra/database": "3.4.*",
+        "orchestra/testbench": "3.4.*",
+        "orchestra/testbench-browser-kit": "3.4.*",
+        "phpunit/phpunit": "~5.7",
         "mockery/mockery": "0.9.*",
-        "fzaninotto/faker": "1.5.*"
+        "fzaninotto/faker": "1.6.*"
     },
     "autoload": {
         "classmap": [
@@ -46,5 +46,6 @@
             "Distilleries\\Expendable\\": "src/Distilleries/Expendable"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

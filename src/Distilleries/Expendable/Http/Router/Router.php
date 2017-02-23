@@ -57,6 +57,21 @@ class Router extends \Illuminate\Routing\Router
         }
         $this->addFallthroughRoute($controller, $uri);
     }
+
+    /**
+     * Prepend the last group uses onto the use clause.
+     *
+     * @param  string  $uses
+     * @return string
+     */
+    protected function prependGroupUses($uses)
+    {
+        $group = last($this->groupStack);
+
+        return isset($group['namespace']) ? $group['namespace'].'\\'.$uses : $uses;
+    }
+
+    
     /**
      * Register an inspected controller route.
      *

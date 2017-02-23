@@ -36,7 +36,6 @@ $router->group(array('middleware' => ['auth','language']), function() use($route
         $router->controller('user', 'Admin\UserController', [
             'getProfile' => 'user.profile'
         ]);
-        $router->controller('email', 'Admin\EmailController');
         $router->controller('component', 'Admin\ComponentController');
         $router->controller('role', 'Admin\RoleController');
         $router->controller('service', 'Admin\ServiceController');

@@ -32,11 +32,15 @@ class ExpendableServiceProvider extends ServiceProvider {
 
         $this->loadViewsFrom(__DIR__ . '/../../views', 'expendable');
         $this->loadTranslationsFrom(__DIR__ . '/../../lang', 'expendable');
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations/');
+
+
         $this->publishes([
             __DIR__ . '/../../config/config.php'    => config_path('expendable.php'),
-            __DIR__ . '/../../database/migrations/' => base_path('/database/migrations'),
             __DIR__ . '/../../database/seeds/'      => base_path('/database/seeds'),
         ]);
+
+
         $this->publishes([
             __DIR__ . '/../../views' => base_path('resources/views/vendor/expendable'),
         ], 'views');
