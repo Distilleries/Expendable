@@ -167,27 +167,6 @@ class LoginControllerTest extends ExpendableTestCase {
         $this->app->make('Illuminate\Contracts\Config\Repository')->set('mail.from', ['address' => 'maxime@verdikt.com.au', 'name' => 'maxime@verdikt.com.au']);
         $this->app->make('Illuminate\Contracts\Config\Repository')->set('mail.pretend', true);
 
-        $faker = Faker\Factory::create();
-        $data  = [
-            'libelle'   => $faker->realText(20),
-            'body_type' => \Distilleries\Expendable\Helpers\StaticLabel::BODY_TYPE_HTML,
-            'action'    => 'auth.emails.password',
-            'cc'        => $faker->email,
-            'bcc'       => $faker->email,
-            'content'   => $faker->text(),
-            'status'    => \Distilleries\Expendable\Helpers\StaticLabel::STATUS_ONLINE,
-        ];
-
-
-        $result = \Distilleries\Expendable\Models\Email::create($data);
-        \Distilleries\Expendable\Models\Translation::create([
-            'id_element' => $result->id,
-            'model'      => $result->getTable(),
-            'id_source'  => 0,
-            'iso'        => app()->getLocale(),
-        ]);
-
-
         \Distilleries\Expendable\Models\Role::create([
             'libelle'            => 'admin',
             'initials'           => '@a',
@@ -278,7 +257,6 @@ class LoginControllerTest extends ExpendableTestCase {
     {
 
         $token = 'bEJa3ysNqVCOv4SkGkcrJnJWqAOmh93UZrmv1IM171zAJ82WylyXh7c4CRHW';
-        $faker = Faker\Factory::create();
 
         \Distilleries\Expendable\Models\Role::create([
             'libelle'            => 'admin',
@@ -315,7 +293,7 @@ class LoginControllerTest extends ExpendableTestCase {
             'password'              => 'testtesttesttest',
             'password_confirmation' => 'testtesttesttest',
         ]);
-
+        
         $this->assertRedirectedToAction('Admin\LoginController@getIndex');
 
 

@@ -22,7 +22,7 @@ $router->group(array(
         'getIndex'  => 'login.index',
         'getRemind' => 'login.remind',
         'getLogout' => 'login.logout',
-        'getReset'  => 'login.reset',
+        'getReset'  => 'password.reset',
     ]);
     $router->get('', 'Admin\LoginController@getLoginRedirect');
     $router->get('set-lang/{locale?}', 'Admin\LanguageController@getChangeLang');

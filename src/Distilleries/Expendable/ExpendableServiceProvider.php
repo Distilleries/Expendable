@@ -3,11 +3,9 @@
 use Distilleries\Expendable\Exporter\CsvExporter;
 use Distilleries\Expendable\Exporter\ExcelExporter;
 use Distilleries\Expendable\Exporter\PdfExporter;
-use Distilleries\Expendable\Http\Router\Router;
 use Distilleries\Expendable\Importer\CsvImporter;
 use Distilleries\Expendable\Importer\XlsImporter;
 use Distilleries\Expendable\Layouts\LayoutManager;
-use Distilleries\Expendable\Models\Email;
 use Distilleries\Expendable\Models\User;
 use Distilleries\Expendable\States\StateDisplayer;
 use Illuminate\Support\ServiceProvider;
