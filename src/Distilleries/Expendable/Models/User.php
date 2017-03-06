@@ -2,6 +2,7 @@
 
 use Distilleries\Expendable\Contracts\LockableContract;
 use Distilleries\Expendable\Helpers\UserUtils;
+use Distilleries\Expendable\Mails\ResetPasswordNotification;
 use Distilleries\PermissionUtil\Contracts\PermissionUtilContract;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -77,4 +78,17 @@ class User extends BaseModel implements AuthenticatableContract, CanResetPasswor
 
         return '';
     }
+
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
 }

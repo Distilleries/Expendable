@@ -1,4 +1,6 @@
-<?php namespace Distilleries\Expendable\Models;
+<?php
+
+namespace Distilleries\Expendable\Models;
 
 use Distilleries\Expendable\Helpers\Security;
 use Distilleries\Expendable\Models\Traits\ReservedKeyWord;

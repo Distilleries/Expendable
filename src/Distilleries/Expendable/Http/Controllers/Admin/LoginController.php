@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use FormBuilder;
+use Illuminate\Support\Facades\Password;
+
 
 class LoginController extends BaseController
 {
@@ -200,37 +202,17 @@ class LoginController extends BaseController
             return $form->validateAndRedirectBack();
         }
 
-        $credentials = $request->only(
-            'email',
-            'password',
-            'password_confirmation',
-            'token'
-        );
-
-
-        $response = $this->broker()->reset($credentials, function ($user, $password) {
-            $user->password = bcrypt($password);
-            $user->save();
-
-            if (method_exists($user, 'unlock'))
-            {
-                $user->unlock();
-            }
-
-            $this->auth->login($user);
+        $response = $this->broker()->reset(
+            $this->credentials($request), function ($user, $password) {
+            $this->resetPassword($user, $password);
         });
 
-
-        switch ($response)
-        {
-            case \Password::INVALID_PASSWORD:
-            case \Password::INVALID_TOKEN:
-            case \Password::INVALID_USER:
-                return redirect()->back()->with('error', trans($response));
-
-            case \Password::PASSWORD_RESET:
-                return redirect()->to(action('\\' . get_class($this) . '@getIndex'));
-        }
+        // If the password was successfully reset, we will redirect the user back to
+        // the application's home authenticated view. If there is an error we can
+        // redirect them back to where they came from with their error message.
+        return $response == Password::PASSWORD_RESET
+            ? redirect()->to(action('\\' . get_class($this) . '@getIndex'))
+            : redirect()->back()->with('error', trans($response));
 
     }
 
