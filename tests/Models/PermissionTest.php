@@ -30,7 +30,7 @@ class PermissionTest extends ExpendableTestCase {
         list($role, $service, $permission) = $this->addContent();
 
         $expected = \Distilleries\Expendable\Models\Role::find($role->id);
-        $this->assertEquals($expected, $permission->role);
+        $this->assertEquals($expected->toArray(), $permission->role->toArray());
     }
 
     public function testPermissionService()
@@ -38,7 +38,7 @@ class PermissionTest extends ExpendableTestCase {
         list($role, $service, $permission) = $this->addContent();
 
         $expected = \Distilleries\Expendable\Models\Service::find($service->id);
-        $this->assertEquals($expected, $permission->service);
+        $this->assertEquals($expected->toArray(), $permission->service->toArray());
     }
 
     public function testPermissionGetArea()
