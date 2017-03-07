@@ -37,7 +37,7 @@ class UserTest extends ExpendableTestCase {
         list($role, $service, $permission, $user) = $this->addContent();
 
         $expected = \Distilleries\Expendable\Models\Role::find($role->id);
-        $this->assertEquals($expected, $user->role);
+        $this->assertEquals($expected->toArray(), $user->role>toArray());
     }
 
     public function testGetFirstRedirect()
