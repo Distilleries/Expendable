@@ -37,7 +37,7 @@ class UserTest extends ExpendableTestCase {
         list($role, $service, $permission, $user) = $this->addContent();
 
         $expected = \Distilleries\Expendable\Models\Role::find($role->id);
-        $this->assertEquals($expected->toArray(), $user->role>toArray());
+        $this->assertEquals($expected->toArray(), $user->role->toArray());
     }
 
     public function testGetFirstRedirect()
@@ -54,17 +54,27 @@ class UserTest extends ExpendableTestCase {
 
         $left = [
             [
-                'icon'    => 'envelope',
-                'action'  => '',
-                'libelle' => 'expendable::menu.email',
+                'icon'    => 'user',
+                'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getIndex',
+                'libelle' => 'expendable::menu.user',
                 'submenu' => [
                     [
                         'icon'    => 'th-list',
-                        'libelle' => 'expendable::menu.list_of',
-                        'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\EmailController@getEdit',
-                    ]
-                ]
-            ]
+                        'libelle' => 'expendable::menu.list',
+                        'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getIndex',
+                    ],
+                    [
+                        'icon'    => 'pencil',
+                        'libelle' => 'expendable::menu.add_state',
+                        'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getEdit',
+                    ],
+                    [
+                        'icon'    => 'barcode',
+                        'libelle' => 'expendable::menu.my_profile',
+                        'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getProfile',
+                    ],
+                ],
+            ],
         ];
 
         $this->assertEquals(action($left[0]['submenu'][0]['action']), $user->getFirstRedirect($left));
