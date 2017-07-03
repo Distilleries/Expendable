@@ -294,7 +294,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
     }
 
-    public function testExportXls()
+   /* public function testExportXls()
     {
 
         $faker = Faker\Factory::create();
@@ -326,7 +326,7 @@ class LanguageControllerTest extends ExpendableTestCase {
             $this->assertFileExists(storage_path('exports/'.$dateBegin.' '.$dateEnd.'.xls'));
         }
 
-    }
+    }*/
 
     public function testImport()
     {
