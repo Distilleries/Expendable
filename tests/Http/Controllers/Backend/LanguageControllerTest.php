@@ -22,7 +22,7 @@ class LanguageControllerTest extends ExpendableTestCase {
         $user  = \Distilleries\Expendable\Models\User::create([
             'email'    => $email,
             'password' => \Hash::make('test'),
-            'status'   => true,
+            'status'   => 1,
             'role_id'  => 1,
         ]);
 
@@ -56,9 +56,9 @@ class LanguageControllerTest extends ExpendableTestCase {
         $data     = [
             'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
-            'not_visible' => false,
-            'is_default'  => true,
-            'status'      => true,
+            'not_visible' => 0,
+            'is_default'  => 1,
+            'status'      => 1,
         ];
         $language = \Distilleries\Expendable\Models\Language::create($data);
 
@@ -87,9 +87,9 @@ class LanguageControllerTest extends ExpendableTestCase {
         $data     = [
             'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
-            'not_visible' => false,
-            'is_default'  => true,
-            'status'      => true,
+            'not_visible' => 0,
+            'is_default'  => 1,
+            'status'      => 1,
         ];
         $language = \Distilleries\Expendable\Models\Language::create($data);
 
@@ -108,9 +108,9 @@ class LanguageControllerTest extends ExpendableTestCase {
         $data     = [
             'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
-            'not_visible' => false,
-            'is_default'  => true,
-            'status'      => true,
+            'not_visible' => 0,
+            'is_default'  => 1,
+            'status'      => 1,
         ];
         $language = \Distilleries\Expendable\Models\Language::create($data);
         $response = $this->call('GET', action('Backend\LanguageController@getEdit', [
@@ -226,9 +226,9 @@ class LanguageControllerTest extends ExpendableTestCase {
         $data     = [
             'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
-            'not_visible' => false,
-            'is_default'  => true,
-            'status'      => true,
+            'not_visible' => 0,
+            'is_default'  => 1,
+            'status'      => 1,
         ];
         $language = \Distilleries\Expendable\Models\Language::create($data);
         $this->call('PUT', action('Backend\LanguageController@putDestroy'), [
@@ -266,9 +266,9 @@ class LanguageControllerTest extends ExpendableTestCase {
         $data  = [
             'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
-            'not_visible' => false,
-            'is_default'  => true,
-            'status'      => true,
+            'not_visible' => 0,
+            'is_default'  => 1,
+            'status'      => 1,
         ];
         \Distilleries\Expendable\Models\Language::create($data);
 
@@ -301,9 +301,9 @@ class LanguageControllerTest extends ExpendableTestCase {
         $data  = [
             'libelle'     => str_replace('\'', '', $faker->country),
             'iso'         => $faker->countryCode,
-            'not_visible' => false,
-            'is_default'  => true,
-            'status'      => true,
+            'not_visible' => 0,
+            'is_default'  => 1,
+            'status'      => 1,
         ];
         \Distilleries\Expendable\Models\Language::create($data);
 
