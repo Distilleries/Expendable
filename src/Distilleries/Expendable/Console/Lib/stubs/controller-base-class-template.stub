@@ -1,6 +1,6 @@
 <?php namespace {{namespace}};
 
-use Distilleries\Expendable\Http\Controllers\Admin\Base\BaseController;
+use Distilleries\Expendable\Http\Controllers\Backend\Base\BaseController;
 
 class {{class}} extends BaseController {
 

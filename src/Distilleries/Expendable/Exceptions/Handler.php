@@ -23,7 +23,7 @@ class Handler extends ExceptionHandler {
         {
             if ($request->segment(1) == config('expendable.admin_base_uri') && !config('app.debug'))
             {
-                return app('Distilleries\Expendable\Http\Controllers\Admin\Base\ErrorController')->callAction("display", [$e, $e->getStatusCode()]);
+                return app('Distilleries\Expendable\Http\Controllers\Backend\Base\ErrorController')->callAction("display", [$e, $e->getStatusCode()]);
             }
         }
 

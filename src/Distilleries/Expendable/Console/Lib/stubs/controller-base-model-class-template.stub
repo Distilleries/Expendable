@@ -1,7 +1,7 @@
 <?php namespace {{namespace}};
 
 use Distilleries\Expendable\Contracts\LayoutManagerContract;
-use Distilleries\Expendable\Http\Controllers\Admin\Base\ModelBaseController;
+use Distilleries\Expendable\Http\Controllers\Backend\Base\ModelBaseController;
 
 class {{class}} extends ModelBaseController {{implement}} {
 

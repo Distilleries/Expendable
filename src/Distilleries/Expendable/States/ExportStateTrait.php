@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 trait ExportStateTrait {
 
-    protected $export_form = 'Distilleries\Expendable\Forms\Export\ExportForm';
+    protected $export_form = 'Distilleries\Expendable\Http\Forms\Export\ExportForm';
     // ------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------

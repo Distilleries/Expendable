@@ -6,7 +6,7 @@ use \View, \FormBuilder, \Input, \Redirect, \Lang, \File, \App;
 
 trait ImportStateTrait {
 
-    protected $import_form = 'Distilleries\Expendable\Forms\Import\ImportForm';
+    protected $import_form = 'Distilleries\Expendable\Http\Forms\Import\ImportForm';
 
     // ------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------

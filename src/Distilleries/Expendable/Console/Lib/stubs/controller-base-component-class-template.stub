@@ -1,9 +1,9 @@
 <?php namespace {{namespace}};
 
 use Distilleries\Expendable\Contracts\LayoutManagerContract;
-use Distilleries\Expendable\Http\Controllers\Admin\Base\BaseComponent;
-use {{app}}Forms\{{form}};
-use {{app}}Datatables\{{datatable}};
+use Distilleries\Expendable\Http\Controllers\Backend\Base\BaseComponent;
+use {{app}}\Http\Forms\{{form}};
+use {{app}}\Http\Datatables\{{datatable}};
 
 class {{class}} extends BaseComponent {
 

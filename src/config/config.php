@@ -2,7 +2,7 @@
 
 return [
     'login_uri'           => 'admin/login',
-    'logout_action'       => 'Distilleries\Expendable\Http\Controllers\Admin\LoginController@getLogout',
+    'logout_action'       => 'Distilleries\Expendable\Http\Controllers\Backend\LoginController@getLogout',
     'admin_base_uri'      => 'admin',
     'config_file_assets'  => base_path() . '/package.json',
     'folder_whitelist'    => [
