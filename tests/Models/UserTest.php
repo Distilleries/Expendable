@@ -55,23 +55,23 @@ class UserTest extends ExpendableTestCase {
         $left = [
             [
                 'icon'    => 'user',
-                'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getIndex',
+                'action'  => '\Distilleries\Expendable\Http\Controllers\Backend\UserController@getIndex',
                 'libelle' => 'expendable::menu.user',
                 'submenu' => [
                     [
                         'icon'    => 'th-list',
                         'libelle' => 'expendable::menu.list',
-                        'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getIndex',
+                        'action'  => '\Distilleries\Expendable\Http\Controllers\Backend\UserController@getIndex',
                     ],
                     [
                         'icon'    => 'pencil',
                         'libelle' => 'expendable::menu.add_state',
-                        'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getEdit',
+                        'action'  => '\Distilleries\Expendable\Http\Controllers\Backend\UserController@getEdit',
                     ],
                     [
                         'icon'    => 'barcode',
                         'libelle' => 'expendable::menu.my_profile',
-                        'action'  => '\Distilleries\Expendable\Http\Controllers\Admin\UserController@getProfile',
+                        'action'  => '\Distilleries\Expendable\Http\Controllers\Backend\UserController@getProfile',
                     ],
                 ],
             ],

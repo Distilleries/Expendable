@@ -2,7 +2,7 @@
 
 class ComponentControllerTest extends ExpendableTestCase {
 
-    protected $controller = 'Admin\ComponentController';
+    protected $controller = 'Backend\ComponentController';
 
     public function setUp()
     {
@@ -86,9 +86,9 @@ class ComponentControllerTest extends ExpendableTestCase {
         ];
 
         $this->call('POST', action($this->controller.'@postEdit'), $data);
-        $this->assertFileExists(app_path('Datatables/'.$data['libelle'].'Datatable.php'));
-        $this->assertFileExists(app_path('Forms/'.$data['libelle'].'Form.php'));
-        $this->assertFileExists(app_path('Http/Controllers/Admin/'.$data['libelle'].'Controller.php'));
+        $this->assertFileExists(app_path('Http/Datatables/'.$data['libelle'].'Datatable.php'));
+        $this->assertFileExists(app_path('Http/Forms/'.$data['libelle'].'Form.php'));
+        $this->assertFileExists(app_path('Http/Controllers/Backend/'.$data['libelle'].'Controller.php'));
 
         $this->assertSessionHas(\Distilleries\Expendable\Formatter\Message::MESSAGE);
 

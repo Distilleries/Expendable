@@ -2,7 +2,7 @@
 
 class UserControllerTest extends ExpendableTestCase {
 
-    protected $controller = 'Admin\UserController';
+    protected $controller = 'Backend\UserController';
 
     public function setUp()
     {

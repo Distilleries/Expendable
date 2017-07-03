@@ -2,7 +2,7 @@
 
 class ServiceControllerTest extends ExpendableTestCase {
 
-    protected $controller = 'Admin\ServiceController';
+    protected $controller = 'Backend\ServiceController';
 
     public function setUp()
     {

@@ -12,18 +12,18 @@ class ConfigTest extends ExpendableTestCase {
 
         $left = [
             'icon'    => 'send',
-            'action'  => 'Admin\ContactController@getIndex',
+            'action'  => 'Backend\ContactController@getIndex',
             'libelle' => 'Contact',
             'submenu' => [
                 [
                     'icon'    => 'th-list',
                     'libelle' => 'List of Contact',
-                    'action'  => 'Admin\ContactController@getIndex',
+                    'action'  => 'Backend\ContactController@getIndex',
                 ],
                 [
                     'icon'    => 'pencil',
                     'libelle' => 'Add Contact',
-                    'action'  => 'Admin\ContactController@getEdit',
+                    'action'  => 'Backend\ContactController@getEdit',
                 ]
             ]
         ];
@@ -31,7 +31,7 @@ class ConfigTest extends ExpendableTestCase {
         $task = [
             [
                 'icon'    => 'globe',
-                'action'  => 'Admin\CountryController@getIndex',
+                'action'  => 'Backend\CountryController@getIndex',
                 'libelle' => 'Country'
             ]
         ];
@@ -62,18 +62,18 @@ class ConfigTest extends ExpendableTestCase {
 
         $left = [
             'icon'    => 'send',
-            'action'  => 'Admin\ContactController@getIndex',
+            'action'  => 'Backend\ContactController@getIndex',
             'libelle' => 'Contact',
             'submenu' => [
                 [
                     'icon'    => 'th-list',
                     'libelle' => 'List of Contact',
-                    'action'  => 'Admin\ContactController@getIndex',
+                    'action'  => 'Backend\ContactController@getIndex',
                 ],
                 [
                     'icon'    => 'pencil',
                     'libelle' => 'Add Contact',
-                    'action'  => 'Admin\ContactController@getEdit',
+                    'action'  => 'Backend\ContactController@getEdit',
                 ]
             ]
         ];
@@ -81,7 +81,7 @@ class ConfigTest extends ExpendableTestCase {
         $task = [
             [
                 'icon'    => 'globe',
-                'action'  => 'Admin\CountryController@getIndex',
+                'action'  => 'Backend\CountryController@getIndex',
                 'libelle' => 'Country'
             ]
         ];

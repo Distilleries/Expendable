@@ -2,7 +2,7 @@
 
 class RoleControllerTest extends ExpendableTestCase {
 
-    protected $controller = 'Admin\RoleController';
+    protected $controller = 'Backend\RoleController';
 
     public function setUp()
     {

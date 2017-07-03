@@ -8,7 +8,10 @@
     <meta content="" name="author"/>
     <link rel="shortcut icon" href="{{asset('favicon.ico')}}"/>
     <base href="{{ Config::get('app.url') }}" />
-    <link href="{{ asset(mix('assets/backend/app.css')) }}" rel="stylesheet">
+    @if(app()->environment() != 'testing')
+        <link href="{{ asset(mix('assets/backend/app.css')) }}" rel="stylesheet">
+    @endif
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">

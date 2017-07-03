@@ -5,8 +5,10 @@
     <i class="glyphicon glyphicon-upload"></i>
 </div>
 
-<script src="{{ asset(mix('assets/backend/scripts.js')) }}" ></script>
-<script src="{{ asset(mix('assets/backend/app.js')) }}" ></script>
+@if(app()->environment() != 'testing')
+    <script src="{{ asset(mix('assets/backend/scripts.js')) }}" ></script>
+    <script src="{{ asset(mix('assets/backend/app.js')) }}" ></script>
+@endif
 @include('expendable::admin.part.validation')
 @yield('javascript')
 @stop

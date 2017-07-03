@@ -39,7 +39,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     public function testDatatable()
     {
 
-        $response = $this->call('GET', action('Admin\LanguageController@getIndex'));
+        $response = $this->call('GET', action('Backend\LanguageController@getIndex'));
         $this->assertResponseOk();
 
         $this->assertContains(trans('expendable::datatable.id'), $response->getContent());
@@ -62,7 +62,7 @@ class LanguageControllerTest extends ExpendableTestCase {
         ];
         $language = \Distilleries\Expendable\Models\Language::create($data);
 
-        $response = $this->call('GET', action('Admin\LanguageController@getDatatable'));
+        $response = $this->call('GET', action('Backend\LanguageController@getDatatable'));
         $this->assertResponseOk();
         $result = json_decode($response->getContent());
 
@@ -74,7 +74,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
     public function testGetChangeLang()
     {
-        $this->call('GET', action('Admin\LanguageController@getChangeLang', [
+        $this->call('GET', action('Backend\LanguageController@getChangeLang', [
             'local' => 'es'
         ]));
         $this->assertEquals('es', $this->app->getLocale());
@@ -93,7 +93,7 @@ class LanguageControllerTest extends ExpendableTestCase {
         ];
         $language = \Distilleries\Expendable\Models\Language::create($data);
 
-        $response = $this->call('GET', action('Admin\LanguageController@getView', [
+        $response = $this->call('GET', action('Backend\LanguageController@getView', [
             'id' => $language->id
         ]));
 
@@ -113,7 +113,7 @@ class LanguageControllerTest extends ExpendableTestCase {
             'status'      => true,
         ];
         $language = \Distilleries\Expendable\Models\Language::create($data);
-        $response = $this->call('GET', action('Admin\LanguageController@getEdit', [
+        $response = $this->call('GET', action('Backend\LanguageController@getEdit', [
             'id' => $language->id
         ]));
 
@@ -126,7 +126,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
     public function testSaveError()
     {
-        $this->call('POST', action('Admin\LanguageController@postEdit'));
+        $this->call('POST', action('Backend\LanguageController@postEdit'));
         $this->assertSessionHasErrors();
         $this->assertHasOldInput();
     }
@@ -142,7 +142,7 @@ class LanguageControllerTest extends ExpendableTestCase {
             'status'      => 1,
         ];
 
-        $this->call('POST', action('Admin\LanguageController@postEdit'), $data);
+        $this->call('POST', action('Backend\LanguageController@postEdit'), $data);
         $total = \Distilleries\Expendable\Models\Language::where('libelle', $data['libelle'])->where('iso', $data['iso'])->count();
 
         $this->assertEquals(1, $total);
@@ -160,7 +160,7 @@ class LanguageControllerTest extends ExpendableTestCase {
             'status'      => 1,
         ];
         $language = \Distilleries\Expendable\Models\Language::create($data);
-        $response = $this->call('POST', action('Admin\LanguageController@postSearch'), [
+        $response = $this->call('POST', action('Backend\LanguageController@postSearch'), [
             'ids' => [$language->id]
         ]);
 
@@ -168,7 +168,7 @@ class LanguageControllerTest extends ExpendableTestCase {
         $this->assertEquals($language->id, $result[0]->id);
         $this->assertEquals($language->libelle, $result[0]->libelle);
 
-        $response = $this->call('POST', action('Admin\LanguageController@postSearch'), [
+        $response = $this->call('POST', action('Backend\LanguageController@postSearch'), [
         ]);
 
         $result = json_decode($response->getContent());
@@ -187,7 +187,7 @@ class LanguageControllerTest extends ExpendableTestCase {
             'status'      => 1,
         ];
         $language = \Distilleries\Expendable\Models\Language::create($data);
-        $response = $this->call('POST', action('Admin\LanguageController@postSearch'), [
+        $response = $this->call('POST', action('Backend\LanguageController@postSearch'), [
             'ids' => [$language->id]
         ]);
 
@@ -197,7 +197,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
         try
         {
-            $response = $this->call('POST', action('Admin\LanguageController@postSearch'), [
+            $response = $this->call('POST', action('Backend\LanguageController@postSearch'), [
                 'term' => $data['iso'].$data['iso'].$data['iso']
             ]);
 
@@ -214,7 +214,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     public function testDestroyNoId()
     {
 
-        $this->call('PUT', action('Admin\LanguageController@putDestroy'));
+        $this->call('PUT', action('Backend\LanguageController@putDestroy'));
         $this->assertSessionHasErrors();
         $this->assertHasOldInput();
 
@@ -231,7 +231,7 @@ class LanguageControllerTest extends ExpendableTestCase {
             'status'      => true,
         ];
         $language = \Distilleries\Expendable\Models\Language::create($data);
-        $this->call('PUT', action('Admin\LanguageController@putDestroy'), [
+        $this->call('PUT', action('Backend\LanguageController@putDestroy'), [
             'id' => $language->id
         ]);
         $newLanguage = \Distilleries\Expendable\Models\Language::find($language->id);
@@ -244,7 +244,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     public function testExport()
     {
 
-        $response = $this->call('GET', action('Admin\LanguageController@getExport'));
+        $response = $this->call('GET', action('Backend\LanguageController@getExport'));
         $this->assertResponseOk();
 
         $this->assertContains(trans('expendable::form.date'), $response->getContent());
@@ -254,7 +254,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     public function testExportError()
     {
 
-        $this->call('POST', action('Admin\LanguageController@postExport'));
+        $this->call('POST', action('Backend\LanguageController@postExport'));
         $this->assertSessionHasErrors();
         $this->assertHasOldInput();
     }
@@ -278,7 +278,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
         try
         {
-            $this->call('POST', action('Admin\LanguageController@postExport'), [
+            $this->call('POST', action('Backend\LanguageController@postExport'), [
                 'range' => [
                     'start' => $dateBegin,
                     'end'   => $dateEnd
@@ -312,7 +312,7 @@ class LanguageControllerTest extends ExpendableTestCase {
         \File::delete(storage_path('exports'));
         try
         {
-            $this->call('POST', action('Admin\LanguageController@postExport'), [
+            $this->call('POST', action('Backend\LanguageController@postExport'), [
                 'range' => [
                     'start' => $dateBegin,
                     'end'   => $dateEnd
@@ -332,7 +332,7 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
 
 
-        $response = $this->call('GET', action('Admin\LanguageController@getImport'));
+        $response = $this->call('GET', action('Backend\LanguageController@getImport'));
         $this->assertResponseOk();
         $this->assertContains(trans('expendable::form.file_import'), $response->getContent());
     }
@@ -340,7 +340,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
     public function testImportNoFileCsv()
     {
-        $this->call('POST', action('Admin\LanguageController@postImport'), [
+        $this->call('POST', action('Backend\LanguageController@postImport'), [
             'file' => storage_path('test.csv')
         ]);
 
@@ -352,7 +352,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
         \DB::table('languages')->truncate();
         copy(realpath(__DIR__.'/../../../data/exports/2015-03-17 2015-03-19.csv'), storage_path('2015-03-17 2015-03-19.csv'));
-        $this->call('POST', action('Admin\LanguageController@postImport'), [
+        $this->call('POST', action('Backend\LanguageController@postImport'), [
             'file' => storage_path('2015-03-17 2015-03-19.csv')
         ]);
 
@@ -366,7 +366,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
         \DB::table('languages')->truncate();
         copy(realpath(__DIR__.'/../../../data/exports/2015-03-17 2015-03-19.csv'), storage_path('2015-03-17 2015-03-19.xls'));
-        $this->call('POST', action('Admin\LanguageController@postImport'), [
+        $this->call('POST', action('Backend\LanguageController@postImport'), [
             'file' => storage_path('2015-03-17 2015-03-19.xls')
         ]);
 

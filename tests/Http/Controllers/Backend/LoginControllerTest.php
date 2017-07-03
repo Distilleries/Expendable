@@ -50,13 +50,13 @@ class LoginControllerTest extends ExpendableTestCase
         $this->be($user);
 
         $this->call('GET', '/admin');
-        $this->assertRedirectedToAction('Admin\UserController@getIndex');
+        $this->assertRedirectedToAction('Backend\UserController@getIndex');
     }
 
     public function testGetIndex()
     {
 
-        $response = $this->call('GET', action('Admin\LoginController@getIndex'));
+        $response = $this->call('GET', action('Backend\LoginController@getIndex'));
         $this->assertResponseOk();
 
         $this->assertContains(trans('expendable::form.email'), $response->getContent());
@@ -66,7 +66,7 @@ class LoginControllerTest extends ExpendableTestCase
 
     public function testLoginEmpty()
     {
-        $this->call('POST', action('Admin\LoginController@postIndex'), [
+        $this->call('POST', action('Backend\LoginController@postIndex'), [
             'email'    => '',
             'password' => '',
         ]);
@@ -79,7 +79,7 @@ class LoginControllerTest extends ExpendableTestCase
         $faker = Faker\Factory::create();
 
 
-        $this->call('POST', action('Admin\LoginController@postIndex'), [
+        $this->call('POST', action('Backend\LoginController@postIndex'), [
             'email'    => $faker->email,
             'password' => 'test',
         ]);
@@ -117,7 +117,7 @@ class LoginControllerTest extends ExpendableTestCase
         ]);
 
 
-        $this->call('POST', action('Admin\LoginController@postIndex'), [
+        $this->call('POST', action('Backend\LoginController@postIndex'), [
             'email'    => $email,
             'password' => 'test',
         ]);
@@ -125,7 +125,7 @@ class LoginControllerTest extends ExpendableTestCase
         $newUser = $this->app->make('Illuminate\Contracts\Auth\Guard')->user();
         $this->assertEquals($user->id, $newUser->id);
 
-        $this->call('GET', action('Admin\LoginController@getLogout'));
+        $this->call('GET', action('Backend\LoginController@getLogout'));
         $newUser = $this->app->make('Illuminate\Contracts\Auth\Guard')->user();
         $this->assertEquals(null, $newUser);
     }
@@ -134,7 +134,7 @@ class LoginControllerTest extends ExpendableTestCase
     public function testGetReminder()
     {
 
-        $response = $this->call('GET', action('Admin\LoginController@getRemind'));
+        $response = $this->call('GET', action('Backend\LoginController@getRemind'));
         $this->assertResponseOk();
 
         $this->assertContains(trans('expendable::form.email'), $response->getContent());
@@ -143,7 +143,7 @@ class LoginControllerTest extends ExpendableTestCase
 
     public function testReminderEmpty()
     {
-        $this->call('POST', action('Admin\LoginController@postRemind'), [
+        $this->call('POST', action('Backend\LoginController@postRemind'), [
             'email' => '',
         ]);
         $this->assertSessionHasErrors(['email']);
@@ -153,7 +153,7 @@ class LoginControllerTest extends ExpendableTestCase
     public function testBadReminder()
     {
         $faker    = Faker\Factory::create();
-        $response = $this->call('POST', action('Admin\LoginController@postRemind'), [
+        $response = $this->call('POST', action('Backend\LoginController@postRemind'), [
             'email' => $faker->email . rand()
         ]);
 
@@ -192,7 +192,7 @@ class LoginControllerTest extends ExpendableTestCase
             'service_id' => 1,
         ]);
 
-        $response = $this->call('POST', action('Admin\LoginController@postRemind'), [
+        $response = $this->call('POST', action('Backend\LoginController@postRemind'), [
             'email' => $email
         ]);
 
@@ -205,7 +205,7 @@ class LoginControllerTest extends ExpendableTestCase
     public function testGetResetNoToken()
     {
         try {
-            $this->call('GET', action('Admin\LoginController@getReset'));
+            $this->call('GET', action('Backend\LoginController@getReset'));
         } catch (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e) {
             $this->assertTrue(true);
         }
@@ -213,7 +213,7 @@ class LoginControllerTest extends ExpendableTestCase
 
     public function testGetResetToken()
     {
-        $response = $this->call('GET', action('Admin\LoginController@getReset', [
+        $response = $this->call('GET', action('Backend\LoginController@getReset', [
             'token' => 'bEJa3ysNqVCOv4SkGkcrJnJWqAOmh93UZrmv1IM171zAJ82WylyXh7c4CRHW'
         ]));
 
@@ -230,7 +230,7 @@ class LoginControllerTest extends ExpendableTestCase
     public function testPostResetNoToeken()
     {
 
-        $this->call('POST', action('Admin\LoginController@postReset'), [
+        $this->call('POST', action('Backend\LoginController@postReset'), [
         ]);
 
         $this->assertSessionHasErrors();
@@ -241,7 +241,7 @@ class LoginControllerTest extends ExpendableTestCase
     {
 
         $faker = Faker\Factory::create();
-        $this->call('POST', action('Admin\LoginController@postReset'), [
+        $this->call('POST', action('Backend\LoginController@postReset'), [
             'token'                 => 'bEJa3ysNqVCOv4SkGkcrJnJWqAOmh93UZrmv1IM171zAJ82WylyXh7c4CRHW',
             'email'                 => $faker->email,
             'password'              => $faker->email,
@@ -284,14 +284,14 @@ class LoginControllerTest extends ExpendableTestCase
         $response = \Illuminate\Support\Facades\Password::broker()->sendResetLink(['email' => $email]);
         $token    = \DB::table('password_resets')->where('email', $email)->get()->last();
 
-        $this->call('POST', action('Admin\LoginController@postReset'), [
+        $this->call('POST', action('Backend\LoginController@postReset'), [
             'token'                 => $token->token,
             'email'                 => $token->email,
             'password'              => '_Example01!',
             'password_confirmation' => '_Example01!',
         ]);
 
-        $this->assertRedirectedToAction('Admin\LoginController@getIndex');
+        $this->assertRedirectedToAction('Backend\LoginController@getIndex');
 
 
     }*/

@@ -1,4 +1,4 @@
-<?php namespace Distilleries\Expendable\Datatables;
+<?php namespace Distilleries\Expendable\Http\Datatables;
 
 use Distilleries\DatatableBuilder\EloquentDatatable;
 use Distilleries\Expendable\Models\Language;
