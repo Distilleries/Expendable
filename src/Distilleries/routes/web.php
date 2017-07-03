@@ -18,14 +18,14 @@ $router->group(array(
     'middleware' => 'guest'
 ), function() use ($router){
 
-    $router->controller('login', 'Admin\LoginController', [
+    $router->controller('login', 'Backend\LoginController', [
         'getIndex'  => 'login.index',
         'getRemind' => 'login.remind',
         'getLogout' => 'login.logout',
         'getReset'  => 'password.reset',
     ]);
-    $router->get('', 'Admin\LoginController@getLoginRedirect');
-    $router->get('set-lang/{locale?}', 'Admin\LanguageController@getChangeLang');
+    $router->get('', 'Backend\LoginController@getLoginRedirect');
+    $router->get('set-lang/{locale?}', 'Backend\LanguageController@getChangeLang');
 
 });
 
@@ -33,15 +33,15 @@ $router->group(array('middleware' => ['auth','language']), function() use($route
 {
     $router->group(array('middleware' => 'permission', 'prefix' => config('expendable.admin_base_uri')), function() use($router)
     {
-        $router->controller('user', 'Admin\UserController', [
+        $router->controller('user', 'Backend\UserController', [
             'getProfile' => 'user.profile'
         ]);
-        $router->controller('component', 'Admin\ComponentController');
-        $router->controller('role', 'Admin\RoleController');
-        $router->controller('service', 'Admin\ServiceController');
-        $router->controller('permission', 'Admin\PermissionController');
-        $router->controller('language', 'Admin\LanguageController');
-        $router->get('set-lang/{locale?}', 'Admin\LanguageController@getChangeLang');
+        $router->controller('component', 'Backend\ComponentController');
+        $router->controller('role', 'Backend\RoleController');
+        $router->controller('service', 'Backend\ServiceController');
+        $router->controller('permission', 'Backend\PermissionController');
+        $router->controller('language', 'Backend\LanguageController');
+        $router->get('set-lang/{locale?}', 'Backend\LanguageController@getChangeLang');
     });
 });
 
