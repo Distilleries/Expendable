@@ -3,7 +3,7 @@
 class AssetControllerTest extends ExpendableTestCase
 {
 
-    protected $controller = 'Front\AssetController';
+    protected $controller = 'Frontend\AssetController';
 
 
     public function testAssetNotFound()

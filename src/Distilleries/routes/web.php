@@ -12,7 +12,7 @@
 */
 
 
-$router->get('storage/{path}', 'Front\AssetController@getIndex')->where('path', '([A-z\d-\/_.\s]+)?');
+$router->get('storage/{path}', 'Frontend\AssetController@getIndex')->where('path', '([A-z\d-\/_.\s]+)?');
 $router->group(array(
     'prefix' => config('expendable.admin_base_uri'),
     'middleware' => 'guest'
