@@ -99,7 +99,7 @@ class ComponentController extends BaseController implements FormStateContract {
             '--model'     => $model,
             '--datatable' => $libelle_datatable,
             '--form'      => $libelle_form,
-            'name'        => 'Http/Controllers/Admin/' . $libelle_controller
+            'name'        => 'Http/Controllers/Backend/' . $libelle_controller
         ]);
 
         return redirect()->back()->with(Message::MESSAGE, [trans('expendable::success.generated')]);

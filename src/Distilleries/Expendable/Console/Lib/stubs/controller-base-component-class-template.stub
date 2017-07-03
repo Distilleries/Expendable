@@ -2,8 +2,8 @@
 
 use Distilleries\Expendable\Contracts\LayoutManagerContract;
 use Distilleries\Expendable\Http\Controllers\Backend\Base\BaseComponent;
-use {{app}}\Http\Forms\{{form}};
-use {{app}}\Http\Datatables\{{datatable}};
+use {{app}}Http\Forms\{{form}};
+use {{app}}Http\Datatables\{{datatable}};
 
 class {{class}} extends BaseComponent {
 
