@@ -97,16 +97,18 @@ Add Service provider to `config/app.php`:
 
 ``` php
     'providers' => [
-          /**
-           * Vendor provider
-           */
-        Wpb\String_Blade_Compiler\ViewServiceProvider::class,
+        
+        /*
+         * Package Service Providers...
+         */
+        Laravel\Tinker\TinkerServiceProvider::class,
         Distilleries\FormBuilder\FormBuilderServiceProvider::class,
+        Distilleries\DatatableBuilder\DatatableBuilderServiceProvider::class,
         Distilleries\PermissionUtil\PermissionUtilServiceProvider::class,
-        Distilleries\MailerSaver\MailerSaverServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Distilleries\Expendable\ExpendableServiceProvider::class,
         Distilleries\Expendable\ExpendableRouteServiceProvider::class,
+
 
     ]
 ```
@@ -121,13 +123,12 @@ And Facade (also in `config/app.php`) replace the laravel facade `Mail`
         *
         */
        
-      'Mail'           => \Distilleries\MailerSaver\Facades\Mail::class,
-      'FormBuilder'    => \Distilleries\FormBuilder\Facades\FormBuilder::class,
-      'Form'           => \Illuminate\Html\FormFacade::class,
-      'HTML'           => \Illuminate\Html\HtmlFacade::class,
-      'Datatable'      => \Distilleries\DatatableBuilder\Facades\DatatableBuilder::class,
-      'PermissionUtil' => \Distilleries\PermissionUtil\Facades\PermissionUtil::class,
-      'Excel'          => \Maatwebsite\Excel\Facades\Excel::class,
+     'FormBuilder'    => \Distilleries\FormBuilder\Facades\FormBuilder::class,
+     'Form'           => Collective\Html\FormFacade::class,
+     'HTML'           => Collective\Html\HtmlFacade::class,
+     'Datatable'      => \Distilleries\DatatableBuilder\Facades\DatatableBuilder::class,
+     'PermissionUtil' => \Distilleries\PermissionUtil\Facades\PermissionUtil::class,
+     'Excel'          => \Maatwebsite\Excel\Facades\Excel::class,
     ]
 ```
 
@@ -137,24 +138,6 @@ Publish the configuration:
 
 ```ssh
 php artisan vendor:publish --provider="Distilleries\Expendable\ExpendableServiceProvider"
-```
-
-### Add the admin kernel
-To get all the default component you have to register the kernel.
-To do that only add this line in `bootstrap/app.php`:
-    
-```php
-    $app->singleton(
-        'Distilleries\Expendable\Http\Kernel',
-    );
-```
-
-If you want stylize the errors with the backend style just add this line in `bootstrap/app.php`:
-    
-```php
-   $app->singleton(
-   	'Distilleries\Expendable\Exceptions\Handler',
-   );
 ```
 
 
