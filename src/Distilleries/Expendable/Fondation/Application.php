@@ -4,7 +4,6 @@ namespace Distilleries\Expendable\Fondation;
 
 
 use Distilleries\Expendable\ExpendableRoutingServiceProvider;
-use Illuminate\Events\EventServiceProvider;
 use Illuminate\Foundation\Application as BaseApplication;
 
 class Application extends BaseApplication
@@ -18,7 +17,7 @@ class Application extends BaseApplication
      */
     protected function registerBaseServiceProviders()
     {
-        $this->register(new EventServiceProvider($this));
+        parent::registerBaseServiceProviders();
         $this->register(new ExpendableRoutingServiceProvider($this));
     }
 
