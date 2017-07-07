@@ -15,9 +15,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \Distilleries\Expendable\Http\Middleware\Secure::class,
         \Distilleries\Expendable\Http\Middleware\AuthenticateOnceWithBasicAuth::class,
-        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Distilleries\Expendable\Http\Middleware\ResponseXFrameHeaderMiddleware::class,
         \Distilleries\Expendable\Http\Middleware\SetDisplayStatus::class
     ];
