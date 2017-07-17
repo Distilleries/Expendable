@@ -1,18 +1,17 @@
 @section('header')
-    <meta charset="utf-8"/>
-    <title>{{ $title }}</title>
+    <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta content="" name="description"/>
-    <meta content="" name="author"/>
-    <link rel="shortcut icon" href="{{asset('favicon.ico')}}"/>
-    <base href="{{ Config::get('app.url') }}" />
-    @if(app()->environment() != 'testing')
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{{ $title }}</title>
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    <base href="{{ config('app.url') }}">
+    @if (app()->environment() !== 'testing')
+        <link href="{{ asset(mix('assets/backend/styles.css')) }}" rel="stylesheet">
         <link href="{{ asset(mix('assets/backend/app.css')) }}" rel="stylesheet">
     @endif
-
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop
