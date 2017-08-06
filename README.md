@@ -5,7 +5,7 @@
 [![Latest Stable Version](https://poser.pugx.org/distilleries/expendable/version)](https://packagist.org/packages/distilleries/expendable)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE) 
 
-#Expendable
+# Expendable
 
 Expendable is an admin panel base on laravel 5.*.
 This package give you some implementation do add a content management system of your application.
@@ -14,6 +14,7 @@ You can override everything. This Cms give view few tools to develop your conten
 If you want install a fresh install of laravel 5 with Expendable package configured and gulp, bower structure go in https://github.com/Distilleries/Xyz.
 
 ## Table of contents
+
 1. [Require](#require)
 1. [Installation](#installation)
 1. [Configurations](#configurations)
@@ -47,6 +48,7 @@ If you want install a fresh install of laravel 5 with Expendable package configu
     1. [Add to the menu](#5-add-to-the-menu)
 
 ## Require
+
 To use this project you have to install:
 
 1. Php 5.5 or more
@@ -56,7 +58,7 @@ To use this project you have to install:
 6. NodeJs version 0.10.33
 7. gulp in global (npm install gulp -g)
 
-##Installation
+## Installation
 
 Add on your composer.json
 
@@ -74,7 +76,6 @@ Add Application override to `bootstrap/app.php`:
 
 ``` php
 
-
 $app = new \Distilleries\Expendable\Fondation\Application(
     realpath(__DIR__ . '/../')
 );
@@ -85,7 +86,6 @@ $app->bind('path.storage', function ($app) {
 
     return $path;
 });
-
 
 ```
 
@@ -114,14 +114,13 @@ Add Service provider to `config/app.php`:
 ```
 
 And Facade (also in `config/app.php`) replace the laravel facade `Mail`
-   
 
 ``` php
     'aliases' => [
         /**
-        * Vendor facade
-        *
-        */
+         * Vendor facade
+         *
+         */
        
      'FormBuilder'    => \Distilleries\FormBuilder\Facades\FormBuilder::class,
      'Form'           => Collective\Html\FormFacade::class,
@@ -140,8 +139,7 @@ Publish the configuration:
 php artisan vendor:publish --provider="Distilleries\Expendable\ExpendableServiceProvider"
 ```
 
-
-##Configurations
+## Configurations
 
 ```php
     return [
@@ -207,8 +205,8 @@ menu | Use the method \Distilleries\Expendable\Config\MenuConfig::menu() to merg
 menu_left_collapsed | Set to tru to keep close the menu left. By default it set to false and the menu is open.
 state | List of state available, with the color, the logo and the name.
 
+### Menu
 
-###Menu
 I use a function to easily merge the default component with the component of the application.
 
 By default you can find on the menu left:
@@ -236,11 +234,10 @@ By default you can find on the menu task:
 1.  Generate a new component
 2.  Synchronize all services
 
-
 To add a new item it's easy
 
 ```php
-        'menu'               => \Distilleries\Expendable\Config\MenuConfig::menu([
+        'menu' => \Distilleries\Expendable\Config\MenuConfig::menu([
                 'left' => [
                     [
                         'icon'    => 'send',
@@ -279,7 +276,6 @@ action | Action call when you click ( use action helper to generate the url)
 libelle | Translation of your menu item
 submenu | If you want add sub-item you can add an array with the same options
 
-
 The method `\Distilleries\Expendable\Config\MenuConfig::menu` tak two parameters
 
 1. An array with the content of the meny `['left'=>[],'tasks'=>[]]` 
@@ -293,8 +289,8 @@ Example of menu task:
 
 ![tasks](http://distilleri.es/markdown/expendable/_images/tasks.png)
 
+### State
 
-###State
 A state is a part of your controller where you define a list of actions.
 By default I implemented four states:
 
@@ -314,7 +310,6 @@ To display the menu of state I provide a class for the interface `Distilleries\E
 
 This class check the interface use on your controller and with the config `exependable::state` display the logo and the name of the state.
 If you want change the state display, just provide a new class for the contract `Distilleries\Expendable\Contracts\StateDisplayerContract`.
-
  
 To display all the element I use a layout manager. you can override it to display what you want.
 ```php
@@ -324,7 +319,7 @@ To display all the element I use a layout manager. you can override it to displa
     });
 ```
 
-####1. Datatable
+#### 1. Datatable
 
 ![datatable](http://distilleri.es/markdown/expendable/_images/states.png)
 
@@ -362,7 +357,7 @@ Inject them on your constructor:
 ```
     
 
-####2. Export
+#### 2. Export
 
 ![export](http://distilleri.es/markdown/expendable/_images/export.png)
 
@@ -414,8 +409,7 @@ You can change the class provide to export the data. Just add those methods on y
     });
 ```
 
-
-####3. Import
+#### 3. Import
 
 ![import](http://distilleri.es/markdown/expendable/_images/import.png)
 
@@ -450,7 +444,6 @@ Inject them on your constructor:
     }
 ```
 
-
 You can change the class provide to import the data. Just add those methods on your service provider and change the class instantiated.
 
 ```php
@@ -470,12 +463,11 @@ You can change the class provide to import the data. Just add those methods on y
     });
 ```
 
-####4. Form
+#### 4. Form
 
 ![form](http://distilleri.es/markdown/expendable/_images/form.png)
 
 The form state give you a part to add or edit an element and a part to view the element without edit.
-
 
 To use it you have to implement the interface `Distilleries\FormBuilder\Contracts\FormStateContract`.
 
@@ -511,7 +503,8 @@ Inject them on your constructor:
     }
 ```
 
-##Component
+## Component
+
 A component is just a composition of controller, form, datatable, model.
 To create a new component you can go in `/admin/component/edit` and fill the form, or use the command line:
 
@@ -534,11 +527,10 @@ To know all the types of fields you can [have look the documentation](https://gi
 
 ![component](http://distilleri.es/markdown/expendable/_images/component.png)
 
+### Admin BaseComponent
 
-###Admin BaseComponent
 By default if you check all the state that generate a controller inheritance from `Distilleries\Expendable\Http\Controllers\Admin\Base\BaseComponent`.
 This controller implement all the states interfaces.
-
 
 ```php
     use Distilleries\DatatableBuilder\Contracts\DatatableStateContract;
@@ -549,8 +541,6 @@ This controller implement all the states interfaces.
     use Distilleries\Expendable\States\FormStateTrait;
     use Distilleries\Expendable\States\ImportStateTrait;
     use Distilleries\FormBuilder\Contracts\FormStateContract;
-    
-    
     
     class BaseComponent extends ModelBaseController implements FormStateContract, DatatableStateContract, ExportStateContract, ImportStateContract {
     
@@ -570,13 +560,13 @@ This controller implement all the states interfaces.
     }
 ```
 
-###Admin ModelBaseController
+### Admin ModelBaseController
+
 If you don't want use all the state and you use a model just extend `Distilleries\Expendable\Http\Controllers\Admin\Base\ModelBaseController`.
 
 Example:
 
 ```php
-   
     use Distilleries\Expendable\Contracts\LayoutManagerContract;
     use Distilleries\Expendable\Models\BaseModel;
     use Illuminate\Http\Request;
@@ -589,7 +579,6 @@ Example:
          */
         protected $model;
     
-    
         // ------------------------------------------------------------------------------------------------
     
         public function __construct(BaseModel $model, LayoutManagerContract $layoutManager)
@@ -597,9 +586,7 @@ Example:
             parent::__construct($layoutManager);
             $this->model = $model;
         }
-    
-    
-    
+	
         // ------------------------------------------------------------------------------------------------
         // ------------------------------------------------------------------------------------------------
         // ------------------------------------------------------------------------------------------------
@@ -622,22 +609,21 @@ Example:
     }
 ```
 
-###Admin BaseController
+### Admin BaseController
+
 If you don't want use all the state and you don't use a model just extend `Distilleries\Expendable\Http\Controllers\Admin\Base\BaseController`.
 You just have to inject the `LayoutManagerContract`
 
 Example:
 
 ```php
-    
     use Distilleries\Expendable\Contracts\LayoutManagerContract;
     use Distilleries\Expendable\Http\Controllers\Controller;
 
-
     class BaseController extends Controller {
-    
-    
+ 
         protected $layoutManager;
+	
         protected $layout = 'expendable::admin.layout.default';
     
         // ------------------------------------------------------------------------------------------------
@@ -651,7 +637,6 @@ Example:
         // ------------------------------------------------------------------------------------------------
         // ------------------------------------------------------------------------------------------------
         // ------------------------------------------------------------------------------------------------
-    
     
         protected function setupLayout()
         {
@@ -692,7 +677,8 @@ Example:
     }
 ```
 
-##Model
+## Model
+
 By default you can extend `\Distilleries\Expendable\Models\BaseModel`, this one extend `\Illuminate\Database\Eloquent\Model`.
 On it you have some method you can use:
 
@@ -715,15 +701,15 @@ scopeBetweenupdate | Query scope to get all the element between to date by the f
 ##Global scope
 I provide some global scope usable on the model.
 
+### Status
 
-###Status
 If you want display an element only if your are connected use this scope.
 The model check if the user is not connected and if the status equal online (1).
 
-
 To use it add the trait on your model `use \Distilleries\Expendable\Models\StatusTrait;`
 
-##Permissions
+## Permissions
+
 The system of permission is base on the public method of all your controller.
 To generate the list of all services use the `Synchronize all services` (`/admin/service/synchronize`).
 That use all the controller and get the public actions.
@@ -743,7 +729,7 @@ If the role is not allowed the application dispatch an error 403:
     }
 ```
 
-##Views
+## Views
 
 To override the view publish them with command line: 
 
@@ -751,10 +737,12 @@ To override the view publish them with command line:
 php artisan vendor:publish --provider="Distilleries\Expendable\ExpendableServiceProvider"  --tag="views"
 ```
 
-##Assets (CSS and Javascript)
+## Assets (CSS and Javascript)
+
 All the assets are one the folder `resources/assets`.
 
-###Sass
+### Sass
+
 To use the sass file just add bootstrap and  `application.admin.scss` on your admin file scss.
 If you check the repo [Xyz](https://github.com/Distilleries/Xyz/tree/master/resources/assets) you have a folder assets.
 I use the same structure.
@@ -779,14 +767,15 @@ I use the same structure.
     @import "../../../../vendor/distilleries/expendable/src/resources/assets/admin/sass/admin/layout/themes/grey";
 ```
 
-###Images
+### Images
+
 The images are copy by the gulp file.
 
-###Javascript
+### Javascript
+
 The javascript is compiled by the gulp file.
 
-
-###Gulp
+### Gulp
 
 * Copy the gulp.js from this link [https://github.com/Distilleries/Xyz/blob/master/gulpfile.js](https://github.com/Distilleries/Xyz/blob/master/gulpfile.js).
 * Copy the config file `build.config.js` from this link [https://github.com/Distilleries/Xyz/blob/master/build.config.js](https://github.com/Distilleries/Xyz/blob/master/build.config.js).
@@ -821,7 +810,8 @@ feature | Generate a tag like x.1.x and increment the version of your composer.j
 release | Generate a tag like 1.x.x and increment the version of your composer.json, bower.json, package.json 
 default | Start the tasks clean, bower and after styles, scripts, images in asynchrone. 
 
-###Composer
+### Composer
+
 I update my composer json to add the npm install and gulp generation when I update my libraries.
 
 ```json
@@ -836,22 +826,20 @@ I update my composer json to add the npm install and gulp generation when I upda
     ],
 ```
     
-##Create a new backend module
+## Create a new backend module
 
 1. Generate your migration.
 2. Generate your model.
 3. Generate you component.
 4. Add your controller in the routes file.
 
+## Case studies
 
-##Case studies
 Try to create a blog post component. I use a fresh install of [Xyz](https://github.com/Distilleries/Xyz)
 
-###1 Generate your migration
+### 1. Generate your migration
 
 ```php
-<?php
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -888,17 +876,13 @@ class CreatePostsTable extends Migration {
 
 ```
 
-
 ```ssh
 php artisan migrate
 ```
 
-
-###2 Generate your model
+### 2. Generate your model
 
 ```php
-    <?php namespace App;
-    
     use Distilleries\Expendable\Models\BaseModel;
     
     class Post extends BaseModel {
@@ -914,7 +898,8 @@ php artisan migrate
     }
 ```
 
-###3 Generate you component
+### 3 Generate you component
+
 I use the backend generator `/admin/component/edit`.
 
 ![studies](http://distilleri.es/markdown/expendable/_images/studies.png)
