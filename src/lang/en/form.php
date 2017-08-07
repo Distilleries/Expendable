@@ -1,5 +1,7 @@
 <?php
+
 return [
+
     'name'                                          => 'Name',
     'auto_sufix'                                    => 'We automatically add Controller in sufix',
     'model'                                         => 'Model',
@@ -19,7 +21,7 @@ return [
     'type'                                          => 'Type',
     'initials'                                      => 'Initials',
     'file_import'                                   => 'File import',
-    'libelle'                                       => 'Libelle',
+    'libelle'                                       => 'Label',
     'is_visible_for_customer'                       => 'Is visible for the customer',
     'default_language'                              => 'Default Language',
     'email'                                         => 'Email',
@@ -29,15 +31,16 @@ return [
     'login'                                         => 'Login',
     'allow_automatically_all_permission'            => 'Allow automatically all permission',
     'role'                                          => 'Role',
-    'change_password_help'                          => 'Check it if you want change your password',
+    'change_password_help'                          => 'Check to change your password',
     'export'                                        => 'Export',
     'import'                                        => 'Import',
     'detail'                                        => 'Detail',
     'edit'                                          => 'Edit',
     'forgot_password'                               => 'Forget Password ?',
     'enter_your_email_below_to_reset_your_password' => 'Enter your e-mail address below to reset your password.',
-    'reset_your_password'                           => 'Reset your password ?',
+    'reset_your_password'                           => 'Reset your password?',
     'login_to_your_account'                         => 'Login to your account',
-    'forgot_your_password'                          => 'Forgot your password ?',
+    'forgot_your_password'                          => 'Forgot your password?',
     'click_here_to_reset_your_password'             => 'no worries, click <a href=":link" >here</a> to reset your password.',
+
 ];

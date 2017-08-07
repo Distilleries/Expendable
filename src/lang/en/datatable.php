@@ -1,12 +1,13 @@
 <?php
 
 return [
+
     'subject'      => 'Subject',
     'type'         => 'Type',
-    'id'           => 'Id',
-    'libelle'      => 'Libelle',
+    'id'           => 'ID',
+    'libelle'      => 'Label',
     'email'        => 'Email',
-    'iso'          => 'Iso',
+    'iso'          => 'ISO',
     'initials'     => 'Initials',
     'action'       => 'Action',
     'status'       => 'Status',
@@ -18,4 +19,5 @@ return [
     'are_you_sure' => 'Are you sure?',
     'unlock'       => 'Unlock',
     'lock'         => 'Lock',
+    
 ];
