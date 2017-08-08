@@ -13,7 +13,7 @@
 @endif
 
 @if (config('expendable.auth.security_enabled') === true)
-    @if ($data['nb_of_try'] >= 5)
+    @if ($data['nb_of_try'] >= config('expendable.auth.nb_of_try'))
         @if (PermissionUtil::hasAccess($route . 'postUnLock'))
             {!! Form::open(['url' => action($route . 'postUnLock'), 'method' => 'post', 'class'=>'form-inline']) !!}
                 {!! Form::hidden('id', $data['id']) !!}
