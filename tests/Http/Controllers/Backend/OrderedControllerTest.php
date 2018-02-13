@@ -6,9 +6,9 @@ class OrderedControllerTest extends ExpendableTestCase
     {
         parent::setUp();
 
+        $this->loadMigrationsFrom(realpath(__DIR__ . '/../../../data/migrations'));
         $this->artisan('migrate', [
             '--database' => 'testbench',
-            '--realpath' => realpath(__DIR__ . '/../../../data/migrations'),
         ]);
 
         \Ordered::create([
@@ -81,7 +81,7 @@ class OrderedControllerTest extends ExpendableTestCase
     }
 }
 
-class OrderedController extends \Distilleries\Expendable\Http\Controllers\Admin\Base\ModelBaseController implements \Distilleries\Expendable\Contracts\OrderStateContract
+class OrderedController extends \Distilleries\Expendable\Http\Controllers\Backend\Base\ModelBaseController implements \Distilleries\Expendable\Contracts\OrderStateContract
 {
     use \Distilleries\Expendable\States\OrderStateTrait;
 
