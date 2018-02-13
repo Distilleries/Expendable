@@ -5,17 +5,14 @@ class BaseModelTest extends ExpendableTestCase {
 
     protected function addContent()
     {
-
-        $faker = Faker\Factory::create();
         $data  = [
-            'libelle'     => $faker->realText(20),
-            'iso'         => $faker->iso8601,
+            'libelle'     => 'English',
+            'iso'         => Carbon\Carbon::now()->toIso8601String(),
             'not_visible' => false,
             'is_default'  => false,
             'status'      => true
 
         ];
-
 
         $result = \Distilleries\Expendable\Models\Language::create($data);
         $result = \Distilleries\Expendable\Models\Language::find($result->id);
@@ -37,15 +34,12 @@ class BaseModelTest extends ExpendableTestCase {
 
     public function testGetAllColumnsNames()
     {
-        $this->disableExceptionHandling();
         list($data, $model) = $this->addContent();
 
-        try
-        {
-            $model->getAllColumnsNames();
-        } catch (Exception $error)
-        {
-            $this->assertEquals('Database driver not supported: sqlite', $error->getMessage());
+        $columns = $model->getAllColumnsNames();
+
+        foreach ($data as $field => $value) {
+            $this->assertContains($field, $columns);
         }
     }
 
@@ -83,6 +77,7 @@ class BaseModelTest extends ExpendableTestCase {
     public function testScopeBetweenUpdateWithNoResult()
     {
         list($data, $model) = $this->addContent();
+
         $start  = date('Y-m-d', time() - 172800);
         $end  = date('Y-m-d', time() - 86400);
         $choice = \Distilleries\Expendable\Models\Language::betweenUpdate($start, $end)->get()->last();
@@ -92,34 +87,21 @@ class BaseModelTest extends ExpendableTestCase {
 
     public function testScopeSearchWithResult()
     {
-        $this->disableExceptionHandling();
-        try
-        {
-            list($data, $model) = $this->addContent();
-            $result = \Distilleries\Expendable\Models\Language::search($data['libelle'])->get()->last();
+        list($data, $model) = $this->addContent();
 
-            $this->assertTrue(!empty($result));
-            $this->assertEquals($data['libelle'],$result->libelle);
-        } catch (Exception $error)
-        {
-            $this->assertEquals('Database driver not supported: sqlite', $error->getMessage());
-        }
+        $result = \Distilleries\Expendable\Models\Language::search($data['libelle'])->get()->last();
 
+        $this->assertTrue(!empty($result));
+        $this->assertEquals($data['libelle'],$result->libelle);
     }
 
 
     public function testScopeSearchWithNoResult()
     {
-        $this->disableExceptionHandling();
-        try
-        {
-            list($data, $model) = $this->addContent();
-            $result = \Distilleries\Expendable\Models\Language::search(uniqid().uniqid().uniqid())->get()->last();
-            $this->assertTrue(empty($result));
-        } catch (Exception $error)
-        {
-            $this->assertEquals('Database driver not supported: sqlite', $error->getMessage());
-        }
+        list($data, $model) = $this->addContent();
 
+        $result = \Distilleries\Expendable\Models\Language::search(uniqid().uniqid().uniqid())->get()->last();
+        
+        $this->assertTrue(empty($result));
     }
 }
