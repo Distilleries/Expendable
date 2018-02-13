@@ -37,6 +37,7 @@ class BaseModelTest extends ExpendableTestCase {
 
     public function testGetAllColumnsNames()
     {
+        $this->disableExceptionHandling();
         list($data, $model) = $this->addContent();
 
         try
@@ -91,6 +92,7 @@ class BaseModelTest extends ExpendableTestCase {
 
     public function testScopeSearchWithResult()
     {
+        $this->disableExceptionHandling();
         try
         {
             list($data, $model) = $this->addContent();
@@ -108,6 +110,7 @@ class BaseModelTest extends ExpendableTestCase {
 
     public function testScopeSearchWithNoResult()
     {
+        $this->disableExceptionHandling();
         try
         {
             list($data, $model) = $this->addContent();

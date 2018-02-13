@@ -55,6 +55,13 @@ class BaseModel extends Model implements ReservedKeyWord
                 $reverse     = true;
                 break;
 
+            case 'sqlite':
+                $query       = "PRAGMA table_info('" . $this->getTable()."')";
+                $column_name = 'name';
+                $reverse     = true;
+                break;
+
+
             case 'mysql':
                 $query       = 'SHOW COLUMNS FROM ' . $this->getTable();
                 $column_name = 'Field';

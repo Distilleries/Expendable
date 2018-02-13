@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Contracts\Debug\ExceptionHandler;
+
 abstract class ExpendableTestCase extends \Orchestra\Testbench\BrowserKit\TestCase
 {
 
@@ -79,5 +81,23 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\BrowserKit\TestCa
             'PermissionUtil' => 'Distilleries\PermissionUtil\Facades\PermissionUtil',
             'Excel'          => 'Maatwebsite\Excel\Facades\Excel',
         ];
+    }
+
+
+    protected function disableExceptionHandling()
+    {
+        $this->oldExceptionHandler = $this->app->make(ExceptionHandler::class);
+        $this->app->instance(ExceptionHandler::class, new class extends \Distilleries\Expendable\Exceptions\Handler {
+            public function __construct() {}
+            public function report(\Exception $e) {}
+            public function render($request, \Exception $e) {
+                throw $e;
+            }
+        });
+    }
+    protected function withExceptionHandling()
+    {
+        $this->app->instance(ExceptionHandler::class, $this->oldExceptionHandler);
+        return $this;
     }
 }

@@ -176,41 +176,6 @@ class LanguageControllerTest extends ExpendableTestCase {
     }
 
 
-    public function testSearchWithException()
-    {
-        $faker    = Faker\Factory::create();
-        $data     = [
-            'libelle'     => str_replace('\'', '', $faker->country),
-            'iso'         => $faker->countryCode,
-            'not_visible' => 0,
-            'is_default'  => 1,
-            'status'      => 1,
-        ];
-        $language = \Distilleries\Expendable\Models\Language::create($data);
-        $response = $this->call('POST', action('Backend\LanguageController@postSearch'), [
-            'ids' => [$language->id]
-        ]);
-
-        $result = json_decode($response->getContent());
-        $this->assertEquals($language->id, $result[0]->id);
-        $this->assertEquals($language->libelle, $result[0]->libelle);
-
-        try
-        {
-            $response = $this->call('POST', action('Backend\LanguageController@postSearch'), [
-                'term' => $data['iso'].$data['iso'].$data['iso']
-            ]);
-
-            $this->assertEquals(500, $response->getStatusCode());
-
-        } catch (\Exception $e)
-        {
-            $this->assertEquals('Database driver not supported: sqlite', $e->getMessage());
-        }
-
-
-    }
-
     public function testDestroyNoId()
     {
 
@@ -261,7 +226,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
     public function testExportCsv()
     {
-
+        $this->disableExceptionHandling();
         $faker = Faker\Factory::create();
         $data  = [
             'libelle'     => str_replace('\'', '', $faker->country),
@@ -270,8 +235,8 @@ class LanguageControllerTest extends ExpendableTestCase {
             'is_default'  => 1,
             'status'      => 1,
         ];
-        \Distilleries\Expendable\Models\Language::create($data);
 
+        \Distilleries\Expendable\Models\Language::create($data);
         \File::delete(storage_path('exports'));
         $dateBegin = date('Y-m-d', time() - (24 * 60 * 60));
         $dateEnd   = date('Y-m-d', time() + (24 * 60 * 60));

@@ -204,6 +204,8 @@ class LoginControllerTest extends ExpendableTestCase
 
     public function testGetResetNoToken()
     {
+        $this->disableExceptionHandling();
+
         try {
             $this->call('GET', action('Backend\LoginController@getReset'));
         } catch (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e) {

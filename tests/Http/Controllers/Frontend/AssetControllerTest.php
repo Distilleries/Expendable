@@ -8,6 +8,8 @@ class AssetControllerTest extends ExpendableTestCase
 
     public function testAssetNotFound()
     {
+        $this->disableExceptionHandling();
+
         try {
             $response = $this->call('GET', 'storage/moximanager/' . rand());
             $this->assertEquals(404, $response->getStatusCode());
@@ -20,6 +22,7 @@ class AssetControllerTest extends ExpendableTestCase
 
     public function testAssetNotAllowed()
     {
+        $this->disableExceptionHandling();
 
         \File::makeDirectory(storage_path('other'), 0755, false, true);
         copy(realpath(__DIR__ . '/../../../data/5601729.gif'), storage_path('other/5601729.gif'));

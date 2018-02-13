@@ -332,6 +332,7 @@ class UserControllerTest extends ExpendableTestCase {
 
     public function testSaveProfileNotAuthorize()
     {
+        $this->disableExceptionHandling();
 
         $faker = Faker\Factory::create();
         $role  = \Distilleries\Expendable\Models\Role::create([
