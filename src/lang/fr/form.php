@@ -31,7 +31,7 @@ return [
     'login'                                         => 'Identifiant',
     'allow_automatically_all_permission'            => 'Autoriser automatiquement toutes les permissions',
     'role'                                          => 'Rôle',
-    'change_password_help'                          => 'Cocher si vous désirez changer de mot de passe',
+    'change_password_help'                          => 'Cocher pour changer de mot de passe',
     'export'                                        => 'Exporter',
     'import'                                        => 'Importer',
     'detail'                                        => 'Détail',

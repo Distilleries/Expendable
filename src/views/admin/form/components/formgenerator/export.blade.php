@@ -4,7 +4,7 @@
             <div class="portlet box blue-hoki">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="glyphicon glyphicon-save-file"></i>{{trans('expendable::form.export')}}
+                        <i class="glyphicon glyphicon-save-file"></i>{{ trans('expendable::form.export') }}
                     </div>
                     <div class="tools">
                         <a href="javascript:;" class="collapse"></a>
