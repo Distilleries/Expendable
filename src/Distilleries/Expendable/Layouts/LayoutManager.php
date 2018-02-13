@@ -5,7 +5,6 @@ use Distilleries\Expendable\Contracts\LayoutManagerContract;
 use Distilleries\Expendable\Contracts\StateDisplayerContract;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Filesystem\Filesystem;
-use PhpParser\Node\Expr\Cast\Object;
 
 class LayoutManager implements LayoutManagerContract {
 

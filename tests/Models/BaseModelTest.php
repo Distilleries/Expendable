@@ -7,7 +7,7 @@ class BaseModelTest extends ExpendableTestCase {
     {
         $data  = [
             'libelle'     => 'English',
-            'iso'         => Carbon\Carbon::now()->toIso8601String(),
+            'iso'         => 'en',
             'not_visible' => false,
             'is_default'  => false,
             'status'      => true
