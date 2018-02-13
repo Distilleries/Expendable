@@ -21,5 +21,5 @@ return [
     'log_out'              => 'Se déconnecter',
     'add_state'            => 'Ajouter',
     'list'                 => 'List',
-
+    'order_state'          => 'Ordonner',
 ];

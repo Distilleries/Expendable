@@ -19,5 +19,7 @@ return [
     'are_you_sure' => 'Etes-vous sûr ?',
     'unlock'       => 'Vérouiller',
     'lock'         => 'Déverouiller',
+    'order'        => 'Ordonner',
+    'label'        => 'Intitulé',
 
 ];

@@ -21,5 +21,5 @@ return [
     'log_out'              => 'Log Out',
     'add_state'            => 'Add',
     'list'                 => 'List',
-
+    'order_state'          => 'Order',
 ];
