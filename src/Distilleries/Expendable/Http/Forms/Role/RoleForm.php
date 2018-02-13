@@ -42,7 +42,7 @@ class RoleForm extends FormValidator {
     protected function getUpdateRules()
     {
         $key                           = \Request::get($this->model->getKeyName());
-        static::$rules_update['initials'] = 'required|unique:roles,initials' . $key;
+        static::$rules_update['initials'] = 'required|unique:roles,initials,' . $key;
 
         return parent::getUpdateRules();
     }
