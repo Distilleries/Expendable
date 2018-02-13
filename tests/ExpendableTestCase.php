@@ -34,7 +34,7 @@ abstract class ExpendableTestCase extends \Orchestra\Testbench\BrowserKit\TestCa
     public function setUp()
     {
         parent::setUp();
-        $this->app['Illuminate\Contracts\Console\Kernel']->call('vendor:publish');
+        $this->app['Illuminate\Contracts\Console\Kernel']->call('vendor:publish', ['--all' => true]);
         $this->artisan('migrate');
 
     }

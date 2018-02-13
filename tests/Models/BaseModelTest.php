@@ -37,15 +37,11 @@ class BaseModelTest extends ExpendableTestCase {
 
     public function testGetAllColumnsNames()
     {
-        $this->disableExceptionHandling();
         list($data, $model) = $this->addContent();
 
-        try
-        {
-            $model->getAllColumnsNames();
-        } catch (Exception $error)
-        {
-            $this->assertEquals('Database driver not supported: sqlite', $error->getMessage());
+        $columns = $model->getAllColumnsNames();
+        foreach ($data as $field => $value) {
+            $this->assertContains($field, $columns);
         }
     }
 

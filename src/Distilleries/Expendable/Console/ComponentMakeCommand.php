@@ -41,10 +41,10 @@ class ComponentMakeCommand extends \Illuminate\Console\GeneratorCommand {
         $this->formGenerator = $formGenerator;
     }
 
-    public function fire()
+    public function handle()
     {
         $this->initOptions();
-        parent::fire();
+        parent::handle();
     }
 
 
