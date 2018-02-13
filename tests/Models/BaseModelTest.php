@@ -88,34 +88,20 @@ class BaseModelTest extends ExpendableTestCase {
 
     public function testScopeSearchWithResult()
     {
-        $this->disableExceptionHandling();
-        try
-        {
-            list($data, $model) = $this->addContent();
-            $result = \Distilleries\Expendable\Models\Language::search($data['libelle'])->get()->last();
+        list($data, $model) = $this->addContent();
 
-            $this->assertTrue(!empty($result));
-            $this->assertEquals($data['libelle'],$result->libelle);
-        } catch (Exception $error)
-        {
-            $this->assertEquals('Database driver not supported: sqlite', $error->getMessage());
-        }
+        $result = \Distilleries\Expendable\Models\Language::search($data['libelle'])->get()->last();
 
+        $this->assertTrue(!empty($result));
+        $this->assertEquals($data['libelle'],$result->libelle);
     }
-
 
     public function testScopeSearchWithNoResult()
     {
-        $this->disableExceptionHandling();
-        try
-        {
-            list($data, $model) = $this->addContent();
-            $result = \Distilleries\Expendable\Models\Language::search(uniqid().uniqid().uniqid())->get()->last();
-            $this->assertTrue(empty($result));
-        } catch (Exception $error)
-        {
-            $this->assertEquals('Database driver not supported: sqlite', $error->getMessage());
-        }
+        list($data, $model) = $this->addContent();
 
+        $result = \Distilleries\Expendable\Models\Language::search(uniqid().uniqid().uniqid())->get()->last();
+
+        $this->assertTrue(empty($result));
     }
 }
