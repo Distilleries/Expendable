@@ -7,11 +7,10 @@
 
 # Expendable
 
-Expendable is an admin panel base on laravel 5.*.
+Expendable is an admin panel base on laravel 5.6.*
 This package give you some implementation do add a content management system of your application.
 You can override everything. This Cms give view few tools to develop your content management easily and properly.
 
-If you want install a fresh install of laravel 5 with Expendable package configured and gulp, bower structure go in https://github.com/Distilleries/Xyz.
 
 ## Table of contents
 
@@ -51,12 +50,11 @@ If you want install a fresh install of laravel 5 with Expendable package configu
 
 To use this project you have to install:
 
-1. Php 5.5 or more
+1. Php 7.1.3 or more
 3. Active mpcrypt
 4. Composer https://getcomposer.org/download/
 5. Sass (`gem install sass`)
-6. NodeJs version 0.10.33
-7. gulp in global (npm install gulp -g)
+6. NodeJs version v9.4.0
 
 ## Installation
 
@@ -162,33 +160,40 @@ php artisan vendor:publish --provider="Distilleries\Expendable\ExpendableService
         'menu_left_collapsed' => false,
         'state'               => [
             'Distilleries\DatatableBuilder\Contracts\DatatableStateContract' => [
-                'color'    => 'bg-green-haze',
-                'icon'     => 'th-list',
-                'libelle'  => 'expendable::menu.datatable',
-                'position' => 0,
-                'action'   => 'getIndex'
-            ],
-            'Distilleries\Expendable\Contracts\ExportStateContract'          => [
-                'color'    => 'bg-blue-hoki',
-                'icon'     => 'save-file',
-                'libelle'  => 'expendable::menu.export',
-                'position' => 1,
-                'action'   => 'getExport'
-            ],
-            'Distilleries\Expendable\Contracts\ImportStateContract'          => [
-                'color'    => 'bg-red-sunglo',
-                'icon'     => 'open-file',
-                'libelle'  => 'expendable::menu.import',
-                'position' => 2,
-                'action'   => 'getImport'
-            ],
-            'Distilleries\FormBuilder\Contracts\FormStateContract'           => [
-                'color'    => 'bg-yellow',
-                'icon'     => 'pencil',
-                'libelle'  => 'expendable::menu.add_state',
-                'position' => 3,
-                'action'   => 'getEdit'
-            ],
+               'color'    => 'bg-green-haze',
+               'icon'     => 'th-list',
+               'libelle'  => 'expendable::menu.datatable',
+               'position' => 0,
+               'action'   => 'getIndex'
+           ],
+           'Distilleries\Expendable\Contracts\OrderStateContract'           => [
+               'color'    => 'bg-grey-cascade',
+               'icon'     => 'resize-vertical',
+               'libelle'  => 'expendable::menu.order_state',
+               'position' => 1,
+               'action'   => 'getOrder'
+           ],
+           'Distilleries\Expendable\Contracts\ExportStateContract'          => [
+               'color'    => 'bg-blue-hoki',
+               'icon'     => 'save-file',
+               'libelle'  => 'expendable::menu.export',
+               'position' => 2,
+               'action'   => 'getExport'
+           ],
+           'Distilleries\Expendable\Contracts\ImportStateContract'          => [
+               'color'    => 'bg-red-sunglo',
+               'icon'     => 'open-file',
+               'libelle'  => 'expendable::menu.import',
+               'position' => 3,
+               'action'   => 'getImport'
+           ],
+           'Distilleries\FormBuilder\Contracts\FormStateContract'           => [
+               'color'    => 'bg-yellow',
+               'icon'     => 'pencil',
+               'libelle'  => 'expendable::menu.add_state',
+               'position' => 4,
+               'action'   => 'getEdit'
+           ],
         ]
     ];
 ```
@@ -295,9 +300,10 @@ A state is a part of your controller where you define a list of actions.
 By default I implemented four states:
 
 1. Datatable
-2. Export
-3. Import
-4. Form
+2. Order
+3. Export
+4. Import
+5. Form
 
 To display the menu of state I provide a class for the interface `Distilleries\Expendable\Contracts\StateDisplayerContract`.
  
@@ -356,8 +362,19 @@ Inject them on your constructor:
     }
 ```
     
+#### 2. Order   
+Add basic order feature to a component .
+## Handle Controller
+- must implements `\Distilleries\Expendable\Contracts\OrderStateContract`
+- methods are implemented in `\Distilleries\Expendable\States\OrderStateTrait`
+## Handle Model
+- must implements `\Distilleries\Expendable\Contracts\OrderContract`
+### Methods
+- `orderLabel()` must return a string displayed in order page (by using model attributes)
+- `orderFieldName()` must return the name of the field where the model persist the order
 
-#### 2. Export
+
+#### 3. Export
 
 ![export](http://distilleri.es/markdown/expendable/_images/export.png)
 
@@ -409,7 +426,7 @@ You can change the class provide to export the data. Just add those methods on y
     });
 ```
 
-#### 3. Import
+#### 4. Import
 
 ![import](http://distilleri.es/markdown/expendable/_images/import.png)
 
@@ -463,7 +480,7 @@ You can change the class provide to import the data. Just add those methods on y
     });
 ```
 
-#### 4. Form
+#### 5. Form
 
 ![form](http://distilleri.es/markdown/expendable/_images/form.png)
 
@@ -748,67 +765,28 @@ If you check the repo [Xyz](https://github.com/Distilleries/Xyz/tree/master/reso
 I use the same structure.
 
 ```scss
-    @import "../../../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap-sprockets";
-    @import "../../../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap";
-    
-    @font-face {
-      font-family: 'Glyphicons Halflings';
-      src: url("../fonts/glyphicons-halflings-regular.eot");
-      src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
-    }
-    
-    @font-face {
-      font-family: 'FontAwesome';
-      src: url("../fonts/fontawesome-webfont.eot");
-      src: url("../fonts/fontawesome-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff") format("woff"), url("../fonts/fontawesome-webfont.ttf") format("truetype"), url("../fonts/fontawesome-webfont.svg#glyphicons_halflingsregular") format("svg");
-    }
-    
-    @import "../../../../vendor/distilleries/expendable/src/resources/assets/admin/sass/application.admin";
-    @import "../../../../vendor/distilleries/expendable/src/resources/assets/admin/sass/admin/layout/themes/grey";
+   //
+   // Third-parties
+   //
+   
+   @import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+   @import "../../../../node_modules/font-awesome/scss/font-awesome";
+   
+   //
+   // Expendable
+   //
+   
+   @import "../../../../vendor/distilleries/expendable/src/resources/assets/backend/sass/application.admin";
+   @import "../../../../vendor/distilleries/expendable/src/resources/assets/backend/sass/admin/layout/themes/grey";
 ```
 
 ### Images
 
-The images are copy by the gulp file.
+The images are copy by mix script when they are found in sass file
 
 ### Javascript
 
-The javascript is compiled by the gulp file.
-
-### Gulp
-
-* Copy the gulp.js from this link [https://github.com/Distilleries/Xyz/blob/master/gulpfile.js](https://github.com/Distilleries/Xyz/blob/master/gulpfile.js).
-* Copy the config file `build.config.js` from this link [https://github.com/Distilleries/Xyz/blob/master/build.config.js](https://github.com/Distilleries/Xyz/blob/master/build.config.js).
-* Copy the file package.json from this link [https://github.com/Distilleries/Xyz/blob/master/package.json](https://github.com/Distilleries/Xyz/blob/master/package.json).
-* Copy the file bower.json from this link [https://github.com/Distilleries/Xyz/blob/master/bower.json](https://github.com/Distilleries/Xyz/blob/master/bower.json).
-
-First thing run the command npm:
-
-```ssh
-npm install
-```
-
-When everything is installed you can run gulp:
-
-```ssh
-gulp
-```
-
-Task | Description
----- | -----------
-bower | To load your bower dependencies
-css | To generate the sass and compile with the css files
-fonts | Copy the fonts the assets folder
-tinymce | Copy the skin of tinymce
-styles | Call css and after in asynchrone fonts and tinymce tasks
-scripts | Compile the javascript files 
-images | Cp[y and optimize the pictures
-clean | Remove the asset folder generated
-watch | Watcher to compile the css, javascript, sass, images when you change something
-patch | Generate a tag like x.x.1 and increment the version of your composer.json, bower.json, package.json 
-feature | Generate a tag like x.1.x and increment the version of your composer.json, bower.json, package.json 
-release | Generate a tag like 1.x.x and increment the version of your composer.json, bower.json, package.json 
-default | Start the tasks clean, bower and after styles, scripts, images in asynchrone. 
+The javascript is compiled by the mix
 
 ### Composer
 
@@ -821,7 +799,7 @@ I update my composer json to add the npm install and gulp generation when I upda
       "php artisan down",
       "npm install",
       "php artisan migrate --force",
-      "gulp",
+      "npm run production",
       "php artisan up"
     ],
 ```
