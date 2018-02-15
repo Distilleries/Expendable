@@ -15,7 +15,7 @@ class LoginControllerTest extends ExpendableTestCase
     public function testRedirectNotLogin()
     {
         $this->call('GET', '/admin');
-        $this->assertRedirectedToRoute('login.index');
+        $this->assertRedirectedToRoute('login');
     }
 
     public function testRedirectLogin()

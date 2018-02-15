@@ -19,7 +19,7 @@ $router->group(array(
 ), function() use ($router){
 
     $router->controller('login', 'Backend\LoginController', [
-        'getIndex'  => 'login.index',
+        'getIndex'  => 'login',
         'getRemind' => 'login.remind',
         'getLogout' => 'login.logout',
         'getReset'  => 'password.reset',
