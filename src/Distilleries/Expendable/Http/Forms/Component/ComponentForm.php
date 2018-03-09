@@ -50,6 +50,10 @@ class ComponentForm extends \Distilleries\FormBuilder\FormValidator {
                 'namespace' => '{{app}}',
             ],
             [
+                'path'      => app_path() . DIRECTORY_SEPARATOR.'Models' . DIRECTORY_SEPARATOR,
+                'namespace' => '{{app}}\\Models',
+            ],
+            [
                 'path'      => __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR,
                 'namespace' => 'Distilleries\\Expendable\\Models\\',
             ],
