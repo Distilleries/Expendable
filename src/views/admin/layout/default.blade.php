@@ -25,6 +25,7 @@
    <div class="page-footer">
        @yield('footer')
    </div>
+   @yield('javascript')
 </body>
 <!-- END BODY -->
 </html>
