@@ -17,8 +17,8 @@ return [
     'no'           => 'Non',
     'yes'          => 'Oui',
     'are_you_sure' => 'Etes-vous sûr ?',
-    'unlock'       => 'Vérouiller',
-    'lock'         => 'Déverouiller',
+    'unlock'       => 'Vérrouiller',
+    'lock'         => 'Déverrouiller',
     'order'        => 'Ordonner',
     'label'        => 'Intitulé',
 

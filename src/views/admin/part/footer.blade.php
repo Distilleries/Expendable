@@ -8,5 +8,4 @@
         <script src="{{ asset(mix('assets/backend/app.js')) }}"></script>
     @endif
     @include('expendable::admin.part.validation')
-    @yield('javascript')
 @stop

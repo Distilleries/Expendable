@@ -225,7 +225,7 @@ class LoginController extends BaseController
 
         $this->auth->logout();
 
-        return redirect()->route('login.index');
+        return redirect()->route('login');
     }
 
 
