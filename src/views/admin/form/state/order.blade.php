@@ -58,7 +58,8 @@
                     url: this.document.location,
                     type: 'POST',
                     data: {
-                        ids: ids
+                        ids: ids,
+                        '_token': '{!! csrf_token() !!}'
                     },
                     success: function (response) {
                         if (response.error) {
