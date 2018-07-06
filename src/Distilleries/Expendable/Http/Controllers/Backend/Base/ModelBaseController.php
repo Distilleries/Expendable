@@ -85,8 +85,8 @@ class ModelBaseController extends BaseController {
             $elements = array();
             $total    = 0;
         } else {
-            $elements = $query->search($term)->take($paged)->skip(($page - 1) * $paged)->get();
-            $total    = $query->search($term)->count();
+            $elements = $query->newQuery()->search($term)->take($paged)->skip(($page - 1) * $paged)->get();
+            $total    = $query->newQuery()->search($term)->count();
 
         }
 
