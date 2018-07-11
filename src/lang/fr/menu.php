@@ -20,6 +20,6 @@ return [
     'generate_component'   => 'Générer un nouveau composant',
     'log_out'              => 'Se déconnecter',
     'add_state'            => 'Ajouter',
-    'list'                 => 'List',
+    'list'                 => 'Liste',
     'order_state'          => 'Ordonner',
 ];
