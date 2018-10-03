@@ -8,13 +8,13 @@ class AuthenticateOnceWithBasicAuth extends AuthenticateWithBasicAuth {
 
     /**
      * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
+     * @param \Illuminate\Http\Request $request
+     * @param Closure $next
+     * @param null $guard
+     * @param null $field
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next, $guard = null, $field = null)
     {
         $ipsAuth = env('BASIC_AUTH_IP','');
         $ipsAuth = explode(',',$ipsAuth);

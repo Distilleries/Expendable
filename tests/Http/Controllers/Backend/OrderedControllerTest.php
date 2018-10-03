@@ -6,9 +6,10 @@ class OrderedControllerTest extends ExpendableTestCase
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(realpath(__DIR__ . '/../../../data/migrations'));
         $this->artisan('migrate', [
-            '--database' => 'testbench',
+            '--database'=>'testbench',
+            '--path'=>[realpath(__DIR__ . '/../../../data/migrations')],
+            '--realpath'=>true
         ]);
 
         \Ordered::create([

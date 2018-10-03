@@ -52,13 +52,14 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'language'   => \Distilleries\Expendable\Http\Middleware\SetterLanguage::class,
-        'auth'       => \Illuminate\Auth\Middleware\Authenticate::class,
+        'language' => \Distilleries\Expendable\Http\Middleware\SetterLanguage::class,
+        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings'   => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'can'        => \Illuminate\Auth\Middleware\Authorize::class,
-        'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'guest'      => \Distilleries\Expendable\Http\Middleware\RedirectIfAuthenticated::class,
+        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'guest' => \Distilleries\Expendable\Http\Middleware\RedirectIfAuthenticated::class,
         'permission' => \Distilleries\PermissionUtil\Http\Middleware\CheckAccessPermission::class,
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 }
