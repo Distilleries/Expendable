@@ -24,7 +24,7 @@
         "illuminate/support": "5.7.*",
         "illuminate/database": "5.7.*",
         "illuminate/translation": "5.7.*",
-        "distilleries/datatable-builder": "2.12.*",
+        "distilleries/datatable-builder": "2.13.*",
         "distilleries/form-builder": "2.12.*",
         "distilleries/permission-util": "1.9.*",
         "forxer/Gravatar": "~1.2",
