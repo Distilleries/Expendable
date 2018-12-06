@@ -1,9 +1,11 @@
-<?php namespace Distilleries\Expendable\Models;
+<?php
+
+namespace Distilleries\Expendable\Models;
 
 use Distilleries\Expendable\Scopes\StatusScope;
 
-trait StatusTrait {
-
+trait StatusTrait
+{
     /**
      * Boot the soft deleting trait for a model.
      *
@@ -14,9 +16,8 @@ trait StatusTrait {
         static::addGlobalScope(new StatusScope);
     }
 
-
     /**
-     * Get a new query builder that only includes soft deletes.
+     * Get a new query builder that only includes offline items.
      *
      * @return \Illuminate\Database\Eloquent\Builder|static
      */
@@ -28,9 +29,13 @@ trait StatusTrait {
         $column = $instance->getQualifiedStatusColumn();
 
         return $instance->withoutGlobalScope(StatusScope::class)->where($column, false);
-
     }
 
+    /**
+     * Get a new query builder that include offline and online items.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public static function offlineAndOnline()
     {
         $instance = new static;
@@ -57,4 +62,4 @@ trait StatusTrait {
     {
         return defined('static::STATUS') ? static::STATUS : 'status';
     }
-} 
+}
