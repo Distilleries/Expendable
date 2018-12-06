@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Distilleries/Expendable.svg?branch=master)](https://travis-ci.org/Distilleries/Expendable)
 [![Total Downloads](https://poser.pugx.org/distilleries/expendable/downloads)](https://packagist.org/packages/distilleries/expendable)
 [![Latest Stable Version](https://poser.pugx.org/distilleries/expendable/version)](https://packagist.org/packages/distilleries/expendable)
-[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE) 
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md) 
 
 # Expendable
 
