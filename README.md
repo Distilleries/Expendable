@@ -715,7 +715,7 @@ getAllColumnsNames | Get all the columns of your table
 scopeBetweenCreate | Query scope to get all the element between to date by the field created_at
 scopeBetweenupdate | Query scope to get all the element between to date by the field created_at
 
-##Global scope
+## Global scope
 I provide some global scope usable on the model.
 
 ### Status
@@ -992,7 +992,7 @@ class PostController extends BaseComponent {
 ```
 
 
-###4 Add your controller in the routes file
+### 4 Add your controller in the routes file
 I add ` Route::controller('post', 'Admin\PostController');` on the route file:
 
 ```php
@@ -1013,7 +1013,7 @@ I add ` Route::controller('post', 'Admin\PostController');` on the route file:
 ```
 
 
-###5 Add to the menu
+### 5 Add to the menu
 
 On `config/expendable.php` id add the Post entry:
 
