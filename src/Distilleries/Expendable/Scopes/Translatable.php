@@ -1,9 +1,12 @@
-<?php namespace Distilleries\Expendable\Scopes;
+<?php
 
+namespace Distilleries\Expendable\Scopes;
+
+use Distilleries\Expendable\Contracts\TranslatableObserverContract;
 use Distilleries\Expendable\Models\Translation;
 
-trait Translatable {
-
+trait Translatable
+{
     /**
      * Boot the soft deleting trait for a model.
      *
@@ -12,8 +15,11 @@ trait Translatable {
     public static function bootTranslatable()
     {
         static::addGlobalScope(new TranslatableScope);
+        try {
+            $observer = app(TranslatableObserverContract::class);
+            static::observe($observer);
+        } catch (\Exception $exception) {}
     }
-
 
     /**
      * Get a new query builder that only includes soft deletes.
