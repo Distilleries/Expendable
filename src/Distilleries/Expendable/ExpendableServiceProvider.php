@@ -1,4 +1,6 @@
-<?php namespace Distilleries\Expendable;
+<?php
+
+namespace Distilleries\Expendable;
 
 use Distilleries\Expendable\Exporter\CsvExporter;
 use Distilleries\Expendable\Exporter\ExcelExporter;
@@ -11,8 +13,8 @@ use Distilleries\Expendable\States\StateDisplayer;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
 
-class ExpendableServiceProvider extends ServiceProvider {
-
+class ExpendableServiceProvider extends ServiceProvider
+{
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -58,8 +60,6 @@ class ExpendableServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-
-               
         $this->app->singleton('Distilleries\Expendable\Contracts\LockableContract', function($app)
         {
             return new User;
@@ -79,8 +79,6 @@ class ExpendableServiceProvider extends ServiceProvider {
         $this->registerCommands();
         $this->registerImporters();
         $this->registerExporters();
-
-
     }
     
 
