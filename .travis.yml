@@ -41,8 +41,8 @@ matrix:
   fast_finish: true
 
 after_script:
-- wget https://scrutinizer-ci.com/ocular.phar
-- php ocular.phar code-coverage:upload --access-token="9857f9bb4b1c260b94eb773a541d6e42e05db0db45d5a25757590276d5e50445" --format=php-clover coverage.clover
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --access-token="9857f9bb4b1c260b94eb773a541d6e42e05db0db45d5a25757590276d5e50445" --format=php-clover coverage.clover
 
 notifications:
-slack: big-boss-studio:vLrsJ3hpqgIYugU7IKLMUwj2
+  slack: big-boss-studio:vLrsJ3hpqgIYugU7IKLMUwj2
