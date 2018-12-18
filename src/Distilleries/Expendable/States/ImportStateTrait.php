@@ -58,7 +58,7 @@ trait ImportStateTrait {
         }
         $file = str_replace(storage_path('app/'), '', $file);
 
-        (new BaseImport($this->model))->import($file);
+        (new BaseImport($this->model))->importFromFile($file);
 
         return redirect()->back()->with(Message::MESSAGE, [trans('expendable::success.imported')]);
 

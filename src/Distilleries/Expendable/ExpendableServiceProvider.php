@@ -93,6 +93,8 @@ class ExpendableServiceProvider extends ServiceProvider
         return [
             'Distilleries\Expendable\Contracts\StateDisplayerContract',
             'Distilleries\Expendable\Contracts\LayoutManagerContract',
+            'Distilleries\Expendable\Contracts\ImportContract',
+            'Distilleries\Expendable\Contracts\ExportContract',
         ];
     }
 

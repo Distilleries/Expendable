@@ -2,11 +2,12 @@
 namespace Distilleries\Expendable\Exports;
 
 use Carbon\Carbon;
+use Distilleries\Expendable\Contracts\ExportContract;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class BaseExport implements FromQuery, WithHeadings
+class BaseExport implements FromQuery, WithHeadings, ExportContract
 {
     use Exportable;
 
@@ -29,6 +30,11 @@ class BaseExport implements FromQuery, WithHeadings
     {
         $this->setModel($model);
         $this->setRange($data);
+    }
+
+    public function export($fileName)
+    {
+        $this->download($fileName);
     }
 
     /**

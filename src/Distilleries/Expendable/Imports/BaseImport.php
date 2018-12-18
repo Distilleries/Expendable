@@ -1,11 +1,12 @@
 <?php
 namespace Distilleries\Expendable\Imports;
 
+use Distilleries\Expendable\Contracts\ImportContract;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class BaseImport implements ToModel, WithHeadingRow
+class BaseImport implements ToModel, WithHeadingRow, ImportContract
 {
     use Importable;
 
@@ -17,6 +18,11 @@ class BaseImport implements ToModel, WithHeadingRow
     public function __construct($model)
     {
         $this->setModel($model);
+    }
+
+    public function importFromFile($filepath)
+    {
+        $this->import($filepath);
     }
 
     /**

@@ -51,6 +51,6 @@ trait ExportStateTrait {
         $data = $request->all();
         $filename = $data['range']['start'] . ' ' . $data['range']['end'] . '.' . $data['type'];
 
-        return (new BaseExport($this->model, $data))->download($filename);
+        return (new BaseExport($this->model, $data))->export($filename);
     }
 } 
