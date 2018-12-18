@@ -2,6 +2,7 @@
 
 use \FormBuilder;
 use Illuminate\Http\Request;
+use Distilleries\Expendable\Exports\BaseExport;
 
 trait ExportStateTrait {
 
@@ -48,23 +49,8 @@ trait ExportStateTrait {
 
 
         $data = $request->all();
+        $filename = $data['range']['start'] . ' ' . $data['range']['end'] . '.' . $data['type'];
 
-        foreach ($data['range'] as $key => $date)
-        {
-            $data['range'][$key] = date('Y-m-d', strtotime($date));
-        }
-
-        $result = $this->model->betweenCreate($data['range']['start'], $data['range']['end'])->get();
-
-        if (!$result->isEmpty())
-        {
-            $exporter = app($data['type']);
-            $file     = $exporter->export($result->toArray(), $data['range']['start'] . ' ' . $data['range']['end']);
-
-            return $file;
-        }
-
-        return redirect()->to(action('\\' . get_class($this) . '@getExport'));
-
+        return (new BaseExport($this->model, $data))->download($filename);
     }
 } 

@@ -28,7 +28,7 @@
         "distilleries/form-builder": "2.12.*",
         "distilleries/permission-util": "1.9.*",
         "forxer/Gravatar": "~1.2",
-        "maatwebsite/excel": "2.1.*"
+        "maatwebsite/excel": "3.1.*"
     },
     "require-dev": {
         "orchestra/database": "3.7.*",

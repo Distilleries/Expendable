@@ -1,6 +1,7 @@
 <?php namespace Distilleries\Expendable\States;
 
 use Distilleries\Expendable\Formatter\Message;
+use Distilleries\Expendable\Imports\BaseImport;
 use Illuminate\Http\Request;
 use \View, \FormBuilder, \Input, \Redirect, \Lang, \File, \App;
 
@@ -50,31 +51,14 @@ trait ImportStateTrait {
 
 
         $file = $request->get('file');
-        $file = urldecode(preg_replace('/\/app\//', '', $file));
-
+        $file = urldecode($file);
         if (!app('files')->exists($file))
         {
             return redirect()->back()->with(Message::WARNING, [trans('expendable::errors.file_not_found')]);
         }
+        $file = str_replace(storage_path('app/'), '', $file);
 
-        $contract = ucfirst(app('files')->extension($file)) . 'ImporterContract';
-        $exporter = app($contract);
-        $data     = $exporter->getArrayDataFromFile($file);
-
-        foreach ($data as $item)
-        {
-            $primary = isset($item[$this->model->getKeyName()]) ? $item[$this->model->getKeyName()] : '';
-            if (empty($primary))
-            {
-                $this->model = new $this->model;
-                $this->model = $this->model->create($item);
-            } else
-            {
-                $this->model = $this->model->find($primary);
-                $this->model->update($item);
-            }
-
-        }
+        (new BaseImport($this->model))->import($file);
 
         return redirect()->back()->with(Message::MESSAGE, [trans('expendable::success.imported')]);
 
