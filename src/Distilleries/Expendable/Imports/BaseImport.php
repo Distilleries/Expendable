@@ -22,7 +22,7 @@ class BaseImport implements ToModel, WithHeadingRow, ImportContract
 
     public function importFromFile($filepath)
     {
-        $this->import($filepath);
+        return $this->import($filepath);
     }
 
     /**

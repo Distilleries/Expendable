@@ -34,7 +34,7 @@ class BaseExport implements FromQuery, WithHeadings, ExportContract
 
     public function export($fileName)
     {
-        $this->download($fileName);
+        return $this->download($fileName);
     }
 
     /**
