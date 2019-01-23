@@ -102,7 +102,9 @@ trait Translatable
             ->where($this->getQualifiedIsoColumn(), '=', $iso)->get();
 
         if (!$translation->isEmpty()) {
-            $translation->delete();
+            $translation->each(function($trans){
+                $trans->delete();
+            });
         }
 
 
