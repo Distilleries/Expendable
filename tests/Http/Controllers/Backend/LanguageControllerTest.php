@@ -276,7 +276,7 @@ class LanguageControllerTest extends ExpendableTestCase {
         ]);
 
         $this->assertContains('HTTP/1.1 200 OK', (string)$response);
-        $this->assertContains('filename="'.$dateBegin.' '.$dateEnd.'.csv"', (string)$response);
+        $this->assertContains('filename='.$dateBegin.'_'.$dateEnd.'.csv', (string)$response);
     }
 
     public function testExportXls()
@@ -305,7 +305,37 @@ class LanguageControllerTest extends ExpendableTestCase {
 
 
         $this->assertContains('HTTP/1.1 200 OK', (string)$response);
-        $this->assertContains('filename="'.$dateBegin.' '.$dateEnd.'.xls"', (string)$response);
+        $this->assertContains('filename='.$dateBegin.'_'.$dateEnd.'.xls', (string)$response);
+
+    }
+
+    public function testExportDateFormat()
+    {
+
+        $faker = Faker\Factory::create();
+        $data  = [
+            'libelle'     => str_replace('\'', '', $faker->country),
+            'iso'         => $faker->countryCode,
+            'not_visible' => 0,
+            'is_default'  => 1,
+            'status'      => 1,
+        ];
+        \Distilleries\Expendable\Models\Language::create($data);
+
+        $dateBegin = date('d/m/Y', time() - (24 * 60 * 60));
+        $dateEnd   = date('d/m/Y', time() + (24 * 60 * 60));
+        \File::delete(storage_path('exports'));
+        $response = $this->call('POST', action('Backend\LanguageController@postExport'), [
+            'range' => [
+                'start' => $dateBegin,
+                'end'   => $dateEnd
+            ],
+            'type'  => 'xls'
+        ]);
+
+
+        $this->assertContains('HTTP/1.1 200 OK', (string)$response);
+        $this->assertContains('filename='.str_replace('/', '-', $dateBegin . '_' . $dateEnd).'.xls', (string)$response);
 
     }
 
