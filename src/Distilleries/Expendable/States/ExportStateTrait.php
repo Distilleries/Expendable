@@ -1,5 +1,6 @@
 <?php namespace Distilleries\Expendable\States;
 
+use Carbon\Carbon;
 use \FormBuilder;
 use Illuminate\Http\Request;
 use Distilleries\Expendable\Exports\BaseExport;
@@ -49,7 +50,10 @@ trait ExportStateTrait {
 
 
         $data = $request->all();
-        $filename = $data['range']['start'] . ' ' . $data['range']['end'] . '.' . $data['type'];
+        $dateStart = !empty($data['range']) && !empty($data['range']['start']) ? $data['range']['start'] : Carbon::now()->format('Y-m-d');
+        $dateEnd = !empty($data['range']) && !empty($data['range']['end']) ? $data['range']['end'] : Carbon::now()->format('Y-m-d');
+        $type = !empty($data['type']) ? $data['type'] : 'csv';
+        $filename = $dateStart . ' ' . $dateEnd . '.' . $type;
 
         return (new BaseExport($this->model, $data))->export($filename);
     }
