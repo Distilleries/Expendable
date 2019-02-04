@@ -224,6 +224,32 @@ class LanguageControllerTest extends ExpendableTestCase {
         $this->assertHasOldInput();
     }
 
+    public function testExportErrorWithoutDate()
+    {
+        $this->call('POST', action('Backend\LanguageController@postExport'), [
+            'type'  => 'xls'
+        ]);
+
+        $this->assertSessionHasErrors();
+        $this->assertHasOldInput();
+    }
+
+    public function testExportErrorWithoutType()
+    {
+        $dateBegin = date('Y-m-d', time() - (24 * 60 * 60));
+        $dateEnd   = date('Y-m-d', time() + (24 * 60 * 60));
+
+        $this->call('POST', action('Backend\LanguageController@postExport'), [
+            'range' => [
+                'start' => $dateBegin,
+                'end'   => $dateEnd
+            ],
+        ]);
+
+        $this->assertSessionHasErrors();
+        $this->assertHasOldInput();
+    }
+
     public function testExportCsv()
     {
         $this->disableExceptionHandling();
