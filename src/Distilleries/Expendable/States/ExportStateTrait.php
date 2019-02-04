@@ -1,7 +1,9 @@
 <?php namespace Distilleries\Expendable\States;
 
+use Carbon\Carbon;
 use \FormBuilder;
 use Illuminate\Http\Request;
+use Distilleries\Expendable\Exports\BaseExport;
 
 trait ExportStateTrait {
 
@@ -48,23 +50,11 @@ trait ExportStateTrait {
 
 
         $data = $request->all();
+        $dateStart = !empty($data['range']) && !empty($data['range']['start']) ? $data['range']['start'] : Carbon::now()->format('Y-m-d');
+        $dateEnd = !empty($data['range']) && !empty($data['range']['end']) ? $data['range']['end'] : Carbon::now()->format('Y-m-d');
+        $type = !empty($data['type']) ? $data['type'] : 'csv';
+        $filename = $dateStart . ' ' . $dateEnd . '.' . $type;
 
-        foreach ($data['range'] as $key => $date)
-        {
-            $data['range'][$key] = date('Y-m-d', strtotime($date));
-        }
-
-        $result = $this->model->betweenCreate($data['range']['start'], $data['range']['end'])->get();
-
-        if (!$result->isEmpty())
-        {
-            $exporter = app($data['type']);
-            $file     = $exporter->export($result->toArray(), $data['range']['start'] . ' ' . $data['range']['end']);
-
-            return $file;
-        }
-
-        return redirect()->to(action('\\' . get_class($this) . '@getExport'));
-
+        return (new BaseExport($this->model, $data))->export($filename);
     }
 } 

@@ -224,6 +224,32 @@ class LanguageControllerTest extends ExpendableTestCase {
         $this->assertHasOldInput();
     }
 
+    public function testExportErrorWithoutDate()
+    {
+        $this->call('POST', action('Backend\LanguageController@postExport'), [
+            'type'  => 'xls'
+        ]);
+
+        $this->assertSessionHasErrors();
+        $this->assertHasOldInput();
+    }
+
+    public function testExportErrorWithoutType()
+    {
+        $dateBegin = date('Y-m-d', time() - (24 * 60 * 60));
+        $dateEnd   = date('Y-m-d', time() + (24 * 60 * 60));
+
+        $this->call('POST', action('Backend\LanguageController@postExport'), [
+            'range' => [
+                'start' => $dateBegin,
+                'end'   => $dateEnd
+            ],
+        ]);
+
+        $this->assertSessionHasErrors();
+        $this->assertHasOldInput();
+    }
+
     public function testExportCsv()
     {
         $this->disableExceptionHandling();
@@ -241,25 +267,19 @@ class LanguageControllerTest extends ExpendableTestCase {
         $dateBegin = date('Y-m-d', time() - (24 * 60 * 60));
         $dateEnd   = date('Y-m-d', time() + (24 * 60 * 60));
 
-        try
-        {
-            $this->call('POST', action('Backend\LanguageController@postExport'), [
-                'range' => [
-                    'start' => $dateBegin,
-                    'end'   => $dateEnd
-                ],
-                'type'  => 'Distilleries\Expendable\Contracts\CsvExporterContract'
-            ]);
+        $response = $this->call('POST', action('Backend\LanguageController@postExport'), [
+            'range' => [
+                'start' => $dateBegin,
+                'end'   => $dateEnd
+            ],
+            'type'  => 'csv'
+        ]);
 
-        } catch (\Maatwebsite\Excel\Exceptions\LaravelExcelException $e)
-        {
-            $this->assertEquals("[ERROR]: Headers already sent", $e->getMessage());
-            $this->assertFileExists(storage_path('exports/'.$dateBegin.' '.$dateEnd.'.csv'));
-        }
-
+        $this->assertContains('HTTP/1.1 200 OK', (string)$response);
+        $this->assertContains('filename="'.$dateBegin.' '.$dateEnd.'.csv"', (string)$response);
     }
 
-   /* public function testExportXls()
+    public function testExportXls()
     {
 
         $faker = Faker\Factory::create();
@@ -275,23 +295,19 @@ class LanguageControllerTest extends ExpendableTestCase {
         $dateBegin = date('Y-m-d', time() - (24 * 60 * 60));
         $dateEnd   = date('Y-m-d', time() + (24 * 60 * 60));
         \File::delete(storage_path('exports'));
-        try
-        {
-            $this->call('POST', action('Backend\LanguageController@postExport'), [
-                'range' => [
-                    'start' => $dateBegin,
-                    'end'   => $dateEnd
-                ],
-                'type'  => 'Distilleries\Expendable\Contracts\ExcelExporterContract'
-            ]);
+        $response = $this->call('POST', action('Backend\LanguageController@postExport'), [
+            'range' => [
+                'start' => $dateBegin,
+                'end'   => $dateEnd
+            ],
+            'type'  => 'xls'
+        ]);
 
-        } catch (\Maatwebsite\Excel\Exceptions\LaravelExcelException $e)
-        {
-            $this->assertEquals("[ERROR]: Headers already sent", $e->getMessage());
-            $this->assertFileExists(storage_path('exports/'.$dateBegin.' '.$dateEnd.'.xls'));
-        }
 
-    }*/
+        $this->assertContains('HTTP/1.1 200 OK', (string)$response);
+        $this->assertContains('filename="'.$dateBegin.' '.$dateEnd.'.xls"', (string)$response);
+
+    }
 
     public function testImport()
     {
@@ -316,9 +332,9 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
 
         \DB::table('languages')->truncate();
-        copy(realpath(__DIR__.'/../../../data/exports/2015-03-17 2015-03-19.csv'), storage_path('2015-03-17 2015-03-19.csv'));
+        copy(realpath(__DIR__.'/../../../data/exports/2015-03-17 2015-03-19.csv'), storage_path('app/2015-03-17 2015-03-19.csv'));
         $this->call('POST', action('Backend\LanguageController@postImport'), [
-            'file' => storage_path('2015-03-17 2015-03-19.csv')
+            'file' => storage_path('app/2015-03-17 2015-03-19.csv')
         ]);
 
         $total = \Distilleries\Expendable\Models\Language::count();
@@ -330,9 +346,9 @@ class LanguageControllerTest extends ExpendableTestCase {
     {
 
         \DB::table('languages')->truncate();
-        copy(realpath(__DIR__.'/../../../data/exports/2015-03-17 2015-03-19.csv'), storage_path('2015-03-17 2015-03-19.xls'));
+        copy(realpath(__DIR__.'/../../../data/exports/2015-03-17 2015-03-19.xls'), storage_path('app/2015-03-17 2015-03-19.xls'));
         $this->call('POST', action('Backend\LanguageController@postImport'), [
-            'file' => storage_path('2015-03-17 2015-03-19.xls')
+            'file' => storage_path('app/2015-03-17 2015-03-19.xls')
         ]);
 
         $total = \Distilleries\Expendable\Models\Language::count();
