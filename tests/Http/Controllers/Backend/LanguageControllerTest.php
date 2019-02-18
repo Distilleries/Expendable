@@ -322,8 +322,9 @@ class LanguageControllerTest extends ExpendableTestCase {
         ];
         \Distilleries\Expendable\Models\Language::create($data);
 
-        $dateBegin = date('d/m/Y', time() - (24 * 60 * 60));
-        $dateEnd   = date('d/m/Y', time() + (24 * 60 * 60));
+        $dateBegin = date('Y-m-d', time() - (24 * 60 * 60));
+        $dateEnd   = date('Y-m-d', time() + (24 * 60 * 60));
+
         \File::delete(storage_path('exports'));
         $response = $this->call('POST', action('Backend\LanguageController@postExport'), [
             'range' => [
@@ -335,7 +336,7 @@ class LanguageControllerTest extends ExpendableTestCase {
 
 
         $this->assertContains('HTTP/1.1 200 OK', (string)$response);
-        $this->assertContains('filename='.str_replace('/', '-', $dateBegin . '_' . $dateEnd).'.xls', (string)$response);
+        $this->assertContains('filename='.$dateBegin.'_'.$dateEnd.'.xls', (string)$response);
 
     }
 

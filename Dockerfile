@@ -38,4 +38,7 @@ RUN curl --show-error https://getcomposer.org/installer | php \
     && rm -rf composer.lock \
     && php composer.phar install --no-interaction -o
 
+RUN echo "memory_limit=-1" > $PHP_INI_DIR/conf.d/memory-limit.ini
+
+
 CMD ["phpdbg","-qrr","vendor/bin/phpunit","--coverage-clover=coverage.clover","--coverage-text"]
