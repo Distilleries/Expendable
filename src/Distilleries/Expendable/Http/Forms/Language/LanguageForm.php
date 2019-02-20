@@ -44,7 +44,7 @@ class LanguageForm extends FormValidator {
     protected function getUpdateRules()
     {
         $key                  = \Request::get($this->model->getKeyName());
-        static::$rules['iso'] = 'required|unique:languages,iso,' . $key;
+        static::$rules['iso'] = 'required|unique:languages,iso,'.$key;
 
         return parent::getUpdateRules();
     }

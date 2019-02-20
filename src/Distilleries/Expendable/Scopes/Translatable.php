@@ -43,7 +43,7 @@ trait Translatable
     {
         $translation = new Translation;
 
-        return $translation->getTable() . '.' . $translation->getIsoColumn();
+        return $translation->getTable().'.'.$translation->getIsoColumn();
     }
 
     /**
@@ -55,7 +55,7 @@ trait Translatable
     {
         $translation = new Translation;
 
-        return $translation->getTable() . '.' . $translation->getIdElementColumn();
+        return $translation->getTable().'.'.$translation->getIdElementColumn();
     }
 
     /**
@@ -67,7 +67,7 @@ trait Translatable
     {
         $translation = new Translation;
 
-        return $translation->getTable() . '.' . $translation->getModelColumn();
+        return $translation->getTable().'.'.$translation->getModelColumn();
     }
 
     /**
@@ -79,7 +79,7 @@ trait Translatable
     {
         $translation = new Translation;
 
-        return $translation->getTable() . '.' . $translation->getIdSourceColumn();
+        return $translation->getTable().'.'.$translation->getIdSourceColumn();
     }
 
     /**
@@ -102,7 +102,7 @@ trait Translatable
             ->where($this->getQualifiedIsoColumn(), '=', $iso)->get();
 
         if (!$translation->isEmpty()) {
-            $translation->each(function($trans){
+            $translation->each(function($trans) {
                 $trans->delete();
             });
         }

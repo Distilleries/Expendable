@@ -53,7 +53,7 @@ trait ExportStateTrait {
         $dateStart = !empty($data['range']) && !empty($data['range']['start']) ? $data['range']['start'] : Carbon::now()->format('Y-m-d');
         $dateEnd = !empty($data['range']) && !empty($data['range']['end']) ? $data['range']['end'] : Carbon::now()->format('Y-m-d');
         $type = !empty($data['type']) ? $data['type'] : 'csv';
-        $filename = str_replace('/', '-', $dateStart . '_' . $dateEnd) . '.' . mb_strtolower($type);
+        $filename = str_replace('/', '-', $dateStart.'_'.$dateEnd).'.'.mb_strtolower($type);
 
         return (new BaseExport($this->model, $data))->export($filename);
     }

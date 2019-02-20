@@ -11,7 +11,9 @@ class UserUtils
     {
         $user = Auth::user();
 
-        if (empty($user)) return false;
+        if (empty($user)) {
+            return false;
+        }
 
         return !empty(Auth::user()->role) && (Auth::user()->role->initials == '@sa' || Auth::user()->role->initials == '@a');
     }
@@ -27,7 +29,9 @@ class UserUtils
     {
         $user = Auth::user();
 
-        if (empty($user)) return false;
+        if (empty($user)) {
+            return false;
+        }
 
         return !empty(Auth::user()->role) && in_array(Auth::user()->role->initials, self::frontendInitialRole());
     }

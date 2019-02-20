@@ -29,7 +29,7 @@ class Application extends BaseApplication
      */
     public function storagePath()
     {
-        $path = env('STORAGE_PATH', $this->basePath . DIRECTORY_SEPARATOR . 'storage');
+        $path = env('STORAGE_PATH', $this->basePath.DIRECTORY_SEPARATOR.'storage');
 
         return $this->storagePath ?: $path;
     }

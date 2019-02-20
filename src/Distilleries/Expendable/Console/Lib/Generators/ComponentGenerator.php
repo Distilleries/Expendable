@@ -8,7 +8,7 @@ class ComponentGenerator extends \Kris\LaravelFormBuilder\Console\FormGenerator 
         $model = last($model);
         $model = preg_replace('/\.php/i', '', $model);
 
-        return '\\' . $model;
+        return '\\'.$model;
 
     }
 
@@ -20,7 +20,7 @@ class ComponentGenerator extends \Kris\LaravelFormBuilder\Console\FormGenerator 
         {
             $state = preg_replace('/Contracts/i', 'States', $state);
             $state = preg_replace('/Contract/i', 'Trait', $state);
-            $result .= 'use ' . $state . ';' . "\n";
+            $result .= 'use '.$state.';'."\n";
         }
 
         return $result;
@@ -29,7 +29,7 @@ class ComponentGenerator extends \Kris\LaravelFormBuilder\Console\FormGenerator 
 
     public function getImplementation($states)
     {
-        $result = 'implements ' . join(', ', $states);
+        $result = 'implements '.join(', ', $states);
 
         return $result;
 

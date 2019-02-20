@@ -31,7 +31,7 @@ class BaseImport implements ToModel, WithHeadingRow, ImportContract
     public function model(array $row)
     {
         $data = [];
-        foreach($this->model->getFillable() as $value)
+        foreach ($this->model->getFillable() as $value)
         {
             $data[$value] = $row[$value];
         }

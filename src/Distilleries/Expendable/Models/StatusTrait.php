@@ -50,7 +50,7 @@ trait StatusTrait
      */
     public function getQualifiedStatusColumn()
     {
-        return $this->getTable() . '.' . $this->getStatusColumn();
+        return $this->getTable().'.'.$this->getStatusColumn();
     }
 
     /**

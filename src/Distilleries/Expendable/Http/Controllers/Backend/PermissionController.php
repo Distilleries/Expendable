@@ -26,7 +26,7 @@ class PermissionController extends ModelBaseController  implements FormStateCont
 
     public function getIndex()
     {
-        return redirect()->to(action('\\' . get_class($this) . '@getEdit'));
+        return redirect()->to(action('\\'.get_class($this).'@getEdit'));
     }
 
     // ------------------------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ class PermissionController extends ModelBaseController  implements FormStateCont
         }
 
 
-        return redirect()->to(action('\\' . get_class($this) . '@getIndex'));
+        return redirect()->to(action('\\'.get_class($this).'@getIndex'));
 
     }
 }

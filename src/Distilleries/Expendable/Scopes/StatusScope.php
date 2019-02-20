@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 
-class StatusScope implements Scope{
+class StatusScope implements Scope {
 
     /**
      * All of the extensions to be added to the builder.

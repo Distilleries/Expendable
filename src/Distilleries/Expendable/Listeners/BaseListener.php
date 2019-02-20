@@ -20,7 +20,7 @@ class BaseListener implements ListenerContract {
     {
         foreach ($this->events as $name => $event)
         {
-            Event::listen($name, get_class($this) . '@' . $event['action'], $event['priority']);
+            Event::listen($name, get_class($this).'@'.$event['action'], $event['priority']);
         }
 
     }

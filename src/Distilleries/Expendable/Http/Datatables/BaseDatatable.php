@@ -10,15 +10,15 @@ abstract class BaseDatatable extends EloquentDatatable {
     // ------------------------------------------------------------------------------------------------
     public function addTranslationAction($template = 'expendable::admin.form.components.datatable.translations', $route = '')
     {
-        $this->add('translation', function ($model) use ($template, $route) {
+        $this->add('translation', function($model) use ($template, $route) {
 
             $languages    = Language::withoutCurrentLanguage()->get();
-            $translations = Translation::byElement($model)->pluck('id_element','iso')->toArray();
+            $translations = Translation::byElement($model)->pluck('id_element', 'iso')->toArray();
             return view($template, array(
                 'languages'    => $languages,
                 'translations' => $translations,
                 'data'         => $model->toArray(),
-                'route'        => !empty($route) ? $route . '@' : $this->getControllerNameForAction() . '@'
+                'route'        => !empty($route) ? $route.'@' : $this->getControllerNameForAction().'@'
             ))->render();
         });
 

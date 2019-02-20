@@ -77,7 +77,7 @@ trait FormStateTrait {
 
         $id_element = $this->model->hasBeenTranslated($this->model->getTable(), $id, $iso);
         if (!empty($id_element)) {
-            return redirect()->to(action($this->getControllerNameForAction() . '@getEdit', $id_element));
+            return redirect()->to(action($this->getControllerNameForAction().'@getEdit', $id_element));
         }
 
         $model = (!empty($id) || $id === "0") ? $this->model->withoutTranslation()->findOrFail($id) : $this->model;
@@ -133,7 +133,7 @@ trait FormStateTrait {
             return $result;
         }
 
-        return redirect()->to(action($this->getControllerNameForAction() . '@getIndex'));
+        return redirect()->to(action($this->getControllerNameForAction().'@getIndex'));
     }
 
     // ------------------------------------------------------------------------------------------------
@@ -167,7 +167,7 @@ trait FormStateTrait {
             return $result;
         }
 
-        return redirect()->to(action($this->getControllerNameForAction() . '@getIndex'));
+        return redirect()->to(action($this->getControllerNameForAction().'@getIndex'));
 
     }
 
@@ -230,7 +230,7 @@ trait FormStateTrait {
         $form_content = view('form-builder::form.components.formgenerator.info', [
             'form'  => $form,
             'id'    => $id,
-            'route' => $this->getControllerNameForAction() . '@',
+            'route' => $this->getControllerNameForAction().'@',
         ]);
 
         $this->layoutManager->add([
@@ -250,6 +250,6 @@ trait FormStateTrait {
 
         $action = explode('@', \Route::currentRouteAction());
 
-        return '\\' . $action[0];
+        return '\\'.$action[0];
     }
 }
