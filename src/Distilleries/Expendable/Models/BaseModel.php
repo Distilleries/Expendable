@@ -2,7 +2,7 @@
 
 namespace Distilleries\Expendable\Models;
 
-use Distilleries\Expendable\Helpers\Security;
+use Distilleries\Security\Helpers\Security;
 use Distilleries\Expendable\Models\Traits\ReservedKeyWord;
 use Distilleries\Expendable\Models\Traits\ReservedKeyWordTrait;
 use Illuminate\Database\Eloquent\Model;
