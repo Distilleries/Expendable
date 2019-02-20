@@ -18,8 +18,8 @@ class SetterLanguage
     public function handle($request, Closure $next)
     {
 
-        if($request->session()->has('language')){
-            $local = $request->session()->get('language',config('app.locale'));
+        if ($request->session()->has('language')) {
+            $local = $request->session()->get('language', config('app.locale'));
             app()->setLocale($local);
         }
 

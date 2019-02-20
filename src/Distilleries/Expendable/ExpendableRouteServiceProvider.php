@@ -56,9 +56,9 @@ class ExpendableRouteServiceProvider extends ServiceProvider
         \Route::group([
             'middleware' => 'web',
             'namespace'  => $this->namespace,
-        ], function ($router) {
+        ], function($router) {
 
-            require __DIR__ . '/../routes/web.php';
+            require __DIR__.'/../routes/web.php';
         });
     }
 
@@ -75,8 +75,8 @@ class ExpendableRouteServiceProvider extends ServiceProvider
             'middleware' => 'api',
             'namespace'  => $this->namespace,
             'prefix'     => 'api',
-        ], function ($router) {
-            require __DIR__ . '/../routes/api.php';
+        ], function($router) {
+            require __DIR__.'/../routes/api.php';
         });
     }
 }

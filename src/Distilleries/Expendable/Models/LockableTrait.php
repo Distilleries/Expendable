@@ -18,7 +18,7 @@ trait LockableTrait
 
         $this->{$this->column_nb_of_try_name} += 1;
         \DB::table($this->getTable())
-            ->where($this->getKeyName(),$this->getKey())
+            ->where($this->getKeyName(), $this->getKey())
             ->increment($this->column_nb_of_try_name);
         return $this;
 
@@ -28,8 +28,8 @@ trait LockableTrait
     {
 
         \DB::table($this->getTable())
-            ->where($this->getKeyName(),$this->getKey())
-            ->decrement($this->column_nb_of_try_name,$this->{$this->column_nb_of_try_name});
+            ->where($this->getKeyName(), $this->getKey())
+            ->decrement($this->column_nb_of_try_name, $this->{$this->column_nb_of_try_name});
 
         $this->{$this->column_nb_of_try_name} = 0;
         return $this;
@@ -41,8 +41,8 @@ trait LockableTrait
         $this->{$this->column_nb_of_try_name} = config($this->config_key_security_lock) + 1;
 
         \DB::table($this->getTable())
-            ->where($this->getKeyName(),$this->getKey())
-            ->increment($this->column_nb_of_try_name,$this->{$this->column_nb_of_try_name} );
+            ->where($this->getKeyName(), $this->getKey())
+            ->increment($this->column_nb_of_try_name, $this->{$this->column_nb_of_try_name} );
 
         return $this;
     }

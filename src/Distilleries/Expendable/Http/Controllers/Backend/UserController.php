@@ -53,7 +53,7 @@ class UserController extends BaseComponent {
     }
 
 
-    public function postUnLock(Request $request){
+    public function postUnLock(Request $request) {
 
         $model = $this->model->findOrFail($request->get('id'));
         $model->nb_of_try = 0;
@@ -63,7 +63,7 @@ class UserController extends BaseComponent {
     }
 
 
-    public function postLock(Request $request){
+    public function postLock(Request $request) {
 
         $model = $this->model->findOrFail($request->get('id'));
         $model->nb_of_try = config('expendable.auth.nb_of_try');

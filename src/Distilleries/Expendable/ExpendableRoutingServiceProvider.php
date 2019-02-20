@@ -13,7 +13,7 @@ class ExpendableRoutingServiceProvider extends RoutingServiceProvider
      */
     protected function registerRouter()
     {
-        $this->app->singleton('router',function ($app) {
+        $this->app->singleton('router', function($app) {
             return new Router($app['events'], $app);
         });
     }

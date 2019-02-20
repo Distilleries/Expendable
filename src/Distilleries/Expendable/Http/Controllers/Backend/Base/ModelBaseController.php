@@ -38,7 +38,7 @@ class ModelBaseController extends BaseController {
         $data = $this->model->where($this->model->getKeyName(), $request->get('id'))->get()->last();
         $data->delete();
 
-        return redirect()->to(action('\\' . get_class($this) . '@getIndex'));
+        return redirect()->to(action('\\'.get_class($this).'@getIndex'));
     }
 
     // ------------------------------------------------------------------------------------------------

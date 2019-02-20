@@ -30,7 +30,7 @@ class LoginController extends BaseController
     {
         parent::__construct($layoutManager);
 
-        $this->auth      = $auth;
+        $this->auth = $auth;
 
     }
 
@@ -40,7 +40,7 @@ class LoginController extends BaseController
 
     public function getLoginRedirect()
     {
-        return redirect()->action('\\' . self::class . '@getIndex');
+        return redirect()->action('\\'.self::class.'@getIndex');
     }
 
     public function getIndex()
@@ -203,7 +203,7 @@ class LoginController extends BaseController
         }
 
         $response = $this->broker()->reset(
-            $this->credentials($request), function ($user, $password) {
+            $this->credentials($request), function($user, $password) {
             $this->resetPassword($user, $password);
         });
 
@@ -211,7 +211,7 @@ class LoginController extends BaseController
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         return $response == Password::PASSWORD_RESET
-            ? redirect()->to(action('\\' . get_class($this) . '@getIndex'))
+            ? redirect()->to(action('\\'.get_class($this).'@getIndex'))
             : redirect()->back()->with('error', trans($response));
 
     }

@@ -29,7 +29,7 @@ $router->group(array(
 
 });
 
-$router->group(array('middleware' => ['auth','language']), function() use($router)
+$router->group(array('middleware' => ['auth', 'language']), function() use($router)
 {
     $router->group(array('middleware' => 'permission', 'prefix' => config('expendable.admin_base_uri')), function() use($router)
     {
