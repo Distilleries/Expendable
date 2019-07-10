@@ -4,7 +4,7 @@ class PermissionControllerTest extends ExpendableTestCase {
 
     protected $controller = 'Backend\PermissionController';
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
