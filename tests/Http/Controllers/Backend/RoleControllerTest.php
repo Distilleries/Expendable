@@ -4,7 +4,7 @@ class RoleControllerTest extends ExpendableTestCase {
 
     protected $controller = 'Backend\RoleController';
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

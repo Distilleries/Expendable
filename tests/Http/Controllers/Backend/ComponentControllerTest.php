@@ -4,7 +4,7 @@ class ComponentControllerTest extends ExpendableTestCase {
 
     protected $controller = 'Backend\ComponentController';
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

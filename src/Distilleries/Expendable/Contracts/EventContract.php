@@ -2,5 +2,9 @@
 
 interface EventContract {
 
-    public function fire($params = array());
+    /**
+     * @param  array  $params
+     * @return mixed
+     */
+    public function dispatch($params = array());
 }
