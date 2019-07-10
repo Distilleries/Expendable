@@ -13,6 +13,7 @@ matrix:
       env: setup=lowest
     - php: 7.1
       env: setup=stable
+  fast_finish: true
 sudo: false
 
 services:
@@ -35,9 +36,6 @@ script:
     else
      vendor/phpunit/phpunit/phpunit --configuration phpunit.xml --coverage-clover=coverage.clover
     fi
-
-matrix:
-  fast_finish: true
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
