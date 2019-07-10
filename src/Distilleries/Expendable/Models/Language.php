@@ -14,11 +14,11 @@ class Language extends BaseModel {
 
     public function scopeWithoutCurrentLanguage($query)
     {
-        return $query->where($this->getTable().'.iso','<>',app()->getLocale());
+        return $query->where($this->getTable().'.iso', '<>', app()->getLocale());
     }
 
     public function scopeWithTranslationElement($query)
     {
-        return $query->where($this->getTable().'.iso','<>',app()->getLocale());
+        return $query->where($this->getTable().'.iso', '<>', app()->getLocale());
     }
 }

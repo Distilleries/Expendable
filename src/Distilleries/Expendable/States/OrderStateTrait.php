@@ -32,7 +32,7 @@ trait OrderStateTrait
         $order = 1;
         foreach ($ids as $id) {
             $instance = $this->model->find($id);
-            if (! empty($instance)) {
+            if (!empty($instance)) {
                 $instance->{$this->model->orderFieldName()} = $order;
                 $instance->save();
                 $order++;

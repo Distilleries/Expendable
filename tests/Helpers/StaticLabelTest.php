@@ -42,8 +42,8 @@ class StaticLabelTest extends ExpendableTestCase {
         $result = \Distilleries\Expendable\Helpers\StaticLabel::typeExport();
 
         $this->assertTrue(is_array($result));
-        $this->assertArrayHasKey('Distilleries\Expendable\Contracts\ExcelExporterContract', $result);
-        $this->assertArrayHasKey('Distilleries\Expendable\Contracts\CsvExporterContract', $result);
+        $this->assertArrayHasKey('xls', $result);
+        $this->assertArrayHasKey('csv', $result);
     }
 
     public function testBodyTypeArray()

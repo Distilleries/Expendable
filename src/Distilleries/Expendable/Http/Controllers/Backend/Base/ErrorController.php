@@ -18,7 +18,7 @@ class ErrorController extends BaseController {
 
 
         $this->layoutManager->add([
-            'class_layout'=>$class . '-full-page',
+            'class_layout'=>$class.'-full-page',
             'content'=>$content,
         ]);
 

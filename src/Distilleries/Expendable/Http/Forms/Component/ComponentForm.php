@@ -47,15 +47,15 @@ class ComponentForm extends \Distilleries\FormBuilder\FormValidator
     {
         $allModels = [
             [
-                'path' => app_path() . DIRECTORY_SEPARATOR,
+                'path' => app_path().DIRECTORY_SEPARATOR,
                 'namespace' => '{{app}}',
             ],
             [
-                'path' => app_path() . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR,
+                'path' => app_path().DIRECTORY_SEPARATOR.'Models'.DIRECTORY_SEPARATOR,
                 'namespace' => '{{app}}Models\\',
             ],
             [
-                'path' => __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Models' . DIRECTORY_SEPARATOR,
+                'path' => __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'Models'.DIRECTORY_SEPARATOR,
                 'namespace' => 'Distilleries\\Expendable\\Models\\',
             ],
         ];
@@ -67,7 +67,7 @@ class ComponentForm extends \Distilleries\FormBuilder\FormValidator
                 foreach ($models as $model) {
                     $choice = explode('/', $model);
                     $model = preg_replace('/.php/i', '', last($choice));
-                    $choices[$config['namespace'] . $model] = $model;
+                    $choices[$config['namespace'].$model] = $model;
                 }
             }
 

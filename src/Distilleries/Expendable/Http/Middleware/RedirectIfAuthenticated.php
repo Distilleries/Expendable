@@ -45,7 +45,7 @@ class RedirectIfAuthenticated {
             $menu = $this->config->get('expendable.menu');
             $user = $this->auth->user();
 
-            if (method_exists($user, 'getFirstRedirect'))
+            if (method_exists($user, 'getFirstRedirect') && !empty($menu) && !empty($menu['left']))
             {
                 return new RedirectResponse($this->auth->user()->getFirstRedirect($menu['left']));
             }

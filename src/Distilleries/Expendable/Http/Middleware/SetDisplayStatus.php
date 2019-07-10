@@ -17,7 +17,7 @@ class SetDisplayStatus {
      */
     public function __construct(Application $app)
     {
-        $this->app        = $app;
+        $this->app = $app;
     }
 
     /**
@@ -33,7 +33,7 @@ class SetDisplayStatus {
         if (UserUtils::isBackendRole())
         {
             UserUtils::setDisplayAllStatus();
-        }else{
+        } else {
             UserUtils::forgotDisplayAllStatus();
         }
 

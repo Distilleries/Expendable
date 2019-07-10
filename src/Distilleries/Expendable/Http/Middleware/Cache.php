@@ -18,8 +18,8 @@ class Cache
         if (config('cache.enabled') === true) {
             $url = $request->url();
 
-            $key = md5($url . json_encode($request->query()));
-            $value = \Cache::remember($key, config('cache.minutes'), function () use ($next, $request) {
+            $key = md5($url.json_encode($request->query()));
+            $value = \Cache::remember($key, config('cache.minutes'), function() use ($next, $request) {
                 return $next($request);
             });
 

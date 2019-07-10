@@ -21,7 +21,8 @@ class Kernel extends HttpKernel
         \Distilleries\Expendable\Http\Middleware\Secure::class,
         \Distilleries\Expendable\Http\Middleware\AuthenticateOnceWithBasicAuth::class,
         \Distilleries\Expendable\Http\Middleware\ResponseXFrameHeaderMiddleware::class,
-        \Distilleries\Expendable\Http\Middleware\SetDisplayStatus::class
+        \Distilleries\Expendable\Http\Middleware\SetDisplayStatus::class,
+        \Distilleries\Security\Http\Middleware\XSS::class,
     ];
 
     /**

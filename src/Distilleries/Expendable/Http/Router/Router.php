@@ -42,7 +42,7 @@ class Router extends \Illuminate\Routing\Router
         // First, we will check to see if a controller prefix has been registered in
         // the route group. If it has, we will need to prefix it before trying to
         // reflect into the class instance and pull out the method for routing.
-        if (! empty($this->groupStack)) {
+        if (!empty($this->groupStack)) {
             $prepended = $this->prependGroupUses($controller);
         }
         $routable = (new ControllerInspector)

@@ -31,10 +31,10 @@ class TranslatableScope implements Scope {
             $iso = app()->getLocale();
         }
 
-        $builder->whereExists(function ($query) use ($model, $iso) {
+        $builder->whereExists(function($query) use ($model, $iso) {
             $query->select(\DB::raw(1))
                 ->from($model->getQualifiedTable())
-                ->whereRaw($model->getTable() . '.' . $model->getKeyName() . ' = ' . $model->getQualifiedIdElementColumn())
+                ->whereRaw($model->getTable().'.'.$model->getKeyName().' = '.$model->getQualifiedIdElementColumn())
                 ->where($model->getQualifiedIsoColumn(), $iso)
                 ->where($model->getQualifiedModelColumn(), $model->getTable());
         });
@@ -66,7 +66,7 @@ class TranslatableScope implements Scope {
      */
     protected function addWithoutTranslation(Builder $builder)
     {
-        $builder->macro('withoutTranslation', function (Builder $builder) {
+        $builder->macro('withoutTranslation', function(Builder $builder) {
             return $builder->withoutGlobalScope($this);
         });
     }

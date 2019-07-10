@@ -11,9 +11,11 @@ class UserUtils
     {
         $user = Auth::user();
 
-        if (empty($user)) return false;
+        if (empty($user)) {
+            return false;
+        }
 
-        return Auth::user()->role->initials == '@sa' || Auth::user()->role->initials == '@a';
+        return !empty(Auth::user()->role) && (Auth::user()->role->initials == '@sa' || Auth::user()->role->initials == '@a');
     }
 
     public static function frontendInitialRole()
@@ -27,9 +29,11 @@ class UserUtils
     {
         $user = Auth::user();
 
-        if (empty($user)) return false;
+        if (empty($user)) {
+            return false;
+        }
 
-        return in_array(Auth::user()->role->initials, self::frontendInitialRole());
+        return !empty(Auth::user()->role) && in_array(Auth::user()->role->initials, self::frontendInitialRole());
     }
 
 
@@ -51,7 +55,7 @@ class UserUtils
 
     public static function isNotSuperAdmin()
     {
-        return Auth::user()->role->initials != '@sa';
+        return !empty(Auth::user()->role) && Auth::user()->role->initials != '@sa';
     }
 
 

@@ -22,8 +22,8 @@ class StaticLabel {
     public static function typeExport($id = null)
     {
         $items = [
-            'Distilleries\Expendable\Contracts\ExcelExporterContract' => trans('expendable::label.excel'),
-            'Distilleries\Expendable\Contracts\CsvExporterContract'   => trans('expendable::label.csv')
+            'xls' => trans('expendable::label.excel'),
+            'csv'   => trans('expendable::label.csv')
         ];
 
         return self::getLabel($items, $id);
@@ -61,7 +61,7 @@ class StaticLabel {
 
         foreach ($dataActions as $action)
         {
-            $dataResult[$action] = trans('expendable::mail.' . $action);
+            $dataResult[$action] = trans('expendable::mail.'.$action);
         }
 
         return self::getLabel($dataResult, $id);

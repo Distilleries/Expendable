@@ -2,7 +2,7 @@
 
 namespace Distilleries\Expendable\Models;
 
-use Distilleries\Expendable\Helpers\Security;
+use Distilleries\Security\Helpers\Security;
 use Distilleries\Expendable\Models\Traits\ReservedKeyWord;
 use Distilleries\Expendable\Models\Traits\ReservedKeyWordTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -30,16 +30,16 @@ class BaseModel extends Model implements ReservedKeyWord
     public function scopeSearch($query, $searchQuery)
     {
 
-        return $query->where(function ($query) use ($searchQuery) {
+        return $query->where(function($query) use ($searchQuery) {
             $columns = $this->getAllColumnsNames();
 
             foreach ($columns as $column) {
-                $column = $this->isReserved($column) ? '"' . $column . '"' : $column;
+                $column = $this->isReserved($column) ? '"'.$column.'"' : $column;
 
                 if ((DB::connection()->getDriverName()) == 'oracle') {
-                    $query->orWhereRaw('LOWER(' . $column . ') like ? ESCAPE \'\\\'', ['%' . Security::escapeLike(strtolower($searchQuery)) . '%']);
+                    $query->orWhereRaw('LOWER('.$column.') like ? ESCAPE \'\\\'', ['%'.Security::escapeLike(strtolower($searchQuery)).'%']);
                 } else {
-                    $query->orwhere($column, 'like', '%' . Security::escapeLike($searchQuery,'\\\'') . '%');
+                    $query->orwhere($column, 'like', '%'.Security::escapeLike($searchQuery, '\\\'').'%');
                 }
 
             }
@@ -50,20 +50,20 @@ class BaseModel extends Model implements ReservedKeyWord
     {
         switch (DB::connection()->getDriverName()) {
             case 'pgsql':
-                $query       = "SELECT column_name FROM information_schema.columns WHERE table_name = '" . $this->getTable() . "'";
+                $query       = "SELECT column_name FROM information_schema.columns WHERE table_name = '".$this->getTable()."'";
                 $column_name = 'column_name';
                 $reverse     = true;
                 break;
 
             case 'sqlite':
-                $query       = "PRAGMA table_info('" . $this->getTable()."')";
+                $query       = "PRAGMA table_info('".$this->getTable()."')";
                 $column_name = 'name';
                 $reverse     = true;
                 break;
 
 
             case 'mysql':
-                $query       = 'SHOW COLUMNS FROM ' . $this->getTable();
+                $query       = 'SHOW COLUMNS FROM '.$this->getTable();
                 $column_name = 'Field';
                 $reverse     = false;
                 break;
@@ -72,17 +72,17 @@ class BaseModel extends Model implements ReservedKeyWord
                 $parts       = explode('.', $this->getTable());
                 $num         = (count($parts) - 1);
                 $table       = $parts[$num];
-                $query       = "SELECT column_name FROM " . DB::connection()->getConfig('database') . ".INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'" . $table . "'";
+                $query       = "SELECT column_name FROM ".DB::connection()->getConfig('database').".INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'".$table."'";
                 $column_name = 'column_name';
                 $reverse     = false;
                 break;
             case 'oracle':
-                $query       = 'SELECT COLUMN_NAME from ALL_TAB_COLUMNS WHERE TABLE_NAME=\'' . strtoupper($this->getTable()) . '\' AND DATA_TYPE <> \'CLOB\' AND DATA_TYPE <> \'NUMBER\' AND DATA_TYPE <> \'TIMESTAMP\'';
+                $query       = 'SELECT COLUMN_NAME from ALL_TAB_COLUMNS WHERE TABLE_NAME=\''.strtoupper($this->getTable()).'\' AND DATA_TYPE <> \'CLOB\' AND DATA_TYPE <> \'NUMBER\' AND DATA_TYPE <> \'TIMESTAMP\'';
                 $column_name = 'column_name';
                 $reverse     = false;
                 break;
             default:
-                $error = 'Database driver not supported: ' . DB::connection()->getConfig('driver');
+                $error = 'Database driver not supported: '.DB::connection()->getConfig('driver');
                 throw new Exception($error);
         }
 
@@ -101,12 +101,12 @@ class BaseModel extends Model implements ReservedKeyWord
 
     public function scopeBetweenCreate($query, $start, $end)
     {
-        return $query->whereBetween($this->getTable() . '.created_at', [$start, $end]);
+        return $query->whereBetween($this->getTable().'.created_at', [$start, $end]);
     }
 
     public function scopeBetweenUpdate($query, $start, $end)
     {
-        return $query->whereBetween($this->getTable() . '.updated_at', [$start, $end]);
+        return $query->whereBetween($this->getTable().'.updated_at', [$start, $end]);
     }
 
 

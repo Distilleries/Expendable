@@ -35,7 +35,7 @@ class UserListener extends BaseListener
     {
 
 
-        if($model->email != ''){
+        if ($model->email != '') {
             $model->unlock();
         }
 
