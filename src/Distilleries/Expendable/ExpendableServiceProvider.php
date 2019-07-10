@@ -5,18 +5,12 @@ namespace Distilleries\Expendable;
 use Distilleries\Expendable\Layouts\LayoutManager;
 use Distilleries\Expendable\Models\User;
 use Distilleries\Expendable\States\StateDisplayer;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
 
-class ExpendableServiceProvider extends ServiceProvider
+class ExpendableServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = true;
-
     /**
      * Bootstrap the application events.
      *

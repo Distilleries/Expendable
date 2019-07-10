@@ -15,11 +15,11 @@ class Cache
      */
     public function handle($request, Closure $next)
     {
-        if (config('cache.enabled') === true) {
+        if (config('cache.enabled') === true && null !== config('cache.minutes')) {
             $url = $request->url();
 
             $key = md5($url.json_encode($request->query()));
-            $value = \Cache::remember($key, config('cache.minutes'), function() use ($next, $request) {
+            $value = \Cache::remember($key, now()->addMinutes(config('cache.minutes')), function() use ($next, $request) {
                 return $next($request);
             });
 
