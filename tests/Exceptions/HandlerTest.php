@@ -40,7 +40,8 @@ class HandlerTest extends ExpendableTestCase {
         $response = $this->call('GET', '/test');
         $this->assertEquals(404,$response->getStatusCode());
         $this->assertNotContains('page-404',$response->getContent());
-        $this->assertContains('Sorry, the page you are looking for could not be found.',$response->getContent());
+        $this->assertContains('404',$response->getContent());
+        $this->assertContains('Not Found',$response->getContent());
     }
 
 
@@ -114,7 +115,8 @@ class HandlerTest extends ExpendableTestCase {
         $response = $this->call('GET', '/test');
         $this->assertEquals(404,$response->getStatusCode());
         $this->assertNotContains('page-404',$response->getContent());
-        $this->assertContains('Sorry, the page you are looking for could not be found.',$response->getContent());
+        $this->assertContains('404',$response->getContent());
+        $this->assertContains('Not Found',$response->getContent());
     }
 
 

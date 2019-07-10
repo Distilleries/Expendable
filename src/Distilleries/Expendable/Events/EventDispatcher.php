@@ -14,21 +14,33 @@ class EventDispatcher implements EventContract {
     // ------------------------------------------------------------------------------------------------
 
 
-    public function __construct($eventName, $params = array(), $auto_fire = true)
+    public function __construct($eventName, $params = array(), $auto_dispatch = true)
     {
         $this->event_name = $eventName;
         $this->params     = $params;
 
-        if ($auto_fire === true)
+        if ($auto_dispatch === true)
         {
-            $this->fire($this->params);
+            $this->dispatch($this->params);
         }
     }
 
     // ------------------------------------------------------------------------------------------------
 
+    /**
+     * @inheritDoc
+     */
+    public function dispatch($params = array())
+    {
+        Event::dispatch($this->event_name, array($params));
+    }
+
+    /**
+     * @param  array  $params
+     * @deprecated Use dispatch instead
+     */
     public function fire($params = array())
     {
-        Event::fire($this->event_name, array($params));
+        $this->dispatch($params);
     }
 }

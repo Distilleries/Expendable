@@ -2,7 +2,7 @@
 
 class OrderedControllerTest extends ExpendableTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
